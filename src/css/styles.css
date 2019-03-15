@@ -1,0 +1,55 @@
+
+@page {
+    size: 21cm 15.75cm;
+    margin: 0;
+}
+
+html {
+    background: black;
+    font-family: "Trajan Pro";
+}
+
+html, body {
+    margin: 0;
+}
+body {
+    width: 800px;
+    height: 600px;
+    /*background: white url("/images/Vorlage.png") no-repeat;*/
+    background: white url("/images/Background.png") no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.header .name-container {
+    height: 38pt;
+    display: flex;
+}
+
+.header .name-container .name {
+    background: black;
+    color: white;
+    padding-top: 0.25em;
+    padding-left: 0.4em;
+    margin: 0;
+    font-weight: bold;
+    width: 7.8em;
+    height: 100%;
+    box-sizing: border-box;
+    font-size: 26pt;
+}
+
+.header .name-container .edge {
+    width: 0;
+    height: 0;
+    border-top: 38pt solid transparent;
+    border-bottom: 0px solid transparent;
+
+    border-left: 18pt solid black;
+}
+
+@media print {
+    body, html {
+    }
+    * {-webkit-print-color-adjust:exact;}
+}

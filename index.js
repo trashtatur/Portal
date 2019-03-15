@@ -17,7 +17,8 @@ app.engine('hbs',hbsInstance.engine);
 
 app.set('views', './src/views');
 
-app.use(express.static('./src/images'));
+app.use('/images', express.static('./src/images'));
+app.use('/css', express.static('./src/css'));
 
 app.get('/', (req, res) => {
     renderCard(res, {
