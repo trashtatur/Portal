@@ -1,6 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### JetBrains template
 .idea
+dbauth.json
 ### Node template
 # Logs
 logs

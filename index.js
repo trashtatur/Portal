@@ -1,5 +1,7 @@
 const express = require('express');
 const exphbs  = require('express-handlebars');
+const db = require('./src/db/sync');
+
 
 function renderCard(res, data) {
     res.render('card', data)
@@ -84,5 +86,6 @@ app.post('/', (req, res) => {
     renderCard(res, req.body);
 });
 
+db.dbSync();
 console.log("listening on 3000");
 app.listen(3000);
