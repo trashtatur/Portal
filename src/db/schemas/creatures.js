@@ -94,9 +94,9 @@ module.exports.Creatures = function (sequelize, DataTypes) {
             getKMB() {
                 let size = this.size.toLowerCase().trim();
                 if ( size === "klein" || size === "sehr klein" || size === "winzig" || size === "mini" ) {
-                    return this.baseAtk+ this.getModForStat(this.get('stats').dex) + this.getModForSizeForKMB(this.size)
+                    return this.baseAtk+ this.getModForStat(this.get('stats').dex) + this.getModForSizeForKMB()
                 }
-                return this.baseAtk+ this.getModForStat(this.get('stats').str) + this.getModForSizeForKMB(this.size)
+                return this.baseAtk+ this.getModForStat(this.get('stats').str) + this.getModForSizeForKMB()
             },
             getKMV() {
                 return this.baseAtk + this.getModForStat(this.get('stats').str) + this.getModForStat(this.get('stats').dex) + this.getModForSizeForKMB(this.size)
@@ -111,10 +111,10 @@ module.exports.Creatures = function (sequelize, DataTypes) {
             },
             /**
              *
-             * @param {string} size
+             * @returns {int}
              */
-            getModForSizeForKMB(size) {
-                let size_adjusted = size.toLowerCase().trim();
+            getModForSizeForKMB() {
+                let size_adjusted = this.size.toLowerCase().trim();
                 switch (size_adjusted) {
                     case "kolossal":
                         return 8;
