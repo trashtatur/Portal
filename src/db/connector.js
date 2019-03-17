@@ -18,10 +18,29 @@ const sequelize = new Sequelize({
     modelPaths:[__dirname + '/schemas']
 });
 
-var creature = require('./schemas/creature').Creature(sequelize,Sequelize);
-var fertigkeiten = require('./schemas/fertigkeiten').Fertigkeiten(sequelize,Sequelize);
+const creatures = require('./schemas/creatures').Creatures(sequelize,Sequelize);
+const actions = require('./schemas/actions').Actions(sequelize,Sequelize);
+const skills = require('./schemas/skills').Skills(sequelize,Sequelize);
+const senses = require('./schemas/senses').Senses(sequelize,Sequelize);
+const languages = require('./schemas/languages').Languages(sequelize,Sequelize);
+const talents = require('./schemas/talents').Talents(sequelize,Sequelize);
+const creaturesSkills = require('./schemas/assocSchemas/creaturesSkills').CreaturesSkills(sequelize,Sequelize);
+const creaturesSenses = require('./schemas/assocSchemas/creaturesSenses').CreaturesSenses(sequelize,Sequelize);
 
-creature.hasMany(fertigkeiten);
+creatures.belongsToMany(actions, {through: 'CreaturesActions'});
+actions.belongsToMany(creatures, {through: 'CreaturesActions'});
+
+creatures.belongsToMany(skills,{through:'CreaturesSkills'});
+skills.belongsToMany(creatures,{through: 'CreaturesSkills'});
+
+creatures.belongsToMany(senses,{through:'CreaturesSenses'});
+senses.belongsToMany(creatures,{through: 'CreaturesSenses'});
+
+creatures.belongsToMany(languages, {through:'CreaturesLanguages'});
+languages.belongsToMany(creatures,{through:'CreaturesLanguages'});
+
+creatures.belongsToMany(talents, {through:'CreaturesTalents'});
+talents.belongsToMany(creatures, {through: 'CreaturesTalents'});
 
 const dbReady = sequelize.authenticate()
     .then(function(err) {
