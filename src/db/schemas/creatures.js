@@ -75,10 +75,10 @@ module.exports.Creatures = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             get() {
-                return this.getDataValue('rws').split(',')
+                return this.getDataValue('saveThrows').split(',')
             },
             set(val) {
-                this.setDataValue('rws',val.join(','));
+                this.setDataValue('saveThrows',val.join(','));
             },
         },
         image : {
