@@ -4,5 +4,8 @@
     "express-handlebars": "^3.0.2",
     "mysql2": "^1.6.5",
     "sequelize": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.1"
   }
 }
