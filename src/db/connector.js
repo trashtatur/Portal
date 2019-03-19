@@ -15,7 +15,6 @@ const sequelize = new Sequelize({
     password: dataSupplier.getDatabasePassword(),
     host: dataSupplier.getDatabaseHost(),
     dialect: 'mysql',
-    modelPaths:[__dirname + '/schemas']
 });
 
 const creatures = require('./schemas/creatures').Creatures(sequelize,Sequelize);
@@ -42,6 +41,7 @@ languages.belongsToMany(creatures,{through:'CreaturesLanguages'});
 creatures.belongsToMany(talents, {through:'CreaturesTalents'});
 talents.belongsToMany(creatures, {through: 'CreaturesTalents'});
 
+
 const dbReady = sequelize.authenticate()
     .then(function(err) {
         console.log('Connection to database has been established successfully.');
@@ -49,4 +49,4 @@ const dbReady = sequelize.authenticate()
         console.error('Unable to connect to the database:'+ err);
     });
 
-module.exports = {dbReady,sequelize};
+module.exports = {dbReady,sequelize, creatures, actions, skills, senses, languages, talents, creaturesSkills, creaturesSenses};
