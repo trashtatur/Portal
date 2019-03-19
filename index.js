@@ -1,6 +1,12 @@
 const express = require('express');
 const exphbs  = require('express-handlebars');
 const db = require('./src/db/sync');
+const creatureRoutes = require('./src/routes/creatureRoutes');
+const languageRoutes = require('./src/routes/languageRoutes');
+const senseRoutes = require('./src/routes/senseRoutes');
+const skillRoutes = require('./src/routes/skillRoutes');
+const talentRoutes = require('./src/routes/talentRoutes');
+
 
 
 function renderCard(res, data) {
@@ -21,6 +27,12 @@ app.set('views', './src/views');
 
 app.use('/images', express.static('./src/images'));
 app.use('/css', express.static('./src/css'));
+app.use('/creatures',creatureRoutes);
+app.use('/languages',languageRoutes);
+app.use('/senses',senseRoutes);
+app.use('/skills',skillRoutes);
+app.use('/talents',talentRoutes);
+
 
 app.get('/', (req, res) => {
     renderCard(res, {
@@ -85,79 +97,6 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
     renderCard(res, req.body);
 });
-
-/**
- * Returns all cards with full data of name 'name'
- * Optional param: Challenge rating to refine search
- */
-app.get('/get/cards/:name/:challenge*?',(req, res) => {
-    //TODO write this
-});
-
-/**
- * Get language by name
- */
-app.get('/get/languages/:name', (req, res) => {
-    //TODO write this
-});
-
-/**
- * Get sense by name
- * Optional param: range to refine search
- */
-app.get('/get/senses/:name/:range*?', (req, res) => {
-    //TODO write this
-});
-
-/**
- * Get skill by name
- */
-app.get('/get/skills/:name', (req, res) => {
-    //TODO write this
-});
-
-/**
- * Get talent by name
- */
-app.get('/get/talent/:name', (req, res) => {
-    //TODO write this
-});
-
-/**
- *  Post a card to the database
- */
-app.post('/post/card', (req, res) => {
-    //TODO write this
-});
-
-/**
- * Posts a card to the database
- */
-app.post('/post/skill', (req, res) => {
-    //TODO write this
-});
-
-/**
- * Post a language to the database
- */
-app.post('/post/language', (req, res) => {
-    //TODO write this
-});
-
-/**
- * Post a sense to the database
- */
-app.post('/post/sense', (req, res) => {
-    //TODO write this
-});
-
-/**
- * Post a talent to the database
- */
-app.post('/post/talent', (req, res) => {
-    //TODO write this
-});
-
 
 
 db.dbSync();
