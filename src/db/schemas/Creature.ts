@@ -91,7 +91,7 @@ export class Creature extends Model<Creature> {
         }
     })
     @Column(DataType.JSON)
-    get stats(): Map<string,number> {
+    get stats(): object {
         // @ts-ignore
         return JSON.parse(this.getDataValue('stats'))
     }
