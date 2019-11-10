@@ -1,6 +1,6 @@
 {
   "host": "localhost",
-  "dbName": "pathfinderMonstercards",
+  "dbName": "portal",
   "dbPassword": "MEINSUPERPASSWORT",
   "dbUser": "MeinDBUser"
 }
