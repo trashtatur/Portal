@@ -6,7 +6,7 @@ import {Creature} from "../../db/schemas/Creature";
 @Controller('/creature')
 export class CreatureResourceController {
 
-    private creatureRepository = sequelize.getRepository(Creature)
+    private creatureRepository = sequelize.getRepository(Creature);
 
     @Get()
     async allCreatures(): Promise<string> {
