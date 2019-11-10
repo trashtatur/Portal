@@ -1,6 +1,5 @@
 import {Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
 import {Creature} from "../Creature";
-import {Language} from "../Language";
 import {Fight} from "../Fight";
 
 @Table

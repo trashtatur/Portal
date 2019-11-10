@@ -1,5 +1,6 @@
-import {sequelize} from "./connector";
 import {Creature} from "./schemas/Creature";
+import {Language} from "./schemas/Language";
+import {Talent} from "./schemas/Talent";
 
 const connector = require('./connector');
 
@@ -14,7 +15,7 @@ const connector = require('./connector');
  * @param force     see Sequlize.sync
  * @returns {Promise}
  */
-function dbSync(force) {
+async function dbSync(force) {
     if (!force) force = false;
     // noinspection BadExpressionStatementJS
     connector.dbReady;
@@ -22,23 +23,32 @@ function dbSync(force) {
     try {
         const status = connector.sequelize.sync({force}).then( ()=>  {
             console.log('Sequelize table creation succesful');
+            //THIS IS JUST SOME TEST DATA
+            let vals = {
+                name:'test',
+                hitpoints: 15,
+                alignment: 'neutral',
+                creatureClass: 'bard',
+                challenge: 4,
+                movement: 4,
+                ini: 11,
+                baseAtk: 4,
+                xp: 3311,
+                size: 'kolossal',
+                stats:{"str":10,"dex":33,"wis":11,"int":44,"ch":33,"con":22},
+                saveThrows:{"REF":10,"WILL":33,"FORT":45},
+                languages:[{
+                    name: "Gemeinsprache"
+                }],
+                talents:[{
+                    name:'Ausweichen'
+                }]
+            };
+            Creature.create(vals,
+                    {
+                        include: [Language,Talent]
+                    })
 
-            const creatureRepository = sequelize.getRepository(Creature);
-            creatureRepository.create(
-                {
-                    name:'test',
-                    hitpoints: 15,
-                    alignment: 'neutral',
-                    creatureClass: 'bard',
-                    challenge: 4,
-                    movement: 4,
-                    ini: 11,
-                    baseAtk: 4,
-                    xp: 3311,
-                    size: 'kolossal',
-                    stats:{"str":10,"dex":33,"wis":11,"int":44,"ch":33,"con":22},
-                    saveThrows:{"REF":10,"WILL":33,"FORT":45}
-                });
         });
 
         return status;

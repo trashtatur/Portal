@@ -8,9 +8,10 @@ import * as Path from "path";
     acceptMimes: ["application/json"],
     mount: {
         "/V1": [
-            "${rootDir}/api/V1/**/*.ts", // support ts entry
+            "${rootDir}/api/V1/**/*Controller.ts", // support ts entry
         ]
-    }
+    },
+    componentsScan: ["${rootDir}/api/V1/Services/*Service.ts"]
 })
 export class Server extends ServerLoader{
 

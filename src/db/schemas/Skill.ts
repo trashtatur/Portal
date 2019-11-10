@@ -1,4 +1,4 @@
-import {AllowNull, BelongsToMany, Column, DataType, Model, NotNull, PrimaryKey, Table} from "sequelize-typescript";
+import {AllowNull, BelongsToMany, Column, DataType, Model, PrimaryKey, Table} from "sequelize-typescript";
 import {Creature} from "./Creature";
 import {CreatureSkill} from "./assocSchemas/CreatureSkill";
 

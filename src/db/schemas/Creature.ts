@@ -1,12 +1,4 @@
-import {
-    AllowNull, AutoIncrement,
-    BelongsToMany,
-    Column,
-    DataType, Is,
-    Model,
-    PrimaryKey,
-    Table
-} from "sequelize-typescript";
+import {AllowNull, BelongsToMany, Column, DataType, Is, Model, PrimaryKey, Table} from "sequelize-typescript";
 import {Action} from "./Action";
 import {CreatureAction} from "./assocSchemas/CreatureAction";
 import {Language} from "./Language";
@@ -21,12 +13,10 @@ import {Fight} from "./Fight";
 import {CreatureFight} from "./assocSchemas/CreatureFight";
 import {Group} from "./Group";
 import {CreatureGroup} from "./assocSchemas/CreatureGroup";
-import {printRoutes} from "@tsed/common";
-import contains = require("validator/lib/contains");
+
 
 @Table
 export class Creature extends Model<Creature> {
-
 
     @PrimaryKey
     @Column({type:DataType.UUID, defaultValue: DataType.UUIDV4})
@@ -40,7 +30,7 @@ export class Creature extends Model<Creature> {
     @Column
     hitpoints: number;
 
-    @AllowNull(true)
+    @AllowNull(false)
     @Column
     alignment: string;
 
@@ -68,20 +58,28 @@ export class Creature extends Model<Creature> {
     @Column
     xp: number;
 
+    @Is('size',value=>{
+        let testlist = ["kolossal","gigantisch", "riesig","groß","mittelgroß","klein","sehr klein","winzig","mini"];
+        if (!testlist.includes(value.toLowerCase().trim())) {
+            throw new Error(`Size value must be one of: ${JSON.stringify(testlist)}`)
+        }
+    })
     @AllowNull(false)
     @Column
     size: string;
 
     @Is('stats', value => {
-        if (typeof value == "object") {
-            let val_keys = Object.keys(value).map(val => {return val.toLowerCase()});
+        let value_parsed = value;
+        if (typeof value_parsed != "object") value_parsed = JSON.parse(value);
+        if (typeof value_parsed == "object") {
+            let val_keys = Object.keys(value_parsed).map(val => {return val.toLowerCase()});
             const testlist = ["str","dex","wis","int","ch","con"];
             if (JSON.stringify(testlist.sort()) == JSON.stringify(val_keys.sort())) {
-                let check = Object.values(value).filter(val => {
+                let check = Object.values(value_parsed).filter(val => {
                     if (typeof val == "number") return val;
                 });
-                if (check.length != Object.values(value).length) {
-                    throw Error(`At least value in the stat map (${JSON.stringify(value)}) is not a number`)
+                if (check.length != Object.values(value_parsed).length) {
+                    throw Error(`At least value_parsed in the stat map (${JSON.stringify(value_parsed)}) is not a number`)
                 }
             } else {
                 throw Error(`The provided stat map (${JSON.stringify(value)}) does not have all keys`)
@@ -90,10 +88,11 @@ export class Creature extends Model<Creature> {
             throw Error(`The provided stat map (${JSON.stringify(value)}) is not a proper JSON map`)
         }
     })
+    @AllowNull(false)
     @Column(DataType.JSON)
     get stats(): object {
         // @ts-ignore
-        return JSON.parse(this.getDataValue('stats'))
+        return this.getDataValue('stats')
     }
 
     set stats(value) {
@@ -101,17 +100,43 @@ export class Creature extends Model<Creature> {
         this.setDataValue('stats', value);
     }
 
+    @Column
+    get kmv(): number {
+        return this.getKMV()
+    }
+    set kmv(val) {
+        console.log('You cant set KMV manually. It is calculated')
+    }
+
+    @Column
+    get kmb(): number {
+        return this.getKMB()
+    };
+    set kmb(val) {
+        console.log('You cant set KMB manually. It is calculated')
+    }
+
+    @Column
+    get sizemod(): number {
+        return this.getModForSizeForKM()
+    }
+    set sizemod(val) {
+        console.log('You cant set sizemod manually. It is calculated')
+    }
+
 
     @Is('saveThrows', value => {
-        if (typeof value == "object") {
-            let val_keys = Object.keys(value).map(val => {return val.toLowerCase()});
+        let value_parsed = value;
+        if (typeof value_parsed != "object") value_parsed = JSON.parse(value);
+        if (typeof value_parsed == "object") {
+            let val_keys = Object.keys(value_parsed).map(val => {return val.toLowerCase()});
             const testlist = ["ref","will","fort"];
             if (JSON.stringify(testlist.sort()) == JSON.stringify(val_keys.sort())) {
-                let check = Object.values(value).filter(val => {
+                let check = Object.values(value_parsed).filter(val => {
                     if (typeof val == "number") return val;
                 });
-                if (check.length != Object.values(value).length) {
-                    throw Error(`At least value in the save throws map (${JSON.stringify(value)}) is not a number`)
+                if (check.length != Object.values(value_parsed).length) {
+                    throw Error(`At least value_parsed in the save throws map (${JSON.stringify(value_parsed)}) is not a number`)
                 }
             } else {
                 throw Error(`The provided save throws map (${JSON.stringify(value)}) does not have all keys`)
@@ -120,10 +145,11 @@ export class Creature extends Model<Creature> {
             throw Error(`The provided save throws map (${JSON.stringify(value)}) is not a proper JSON map`)
         }
     })
+    @AllowNull(false)
     @Column(DataType.JSON)
     get saveThrows(): string[] {
         // @ts-ignore
-        return this.getDataValue('saveThrows').split(',')
+        return this.getDataValue('saveThrows')
     }
 
     set saveThrows(val) {
@@ -154,8 +180,6 @@ export class Creature extends Model<Creature> {
 
     @BelongsToMany(()=>Group, ()=> CreatureGroup)
     groups: Group[];
-
-
 
     /**
      * @return {int}
@@ -213,7 +237,7 @@ export class Creature extends Model<Creature> {
             case "mini":
                 return -8;
             default:
-                return 0;
+                return 99;
         }
     }
 }
