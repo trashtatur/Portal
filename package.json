@@ -2,7 +2,7 @@
   "scripts": {
     "tsc": "tsc --project tsconfig.json",
     "test": "mocha --require ts-node/register tests/**/*Test.ts",
-    "build": "npm run tsc",
+    "build": "gulp",
     "start": "nodemon --watch 'src/**/*.ts' --ignore 'node_modules/**/*' --exec ts-node src/index.ts"
   },
   "dependencies": {
@@ -15,18 +15,31 @@
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.4",
+    "css-module-types": "^0.2.2",
+    "css-modulesify": "^0.28.0",
     "express": "4",
+    "gulp-typed-css-modules": "^2.0.1",
     "method-override": "^3.0.0",
     "mysql2": "^1.6.5",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.1.0",
-    "sequelize-typescript": "^1.0.0"
+    "sequelize-typescript": "^1.0.0",
+    "typescript-plugin-css-modules": "^2.0.2"
   },
   "devDependencies": {
     "@types/express": "^4.16.1",
+    "browserify": "^16.5.0",
+    "gulp": "^4.0.2",
     "nodemon": "^1.19.4",
+    "reactify": "^1.1.1",
     "ts-lint": "^4.5.1",
     "ts-node": "^8.4.1",
-    "typescript": "^3.7.2"
+    "tsify": "^4.0.1",
+    "typescript": "^3.7.2",
+    "vinyl-source-stream": "^2.0.0"
   }
 }

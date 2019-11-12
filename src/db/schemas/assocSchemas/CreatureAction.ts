@@ -6,10 +6,10 @@ import {Action} from "../Action";
 export class CreatureAction extends Model<CreatureAction> {
 
     @ForeignKey(()=> Creature)
-    @Column({type:DataType.UUID, defaultValue: DataType.UUIDV4})
+    @Column({type:DataType.UUID})
     creatureId;
 
     @ForeignKey(()=> Action)
-    @Column({type:DataType.UUID, defaultValue: DataType.UUIDV4})
+    @Column({type:DataType.UUID})
     actionId;
 }

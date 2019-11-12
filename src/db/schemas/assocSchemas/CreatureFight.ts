@@ -6,10 +6,10 @@ import {Fight} from "../Fight";
 export class CreatureFight extends Model<CreatureFight> {
 
     @ForeignKey(()=> Creature)
-    @Column({type:DataType.UUID, defaultValue: DataType.UUIDV4})
+    @Column({type:DataType.UUID})
     creatureId;
 
     @ForeignKey(()=> Fight)
-    @Column({type:DataType.UUID, defaultValue: DataType.UUIDV4})
+    @Column({type:DataType.UUID})
     fightId;
 }

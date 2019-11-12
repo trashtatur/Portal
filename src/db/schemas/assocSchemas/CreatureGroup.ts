@@ -6,10 +6,10 @@ import {Group} from "../Group";
 export class CreatureGroup extends Model<CreatureGroup> {
 
     @ForeignKey(()=> Creature)
-    @Column({type:DataType.UUID, defaultValue: DataType.UUIDV4})
+    @Column({type:DataType.UUID})
     creatureId;
 
     @ForeignKey(()=> Group)
-    @Column({type:DataType.UUID, defaultValue: DataType.UUIDV4})
+    @Column({type:DataType.UUID})
     groupId;
 }

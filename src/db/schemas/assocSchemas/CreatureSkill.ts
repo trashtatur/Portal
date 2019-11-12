@@ -6,10 +6,10 @@ import {Skill} from "../Skill";
 export class CreatureSkill extends Model<CreatureSkill> {
 
     @ForeignKey(()=> Creature)
-    @Column({type:DataType.UUID, defaultValue: DataType.UUIDV4})
+    @Column({type:DataType.UUID})
     creatureId;
 
     @ForeignKey(()=> Skill)
-    @Column({type:DataType.UUID, defaultValue: DataType.UUIDV4})
+    @Column({type:DataType.UUID})
     skillId;
 }

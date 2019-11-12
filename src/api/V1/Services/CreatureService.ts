@@ -26,6 +26,11 @@ export class CreatureService {
     }
 
 
+    /**
+     * Creates a creature instance. Associates other table entries based on include list
+     * @param data
+     * @param include
+     */
     async create(data:object, include?:Includeable[]) {
         let creature = await Creature.build(
             {
@@ -43,31 +48,64 @@ export class CreatureService {
                 saveThrows:data['saveThrows']
             }
         );
-        if (include.includes(Language)) creature = await this.addLanguages(creature, data['languages']);
-        if (include.includes(Sense)) creature = await this.addSenses(creature, data['senses']);
-        if (include.includes(Skill)) creature = await this.addSkills(creature, data['skills']);
-        if (include.includes(Talent)) creature = await this.addTalents(creature, data['talents']);
-        if (include.includes((Action))) creature = await this.addActions(creature, data['actions']);
-
-        creature.save();
+        let creature_created = await creature.save();
+        let creature_built = await this.checkAssociatedTables(include,data,creature_created);
+        creature_built.save();
         return creature
     }
 
-    async delete(data:object) {
-
+    /**
+     * Deletes creature. Finds that creature by name first
+     * @param data
+     */
+    async delete(data:object): Promise<boolean> {
+        let creaturesDestroyed = await Creature.destroy({where:{name:data['name']}});
+        return creaturesDestroyed > 1;
     }
 
-    async update(data:object, include?:Includeable[]) {
-
+    /**
+     * Updates a single creature instance. Expects the original name in the data package to find it
+     * @param data
+     * @param include
+     */
+    async update(data:object, include?:Includeable[]): Promise<Creature> {
+        let creature = await Creature.findOne({where:{name:data['original_name']}});
+        creature.name = data['name'];
+        creature.hitpoints = data['hitpoints'];
+        creature.alignment = data['alignment'];
+        creature.creatureClass =  data['creatureClass'];
+        creature.challenge = data['challenge'];
+        creature.movement = data['movement'];
+        creature.ini = data['ini'];
+        creature.baseAtk = data['baseAtk'];
+        creature.xp =  data['xp'];
+        creature.size =  data['size'];
+        creature.stats = data['stats'];
+        creature.saveThrows = data['saveThrows'];
+        let creature_updated = await this.checkAssociatedTables(include,data,creature);
+        return creature_updated.save();
     }
 
+    /**
+     * Finds instances by given key, if that key exists in the table.
+     * Will include associated table data as provided in include list
+     * @param key
+     * @param value
+     * @param include
+     */
     async findBy(key,value,include?:Includeable[]): Promise<Creature[]> {
         let condition = {};
         condition[key]=value;
         return Creature.findAll(
             {where: condition, include: include});
     }
-    
+
+    /**
+     * Same as findBy. This only gets one instance though.
+     * @param key
+     * @param value
+     * @param include
+     */
     async findOneBy(key,value,include?:Includeable[]): Promise<Creature> {
         let condition = {};
         condition[key]=value;
@@ -75,8 +113,21 @@ export class CreatureService {
             {where: condition, include: include});
     }
 
+    /**
+     * Returns all creatures. Includes associated tables as provided
+     * @param include
+     */
     async findAll(include?:Includeable[]): Promise<Creature[]> {
         return Creature.findAll({include: include});
+    }
+
+    private async checkAssociatedTables(include:Includeable[], data:object, creature:Creature): Promise<Creature>{
+        if (include.includes(Language)) creature = await this.addLanguages(creature, data['languages']);
+        if (include.includes(Sense)) creature = await this.addSenses(creature, data['senses']);
+        if (include.includes(Skill)) creature = await this.addSkills(creature, data['skills']);
+        if (include.includes(Talent)) creature = await this.addTalents(creature, data['talents']);
+        if (include.includes((Action))) creature = await this.addActions(creature, data['actions']);
+        return creature
     }
 
     private async addLanguages(creature: Creature, languagesList: string[]): Promise<Creature> {
@@ -90,15 +141,15 @@ export class CreatureService {
 
     private async addTalents(creature:Creature, talentList: string[]): Promise<Creature> {
         let talents = await this.talentService.findBy("name",talentList);
-        talents.forEach(skill => {
+        talents.forEach(talent => {
             // @ts-ignore
-            creature.addTalent(skill)
+            creature.addTalent(talent)
         });
         return creature
     }
 
     private async addSkills(creature:Creature, skillList: string[]): Promise<Creature> {
-        let skills = await this.skillService.findBy("name",skillList)
+        let skills = await this.skillService.findBy("name",skillList);
         skills.forEach(skill => {
             // @ts-ignore
             creature.addSkill(skill)

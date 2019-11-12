@@ -6,10 +6,10 @@ import {Language} from "../Language";
 export class CreatureLanguage extends Model<CreatureLanguage> {
 
     @ForeignKey(()=> Creature)
-    @Column({type:DataType.UUID, defaultValue: DataType.UUIDV4})
+    @Column({type:DataType.UUID})
     creatureId;
 
     @ForeignKey(()=> Language)
-    @Column({type:DataType.UUID, defaultValue: DataType.UUIDV4})
+    @Column({type:DataType.UUID})
     languageId;
 }

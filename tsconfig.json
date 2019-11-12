@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
+    "plugins": [{ "name": "typescript-plugin-css-modules" },{ "name": "css-module-types" }],
     "module": "commonjs",
     "outDir": "build",
     "jsx": "react",
-    "lib": ["es2016"],
+    "lib": ["es2016","dom"],
     "target": "es6",
     "sourceMap": true,
     "types": ["node"],
@@ -16,6 +17,7 @@
     ]
   },
   "include": [
+    "src/global.d.ts",
     "src/**/*"
   ],
   "exclude": [
