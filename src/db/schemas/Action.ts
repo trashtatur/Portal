@@ -15,9 +15,19 @@ export class Action extends Model<Action> {
     @Column
     name: string;
 
-    @AllowNull(true)
+    @AllowNull(false)
     @Column
-    description: string;
+    rangeType: string;
+
+    @AllowNull(false)
+    @Column
+    attackBonus:string;
+
+    @AllowNull(false)
+    @Column(
+        DataType.FLOAT
+    )
+    range;
 
     @AllowNull(false)
     @Column
@@ -26,12 +36,6 @@ export class Action extends Model<Action> {
     @AllowNull(false)
     @Column
     critMod: string;
-
-    @AllowNull(false)
-    @Column(
-        DataType.FLOAT
-    )
-    range;
 
     @AllowNull(false)
     @Column

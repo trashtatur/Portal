@@ -1,0 +1,16 @@
+.creatureAttackPropertyContainer {
+    float: left;
+    font-size: 8.5pt;
+    font-family: "Trajan Pro", serif;
+    margin-left: 1em;
+    width: 58%;
+}
+
+.attackPropertyName {
+    font-size: 9pt;
+    font-weight: bold;
+}
+
+.attackPropertyValue {
+    font-weight: normal;
+}

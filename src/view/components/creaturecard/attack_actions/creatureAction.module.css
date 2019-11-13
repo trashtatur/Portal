@@ -1,0 +1,24 @@
+.preSeparator{
+    float: left;
+    font-size: 9.5pt;
+    font-family: "Trajan Pro", serif;
+    width: 58%;
+    margin-bottom: 0;
+}
+
+.actionContainer {
+    float: left;
+    font-size: 8.5pt;
+    font-family: "Trajan Pro", serif;
+    margin-left: 1em;
+    width: 58%;
+}
+
+.actionTitle {
+    font-size: 9pt;
+    font-weight: bold;
+}
+
+.action {
+    font-weight: normal;
+}

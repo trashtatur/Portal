@@ -24,9 +24,26 @@ async function dbSync(force) {
         const status = connector.sequelize.sync({force}).then( ()=>  {
             console.log('Sequelize table creation succesful');
             //THIS IS JUST SOME TEST DATA
+            let attackProperties = {
+                props: [
+                    {
+                        name: "brute",
+                        property:"A melee weapon deals one extra die of damage in the attack" +
+                            "when the bugbear hits with it",
+                    },
+                    {
+                        name: "surprise attack",
+                        property: "When the bugbear surprises a creature he deals 7 extra damage to it"
+
+                    }
+                ]
+            };
+
             let vals = {
                 name:'test',
                 hitpoints: 15,
+                armorclass: 15,
+                attackProperties: attackProperties,
                 alignment: 'neutral',
                 creatureClass: 'bard',
                 challenge: 4,

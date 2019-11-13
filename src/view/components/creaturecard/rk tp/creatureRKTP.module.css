@@ -1,0 +1,23 @@
+
+.creatureRKTPContainer {
+    display: inline-block;
+    font-family: "Trajan Pro", serif;
+    margin-left: 0.5em;
+}
+
+.key {
+    float: left;
+    margin-top: 0.2em;
+    margin-bottom:0;
+    margin-left: 1em;
+    font-size: 16pt;
+}
+
+.val {
+    float: left;
+    margin-top: 0;
+    margin-bottom:0;
+    margin-left: 0.2em;
+    font-size: 20pt;
+    color: darkred;
+}

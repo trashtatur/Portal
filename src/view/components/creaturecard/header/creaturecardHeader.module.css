@@ -1,0 +1,59 @@
+@font-face { font-family: 'Trajan Pro';
+    src: url('build/fonts/Trajan_Pro_Bold.ttf')  format('ttf'),
+         url('build/fonts/Trajan_Pro.ttf')  format('ttf'); }
+
+.cardTopContainer {
+    background: white;
+    font-family: "Trajan Pro", serif;
+}
+
+.cardTop {
+    border-bottom: 0.1em solid black;
+    height:3.2em;
+    width: 45em;
+}
+
+.nameContainer {
+    height: 38pt;
+    display: flex;
+    float: left;
+}
+
+.nextToNameContainer {
+    display: inline-block;
+    float: left;
+    width: 25.9em;
+}
+
+.name {
+    background: black;
+    color: white;
+    padding-top: 0.8em;
+    padding-left: 0.4em;
+    margin: 0;
+    font-weight: bold;
+    width: 12.8em;
+    height: 100%;
+    box-sizing: border-box;
+    font-size: 16pt;
+}
+
+.edge {
+    width: 0;
+    height: 0;
+    border-top: 38pt solid transparent;
+    border-bottom: 0px solid transparent;
+    border-left: 18pt solid black;
+}
+
+.alignment {
+    float: left;
+    margin: 2.2em 0 0 0;
+    font-size: 12pt;
+}
+
+.challenge {
+    float: right;
+    margin: 1.7em 0 0 0.4em;
+    font-size: 14pt;
+}

@@ -28,6 +28,14 @@ export class Creature extends Model<Creature> {
 
     @AllowNull(false)
     @Column
+    armorclass: number;
+
+    @AllowNull(true)
+    @Column(DataType.JSON)
+    attackProperties;
+
+    @AllowNull(false)
+    @Column
     hitpoints: number;
 
     @AllowNull(false)

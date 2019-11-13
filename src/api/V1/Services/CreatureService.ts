@@ -37,6 +37,7 @@ export class CreatureService {
                 name:data['name'],
                 hitpoints: data['hitpoints'],
                 alignment: data['alignment'],
+                armorclass: data['armorclass'],
                 creatureClass: data['creatureClass'],
                 challenge: data['challenge'],
                 movement: data['movement'],
@@ -73,6 +74,7 @@ export class CreatureService {
         creature.name = data['name'];
         creature.hitpoints = data['hitpoints'];
         creature.alignment = data['alignment'];
+        creature.armorclass = data['armorclass'];
         creature.creatureClass =  data['creatureClass'];
         creature.challenge = data['challenge'];
         creature.movement = data['movement'];

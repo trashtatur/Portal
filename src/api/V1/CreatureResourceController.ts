@@ -22,6 +22,7 @@ export class CreatureResourceController {
      *      name: string,
      *      hitpoints: int,
      *      alignment: string,
+     *      armorclass: number,
      *      creatureClass: string,
      *      challenge: int,
      *      movement: int,

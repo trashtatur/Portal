@@ -1,0 +1,41 @@
+
+.topInfoContainer {
+    background: white;
+    font-family: "Trajan Pro", serif;
+    font-size: 9pt;
+    display: inline-block;
+    width: 60em;
+}
+
+.size {
+    float: left;
+}
+
+.creatureClass {
+    margin-left: 0.4em;
+    float: left;
+}
+
+.movement {
+    margin-left: 2em;
+    float: left;
+}
+
+.initiative {
+    margin-left: 7em;
+    float: left;
+
+}
+
+.baseAtk {
+    margin-left: 7em;
+    float: left;
+
+}
+
+.xp {
+    font-size: 12pt;
+    margin-bottom: 0;
+    margin-left: 0.5em;
+    float: right;
+}

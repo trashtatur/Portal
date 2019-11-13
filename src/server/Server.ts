@@ -14,7 +14,8 @@ import {join} from "path";
     componentsScan: ["${rootDir}/api/V1/Services/*Service.ts"],
     statics: {
         "/": join(__dirname, "..", "view/static"),
-        "/build":join(__dirname,"..","..","build")
+        "/build":join(__dirname,"..","..","build"),
+        "/images":join(__dirname,"..","images")
     },
 })
 export class Server extends ServerLoader{
