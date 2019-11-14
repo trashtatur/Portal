@@ -22,6 +22,7 @@
 .nextToNameContainer {
     display: inline-block;
     float: left;
+    height: 3em;
     width: 25.9em;
 }
 

@@ -1,0 +1,58 @@
+.creatureDisplayContainer {
+    -webkit-transition-duration: 1s;
+    width: 45em;
+}
+
+.creatureDisplayContainer:hover {
+    background-color: #c6c6c6 !important;
+}
+
+.creatureCurrentContainer {
+    font-family: "Trajan Pro", serif;
+    width: 45em;
+    display: inline-block;
+}
+
+
+.titleContainer {
+    float: right;
+}
+
+.nextToTitleContainer {
+    float: left;
+}
+
+.statDisplay {
+    float:left;
+    margin-bottom: 0;
+    margin-top: 0.2em;
+}
+
+.inputField {
+    width: 3em;
+}
+
+.edge {
+    width: 0;
+    height: 0;
+    border-top: 0pt solid transparent;
+    border-bottom: 32px solid transparent;
+    border-right: 18pt solid black;
+    float: right;
+}
+
+.name {
+    background: black;
+    color: white;
+    padding-top: 0.45em;
+    padding-right: 0.4em;
+    padding-bottom: 0.45em;
+    margin: 0;
+    font-weight: bold;
+    width: 12.8em;
+    text-align: right;
+    height: 80%;
+    box-sizing: border-box;
+    font-size: 12pt;
+    float: right;
+}

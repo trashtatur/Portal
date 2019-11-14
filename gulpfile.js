@@ -20,6 +20,7 @@ gulp.task("browserify", function() {
         .plugin(cssModulesify, {
             rootDir: path.resolve(__dirname,'src/view/components'),
             output: './build/bundle.css',
+            cssFilePattern: '\.module.css$'
         })
         .bundle()
         .pipe(source("bundle.js"))

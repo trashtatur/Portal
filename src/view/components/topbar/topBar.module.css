@@ -1,0 +1,11 @@
+.topBarContainer {
+    width: 100%;
+    height: 1.4em;
+    padding-top: 0.4em;
+    font-family: "Trajan Pro", serif;
+    color: slategrey;
+    font-size: 20pt;
+    font-weight: bold;
+    text-align: center;
+    background-color: black;
+}

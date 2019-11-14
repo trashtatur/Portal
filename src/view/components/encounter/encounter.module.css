@@ -1,0 +1,14 @@
+.creatureAddButton {
+    background: black;
+    font-family: "Trajan Pro", serif;
+    color: white;
+    font-size: 8pt;
+    padding: 1em;
+    margin: 1em;
+    border: none;
+    -webkit-transition-duration: 1s;
+}
+
+.creatureAddButton:hover {
+    background-color: #3d3b3b;
+}

@@ -1,3 +1,7 @@
 .creatureCardContainer {
     width: 45em;
 }
+
+.foldInContainer {
+    transition: visibility 0s, opacity 1s linear;
+}
