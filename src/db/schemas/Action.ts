@@ -1,4 +1,4 @@
-import {AllowNull, BelongsToMany, Column, DataType, Model, PrimaryKey, Table} from "sequelize-typescript";
+import {AllowNull, BelongsToMany, Column, DataType, Model, PrimaryKey, Table, Unique} from "sequelize-typescript";
 import {Creature} from "./Creature";
 import {CreatureAction} from "./assocSchemas/CreatureAction";
 
@@ -7,11 +7,12 @@ export class Action extends Model<Action> {
 
     @PrimaryKey
     @Column({
-        type:DataType.UUID
+        type:DataType.UUID, defaultValue:DataType.UUIDV4
     })
     uuid: string;
 
     @AllowNull(false)
+    @Unique(true)
     @Column
     name: string;
 
@@ -21,7 +22,7 @@ export class Action extends Model<Action> {
 
     @AllowNull(false)
     @Column
-    attackBonus:string;
+    attackBonus:number;
 
     @AllowNull(false)
     @Column(

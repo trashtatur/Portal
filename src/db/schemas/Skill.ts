@@ -1,4 +1,4 @@
-import {AllowNull, BelongsToMany, Column, DataType, Model, PrimaryKey, Table} from "sequelize-typescript";
+import {AllowNull, BelongsToMany, Column, DataType, Model, PrimaryKey, Table, Unique} from "sequelize-typescript";
 import {Creature} from "./Creature";
 import {CreatureSkill} from "./assocSchemas/CreatureSkill";
 
@@ -10,6 +10,7 @@ export class Skill extends  Model<Skill> {
     uuid:string;
 
     @AllowNull(false)
+    @Unique(true)
     @Column
     name: string;
 

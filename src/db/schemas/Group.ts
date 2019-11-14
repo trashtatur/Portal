@@ -1,4 +1,4 @@
-import {BelongsToMany, Column, DataType, HasMany, Model, PrimaryKey, Table} from "sequelize-typescript";
+import {BelongsToMany, Column, DataType, HasMany, Model, PrimaryKey, Table, Unique} from "sequelize-typescript";
 import {Creature} from "./Creature";
 import {Fight} from "./Fight";
 import {CreatureGroup} from "./assocSchemas/CreatureGroup";
@@ -10,6 +10,7 @@ export class Group extends Model<Group> {
     @Column({type:DataType.UUID, defaultValue: DataType.UUIDV4})
     uuid: string;
 
+    @Unique(true)
     @Column
     name: string;
 

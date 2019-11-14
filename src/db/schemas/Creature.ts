@@ -1,4 +1,14 @@
-import {AllowNull, BelongsToMany, Column, DataType, Is, Model, PrimaryKey, Table} from "sequelize-typescript";
+import {
+    AllowNull, BeforeCreate,
+    BeforeUpdate,
+    BelongsToMany,
+    Column,
+    DataType,
+    Is,
+    Model,
+    PrimaryKey,
+    Table, Unique
+} from "sequelize-typescript";
 import {Action} from "./Action";
 import {CreatureAction} from "./assocSchemas/CreatureAction";
 import {Language} from "./Language";
@@ -23,8 +33,19 @@ export class Creature extends Model<Creature> {
     uuid:string;
 
     @AllowNull(false)
+    @Unique(true)
     @Column
     name: string;
+
+    @Is('type',value => {
+        let checklist = ['player','monster','ally'];
+        if (!checklist.includes(value.toLowerCase())) {
+            throw Error(`${value} must be one of these values: ${checklist}`)
+        }
+    })
+    @AllowNull(false)
+    @Column
+    type: string;
 
     @AllowNull(false)
     @Column
@@ -81,7 +102,7 @@ export class Creature extends Model<Creature> {
         if (typeof value_parsed != "object") value_parsed = JSON.parse(value);
         if (typeof value_parsed == "object") {
             let val_keys = Object.keys(value_parsed).map(val => {return val.toLowerCase()});
-            const testlist = ["str","dex","wis","int","ch","con"];
+            const testlist = ["str","dex","wis","int","cha","con"];
             if (JSON.stringify(testlist.sort()) == JSON.stringify(val_keys.sort())) {
                 let check = Object.values(value_parsed).filter(val => {
                     if (typeof val == "number") return val;
@@ -108,29 +129,17 @@ export class Creature extends Model<Creature> {
         this.setDataValue('stats', value);
     }
 
+    @AllowNull(true)
     @Column
-    get kmv(): number {
-        return this.getKMV()
-    }
-    set kmv(val) {
-        console.log('You cant set KMV manually. It is calculated')
-    }
+    kmv: number;
 
+    @AllowNull(true)
     @Column
-    get kmb(): number {
-        return this.getKMB()
-    };
-    set kmb(val) {
-        console.log('You cant set KMB manually. It is calculated')
-    }
+    kmb: number;
 
+    @AllowNull(true)
     @Column
-    get sizemod(): number {
-        return this.getModForSizeForKM()
-    }
-    set sizemod(val) {
-        console.log('You cant set sizemod manually. It is calculated')
-    }
+    sizemod: number;
 
 
     @Is('saveThrows', value => {
@@ -188,6 +197,14 @@ export class Creature extends Model<Creature> {
 
     @BelongsToMany(()=>Group, ()=> CreatureGroup)
     groups: Group[];
+
+    @BeforeCreate
+    @BeforeUpdate
+    static setKmbKmv(instance:Creature) {
+        instance.kmb = instance.getKMB();
+        instance.kmv = instance.getKMV();
+        instance.sizemod = instance.getModForSizeForKM();
+    }
 
     /**
      * @return {int}

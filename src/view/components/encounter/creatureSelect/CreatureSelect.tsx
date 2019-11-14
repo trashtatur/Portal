@@ -26,6 +26,7 @@ export class CreatureSelect extends React.Component<ICreatureSelectProps,ICreatu
                 options={this.props.selectableOptions}
                 isSearchable={true}
                 isMulti={true}
+                onChange={this.props.onSelect}
                 closeMenuOnSelect={false}
                 className={style.creatureSelectContainer}
             />

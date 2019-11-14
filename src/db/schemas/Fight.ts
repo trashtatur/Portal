@@ -7,7 +7,7 @@ import {
     ForeignKey,
     Model,
     PrimaryKey,
-    Table
+    Table, Unique
 } from "sequelize-typescript";
 import {Creature} from "./Creature";
 import {CreatureFight} from "./assocSchemas/CreatureFight";
@@ -20,6 +20,7 @@ export class Fight extends Model<Fight> {
     @Column({type:DataType.UUID, defaultValue: DataType.UUIDV4})
     uuid: string;
 
+    @Unique(true)
     @Column
     name: string;
 

@@ -1,16 +1,17 @@
 import * as React from "react";
-import {CreatureCard, saveThrowsType, statblock} from "../../creaturecard/CreatureCard";
+import {action, attackProperty, CreatureCard, saveThrowsType, statblock} from "../../creaturecard/CreatureCard";
 import * as style from './creature.module.css';
 
 
 export interface ICreatureProps {
     id: string,
     name: string,
+    type: string,
     hitpoints: number,
     armorclass: number,
     alignment: string,
     creatureClass: string,
-    attackProperties?: object,
+    attackProperties?: attackProperty[],
     challenge: number,
     movement: number,
     ini: number,
@@ -27,7 +28,7 @@ export interface ICreatureProps {
     senses?: string[],
     skills?: string[],
     talents?: string[],
-    actions?: string[],
+    actions?: action[],
 }
 
 export interface ICreatureState {
@@ -50,6 +51,11 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
         this.handleHPChange = this.handleHPChange.bind(this)
     }
 
+    MONSTER_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(47,2,2,1) 70%, rgba(255,0,9,1) 100%)";
+    PLAYER_GRADIENT =  "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(9,115,121,1) 70%, rgba(0,241,255,1) 100%)";
+    ALLY_GRADIENT =  "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(2,47,18,1) 70%, rgba(0,255,128,1) 100%)";
+    DEFAULT_BG = "black";
+
     handleIniChange(event) {
         this.setState({currentIni: event.target.value})
     }
@@ -62,6 +68,27 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
         this.setState({hitpoints: event.target.value})
     }
 
+    determineGradientType(): object {
+        switch (this.props.type) {
+            case 'monster':
+                return {
+                    background: this.MONSTER_GRADIENT
+                };
+            case 'ally':
+                return {
+                    background: this.ALLY_GRADIENT
+                };
+            case 'player':
+                return {
+                    background: this.PLAYER_GRADIENT
+                };
+            default:
+                return {
+                    background: this.DEFAULT_BG
+                }
+        }
+    }
+
     render(): any {
         return (
             <div className={style.creatureDisplayContainer}>
@@ -70,6 +97,7 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
                     hitpoints={this.props.hitpoints}
                     challenge={this.props.challenge}
                     armorclass={this.props.armorclass}
+                    attackProperties={this.props.attackProperties}
                     alignment={this.props.alignment}
                     baseAtk={this.props.baseAtk}
                     creatureClass={this.props.creatureClass}
@@ -94,7 +122,7 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
                         <p className={style.statDisplay}>INI:<input type="number" className={style.inputField} defaultValue={this.state.currentIni} onBlur={e=>{this.handleIniChange(e); this.props.sortByIni(e,this.props.id)}}/></p>
                     </div>
                     <div className={style.titleContainer}>
-                        <h1 className={style.name}>Current</h1>
+                        <h1 className={style.name} style={this.determineGradientType()}>Current</h1>
                         <div className={style.edge}/>
                     </div>
                 </div>

@@ -40,11 +40,11 @@ export class CreatureStats extends React.Component<ICreatureStatsProps, ICreatur
                     </tr>
                     <tr>
                         <td className={style.statTableCell}>{this.props.str} ({this.returnStatMod(this.props.str)})</td>
-                        <td className={style.statTableCell}>{this.props.dex} ({this.returnStatMod(this.props.str)})</td>
-                        <td className={style.statTableCell}>{this.props.con} ({this.returnStatMod(this.props.str)})</td>
-                        <td className={style.statTableCell}>{this.props.int} ({this.returnStatMod(this.props.str)})</td>
-                        <td className={style.statTableCell}>{this.props.wis} ({this.returnStatMod(this.props.str)})</td>
-                        <td className={style.statTableCell}>{this.props.cha} ({this.returnStatMod(this.props.str)})</td>
+                        <td className={style.statTableCell}>{this.props.dex} ({this.returnStatMod(this.props.dex)})</td>
+                        <td className={style.statTableCell}>{this.props.con} ({this.returnStatMod(this.props.con)})</td>
+                        <td className={style.statTableCell}>{this.props.int} ({this.returnStatMod(this.props.int)})</td>
+                        <td className={style.statTableCell}>{this.props.wis} ({this.returnStatMod(this.props.wis)})</td>
+                        <td className={style.statTableCell}>{this.props.cha} ({this.returnStatMod(this.props.cha)})</td>
                         <td className={style.statTableCell}>+{this.props.kmb} </td>
                         <td className={style.statTableCell}>{this.props.kmv} </td>
                     </tr>

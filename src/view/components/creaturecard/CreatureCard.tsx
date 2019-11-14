@@ -1,7 +1,6 @@
 import * as React from "react";
 import {CreatureCardHeader} from "./header/CreatureCardHeader";
 import {CreatureCardTopInfo} from "./top info/CreatureCardTopInfo";
-import * as style from "./creatureCard.module.css";
 import {CreatureRKTP} from "./rk tp/CreatureRKTP";
 import {CreatureStats} from "./stats/CreatureStats";
 import {CreatureImage} from "./image/CreatureImage";
@@ -9,6 +8,22 @@ import {CreatureSeparator} from "./separator/CreatureSeparator";
 import {CreatureAttributes} from "./attributes/CreatureAttributes";
 import {CreatureAttackProperties} from "./attackProperties/CreatureAttackProperties";
 import {CreatureActions} from "./attack_actions/CreatureActions";
+import * as style from "./creatureCard.module.css";
+
+export type attackProperty = {
+    name: string,
+    property: string
+}
+
+export type action = {
+    name: string,
+    rangeType: string,
+    attackBonus: number,
+    damage: string,
+    critmod: string,
+    damageType: string,
+    additionalInfo: string
+}
 
 export type saveThrowsType = {
     ref: number,
@@ -31,7 +46,7 @@ export interface ICreatureCardProps {
     armorclass: number,
     alignment: string,
     creatureClass: string,
-    attackProperties?: object,
+    attackProperties?: attackProperty[],
     challenge: number,
     movement: number,
     ini: number,
@@ -47,7 +62,7 @@ export interface ICreatureCardProps {
     senses?: string[],
     skills?: string[],
     talents?: string[],
-    actions?: string[],
+    actions?: action[],
 }
 
 export interface ICreatureCardState {
@@ -113,16 +128,8 @@ export class CreatureCard extends React.Component<ICreatureCardProps, ICreatureC
                                         saveThrows={this.props.saveThrows}
                     />
                     <CreatureAttackProperties
-                        attackProperties={[{name: "brute", property: "deal 6 more damage with melee hit"}]}/>
-                    <CreatureActions actions={[{
-                        name: "Morningstar",
-                        rangeType: "Melee",
-                        attackBonus: 4,
-                        damage: "1d8",
-                        critmod: "x3",
-                        damageType: "blunt",
-                        additionalInfo: "This hits hard"
-                    }]}/>
+                        attackProperties={this.props.attackProperties}/>
+                    <CreatureActions actions={this.props.actions}/>
                 </div>
             </div>
         );

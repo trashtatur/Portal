@@ -1,6 +1,7 @@
 import {Creature} from "./schemas/Creature";
 import {Language} from "./schemas/Language";
 import {Talent} from "./schemas/Talent";
+import {Action} from "./schemas/Action";
 
 const connector = require('./connector');
 
@@ -39,10 +40,47 @@ async function dbSync(force) {
                 ]
             };
 
+            let action= {
+                name:"Morningstar",
+                range: 0,
+                rangeType:"Melee",
+                attackBonus:4,
+                damage:"1d8+2",
+                critMod:"x3",
+                damageType:"blunt",
+                additionalInfo:"This hits hard"
+
+            };
+
             let vals = {
                 name:'test',
                 hitpoints: 15,
                 armorclass: 15,
+                type: 'monster',
+                attackProperties: attackProperties,
+                alignment: 'neutral',
+                creatureClass: 'bard',
+                challenge: 4,
+                movement: 4,
+                ini: 2,
+                baseAtk: 4,
+                xp: 3311,
+                size: 'kolossal',
+                stats:{"str":10,"dex":33,"wis":11,"int":44,"cha":33,"con":22},
+                saveThrows:{"ref":10,"will":33,"fort":45},
+                languages:[{
+                    name: "Gemeinsprache"
+                }],
+                talents:[{
+                    name:'Ausweichen'
+                }],
+                actions: [action]
+            };
+            let vals2 = {
+                name:'Bugbear',
+                hitpoints: 15,
+                armorclass: 15,
+                type: 'monster',
                 attackProperties: attackProperties,
                 alignment: 'neutral',
                 creatureClass: 'bard',
@@ -52,19 +90,26 @@ async function dbSync(force) {
                 baseAtk: 4,
                 xp: 3311,
                 size: 'kolossal',
-                stats:{"str":10,"dex":33,"wis":11,"int":44,"ch":33,"con":22},
-                saveThrows:{"REF":10,"WILL":33,"FORT":45},
+                stats:{"str":10,"dex":33,"wis":11,"int":44,"cha":33,"con":22},
+                saveThrows:{"ref":10,"will":33,"fort":45},
                 languages:[{
                     name: "Gemeinsprache"
                 }],
                 talents:[{
                     name:'Ausweichen'
-                }]
+                }],
+                actions: [
+                    action
+                ]
             };
             Creature.create(vals,
                     {
-                        include: [Language,Talent]
-                    })
+                        include: [Language,Talent,Action]
+                    });
+            Creature.create(vals2,
+                {
+                   include: [Language,Talent,Action]
+                });
 
         });
 
