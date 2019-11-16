@@ -122,7 +122,7 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                 break;
             case "Action":
                 this.state.actionData.forEach(elem => {
-                    selectables.push({value: elem.name, label: elem.name})
+                    selectables.push({value: elem.name+" "+elem.damage, label: elem.name+" "+elem.damage})
                 });
                 break;
             case "Skill":
@@ -154,21 +154,28 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         if (this.props.type == "edit") {
             this.getAll('Creature').then(result => {
                 this.setState({creatureData: result.data})
-            });
+            }).catch(function (error) {console.log(error)});
         }
-        this.getAll("Talent").then(result => {
-            this.setState({talentData: result.data})
-        });
-        this.getAll("Language").then(result => {
-            this.setState({languageData: result.data})
-        });
-        /*this.getAll('Skill').then(result=>{
-            this.setState({skillData:result.data})
-        });
-        this.getAll("Sense").then(result=> {
-            this.setState({senseData:result.data})
-        })*/
 
+        this.getAll("Talent").then(result => {
+            if(Array.isArray(result.data)) this.setState({talentData: result.data})
+        }).catch(function (error) {console.log(error)});
+
+        this.getAll("Language").then(result => {
+            if(Array.isArray(result.data)) this.setState({languageData: result.data})
+        }).catch(function (error) {console.log(error)});
+
+        this.getAll('Skill').then(result=>{
+            if(Array.isArray(result.data)) this.setState({skillData:result.data})
+        }).catch(function (error) {console.log(error)});
+
+        this.getAll("Sense").then(result=> {
+            if(Array.isArray(result.data)) this.setState({senseData:result.data})
+        }).catch(function (error) {console.log(error)});
+
+        this.getAll("Action").then(result=> {
+            if(Array.isArray(result.data)) this.setState({actionData:result.data})
+        }).catch(function (error) {console.log(error)});
 
     }
 
@@ -386,7 +393,7 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                             </label>
                             <label className={`${style.formInputArea} ${style.formTextInputArea}`}>
                                 attackProperties:
-                                <input type="text" value={formatAttackPropertiesForInput(this.state.creature.attackProperties)}
+                                <input disabled={true} type="text" value={formatAttackPropertiesForInput(this.state.creature.attackProperties)}
                                        onChange={this.handleAttackPropertiesChange}/>
                             </label>
                             <label className={`${style.formInputArea} ${style.formTextInputArea}`}>
@@ -535,6 +542,4 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
             </div>
         )
     }
-
-
 }

@@ -44,6 +44,7 @@ export interface ICreatureCardProps {
     name: string,
     hitpoints: number,
     armorclass: number,
+    label?: number,
     alignment: string,
     creatureClass: string,
     attackProperties?: attackProperty[],
@@ -100,7 +101,7 @@ export class CreatureCard extends React.Component<ICreatureCardProps, ICreatureC
         return (
             <div className={style.creatureCardContainer} onClick={() => this.toggleFold()}>
                 <CreatureCardHeader name={this.props.name} alignment={this.props.alignment}
-                                    challenge={this.props.challenge}/>
+                                    challenge={this.props.challenge} label={this.props.label}/>
                 <div className={style.foldInContainer} style={this.determineFolding()}>
                     <CreatureCardTopInfo
                         size={this.props.size}

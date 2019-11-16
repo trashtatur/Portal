@@ -3,6 +3,7 @@ import * as styles from './creaturecardHeader.module.css'
 
 export interface ICreatureCardHeaderProps {
     name:string;
+    label?:number;
     alignment: string;
     challenge: number;
 }
@@ -20,6 +21,7 @@ export class CreatureCardHeader extends React.Component<ICreatureCardHeaderProps
                 <div className={styles.cardTop}>
                     <div className={styles.nameContainer}>
                         <h1 className={styles.name}>{this.props.name}</h1>
+                        <h1 className={styles.label}>{this.props.label}</h1>
                         <div className={styles.edge}/>
                     </div>
                     <div className={styles.nextToNameContainer}>

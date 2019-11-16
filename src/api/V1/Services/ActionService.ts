@@ -6,7 +6,7 @@ import {Action} from "../../../db/schemas/Action";
 export class ActionService {
 
     async create(data:object, include?:Includeable[]) {
-
+        return Action.create(data,{include: include});
     }
 
     async delete(data:object) {
@@ -29,7 +29,7 @@ export class ActionService {
     }
 
     async findAll(include?:Includeable[]) {
-
+        return Action.findAll({include:include})
     }
 
 }

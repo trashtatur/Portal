@@ -9,6 +9,7 @@ export interface ICreatureProps {
     type: "ally"|"monster"|"player"|"",
     hitpoints: number,
     armorclass: number,
+    label?:number,
     alignment: string,
     creatureClass: string,
     attackProperties?: attackProperty[],
@@ -104,6 +105,7 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
                     hitpoints={this.props.hitpoints}
                     challenge={this.props.challenge}
                     armorclass={this.props.armorclass}
+                    label={this.props.label}
                     attackProperties={this.props.attackProperties}
                     alignment={this.props.alignment}
                     baseAtk={this.props.baseAtk}

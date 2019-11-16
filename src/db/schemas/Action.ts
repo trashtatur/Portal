@@ -36,7 +36,7 @@ export class Action extends Model<Action> {
 
     @AllowNull(false)
     @Column
-    critMod: string;
+    critMod: number;
 
     @AllowNull(false)
     @Column

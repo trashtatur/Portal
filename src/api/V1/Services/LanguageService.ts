@@ -5,8 +5,9 @@ import {Language} from "../../../db/schemas/Language";
 @Service()
 export class LanguageService {
 
-    async create(data:object, include?:Includeable[]) {
-
+    async create(data:any[], include?:Includeable[]): Promise<Language[]> {
+        let langData= data.map(elem=>{return {name: elem.value}});
+        return Language.bulkCreate(langData,{include:include})
     }
 
     async delete(data:object) {

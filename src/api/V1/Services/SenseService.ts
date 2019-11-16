@@ -5,8 +5,9 @@ import {Sense} from "../../../db/schemas/Sense";
 @Service()
 export class SenseService {
 
-    async create(data:object, include?:Includeable[]) {
-
+    async create(data:any[], include?:Includeable[]): Promise<Sense[]> {
+        let senseData = data.map(elem=>{return {name: elem.value}});
+        return Sense.bulkCreate(senseData,{include:include});
     }
 
     async delete(data:object) {

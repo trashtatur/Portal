@@ -1,10 +1,5 @@
-import {Controller, Get} from "@tsed/common";
+import {BodyParams, Controller, Get, Post} from "@tsed/common";
 import {LanguageService} from "./Services/LanguageService";
-import {Language} from "../../db/schemas/Language";
-import {Talent} from "../../db/schemas/Talent";
-import {Skill} from "../../db/schemas/Skill";
-import {Sense} from "../../db/schemas/Sense";
-import {Action} from "../../db/schemas/Action";
 
 @Controller('/language')
 export class LanguageResourceController {
@@ -17,6 +12,12 @@ export class LanguageResourceController {
     async allLanguages(): Promise<string> {
         let languages = await this.languageService.findAll([]);
         return JSON.stringify(languages)
+    }
+
+    @Post()
+    async createLanguage(@BodyParams() languageData:any[]): Promise<string> {
+        let language = await this.languageService.create(languageData);
+        return JSON.stringify(language)
     }
 
 }

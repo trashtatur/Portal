@@ -1,0 +1,22 @@
+.formContainer {
+    font-size: 9pt;
+    display: inline-block;
+}
+
+.formButton {
+    font-family: "Trajan Pro", serif;
+    font-size: 8pt;
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin-right: 0.2em;
+    border: none;
+    padding: 0.8em;
+}
+
+.formField {
+    float: left;
+    width: 100em;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+}

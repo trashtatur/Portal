@@ -5,8 +5,9 @@ import {Talent} from "../../../db/schemas/Talent";
 @Service()
 export class TalentService {
 
-    async create(data:object, include?:Includeable[]) {
-
+    async create(data:any[], include?:Includeable[]): Promise<Talent[]> {
+        let talentData = data.map(elem=>{return {name: elem.value}});
+        return Talent.bulkCreate(talentData,{include:include})
     }
 
     async delete(data:object) {

@@ -5,8 +5,9 @@ import {Skill} from "../../../db/schemas/Skill";
 @Service()
 export class SkillService {
 
-    async create(data:object, include?:Includeable[]) {
-
+    async create(data:any[], include?:Includeable[]):Promise<Skill[]> {
+        let skillData = data.map(elem=>{return {name: elem.value}});
+        return Skill.bulkCreate(skillData,{include:include});
     }
 
     async delete(data:object) {

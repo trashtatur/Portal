@@ -3,6 +3,7 @@ import {Creature} from "./creature/Creature";
 import {action, attackProperty, saveThrowsType, statblock} from "../creaturecard/CreatureCard";
 import {CreatureSelect} from "./creatureSelect/CreatureSelect";
 import axios from 'axios';
+import {uuidv4} from "../helper/helperFunctions";
 import * as style from './encounter.module.css';
 
 
@@ -12,6 +13,7 @@ export type creature = {
     type: "ally"|"monster"|"player"|"",
     hitpoints,
     armorclass,
+    label?: number,
     alignment: string,
     attackProperties: attackProperty[],
     creatureClass: string,
@@ -76,6 +78,14 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
         this.setState({creatureMap: creatureMapSorted})
     }
 
+    determineLabel(creatureName:string): number {
+        let same_creature = this.state.creatureMap.filter(elem => {
+            return elem.name == creatureName
+        });
+        if (same_creature.length == 0) return null;
+        else return same_creature.length +1
+    }
+
     componentDidMount(): void {
         this.getAllCreatures().then(result => {
             this.setState({creatureDataMap: result.data})
@@ -136,11 +146,12 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
           ref: elem.saveThrows.ref, will:elem.saveThrows.will, fort:elem.saveThrows.fort
         };
         let creature = {
-            id: this.uuidv4(),
+            id: uuidv4(),
             name: elem.name,
             type: elem.type,
             hitpoints: elem.hitpoints,
             armorclass: elem.armorclass,
+            label: elem.label == null ? this.determineLabel(elem.name) : elem.label,
             alignment: elem.alignment,
             attackProperties: elem.attackProperties,
             creatureClass: elem.creatureClass,
@@ -185,21 +196,6 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
     }
 
 
-    uuidv4() {
-        var d = new Date().getTime();//Timestamp
-        var d2 = (performance && performance.now && (performance.now() * 1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16;//random number between 0 and 16
-            if (d > 0) {//Use timestamp until depleted
-                r = (d + r) % 16 | 0;
-                d = Math.floor(d / 16);
-            } else {//Use microseconds since page-load if supported
-                r = (d2 + r) % 16 | 0;
-                d2 = Math.floor(d2 / 16);
-            }
-            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-        });
-    }
 
     /**
      * Reacts to select or remove event.
@@ -222,6 +218,7 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
                         type: filtered[0].type,
                         hitpoints: filtered[0].hitpoints,
                         armorclass: filtered[0].armorclass,
+                        label: null,
                         alignment: filtered[0].alignment,
                         attackProperties:
                             filtered[0].attackProperties == null ? null : filtered[0].attackProperties,
@@ -296,8 +293,9 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
                             name={creature.name}
                             type={creature.type}
                             hitpoints={creature.hitpoints}
+                            label={creature.label}
                             attackProperties={creature.attackProperties}
-                            key={this.uuidv4()}
+                            key={uuidv4()}
                             armorclass={creature.armorclass}
                             alignment={creature.alignment}
                             creatureClass={creature.creatureClass}
