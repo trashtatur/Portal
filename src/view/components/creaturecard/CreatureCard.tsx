@@ -50,6 +50,7 @@ export interface ICreatureCardProps {
     challenge: number,
     movement: number,
     ini: number,
+    image?: string,
     baseAtk: number,
     xp?: number,
     size: string,
@@ -110,7 +111,7 @@ export class CreatureCard extends React.Component<ICreatureCardProps, ICreatureC
                         xp={this.props.xp}
                     />
                     <CreatureRKTP armorclass={this.props.armorclass} tp={this.props.hitpoints}/>
-                    <CreatureImage imagePath={'images/Creature.png'}/>
+                    <CreatureImage imagePath={this.props.image}/>
                     <CreatureStats str={this.props.stats.str}
                                    dex={this.props.stats.dex}
                                    wis={this.props.stats.wis}
