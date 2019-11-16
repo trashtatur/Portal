@@ -3,7 +3,7 @@ import {Action} from "../../db/schemas/Action";
 import {ActionService} from "./Services/ActionService";
 
 @Controller('/action')
-class ActionResourceController {
+export class ActionResourceController {
 
     constructor(private readonly actionService:ActionService) {
 

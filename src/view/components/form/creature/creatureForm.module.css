@@ -1,0 +1,76 @@
+.creatureFormContainer {
+    font-size: 9pt;
+    display: flex;
+    flex-wrap:nowrap;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    .actualCreatureForm {
+    flex: 0 0 auto;
+    }
+}
+
+.actualCreatureForm {
+    display: inline-block;
+}
+
+.creatureSelectContainer {
+
+}
+
+.creatureFormSelect {
+    width: 80%;
+    font-size: 7pt;
+    float:right;
+    height: 5%;
+    margin-bottom: 0.5em;
+}
+
+.formSelectContainer {
+    height: 3em;
+    margin-top: 1em;
+    margin-left: 1em;
+    text-align: left;
+    float:left;
+    width: 50em;
+    display: inline-block;
+}
+
+.selectLabel {
+    padding-top: 0.5em;
+}
+
+.subInput {
+    width: 4em;
+}
+
+.formInputArea {
+    display: block;
+}
+
+.formTextInputArea {
+    height: 3em;
+    padding-top: 0.2em;
+    margin-left: 1em;
+    text-align: left;
+    float:left;
+    width: 50em;
+    display: inline-block;
+}
+
+.creatureFormSubmit {
+    font-family: "Trajan Pro", serif;
+    font-size: 8pt;
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin-right: 0.2em;
+    border: none;
+    padding: 0.8em;
+}
+
+.formPart {
+    float: left;
+    width: 50%;
+}
+

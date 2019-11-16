@@ -3,7 +3,7 @@ import {FightService} from "./Services/FightService";
 
 
 @Controller('/fight')
-class FightResourceController {
+export class FightResourceController {
 
     constructor(private readonly fightService:FightService) {
 

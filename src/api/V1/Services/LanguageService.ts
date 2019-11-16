@@ -29,7 +29,7 @@ export class LanguageService {
     }
 
     async findAll(include?:Includeable[]) {
-
+        return Language.findAll({include:include});
     }
 
 }

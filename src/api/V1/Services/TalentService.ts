@@ -25,7 +25,7 @@ export class TalentService {
     }
 
     async findAll(include?:Includeable[]) {
-
+        return Talent.findAll({include:include})
     }
 
 }

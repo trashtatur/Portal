@@ -29,7 +29,7 @@ gulp.task("browserify", function() {
 
 
 gulp.task('tcm', function(){
-    return gulp.src(["src/**/*.css"], {
+    return gulp.src(["src/**/*.module.css"], {
         base: '.',
     })
         .pipe(gulp_tcm())

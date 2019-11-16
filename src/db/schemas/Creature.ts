@@ -23,6 +23,7 @@ import {Fight} from "./Fight";
 import {CreatureFight} from "./assocSchemas/CreatureFight";
 import {Group} from "./Group";
 import {CreatureGroup} from "./assocSchemas/CreatureGroup";
+import {attackProperty} from "../../view/components/creaturecard/CreatureCard";
 
 
 @Table
@@ -52,8 +53,21 @@ export class Creature extends Model<Creature> {
     armorclass: number;
 
     @AllowNull(true)
-    @Column(DataType.JSON)
-    attackProperties;
+    @Column({ type: DataType.STRING(2000)})
+    get attackProperties() {
+        let value = this.getDataValue('attackProperties');
+        // @ts-ignore
+        let value_parsed = JSON.parse(value);
+        return value_parsed
+    };
+
+    set attackProperties(val:attackProperty[]) {
+        let parsed_val = val.map(elem => {
+           return `{"name":"${elem.name}", "property":"${elem.property}"}`
+        });
+        // @ts-ignore
+        this.setDataValue('attackProperties',`[${parsed_val.join()}]`)
+    }
 
     @AllowNull(false)
     @Column
@@ -88,7 +102,7 @@ export class Creature extends Model<Creature> {
     xp: number;
 
     @Is('size',value=>{
-        let testlist = ["kolossal","gigantisch", "riesig","groß","mittelgroß","klein","sehr klein","winzig","mini"];
+        let testlist = ["colossal","gargantuan", "huge","large","medium","small","tiny","diminutive","fine"];
         if (!testlist.includes(value.toLowerCase().trim())) {
             throw new Error(`Size value must be one of: ${JSON.stringify(testlist)}`)
         }
@@ -243,23 +257,23 @@ export class Creature extends Model<Creature> {
     getModForSizeForKM() {
         let size_adjusted = this.size.toLowerCase().trim();
         switch (size_adjusted) {
-            case "kolossal":
+            case "colossal":
                 return 8;
-            case "gigantisch":
+            case "gargantuan":
                 return 4;
-            case "riesig":
+            case "huge":
                 return 2;
-            case "groß":
+            case "large":
                 return 1;
-            case "mittelgroß":
+            case "medium":
                 return 0;
-            case "klein":
+            case "small":
                 return -1;
-            case "sehr klein":
+            case "tiny":
                 return -2;
-            case "winzig":
+            case "diminutive":
                 return -4;
-            case "mini":
+            case "fine":
                 return -8;
             default:
                 return 99;

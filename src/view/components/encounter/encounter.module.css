@@ -4,6 +4,7 @@
     color: white;
     font-size: 8pt;
     padding: 1em;
+    float: left;
     margin: 1em;
     border: none;
     -webkit-transition-duration: 1s;
@@ -11,4 +12,9 @@
 
 .creatureAddButton:hover {
     background-color: #3d3b3b;
+}
+
+.addDialog {
+    display: inline-block;
+    width:50%;
 }

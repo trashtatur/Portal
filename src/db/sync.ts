@@ -25,8 +25,8 @@ async function dbSync(force) {
         const status = connector.sequelize.sync({force}).then( ()=>  {
             console.log('Sequelize table creation succesful');
             //THIS IS JUST SOME TEST DATA
-            let attackProperties = {
-                props: [
+            let attackProperties =
+                [
                     {
                         name: "brute",
                         property:"A melee weapon deals one extra die of damage in the attack" +
@@ -37,10 +37,10 @@ async function dbSync(force) {
                         property: "When the bugbear surprises a creature he deals 7 extra damage to it"
 
                     }
-                ]
-            };
+                ];
 
-            let action= {
+
+            let action= Action.create( {
                 name:"Morningstar",
                 range: 0,
                 rangeType:"Melee",
@@ -49,14 +49,13 @@ async function dbSync(force) {
                 critMod:"x3",
                 damageType:"blunt",
                 additionalInfo:"This hits hard"
-
-            };
+            }).then(elem => {return elem});
 
             let vals = {
                 name:'test',
                 hitpoints: 15,
                 armorclass: 15,
-                type: 'monster',
+                type: 'ally',
                 attackProperties: attackProperties,
                 alignment: 'neutral',
                 creatureClass: 'bard',
@@ -65,7 +64,7 @@ async function dbSync(force) {
                 ini: 2,
                 baseAtk: 4,
                 xp: 3311,
-                size: 'kolossal',
+                size: 'colossal',
                 stats:{"str":10,"dex":33,"wis":11,"int":44,"cha":33,"con":22},
                 saveThrows:{"ref":10,"will":33,"fort":45},
                 languages:[{
@@ -89,7 +88,7 @@ async function dbSync(force) {
                 ini: 11,
                 baseAtk: 4,
                 xp: 3311,
-                size: 'kolossal',
+                size: 'colossal',
                 stats:{"str":10,"dex":33,"wis":11,"int":44,"cha":33,"con":22},
                 saveThrows:{"ref":10,"will":33,"fort":45},
                 languages:[{
@@ -110,6 +109,13 @@ async function dbSync(force) {
                 {
                    include: [Language,Talent,Action]
                 });
+
+            Language.create({
+                name:"Orkisch"
+            });
+            Language.create({
+                name:"Celestisch"
+            });
 
         });
 

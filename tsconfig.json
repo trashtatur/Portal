@@ -3,6 +3,7 @@
     "plugins": [{ "name": "typescript-plugin-css-modules" },{ "name": "css-module-types" }],
     "module": "commonjs",
     "outDir": "build",
+    "allowJs": true,
     "jsx": "react",
     "lib": ["es2016","dom"],
     "target": "es6",

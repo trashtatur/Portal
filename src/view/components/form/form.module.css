@@ -1,0 +1,12 @@
+.formTypeButton {
+    font-family: "Trajan Pro", serif;
+    font-size: 8pt;
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin-right: 0.2em;
+    border: none;
+    padding: 0.8em;
+}
+
+

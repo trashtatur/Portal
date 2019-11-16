@@ -38,6 +38,8 @@ export class CreatureService {
                 hitpoints: data['hitpoints'],
                 alignment: data['alignment'],
                 armorclass: data['armorclass'],
+                type: data['type'],
+                attackProperties: data['attackProperties'],
                 creatureClass: data['creatureClass'],
                 challenge: data['challenge'],
                 movement: data['movement'],

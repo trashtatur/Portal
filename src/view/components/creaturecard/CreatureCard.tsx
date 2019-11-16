@@ -26,18 +26,18 @@ export type action = {
 }
 
 export type saveThrowsType = {
-    ref: number,
-    will: number,
-    fort: number
+    ref,
+    will,
+    fort
 }
 
 export type statblock = {
-    str: number,
-    con: number,
-    wis: number,
-    int: number,
-    cha: number,
-    dex: number
+    str,
+    con,
+    wis,
+    int,
+    cha,
+    dex
 }
 
 export interface ICreatureCardProps {

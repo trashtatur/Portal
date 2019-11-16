@@ -1,0 +1,20 @@
+.menuContainer {
+    display: inline-block;
+    float: right;
+}
+
+.addButton {
+    float: right;
+    width: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+    height: 1em;
+}
+
+.editButton {
+    float: right;
+    width: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+    height: 1em;
+}

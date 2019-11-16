@@ -6,24 +6,24 @@ import axios from 'axios';
 import * as style from './encounter.module.css';
 
 
-type creature = {
-    id: string,
+export type creature = {
+    id?: string,
     name: string,
     type: string,
-    hitpoints: number,
-    armorclass: number,
+    hitpoints,
+    armorclass,
     alignment: string,
     attackProperties: attackProperty[],
     creatureClass: string,
-    challenge: number,
-    movement: number,
-    ini: number,
-    currentIni: number,
-    baseAtk: number,
-    xp: number,
-    kmb: number,
-    kmv: number,
-    sortByIni: any,
+    challenge,
+    movement,
+    ini,
+    currentIni?,
+    baseAtk,
+    xp,
+    kmb,
+    kmv,
+    sortByIni?: any,
     skills: string[],
     senses: string[],
     size: string,
@@ -93,9 +93,31 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
      * Composes dropdown to select creatures
      */
     composeSelectableOptions(): any[] {
-        let selectables = [];
+        let selectables = [
+            {
+                label: "monsters",
+                options: []
+            },
+            {
+                label: "players",
+                options: []
+            },
+            {
+                label: "allies",
+                options: []
+            }
+
+        ];
+
         this.state.creatureDataMap.forEach(entry => {
-            selectables.push({value: entry.name, label: entry.name})
+            if (entry.type == "monster") {
+                selectables[0].options.push({value: entry.name, label: <div><img src="images/selectableLableIcons/monster-icon.png" height="20px" width="20px"/>{entry.name}</div>})
+            } else if (entry.type =="player") {
+                selectables[1].options.push({value: entry.name, label: <div><img src="images/selectableLableIcons/player-icon.png" height="20px" width="20px"/>{entry.name}</div>})
+            } else if (entry.type == "ally") {
+                selectables[2].options.push({value: entry.name, label: <div><img src="images/selectableLableIcons/ally-icon.png" height="20px" width="20px"/>{entry.name}</div>})
+
+            }
         });
         return selectables
     }
@@ -202,14 +224,7 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
                         armorclass: filtered[0].armorclass,
                         alignment: filtered[0].alignment,
                         attackProperties:
-                            JSON.parse(filtered[0].attackProperties) == null ? null :
-                                JSON.parse(filtered[0].attackProperties).props.map(
-                                    elem => {
-                                        return {
-                                            name: elem.name,
-                                            property: elem.property
-                                        }
-                                    }),
+                            filtered[0].attackProperties == null ? null : filtered[0].attackProperties,
                         creatureClass: filtered[0].creatureClass,
                         challenge: filtered[0].challenge,
                         movement: filtered[0].movement,
@@ -263,7 +278,7 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
     render(): any {
         return (
             <div>
-                <div>
+                <div className={style.addDialog}>
                     <CreatureSelect
                         selectableOptions={this.composeSelectableOptions()}
                         onSelect={this.onSelect}

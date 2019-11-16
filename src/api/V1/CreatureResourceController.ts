@@ -31,8 +31,8 @@ export class CreatureResourceController {
      *      ?xp: int,
      *      ?image: string,
      *      size: string',
-     *      stats:{"str":int,"dex":int,"wis":int,"int":int,"ch":int,"con":int},
-     *      saveThrows:{"REF":int,"WILL":int,"FORT":int},
+     *      stats:{"str":int,"dex":int,"wis":int,"int":int,"cha":int,"con":int},
+     *      saveThrows:{"ref":int,"will":int,"fort":int},
      *      ?languages: [string],
      *      ?skills: [string],
      *      ?talents: [string],
@@ -42,7 +42,7 @@ export class CreatureResourceController {
      * @param creatureData
      */
     @Post()
-    async createCreature(@BodyParams('creatureData')creatureData:object): Promise<string> {
+    async createCreature(@BodyParams() creatureData:object): Promise<string> {
         let includeList = this.determineIncludeList(creatureData);
         let creature = await this.creatureService.create(creatureData,includeList);
         return JSON.stringify(creature)
