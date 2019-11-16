@@ -9,7 +9,7 @@ import * as style from './encounter.module.css';
 export type creature = {
     id?: string,
     name: string,
-    type: string,
+    type: "ally"|"monster"|"player"|"",
     hitpoints,
     armorclass,
     alignment: string,

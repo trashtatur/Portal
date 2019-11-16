@@ -2,6 +2,7 @@ import {Creature} from "./schemas/Creature";
 import {Language} from "./schemas/Language";
 import {Talent} from "./schemas/Talent";
 import {Action} from "./schemas/Action";
+import {dataSupplier} from "./connector";
 
 const connector = require('./connector');
 
@@ -22,101 +23,8 @@ async function dbSync(force) {
     connector.dbReady;
 
     try {
-        const status = connector.sequelize.sync({force}).then( ()=>  {
+        const status = connector.sequelize.sync({force:dataSupplier.forceDBReset}).then( ()=>  {
             console.log('Sequelize table creation succesful');
-            //THIS IS JUST SOME TEST DATA
-            let attackProperties =
-                [
-                    {
-                        name: "brute",
-                        property:"A melee weapon deals one extra die of damage in the attack" +
-                            "when the bugbear hits with it",
-                    },
-                    {
-                        name: "surprise attack",
-                        property: "When the bugbear surprises a creature he deals 7 extra damage to it"
-
-                    }
-                ];
-
-
-            let action= Action.create( {
-                name:"Morningstar",
-                range: 0,
-                rangeType:"Melee",
-                attackBonus:4,
-                damage:"1d8+2",
-                critMod:"x3",
-                damageType:"blunt",
-                additionalInfo:"This hits hard"
-            }).then(elem => {return elem});
-
-            let vals = {
-                name:'test',
-                hitpoints: 15,
-                armorclass: 15,
-                type: 'ally',
-                attackProperties: attackProperties,
-                alignment: 'neutral',
-                creatureClass: 'bard',
-                challenge: 4,
-                movement: 4,
-                ini: 2,
-                baseAtk: 4,
-                xp: 3311,
-                size: 'colossal',
-                stats:{"str":10,"dex":33,"wis":11,"int":44,"cha":33,"con":22},
-                saveThrows:{"ref":10,"will":33,"fort":45},
-                languages:[{
-                    name: "Gemeinsprache"
-                }],
-                talents:[{
-                    name:'Ausweichen'
-                }],
-                actions: [action]
-            };
-            let vals2 = {
-                name:'Bugbear',
-                hitpoints: 15,
-                armorclass: 15,
-                type: 'monster',
-                attackProperties: attackProperties,
-                alignment: 'neutral',
-                creatureClass: 'bard',
-                challenge: 4,
-                movement: 4,
-                ini: 11,
-                baseAtk: 4,
-                xp: 3311,
-                size: 'colossal',
-                stats:{"str":10,"dex":33,"wis":11,"int":44,"cha":33,"con":22},
-                saveThrows:{"ref":10,"will":33,"fort":45},
-                languages:[{
-                    name: "Gemeinsprache"
-                }],
-                talents:[{
-                    name:'Ausweichen'
-                }],
-                actions: [
-                    action
-                ]
-            };
-            Creature.create(vals,
-                    {
-                        include: [Language,Talent,Action]
-                    });
-            Creature.create(vals2,
-                {
-                   include: [Language,Talent,Action]
-                });
-
-            Language.create({
-                name:"Orkisch"
-            });
-            Language.create({
-                name:"Celestisch"
-            });
-
         });
 
         return status;

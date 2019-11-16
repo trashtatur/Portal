@@ -2,7 +2,7 @@ import {Sequelize} from 'sequelize-typescript';
 import {DataSupplier} from "./dataSupplier";
 
 
-let dataSupplier = new DataSupplier();
+export let dataSupplier = new DataSupplier();
 
 // Please mind that the database needs to actually exist first!
 /**

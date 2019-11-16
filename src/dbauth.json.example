@@ -3,4 +3,5 @@
   "dbName": "portal",
   "dbPassword": "MEINSUPERPASSWORT",
   "dbUser": "MeinDBUser"
+  "forceDBReset": true
 }

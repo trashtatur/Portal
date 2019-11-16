@@ -6,7 +6,7 @@ import * as style from './creature.module.css';
 export interface ICreatureProps {
     id: string,
     name: string,
-    type: string,
+    type: "ally"|"monster"|"player"|"",
     hitpoints: number,
     armorclass: number,
     alignment: string,
@@ -35,6 +35,7 @@ export interface ICreatureState {
     hitpoints: number
     armorclass: number
     currentIni: number
+    type:"ally"|"monster"|"player"|""
 }
 
 export class Creature extends React.Component<ICreatureProps, ICreatureState> {
@@ -45,10 +46,12 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
             hitpoints: this.props.hitpoints || 0,
             armorclass: this.props.armorclass || 0,
             currentIni: this.props.currentIni || 0,
+            type: this.props.type || "",
         };
         this.handleIniChange = this.handleIniChange.bind(this);
         this.handleACChange = this.handleACChange.bind(this);
-        this.handleHPChange = this.handleHPChange.bind(this)
+        this.handleHPChange = this.handleHPChange.bind(this);
+        this.handleTypeChange = this.handleTypeChange.bind(this);
     }
 
     MONSTER_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(47,2,2,1) 70%, rgba(255,0,9,1) 100%)";
@@ -68,8 +71,12 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
         this.setState({hitpoints: event.target.value})
     }
 
+    handleTypeChange(event) {
+        this.setState({type: event.target.value})
+    }
+
     determineGradientType(): object {
-        switch (this.props.type) {
+        switch (this.state.type) {
             case 'monster':
                 return {
                     background: this.MONSTER_GRADIENT
@@ -120,6 +127,11 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
                         <p className={style.statDisplay}>TP: <input type="number" className={style.inputField} value={this.state.hitpoints} onChange={this.handleHPChange}/></p>
                         <p className={style.statDisplay}>RK: <input type="number" className={style.inputField} value={this.state.armorclass} onChange={this.handleACChange}/></p>
                         <p className={style.statDisplay}>INI:<input type="number" className={style.inputField} defaultValue={this.state.currentIni} onBlur={e=>{this.handleIniChange(e); this.props.sortByIni(e,this.props.id)}}/></p>
+                        <p className={style.statDisplay}>Type:
+                            <input name="type" type="radio" value={"ally"} onChange={this.handleTypeChange}/>Ally
+                            <input name="type" type="radio" value={"monster"} onChange={this.handleTypeChange}/>Monster
+                            <input name="type" type="radio" value={"player"} onChange={this.handleTypeChange}/>Player
+                        </p>
                     </div>
                     <div className={style.titleContainer}>
                         <h1 className={style.name} style={this.determineGradientType()}>Current</h1>
