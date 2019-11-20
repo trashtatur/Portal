@@ -4,10 +4,12 @@
     flex-wrap:nowrap;
     overflow-y: scroll;
     overflow-x: hidden;
+    max-height: 40em;
+}
 
-    .actualCreatureForm {
-    flex: 0 0 auto;
-    }
+.imageUploadContainer {
+    width: 50em;
+    height: 40em;
 }
 
 .actualCreatureForm {
@@ -67,6 +69,18 @@
     margin-right: 0.2em;
     border: none;
     padding: 0.8em;
+}
+
+.formAddButton {
+    font-family: "Trajan Pro", serif;
+    font-size: 10pt;
+    background-color: black;
+    width: 2em;
+    height: 2em;
+    margin-top: 0.3em;
+    color: white;
+    text-align: center;
+    border: none;
 }
 
 .formPart {

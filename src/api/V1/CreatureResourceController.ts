@@ -1,9 +1,10 @@
-import {BodyParams, Controller, Get, PathParams, Post, Put} from "@tsed/common";
+import {BodyParams, Controller, Get, PathParams, Post, Put, Req, Res, Status} from "@tsed/common";
 import {Language} from "../../db/schemas/Language";
 import {Talent} from "../../db/schemas/Talent";
 import {Skill} from "../../db/schemas/Skill";
 import {Sense} from "../../db/schemas/Sense";
 import {Action} from "../../db/schemas/Action";
+import {MulterOptions, MultipartFile} from "@tsed/multipartfiles";
 import {CreatureService} from "./Services/CreatureService";
 import {Includeable} from "sequelize";
 
@@ -29,7 +30,7 @@ export class CreatureResourceController {
      *      ini: int,
      *      baseAtk: int,
      *      ?xp: int,
-     *      ?image: string,
+     *      ?image: File,
      *      size: string',
      *      stats:{"str":int,"dex":int,"wis":int,"int":int,"cha":int,"con":int},
      *      saveThrows:{"ref":int,"will":int,"fort":int},
@@ -46,6 +47,16 @@ export class CreatureResourceController {
         let includeList = this.determineIncludeList(creatureData);
         let creature = await this.creatureService.create(creatureData,includeList);
         return JSON.stringify(creature)
+    }
+
+    @Put('/image')
+    @Status(201)
+    @MulterOptions({dest: `${process.cwd()}/.tmp`})
+    async uploadCreatureImage(@MultipartFile("file") file: Express.Multer.File): Promise<any> {
+        let intended_filename = file.originalname;
+        let current_residence = file.path;
+        await this.creatureService.moveCreatureImage(current_residence,intended_filename);
+        return true
     }
 
     @Put('/name/:creatureName')

@@ -1,4 +1,5 @@
 export const creatureFormContainer: string;
+export const imageUploadContainer: string;
 export const actualCreatureForm: string;
 export const creatureSelectContainer: string;
 export const creatureFormSelect: string;
@@ -8,4 +9,5 @@ export const subInput: string;
 export const formInputArea: string;
 export const formTextInputArea: string;
 export const creatureFormSubmit: string;
+export const formAddButton: string;
 export const formPart: string;

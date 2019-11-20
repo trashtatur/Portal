@@ -11,6 +11,11 @@ import {Sense} from "../../../db/schemas/Sense";
 import {Skill} from "../../../db/schemas/Skill";
 import {Talent} from "../../../db/schemas/Talent";
 import {Action} from "../../../db/schemas/Action";
+import * as fs from "fs";
+import {join} from "path";
+
+const mkdirp = require('mkdirp');
+
 
 @Service()
 export class CreatureService {
@@ -31,13 +36,14 @@ export class CreatureService {
      * @param data
      * @param include
      */
-    async create(data:object, include?:Includeable[]) {
+    async create(data: object, include?: Includeable[]) {
         let creature = await Creature.build(
             {
-                name:data['name'],
+                name: data['name'],
                 hitpoints: data['hitpoints'],
                 alignment: data['alignment'],
                 armorclass: data['armorclass'],
+                image: data['image'],
                 type: data['type'],
                 attackProperties: data['attackProperties'],
                 creatureClass: data['creatureClass'],
@@ -45,14 +51,14 @@ export class CreatureService {
                 movement: data['movement'],
                 ini: data['ini'],
                 baseAtk: data['baseAtk'],
-                xp: data['xp'] != null? data['xp']: null,
+                xp: data['xp'] != null ? data['xp'] : null,
                 size: data['size'],
-                stats:data['stats'],
-                saveThrows:data['saveThrows']
+                stats: data['stats'],
+                saveThrows: data['saveThrows']
             }
         );
         let creature_created = await creature.save();
-        let creature_built = await this.checkAssociatedTables(include,data,creature_created);
+        let creature_built = await this.checkAssociatedTables(include, data, creature_created);
         creature_built.save();
         return creature
     }
@@ -61,8 +67,8 @@ export class CreatureService {
      * Deletes creature. Finds that creature by name first
      * @param data
      */
-    async delete(data:object): Promise<boolean> {
-        let creaturesDestroyed = await Creature.destroy({where:{name:data['name']}});
+    async delete(data: object): Promise<boolean> {
+        let creaturesDestroyed = await Creature.destroy({where: {name: data['name']}});
         return creaturesDestroyed > 1;
     }
 
@@ -71,22 +77,22 @@ export class CreatureService {
      * @param data
      * @param include
      */
-    async update(data:object, include?:Includeable[]): Promise<Creature> {
-        let creature = await Creature.findOne({where:{name:data['original_name']}});
+    async update(data: object, include?: Includeable[]): Promise<Creature> {
+        let creature = await Creature.findOne({where: {name: data['original_name']}});
         creature.name = data['name'];
         creature.hitpoints = data['hitpoints'];
         creature.alignment = data['alignment'];
         creature.armorclass = data['armorclass'];
-        creature.creatureClass =  data['creatureClass'];
+        creature.creatureClass = data['creatureClass'];
         creature.challenge = data['challenge'];
         creature.movement = data['movement'];
         creature.ini = data['ini'];
         creature.baseAtk = data['baseAtk'];
-        creature.xp =  data['xp'];
-        creature.size =  data['size'];
+        creature.xp = data['xp'];
+        creature.size = data['size'];
         creature.stats = data['stats'];
         creature.saveThrows = data['saveThrows'];
-        let creature_updated = await this.checkAssociatedTables(include,data,creature);
+        let creature_updated = await this.checkAssociatedTables(include, data, creature);
         return creature_updated.save();
     }
 
@@ -97,9 +103,9 @@ export class CreatureService {
      * @param value
      * @param include
      */
-    async findBy(key,value,include?:Includeable[]): Promise<Creature[]> {
+    async findBy(key, value, include?: Includeable[]): Promise<Creature[]> {
         let condition = {};
-        condition[key]=value;
+        condition[key] = value;
         return Creature.findAll(
             {where: condition, include: include});
     }
@@ -110,9 +116,9 @@ export class CreatureService {
      * @param value
      * @param include
      */
-    async findOneBy(key,value,include?:Includeable[]): Promise<Creature> {
+    async findOneBy(key, value, include?: Includeable[]): Promise<Creature> {
         let condition = {};
-        condition[key]=value;
+        condition[key] = value;
         return Creature.findOne(
             {where: condition, include: include});
     }
@@ -121,21 +127,37 @@ export class CreatureService {
      * Returns all creatures. Includes associated tables as provided
      * @param include
      */
-    async findAll(include?:Includeable[]): Promise<Creature[]> {
+    async findAll(include?: Includeable[]): Promise<Creature[]> {
         return Creature.findAll({include: include});
     }
 
-    private async checkAssociatedTables(include:Includeable[], data:object, creature:Creature): Promise<Creature>{
+    async moveCreatureImage(currentLocation: string, newFileName: string) {
+        let filename_wo_ext = newFileName.substring(0, newFileName.lastIndexOf("."));
+        let intended_dir = join(process.cwd(),"src", "images", "creatureImages", `${filename_wo_ext}`);
+        mkdirp(intended_dir, function (err) {
+            if (err) {
+                console.log("Folder could not be made", err)
+            } else {
+                fs.rename(currentLocation, join(intended_dir, newFileName), function (err) {
+                    if (err) {
+                        console.log("File could not be moved", err)
+                    }
+                })
+            }
+        });
+    }
+
+    private async checkAssociatedTables(include: Includeable[], data: object, creature: Creature): Promise<Creature> {
         if (include.includes(Language)) creature = await this.addLanguages(creature, data['languages']);
         if (include.includes(Sense)) creature = await this.addSenses(creature, data['senses']);
         if (include.includes(Skill)) creature = await this.addSkills(creature, data['skills']);
         if (include.includes(Talent)) creature = await this.addTalents(creature, data['talents']);
-        if (include.includes((Action))) creature = await this.addActions(creature, data['actions']);
+        if (include.includes(Action)) creature = await this.addActions(creature, data['actions']);
         return creature
     }
 
     private async addLanguages(creature: Creature, languagesList: string[]): Promise<Creature> {
-        let languages = await this.languageService.findBy("name",languagesList);
+        let languages = await this.languageService.findBy("name", languagesList);
         languages.forEach(language => {
             // @ts-ignore
             creature.addLanguage(language)
@@ -143,8 +165,8 @@ export class CreatureService {
         return creature
     }
 
-    private async addTalents(creature:Creature, talentList: string[]): Promise<Creature> {
-        let talents = await this.talentService.findBy("name",talentList);
+    private async addTalents(creature: Creature, talentList: string[]): Promise<Creature> {
+        let talents = await this.talentService.findBy("name", talentList);
         talents.forEach(talent => {
             // @ts-ignore
             creature.addTalent(talent)
@@ -152,8 +174,8 @@ export class CreatureService {
         return creature
     }
 
-    private async addSkills(creature:Creature, skillList: string[]): Promise<Creature> {
-        let skills = await this.skillService.findBy("name",skillList);
+    private async addSkills(creature: Creature, skillList: string[]): Promise<Creature> {
+        let skills = await this.skillService.findBy("name", skillList);
         skills.forEach(skill => {
             // @ts-ignore
             creature.addSkill(skill)
@@ -161,8 +183,8 @@ export class CreatureService {
         return creature
     }
 
-    private async addSenses(creature:Creature, senseList: string[]): Promise<Creature> {
-        let senses = await this.senseService.findBy("name",senseList);
+    private async addSenses(creature: Creature, senseList: string[]): Promise<Creature> {
+        let senses = await this.senseService.findBy("name", senseList);
         senses.forEach(sense => {
             // @ts-ignore
             creature.addSense(sense)
@@ -170,8 +192,8 @@ export class CreatureService {
         return creature
     }
 
-    private async addActions(creature:Creature, actionList: string[]): Promise<Creature> {
-        let actions = await this.actionService.findBy("name",actionList);
+    private async addActions(creature: Creature, actionList: string[]): Promise<Creature> {
+        let actions = await this.actionService.findBy("name", actionList);
         actions.forEach(action => {
             // @ts-ignore
             creature.addAction(action)

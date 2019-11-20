@@ -1,5 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 build
+src/images/creatureImages/*
+.tmp
 ### JetBrains template
 .idea
 dbauth.json

@@ -15,15 +15,21 @@ export interface ICreatureProps {
     attackProperties?: attackProperty[],
     challenge: number,
     movement: number,
+    image?,
     ini: number,
     currentIni: number,
+    currentAC: number,
+    currentHP: number,
     baseAtk: number,
     xp?: number,
     size: string,
     stats: statblock,
     kmb: number,
     kmv: number,
-    sortByIni,
+    sortByIni:Function,
+    handleCurrentHPChange:Function,
+    handleCurrentACChange:Function,
+    handleCurrentTypeChange:Function,
     saveThrows: saveThrowsType,
     languages?: string[],
     senses?: string[],
@@ -36,6 +42,8 @@ export interface ICreatureState {
     hitpoints: number
     armorclass: number
     currentIni: number
+    currentAC: number,
+    currentHP: number,
     type:"ally"|"monster"|"player"|""
 }
 
@@ -47,7 +55,9 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
             hitpoints: this.props.hitpoints || 0,
             armorclass: this.props.armorclass || 0,
             currentIni: this.props.currentIni || 0,
-            type: this.props.type || "",
+            currentAC: this.props.currentAC || 0,
+            currentHP: this.props.currentHP || 0,
+            type: this.props.type,
         };
         this.handleIniChange = this.handleIniChange.bind(this);
         this.handleACChange = this.handleACChange.bind(this);
@@ -65,11 +75,11 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
     }
 
     handleACChange(event) {
-        this.setState({armorclass: event.target.value})
+        this.setState({currentAC: event.target.value})
     }
 
     handleHPChange(event) {
-        this.setState({hitpoints: event.target.value})
+        this.setState({currentHP: event.target.value})
     }
 
     handleTypeChange(event) {
@@ -97,6 +107,10 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
         }
     }
 
+    typeChecked(fieldValue: string): boolean {
+        return this.state.type == fieldValue;
+    }
+
     render(): any {
         return (
             <div className={style.creatureDisplayContainer}>
@@ -112,6 +126,7 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
                     creatureClass={this.props.creatureClass}
                     ini={this.props.ini}
                     movement={this.props.movement}
+                    image={this.props.image}
                     saveThrows={this.props.saveThrows}
                     size={this.props.size}
                     stats={this.props.stats}
@@ -126,13 +141,13 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
                 />
                 <div className={style.creatureCurrentContainer}>
                     <div className={style.nextToTitleContainer}>
-                        <p className={style.statDisplay}>TP: <input type="number" className={style.inputField} value={this.state.hitpoints} onChange={this.handleHPChange}/></p>
-                        <p className={style.statDisplay}>RK: <input type="number" className={style.inputField} value={this.state.armorclass} onChange={this.handleACChange}/></p>
+                        <p className={style.statDisplay}>TP: <input type="number" className={style.inputField} defaultValue={this.state.currentHP} onBlur={e=>{this.handleHPChange(e); this.props.handleCurrentHPChange(e,this.props.id)}}/></p>
+                        <p className={style.statDisplay}>RK: <input type="number" className={style.inputField} defaultValue={this.state.currentAC} onBlur={e=>{this.handleACChange(e); this.props.handleCurrentACChange(e,this.props.id)}}/></p>
                         <p className={style.statDisplay}>INI:<input type="number" className={style.inputField} defaultValue={this.state.currentIni} onBlur={e=>{this.handleIniChange(e); this.props.sortByIni(e,this.props.id)}}/></p>
                         <p className={style.statDisplay}>Type:
-                            <input name="type" type="radio" value={"ally"} onChange={this.handleTypeChange}/>Ally
-                            <input name="type" type="radio" value={"monster"} onChange={this.handleTypeChange}/>Monster
-                            <input name="type" type="radio" value={"player"} onChange={this.handleTypeChange}/>Player
+                            <input name={this.props.id+"type"} type="radio" value={"ally"} checked={this.typeChecked('ally')} onChange={e=>{this.handleTypeChange(e); this.props.handleCurrentTypeChange(e,this.props.id)}}/>Ally
+                            <input name={this.props.id+"type"} type="radio" value={"monster"} checked={this.typeChecked('monster')} onChange={e=>{this.handleTypeChange(e); this.props.handleCurrentTypeChange(e,this.props.id)}}/>Monster
+                            <input name={this.props.id+"type"} type="radio" value={"player"} checked={this.typeChecked('player')} onChange={e=>{this.handleTypeChange(e); this.props.handleCurrentTypeChange(e,this.props.id)}}/>Player
                         </p>
                     </div>
                     <div className={style.titleContainer}>

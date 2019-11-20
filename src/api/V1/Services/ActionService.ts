@@ -19,7 +19,10 @@ export class ActionService {
 
     async findBy(key,value,include?:Includeable[]): Promise<Action[]> {
         let condition = {};
-        condition[key]=value;
+        let value_new = value.map(elem => {
+            return elem.name
+        });
+        condition[key]=value_new;
         return Action.findAll(
             {where: condition, include: include});
     }

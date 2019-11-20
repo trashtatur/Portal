@@ -7,7 +7,11 @@ import {join} from "path";
     httpPort: 4004,
     httpsPort: false,
     viewsDir: "${rootDir}/../view",
-    acceptMimes: ["application/json"],
+    logger: {
+        debug: true,
+        logRequest: true,
+        requestFields: ["reqId", "method", "url", "headers", "query", "params", "duration"]
+    },
     mount: {
         "/V1": "${rootDir}/../api/V1/**/*Controller.ts"
     },
@@ -16,7 +20,7 @@ import {join} from "path";
         "/": join(__dirname, "..", "view/static"),
         "/build":join(__dirname,"..","..","build"),
         "/images":join(__dirname,"..","images")
-    },
+    }
 })
 export class Server extends ServerLoader{
 
@@ -29,6 +33,7 @@ export class Server extends ServerLoader{
             bodyParser = require('body-parser'),
             compress = require('compression'),
             methodOverride = require('method-override');
+
 
         this.use(GlobalAcceptMimesMiddleware)
             .use(cookieParser())

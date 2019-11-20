@@ -15,17 +15,23 @@ export type creature = {
     armorclass,
     label?: number,
     alignment: string,
+    image?: File | string,
     attackProperties: attackProperty[],
     creatureClass: string,
     challenge,
     movement,
     ini,
     currentIni?,
+    currentAC?,
+    currentHP?,
     baseAtk,
     xp,
     kmb,
     kmv,
-    sortByIni?: any,
+    sortByIni?: Function,
+    handleCurrentACChange?: Function,
+    handleCurrentHPChange?: Function,
+    handleCurrentTypeChange?: Function,
     skills: string[],
     senses: string[],
     size: string,
@@ -51,6 +57,9 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
         this.sortByIni = this.sortByIni.bind(this);
         this.addCreatures = this.addCreatures.bind(this);
         this.onSelect = this.onSelect.bind(this);
+        this.handleCurrentACChange = this.handleCurrentACChange.bind(this);
+        this.handleCurrentHPChange = this.handleCurrentHPChange.bind(this);
+        this.handleCurrentTypeChange = this.handleCurrentTypeChange.bind(this);
         this.state = {
             creatureMap: [],
             creatureDataMap: []
@@ -76,6 +85,31 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
             return 0;
         });
         this.setState({creatureMap: creatureMapSorted})
+    }
+
+    handleCurrentHPChange(event, id) {
+        let creatureMap = this.state.creatureMap;
+        creatureMap.filter(creature => {
+            return creature.id == id
+        })[0].currentHP = parseInt(event.target.value);
+        this.setState({creatureMap: creatureMap})
+    }
+
+    handleCurrentACChange(event,id) {
+        let creatureMap = this.state.creatureMap;
+        creatureMap.filter(creature => {
+            return creature.id == id
+        })[0].currentAC = parseInt(event.target.value);
+        this.setState({creatureMap: creatureMap})
+    }
+
+    handleCurrentTypeChange(event,id) {
+        let creatureMap = this.state.creatureMap;
+        //@ts-ignore
+        creatureMap.filter(creature => {
+            return creature.id == id
+        })[0].type = event.target.value;
+        this.setState({creatureMap: creatureMap})
     }
 
     determineLabel(creatureName:string): number {
@@ -121,11 +155,11 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
 
         this.state.creatureDataMap.forEach(entry => {
             if (entry.type == "monster") {
-                selectables[0].options.push({value: entry.name, label: <div><img src="images/selectableLableIcons/monster-icon.png" height="20px" width="20px"/>{entry.name}</div>})
+                selectables[0].options.push({value: entry.name, label: <div><img src="images/selectableLableIcons/monster-icon.png" height="20px" width="20px"/>{entry.name} CR:{entry.challenge}</div>})
             } else if (entry.type =="player") {
                 selectables[1].options.push({value: entry.name, label: <div><img src="images/selectableLableIcons/player-icon.png" height="20px" width="20px"/>{entry.name}</div>})
             } else if (entry.type == "ally") {
-                selectables[2].options.push({value: entry.name, label: <div><img src="images/selectableLableIcons/ally-icon.png" height="20px" width="20px"/>{entry.name}</div>})
+                selectables[2].options.push({value: entry.name, label: <div><img src="images/selectableLableIcons/ally-icon.png" height="20px" width="20px"/>{entry.name} CR:{entry.challenge}</div>})
 
             }
         });
@@ -157,13 +191,19 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
             creatureClass: elem.creatureClass,
             challenge: elem.challenge,
             movement: elem.movement,
+            image: elem.image,
             ini: elem.ini,
             currentIni: Math.floor(Math.random()*(+20 - +1) + +1) + elem.ini,
+            currentHP: elem.currentHP,
+            currentAC: elem.currentAC,
             baseAtk: elem.baseAtk,
             xp: elem.xp,
             kmb: elem.kmb,
             kmv: elem.kmv,
             sortByIni: this.sortByIni,
+            handleCurrentACChange: this.handleCurrentACChange,
+            handleCurrentHPChange: this.handleCurrentHPChange,
+            handleCurrentTypeChange: this.handleCurrentTypeChange,
             skills: elem.skills,
             senses: elem.senses,
             size: elem.size,
@@ -225,13 +265,19 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
                         creatureClass: filtered[0].creatureClass,
                         challenge: filtered[0].challenge,
                         movement: filtered[0].movement,
+                        image:filtered[0].image,
                         ini: filtered[0].ini,
                         currentIni: Math.floor(Math.random()*(+20 - +1) + +1) + filtered[0].ini,
+                        currentAC: filtered[0].armorclass,
+                        currentHP: filtered[0].hitpoints,
                         baseAtk: filtered[0].baseAtk,
                         xp: filtered[0].xp || 0,
                         kmb: filtered[0].kmb || 0,
                         kmv: filtered[0].kmv || 0,
                         sortByIni: this.sortByIni,
+                        handleCurrentACChange: this.handleCurrentACChange,
+                        handleCurrentHPChange: this.handleCurrentHPChange,
+                        handleCurrentTypeChange: this.handleCurrentTypeChange,
                         skills: filtered[0].skills == [] ? [] : filtered[0].skills.map(elem => {
                             return elem.name
                         }),
@@ -301,14 +347,20 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
                             creatureClass={creature.creatureClass}
                             challenge={creature.challenge}
                             movement={creature.movement}
+                            image={creature.image}
                             ini={creature.ini}
                             currentIni={creature.currentIni}
+                            currentHP = {creature.currentHP}
+                            currentAC = {creature.currentAC}
                             baseAtk={creature.baseAtk}
                             size={creature.size}
                             stats={creature.stats}
                             kmb={creature.kmb}
                             kmv={creature.kmv}
                             sortByIni={creature.sortByIni}
+                            handleCurrentACChange={creature.handleCurrentACChange}
+                            handleCurrentHPChange={creature.handleCurrentHPChange}
+                            handleCurrentTypeChange={creature.handleCurrentTypeChange}
                             saveThrows={creature.saveThrows}
                             skills={creature.skills}
                             senses={creature.senses}

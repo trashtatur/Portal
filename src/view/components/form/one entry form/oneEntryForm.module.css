@@ -13,8 +13,8 @@
     font-family: "Trajan Pro", serif;
     font-size: 10pt;
     background-color: black;
-    width: 0.4em;
-    height: 0.4em;
+    width: 2em;
+    height: 2em;
     margin-top: 0.3em;
     color: white;
     text-align: center;
@@ -23,6 +23,9 @@
 
 .formContainer {
     font-size: 9pt;
+    max-height: 40em;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .formField {

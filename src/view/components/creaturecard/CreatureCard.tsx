@@ -11,6 +11,7 @@ import {CreatureActions} from "./attack_actions/CreatureActions";
 import * as style from "./creatureCard.module.css";
 
 export type attackProperty = {
+    id?:string,
     name: string,
     property: string
 }

@@ -34,8 +34,9 @@ export class Creature extends Model<Creature> {
     uuid:string;
 
     @AllowNull(false)
-    @Unique(true)
-    @Column
+    @Column({
+        unique:'creature_cr'
+    })
     name: string;
 
     @Is('type',value => {
@@ -82,7 +83,9 @@ export class Creature extends Model<Creature> {
     creatureClass: string;
 
     @AllowNull(false)
-    @Column
+    @Column({
+        unique:'creature_cr'
+    })
     challenge: number;
 
     @AllowNull(false)

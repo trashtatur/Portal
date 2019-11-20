@@ -10,6 +10,7 @@ export let createCreature = function(): creature {
         alignment: "",
         creatureClass: "",
         attackProperties: [],
+        image:null,
         challenge: "",
         movement: "",
         ini: "",

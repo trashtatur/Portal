@@ -12,8 +12,9 @@ export class Action extends Model<Action> {
     uuid: string;
 
     @AllowNull(false)
-    @Unique(true)
-    @Column
+    @Column({
+        unique:'name_dmg'
+    })
     name: string;
 
     @AllowNull(false)
@@ -31,7 +32,9 @@ export class Action extends Model<Action> {
     range;
 
     @AllowNull(false)
-    @Column
+    @Column({
+        unique:'name_dmg'
+    })
     damage:string;
 
     @AllowNull(false)
