@@ -1,0 +1,21 @@
+.diceBarContainer {
+    display:inline-block;
+    float:left;
+    height:1.2em;
+    margin-left: 0.5em;
+}
+
+.dieImage {
+    float:left;
+    height:1em;
+    margin-right: 0.4em;
+}
+
+.diceResult {
+    float:left;
+    height:1em;
+    width:2em;
+    margin-top:0.5em;
+    margin-right: 0.4em;
+    font-size: 12pt
+}

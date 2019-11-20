@@ -28,7 +28,7 @@ export class CreatureActions extends React.Component<ICreatureActionProps, ICrea
         return (
             <div>
                 <p className={style.preSeparator}>
-                    Aktionen:
+                    Actions:
                 </p>
                 <CreatureSeparator/>
                 <div className={style.actionContainer}>

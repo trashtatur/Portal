@@ -14,9 +14,9 @@ export class CreatureRKTP extends React.Component<ICreatureRKTPProps,ICreatureRK
     render(): any {
         return (
             <div className={style.creatureRKTPContainer}>
-                <p className={style.key}>RK:</p>
+                <p className={style.key}>AC:</p>
                 <p className={style.val}>{this.props.armorclass}</p>
-                <p className={style.key}>TP:</p>
+                <p className={style.key}>HP:</p>
                 <p className={style.val}>{this.props.tp}</p>
             </div>
         )

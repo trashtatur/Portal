@@ -35,8 +35,8 @@ export class CreatureStats extends React.Component<ICreatureStatsProps, ICreatur
                         <td className={style.statTableCell}>INT</td>
                         <td className={style.statTableCell}>WIS</td>
                         <td className={style.statTableCell}>CHA</td>
-                        <td className={style.statTableCell}>KMB</td>
-                        <td className={style.statTableCell}>KMV</td>
+                        <td className={style.statTableCell}>CMB</td>
+                        <td className={style.statTableCell}>CMD</td>
                     </tr>
                     <tr>
                         <td className={style.statTableCell}>{this.props.str} ({this.returnStatMod(this.props.str)})</td>

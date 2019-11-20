@@ -25,7 +25,7 @@ export type creature = {
     currentAC?,
     currentHP?,
     baseAtk,
-    xp,
+    xp?,
     kmb,
     kmv,
     sortByIni?: Function,
@@ -342,6 +342,7 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
                             label={creature.label}
                             attackProperties={creature.attackProperties}
                             key={uuidv4()}
+                            xp={creature.xp}
                             armorclass={creature.armorclass}
                             alignment={creature.alignment}
                             creatureClass={creature.creatureClass}

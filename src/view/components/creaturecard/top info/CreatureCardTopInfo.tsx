@@ -21,9 +21,9 @@ export class CreatureCardTopInfo extends React.Component<ICreatureCardTopInfoPro
             <div className={style.topInfoContainer}>
                 <p className={style.size}>{this.props.size}</p>
                 <p className={style.creatureClass}>{this.props.creatureClass}</p>
-                <p className={style.movement}>Bewegung: {this.props.movement}</p>
+                <p className={style.movement}>Movement: {this.props.movement}</p>
                 <p className={style.initiative}>Ini: {this.props.ini}</p>
-                <p className={style.baseAtk}>GAB: {this.props.baseAtk}</p>
+                <p className={style.baseAtk}>Base Attack: {this.props.baseAtk}</p>
                 <p className={style.xp}>({this.props.xp || "?"} XP)</p>
             </div>
         )

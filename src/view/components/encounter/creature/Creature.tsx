@@ -129,6 +129,7 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
                     image={this.props.image}
                     saveThrows={this.props.saveThrows}
                     size={this.props.size}
+                    xp={this.props.xp}
                     stats={this.props.stats}
                     kmb={this.props.kmb}
                     kmv={this.props.kmv}
@@ -141,8 +142,8 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
                 />
                 <div className={style.creatureCurrentContainer}>
                     <div className={style.nextToTitleContainer}>
-                        <p className={style.statDisplay}>TP: <input type="number" className={style.inputField} defaultValue={this.state.currentHP} onBlur={e=>{this.handleHPChange(e); this.props.handleCurrentHPChange(e,this.props.id)}}/></p>
-                        <p className={style.statDisplay}>RK: <input type="number" className={style.inputField} defaultValue={this.state.currentAC} onBlur={e=>{this.handleACChange(e); this.props.handleCurrentACChange(e,this.props.id)}}/></p>
+                        <p className={style.statDisplay}>HP: <input type="number" className={style.inputField} defaultValue={this.state.currentHP} onBlur={e=>{this.handleHPChange(e); this.props.handleCurrentHPChange(e,this.props.id)}}/></p>
+                        <p className={style.statDisplay}>AC: <input type="number" className={style.inputField} defaultValue={this.state.currentAC} onBlur={e=>{this.handleACChange(e); this.props.handleCurrentACChange(e,this.props.id)}}/></p>
                         <p className={style.statDisplay}>INI:<input type="number" className={style.inputField} defaultValue={this.state.currentIni} onBlur={e=>{this.handleIniChange(e); this.props.sortByIni(e,this.props.id)}}/></p>
                         <p className={style.statDisplay}>Type:
                             <input name={this.props.id+"type"} type="radio" value={"ally"} checked={this.typeChecked('ally')} onChange={e=>{this.handleTypeChange(e); this.props.handleCurrentTypeChange(e,this.props.id)}}/>Ally

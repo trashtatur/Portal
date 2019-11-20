@@ -6,6 +6,14 @@
     color: slategrey;
     font-size: 20pt;
     font-weight: bold;
-    text-align: center;
     background-color: black;
+}
+
+.appTitle {
+    display:inline-block;
+    margin-top:0.1em;
+    margin-left:25%;
+    width: 4.5em;
+    margin-right:0;
+    font-size: 20pt;
 }

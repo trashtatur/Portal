@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as style from './topBar.module.css'
 import {Menu} from "../menu/Menu";
+import {Dicebar} from "../dicebar/Dicebar";
 
 export interface ITopParProps {
 
@@ -15,7 +16,8 @@ export class TopBar extends React.Component<ITopParProps,ITopBarState> {
     render(): any {
         return (
             <div className={style.topBarContainer}>
-                PORTAL
+                <Dicebar/>
+                <h2 className={style.appTitle}>PORTAL</h2>
                 <Menu/>
             </div>
         )

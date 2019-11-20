@@ -1,9 +1,10 @@
 import * as React from "react";
 import {CreatureForm} from "./creature/CreatureForm";
 const Popup = require('reactjs-popup');
-import * as style from './form.module.css'
 import {OneEntryForm} from "./one entry form/OneEntryForm";
 import {ActionForm} from "./action/ActionForm";
+import * as style from './form.module.css'
+
 
 
 export interface IFormProps {

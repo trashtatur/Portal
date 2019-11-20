@@ -5,6 +5,7 @@
     "build": "gulp",
     "start": "nodemon --watch 'src/**/*.ts' --ignore 'node_modules/**/*' --exec ts-node src/index.ts"
   },
+  "license": "MIT",
   "dependencies": {
     "@tsed/common": "5.33.2",
     "@tsed/core": "5.33.2",
