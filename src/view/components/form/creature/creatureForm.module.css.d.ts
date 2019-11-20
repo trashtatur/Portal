@@ -1,4 +1,5 @@
 export const creatureFormContainer: string;
+export const imageLabel: string;
 export const imageUploadContainer: string;
 export const actualCreatureForm: string;
 export const creatureSelectContainer: string;

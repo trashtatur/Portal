@@ -10,6 +10,7 @@
     "sourceMap": true,
     "types": ["node"],
     "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "removeComments": true,

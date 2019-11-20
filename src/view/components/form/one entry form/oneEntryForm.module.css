@@ -23,6 +23,7 @@
 
 .formContainer {
     font-size: 9pt;
+    display: block;
     max-height: 40em;
     overflow-y: scroll;
     overflow-x: hidden;

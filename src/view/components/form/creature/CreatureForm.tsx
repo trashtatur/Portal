@@ -4,9 +4,10 @@ import Select from 'react-select';
 import axios from "axios";
 import {uuidv4} from "../../helper/helperFunctions";
 import {createCreature} from "./helper/creatureCreator";
-import * as style from "./creatureForm.module.css";
 import {AlignmentSelect} from "./alignment select/AlignmentSelect";
 import {SizeSelect} from "./size select/SizeSelect";
+import Dropzone from 'react-dropzone-uploader'
+import * as style from "./creatureForm.module.css";
 
 
 interface ICreatureFormProps {
@@ -348,11 +349,14 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         this.setState({creature: creature})
     }
 
-    handleImageChange(event) {
-        console.log(event.target.files[0]);
+    handleImageChange({meta,file},status) {
         let creature = this.state.creature;
-        creature.image = event.target.files[0];
-        this.setState({creature: creature})
+        creature.image = file;
+        this.setState({creature: creature});
+        if (status == "removed") {
+            creature.image = null;
+            this.setState({creature: creature})
+        }
     }
 
     handleBaseAtkChange(event) {
@@ -644,11 +648,25 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                                 />
                             </label>
                             <label className={style.imageUploadContainer}>
-                                Image
-                                <input type="file" name="file"
-                                       onChange={this.handleImageChange}
-
-                                />
+                            <p className={style.imageLabel}>Image:</p>
+                            <Dropzone
+                                onChangeStatus={this.handleImageChange}
+                                maxFiles={1}
+                                multiple={false}
+                                canCancel={false}
+                                accept="image/*"
+                                inputContent="Drop an Image"
+                                styles={{
+                                    dropzone: {
+                                        width: "16em",
+                                        height: "15em",
+                                        float:"right",
+                                        color:"lightgrey",
+                                        overflow:"hidden",
+                                    },
+                                    dropzoneActive: { borderColor: 'lightgrey' }
+                                }}
+                            />
                             </label>
                         </div>
                         <button type={"submit"} className={style.creatureFormSubmit}>submit</button>

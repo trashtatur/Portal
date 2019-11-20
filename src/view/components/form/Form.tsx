@@ -59,7 +59,7 @@ export class Form extends React.Component<IFormProps,IFormState> {
     render() {
         return (
             <Popup modal trigger={this.props.modalTrigger} position={"top center"} >
-                <div>
+                <div className={style.formContainer}>
                     {this.props.type}:<br/>
                     <button className={style.formTypeButton} onClick={()=>this.setFormType("creature")}>Creature</button>
                     <button className={style.formTypeButton} onClick={()=>this.setFormType("language")}>Language</button>
