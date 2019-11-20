@@ -3,5 +3,5 @@
 }
 
 .foldInContainer {
-    transition: visibility 0s, opacity 1s linear;
+    transition: display 0s, opacity 1s linear;
 }

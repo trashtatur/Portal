@@ -27,23 +27,23 @@ export class CreatureAttributes extends React.Component<ICreatureAttributesProps
             <table className={style.attributeTable}>
                 <tbody>
                     <tr className={style.attributeBlock}>
-                        <td className={style.attributeEntry}>Fertigk:</td>
-                        <td className={style.attributeEntry}>{this.props.skills.toString()}</td>
+                        <td className={style.attributeName}>Fertigk:</td>
+                        <td className={style.attributeEntry}>{this.props.skills.join(", ")}</td>
                     </tr>
                     <tr className={style.attributeBlock}>
-                        <td className={style.attributeEntry}>Talente:</td>
-                        <td className={style.attributeEntry}>{this.props.talents.toString()}</td>
+                        <td className={style.attributeName}>Talente:</td>
+                        <td className={style.attributeEntry}>{this.props.talents.join(", ")}</td>
                     </tr>
                     <tr className={style.attributeBlock}>
-                        <td className={style.attributeEntry}>Sinne:</td>
-                        <td className={style.attributeEntry}>{this.props.senses.toString()}</td>
+                        <td className={style.attributeName}>Sinne:</td>
+                        <td className={style.attributeEntry}>{this.props.senses.join(", ")}</td>
                     </tr>
                     <tr className={style.attributeBlock}>
-                        <td className={style.attributeEntry}>Sprachen:</td>
-                        <td className={style.attributeEntry}>{this.props.languages.toString()}</td>
+                        <td className={style.attributeName}>Sprachen:</td>
+                        <td className={style.attributeEntry}>{this.props.languages.join(", ")}</td>
                     </tr>
                     <tr className={style.attributeBlock}>
-                        <td className={style.attributeEntry}>RWs:</td>
+                        <td className={style.attributeName}>RWs:</td>
                         <td className={style.attributeEntry}>
                             WIL:{this.determineModPrefix(this.props.saveThrows.will)} ZÄH:{this.determineModPrefix(this.props.saveThrows.fort)} REF:{this.determineModPrefix(this.props.saveThrows.ref)}
                         </td>

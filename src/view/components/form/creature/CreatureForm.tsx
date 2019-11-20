@@ -5,6 +5,8 @@ import axios from "axios";
 import {uuidv4} from "../../helper/helperFunctions";
 import {createCreature} from "./helper/creatureCreator";
 import * as style from "./creatureForm.module.css";
+import {AlignmentSelect} from "./alignment select/AlignmentSelect";
+import {SizeSelect} from "./size select/SizeSelect";
 
 
 interface ICreatureFormProps {
@@ -480,57 +482,7 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                             </label>
                             <label className={`${style.formInputArea} ${style.formSelectContainer}`}>
                                 alignment:
-                                <Select
-                                    options={[
-                                        {
-                                            value: "chaotic evil",
-                                            label: <div><img src={"/images/alignments/chaotic-evil.png"}
-                                                             height={"20 px"} width={"20px"}/>chaotic evil</div>
-                                        },
-                                        {
-                                            value: "neutral evil",
-                                            label: <div><img src={"/images/alignments/neutral-evil.png"}
-                                                             height={"20 px"} width={"20px"}/>neutral evil</div>
-                                        },
-                                        {
-                                            value: "lawful evil",
-                                            label: <div><img src={"/images/alignments/lawful-evil.png"} height={"20 px"}
-                                                             width={"20px"}/>lawful evil</div>
-                                        },
-                                        {
-                                            value: "chaotic neutral",
-                                            label: <div><img src={"/images/alignments/chaotic-neutral.png"}
-                                                             height={"20 px"} width={"20px"}/>chaotic neutral</div>
-                                        },
-                                        {
-                                            value: "neutral",
-                                            label: <div><img src={"/images/alignments/neutral-neutral.png"}
-                                                             height={"20 px"} width={"20px"}/>neutral</div>
-                                        },
-                                        {
-                                            value: "lawful neutral",
-                                            label: <div><img src={"/images/alignments/lawful-neutral.png"}
-                                                             height={"20 px"} width={"20px"}/>lawful neutral</div>
-                                        },
-                                        {
-                                            value: "chaotic good",
-                                            label: <div><img src={"/images/alignments/chaotic-good.png"}
-                                                             height={"20 px"} width={"20px"}/>chaotic good</div>
-                                        },
-                                        {
-                                            value: "neutral good",
-                                            label: <div><img src={"/images/alignments/neutral-good.png"}
-                                                             height={"20 px"} width={"20px"}/>neutral good</div>
-                                        },
-                                        {
-                                            value: "lawful good",
-                                            label: <div><img src={"/images/alignments/lawful-good.png"} height={"20 px"}
-                                                             width={"20px"}/>lawful good</div>
-                                        }
-                                    ]}
-                                    onChange={this.handleAlignmentChange}
-                                    className={style.creatureFormSelect}
-                                />
+                                <AlignmentSelect handleAlignmentChange={this.handleAlignmentChange}/>
                             </label>
                             <label className={`${style.formInputArea} ${style.formTextInputArea}`}>
                                 creature class:
@@ -584,21 +536,7 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                             </label>
                             <label className={`${style.formInputArea} ${style.formSelectContainer}`}>
                                 size:
-                                <Select
-                                    options={[
-                                        {value: "fine", label: "fine"},
-                                        {value: "diminutive", label: "diminutive"},
-                                        {value: "tiny", label: "tiny"},
-                                        {value: "small", label: "small"},
-                                        {value: "medium", label: "medium"},
-                                        {value: "large", label: "large"},
-                                        {value: "huge", label: "huge"},
-                                        {value: "gargantuan", label: "gargantuan"},
-                                        {value: "colossal", label: "colossal"}
-                                    ]}
-                                    onChange={this.handleSizeChange}
-                                    className={style.creatureFormSelect}
-                                />
+                                <SizeSelect handleSizeChange={this.handleSizeChange}/>
                             </label>
                             <label className={`${style.formInputArea} ${style.formTextInputArea}`}>
                                 stats:

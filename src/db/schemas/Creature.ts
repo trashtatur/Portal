@@ -7,7 +7,7 @@ import {
     Is,
     Model,
     PrimaryKey,
-    Table, Unique
+    Table
 } from "sequelize-typescript";
 import {Action} from "./Action";
 import {CreatureAction} from "./assocSchemas/CreatureAction";
@@ -191,7 +191,7 @@ export class Creature extends Model<Creature> {
     }
 
     @AllowNull(true)
-    @Column
+    @Column({ type: DataType.STRING(2000)})
     image: string;
 
     @BelongsToMany(()=> Action, () => CreatureAction)

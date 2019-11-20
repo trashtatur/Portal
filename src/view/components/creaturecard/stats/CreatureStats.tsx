@@ -21,7 +21,7 @@ export class CreatureStats extends React.Component<ICreatureStatsProps, ICreatur
     returnStatMod(statValue: number): string {
         let mod = (Math.floor(statValue / 2)) - 5;
         if (mod >= 0) return `+${mod}`;
-        return `-${mod}`
+        return `${mod}`
     }
 
     render(): any {

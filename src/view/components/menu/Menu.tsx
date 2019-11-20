@@ -32,11 +32,12 @@ export class Menu extends React.Component<IMenuProps,IMenuState> {
         return (
             <div className={style.menuContainer}>
                 <Form
+                    /*Icon from here https://icon-library.net/icon/white-edit-icon-5.html*/
                     modalTrigger={<img className={style.editButton} src={'images/menuButtons/edit.jpg'} onClick={this.editOnClick} alt={"editButton"}/>}
                     type={"edit"}
                 />
                 <Form
-                    modalTrigger={<img className={style.addButton} src={'images/menuButtons/add.jpg'} onClick={this.addOnClick} alt={"addButton"}/>}
+                    modalTrigger={<button className={style.addButton} onClick={this.addOnClick}>+</button>}
                     type={"create"}
                  />
             </div>

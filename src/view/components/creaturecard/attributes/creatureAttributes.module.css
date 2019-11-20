@@ -1,6 +1,7 @@
 .attributeTable {
     font-family: "Trajan Pro", serif;
     font-size: 8.5pt;
+    width: 35em;
     margin-left: 1em;
     float: left;
 }
@@ -10,5 +11,9 @@
 }
 
 .attributeEntry {
-    width:10em;
+    width:12em;
+}
+
+.attributeName {
+    width: 3em;
 }
