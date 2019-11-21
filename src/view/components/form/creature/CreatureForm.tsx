@@ -1,6 +1,7 @@
 import {creature} from "../../encounter/Encounter";
 import * as React from "react";
 import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 import axios from "axios";
 import {uuidv4} from "../../helper/helperFunctions";
 import {createCreature} from "./helper/creatureCreator";
@@ -600,7 +601,7 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                             </label>
                             <label className={`${style.formInputArea} ${style.formSelectContainer}`}>
                                 languages:
-                                <Select
+                                <CreatableSelect
                                     options={this.composeSelectableAttributeOptions("Language")}
                                     className={style.creatureFormSelect}
                                     isMulti={true}
@@ -617,7 +618,7 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                                             <label className={`${style.formInputArea} ${style.formTextInputArea}`}
                                                    key={i}>
                                                 <p className={style.skillLabel}>name:</p>
-                                                <Select
+                                                <CreatableSelect
                                                     options={this.state.skillData.map(elem=>{
                                                         return {value:elem.name,label:elem.name}
                                                     })}
@@ -634,7 +635,7 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                             </label>
                             <label className={`${style.formInputArea} ${style.formSelectContainer}`}>
                                 talents:
-                                <Select
+                                <CreatableSelect
                                     options={this.composeSelectableAttributeOptions("Talent")}
                                     className={style.creatureFormSelect}
                                     isMulti={true}

@@ -1,6 +1,7 @@
 import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
 import {Skill} from "../../../db/schemas/Skill";
+import {Language} from "../../../db/schemas/Language";
 
 @Service()
 export class SkillService {
@@ -21,8 +22,15 @@ export class SkillService {
     async findBy(key,value,include?:Includeable[]): Promise<Skill[]> {
         let condition = {};
         condition[key]=value;
-        return Skill.findAll(
-            {where: condition, include: include});
+        let skills:Skill[] = [];
+        value.forEach(singleVal => {
+            condition[key]=singleVal;
+            Skill.findOrCreate({where:condition, defaults:{name:singleVal}})
+                .then(([result,created])=> {
+                    skills.push(result)
+                });
+        });
+        return skills;
     }
 
     async findOneBy(key,value,include?:Includeable[]) {

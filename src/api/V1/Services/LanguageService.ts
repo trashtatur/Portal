@@ -21,8 +21,15 @@ export class LanguageService {
     async findBy(key,value,include?:Includeable[]): Promise<Language[]> {
         let condition = {};
         condition[key]=value;
-        return Language.findAll(
-            {where: condition, include: include});
+        let langs:Language[] = [];
+        value.forEach(singleVal => {
+            condition[key]=singleVal;
+            Language.findOrCreate({where:condition, defaults:{name:singleVal}})
+                .then(([result,created])=> {
+                langs.push(result)
+            });
+        });
+        return langs;
     }
 
     async findOneBy(key,value,include?:Includeable[]) {

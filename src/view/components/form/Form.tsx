@@ -44,8 +44,6 @@ export class Form extends React.Component<IFormProps,IFormState> {
                     return <OneEntryForm formValue={this.state.formType} type={this.props.type}/>;
                 case "skill":
                     return <OneEntryForm formValue={this.state.formType} type={this.props.type}/>;
-                case "sense":
-                    return <OneEntryForm formValue={this.state.formType} type={this.props.type}/>;
                 case "language":
                     return <OneEntryForm formValue={this.state.formType} type={this.props.type}/>;
                 default:
@@ -68,7 +66,6 @@ export class Form extends React.Component<IFormProps,IFormState> {
                     {this.props.type}:<br/>
                     <button className={style.formTypeButton} onClick={()=>this.setFormType("creature")}>Creature</button>
                     <button className={style.formTypeButton} onClick={()=>this.setFormType("language")}>Language</button>
-                    <button className={style.formTypeButton} onClick={()=>this.setFormType("sense")}>Sense</button>
                     <button className={style.formTypeButton} onClick={()=>this.setFormType("skill")}>Skill</button>
                     <button className={style.formTypeButton} onClick={()=>this.setFormType("talent")}>Talent</button>
                     <button className={style.formTypeButton} onClick={()=>this.setFormType("action")}>Action</button>

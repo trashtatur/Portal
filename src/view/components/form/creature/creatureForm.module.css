@@ -89,6 +89,11 @@
     margin-right: 0.2em;
     border: none;
     padding: 0.8em;
+    transition: background-color 0.5s linear;
+}
+
+.creatureFormSubmit:hover {
+    background-color: darkslategrey;
 }
 
 .formAddButton {
