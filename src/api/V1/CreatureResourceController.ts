@@ -2,7 +2,6 @@ import {BodyParams, Controller, Get, PathParams, Post, Put, Req, Res, Status} fr
 import {Language} from "../../db/schemas/Language";
 import {Talent} from "../../db/schemas/Talent";
 import {Skill} from "../../db/schemas/Skill";
-import {Sense} from "../../db/schemas/Sense";
 import {Action} from "../../db/schemas/Action";
 import {MulterOptions, MultipartFile} from "@tsed/multipartfiles";
 import {CreatureService} from "./Services/CreatureService";
@@ -38,7 +37,6 @@ export class CreatureResourceController {
      *      ?skills: [string],
      *      ?talents: [string],
      *      ?actions: [Action],
-     *      ?senses: [string]
      * }
      * @param creatureData
      */
@@ -68,13 +66,13 @@ export class CreatureResourceController {
 
     @Get()
     async allCreatures(): Promise<string> {
-        let creatures = await this.creatureService.findAll([Language,Talent,Skill,Sense,Action]);
+        let creatures = await this.creatureService.findAll([Language,Talent,Skill,Action]);
         return JSON.stringify(creatures)
     }
 
     @Get('/name/:creatureName')
     async creatureByName(@PathParams("creatureName") creatureName: string): Promise<string> {
-        let creature = await this.creatureService.findOneBy('name',creatureName,[Language,Talent,Skill,Sense,Action]);
+        let creature = await this.creatureService.findOneBy('name',creatureName,[Language,Talent,Skill,Action]);
         return JSON.stringify(creature)
     }
 
@@ -84,7 +82,6 @@ export class CreatureResourceController {
         if ("skills" in creatureData) includeList.push(Skill);
         if ("talents" in creatureData) includeList.push(Talent);
         if ("actions" in creatureData) includeList.push(Action);
-        if ("senses" in creatureData) includeList.push(Sense);
         return includeList
     }
 }

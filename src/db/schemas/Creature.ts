@@ -13,8 +13,6 @@ import {Action} from "./Action";
 import {CreatureAction} from "./assocSchemas/CreatureAction";
 import {Language} from "./Language";
 import {CreatureLanguage} from "./assocSchemas/CreatureLanguage";
-import {Sense} from "./Sense";
-import {CreatureSense} from "./assocSchemas/CreatureSense";
 import {Skill} from "./Skill";
 import {CreatureSkill} from "./assocSchemas/CreatureSkill";
 import {Talent} from "./Talent";
@@ -199,9 +197,6 @@ export class Creature extends Model<Creature> {
 
     @BelongsToMany(()=> Language, ()=> CreatureLanguage)
     languages: Language[];
-
-    @BelongsToMany(()=> Sense, ()=> CreatureSense)
-    senses: Sense[];
 
     @BelongsToMany(()=> Skill, ()=> CreatureSkill)
     skills: Skill[];

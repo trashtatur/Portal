@@ -32,7 +32,6 @@ export interface ICreatureProps {
     handleCurrentTypeChange:Function,
     saveThrows: saveThrowsType,
     languages?: string[],
-    senses?: string[],
     skills?: string[],
     talents?: string[],
     actions?: action[],
@@ -135,7 +134,6 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
                     kmv={this.props.kmv}
                     foldable={true}
                     languages={this.props.languages}
-                    senses={this.props.senses}
                     skills={this.props.skills}
                     talents={this.props.talents}
                     actions={this.props.actions}

@@ -30,6 +30,6 @@ export class SkillService {
     }
 
     async findAll(include?:Includeable[]) {
-
+        return Skill.findAll({include: include})
     }
 }

@@ -4,10 +4,8 @@ import {Includeable} from "sequelize";
 import {LanguageService} from "./LanguageService";
 import {Language} from "../../../db/schemas/Language";
 import {SkillService} from "./SkillService";
-import {SenseService} from "./SenseService";
 import {TalentService} from "./TalentService";
 import {ActionService} from "./ActionService";
-import {Sense} from "../../../db/schemas/Sense";
 import {Skill} from "../../../db/schemas/Skill";
 import {Talent} from "../../../db/schemas/Talent";
 import {Action} from "../../../db/schemas/Action";
@@ -23,7 +21,6 @@ export class CreatureService {
     constructor(
         private readonly languageService: LanguageService,
         private readonly skillService: SkillService,
-        private readonly senseService: SenseService,
         private readonly talentService: TalentService,
         private readonly actionService: ActionService,
     ) {
@@ -149,7 +146,6 @@ export class CreatureService {
 
     private async checkAssociatedTables(include: Includeable[], data: object, creature: Creature): Promise<Creature> {
         if (include.includes(Language)) creature = await this.addLanguages(creature, data['languages']);
-        if (include.includes(Sense)) creature = await this.addSenses(creature, data['senses']);
         if (include.includes(Skill)) creature = await this.addSkills(creature, data['skills']);
         if (include.includes(Talent)) creature = await this.addTalents(creature, data['talents']);
         if (include.includes(Action)) creature = await this.addActions(creature, data['actions']);
@@ -174,20 +170,13 @@ export class CreatureService {
         return creature
     }
 
-    private async addSkills(creature: Creature, skillList: string[]): Promise<Creature> {
-        let skills = await this.skillService.findBy("name", skillList);
+    private async addSkills(creature: Creature, skillList: any[]): Promise<Creature> {
+        let skillList_formatted = skillList.map(elem => {return elem.name});
+        let skills = await this.skillService.findBy("name", skillList_formatted);
         skills.forEach(skill => {
+            let skillLevel = skillList.filter(elem=>{return elem.name==skill.name})[0].level;
             // @ts-ignore
-            creature.addSkill(skill)
-        });
-        return creature
-    }
-
-    private async addSenses(creature: Creature, senseList: string[]): Promise<Creature> {
-        let senses = await this.senseService.findBy("name", senseList);
-        senses.forEach(sense => {
-            // @ts-ignore
-            creature.addSense(sense)
+            creature.addSkill(skill,{through:{skillLevel:skillLevel}})
         });
         return creature
     }

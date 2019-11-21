@@ -21,7 +21,6 @@ interface ICreatureFormState {
     creatureData: any[]
     languageData: any[]
     talentData: any[]
-    senseData: any[]
     skillData: any[]
     actionData: any[]
 }
@@ -35,7 +34,6 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
             creatureData: [],
             languageData: [],
             talentData: [],
-            senseData: [],
             skillData: [],
             actionData: []
         };
@@ -56,14 +54,15 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         this.handleLanguagesChange = this.handleLanguagesChange.bind(this);
         this.handleMovementChange = this.handleMovementChange.bind(this);
         this.handleSaveThrowsChange = this.handleSaveThrowsChange.bind(this);
-        this.handleSensesChange = this.handleSensesChange.bind(this);
         this.handleSizeChange = this.handleSizeChange.bind(this);
-        this.handleSkillsChange = this.handleSkillsChange.bind(this);
+        this.handleSkillNameChange = this.handleSkillNameChange.bind(this);
+        this.handleSkillLevelChange = this.handleSkillLevelChange.bind(this);
         this.handleStatsChange = this.handleStatsChange.bind(this);
         this.handleTalentsChange = this.handleTalentsChange.bind(this);
         this.handleTypeChange = this.handleTypeChange.bind(this);
         this.handleXPChange = this.handleXPChange.bind(this);
         this.handleImageChange = this.handleImageChange.bind(this);
+        this.addOneMoreSkill = this.addOneMoreSkill.bind(this);
     }
 
 
@@ -118,7 +117,14 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         this.setState({creature: creature})
     }
 
-    composeSelectableAttributeOptions(attribute: "Talent" | "Sense" | "Skill" | "Action" | "Language") {
+    addOneMoreSkill() {
+        let creature = this.state.creature;
+        creature.skills.push({name:"",level:"",id:uuidv4()});
+        this.setState({creature: creature})
+
+    }
+
+    composeSelectableAttributeOptions(attribute: "Talent" | "Action" | "Language") {
         let selectables = [];
         switch (attribute) {
             case "Language":
@@ -126,19 +132,9 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                     selectables.push({value: elem.name, label: elem.name})
                 });
                 break;
-            case "Sense":
-                this.state.senseData.forEach(elem => {
-                    selectables.push({value: elem.name, label: elem.name})
-                });
-                break;
             case "Action":
                 this.state.actionData.forEach(elem => {
                     selectables.push({value: elem.name + " " + elem.damage, label: elem.name + " " + elem.damage})
-                });
-                break;
-            case "Skill":
-                this.state.skillData.forEach(elem => {
-                    selectables.push({value: elem.name, label: elem.name})
                 });
                 break;
             case "Talent":
@@ -183,12 +179,6 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
 
         this.getAll('Skill').then(result => {
             if (Array.isArray(result.data)) this.setState({skillData: result.data})
-        }).catch(function (error) {
-            console.log(error)
-        });
-
-        this.getAll("Sense").then(result => {
-            if (Array.isArray(result.data)) this.setState({senseData: result.data})
         }).catch(function (error) {
             console.log(error)
         });
@@ -397,20 +387,26 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         this.setState({creature: creature})
     }
 
-    handleSensesChange(value, option) {
+    handleSkillNameChange(value, option,id) {
         let creature = this.state.creature;
-        creature.senses = value.map(elem => {
-            return elem.value
+        creature.skills = creature.skills.map((elem) => {
+            if (elem.id !== id) return elem;
+            return {name: value.value, level: elem.level, id: elem.id};
         });
-        this.setState({creature: creature})
+        this.setState({
+            creature: creature
+        });
     }
 
-    handleSkillsChange(value, option) {
+    handleSkillLevelChange(event,id) {
         let creature = this.state.creature;
-        creature.skills = value.map(elem => {
-            return elem.value
+        creature.skills = creature.skills.map((elem) => {
+            if (elem.id !== id) return elem;
+            return {name: elem.name, level: event.target.value, id: elem.id};
         });
-        this.setState({creature: creature})
+        this.setState({
+            creature: creature
+        });
     }
 
     handleTalentsChange(value, option) {
@@ -611,23 +607,30 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                                     onChange={this.handleLanguagesChange}
                                 />
                             </label>
-                            <label className={`${style.formInputArea} ${style.formSelectContainer}`}>
-                                senses:
-                                <Select
-                                    options={this.composeSelectableAttributeOptions("Sense")}
-                                    className={style.creatureFormSelect}
-                                    isMulti={true}
-                                    onChange={this.handleSensesChange}
-                                />
-                            </label>
-                            <label className={`${style.formInputArea} ${style.formSelectContainer}`}>
+                            <label>
                                 skills:
-                                <Select
-                                    options={this.composeSelectableAttributeOptions("Skill")}
-                                    className={style.creatureFormSelect}
-                                    isMulti={true}
-                                    onChange={this.handleSkillsChange}
-                                />
+                                <button type={"button"} onClick={this.addOneMoreSkill}
+                                        className={style.formAddButton}>+</button>
+                                {
+                                    this.state.creature.skills.map((elem, i) => {
+                                        return (
+                                            <label className={`${style.formInputArea} ${style.formTextInputArea}`}
+                                                   key={i}>
+                                                <p className={style.skillLabel}>name:</p>
+                                                <Select
+                                                    options={this.state.skillData.map(elem=>{
+                                                        return {value:elem.name,label:elem.name}
+                                                    })}
+                                                    className={style.skillFormSelect}
+                                                    onChange={(v,o)=>this.handleSkillNameChange(v,o,elem.id)}
+                                                />
+                                                level:
+                                                <input type="text" value={elem.property} id={elem.id + "-prop"}
+                                                       key={i + "prop"}
+                                                       className={style.skillLevelInput}
+                                                       onChange={e=>this.handleSkillLevelChange(e,elem.id)}/>
+                                            </label>)
+                                    })}
                             </label>
                             <label className={`${style.formInputArea} ${style.formSelectContainer}`}>
                                 talents:

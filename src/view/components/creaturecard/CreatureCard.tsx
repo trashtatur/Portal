@@ -62,7 +62,6 @@ export interface ICreatureCardProps {
     saveThrows: saveThrowsType,
     foldable?: boolean,
     languages?: string[],
-    senses?: string[],
     skills?: string[],
     talents?: string[],
     actions?: action[],
@@ -126,7 +125,6 @@ export class CreatureCard extends React.Component<ICreatureCardProps, ICreatureC
                     <CreatureSeparator/>
                     <CreatureAttributes skills={this.props.skills}
                                         talents={this.props.talents}
-                                        senses={this.props.senses}
                                         languages={this.props.languages}
                                         saveThrows={this.props.saveThrows}
                     />

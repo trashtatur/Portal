@@ -6,7 +6,6 @@ import * as style from './creatureAttributes.module.css'
 export interface ICreatureAttributesProps {
     skills:string[],
     talents:string[],
-    senses:string[],
     languages:string[],
     saveThrows: saveThrowsType
 }
@@ -33,10 +32,6 @@ export class CreatureAttributes extends React.Component<ICreatureAttributesProps
                     <tr className={style.attributeBlock}>
                         <td className={style.attributeName}>Talents:</td>
                         <td className={style.attributeEntry}>{this.props.talents.join(", ")}</td>
-                    </tr>
-                    <tr className={style.attributeBlock}>
-                        <td className={style.attributeName}>Senses:</td>
-                        <td className={style.attributeEntry}>{this.props.senses.join(", ")}</td>
                     </tr>
                     <tr className={style.attributeBlock}>
                         <td className={style.attributeName}>Languages:</td>

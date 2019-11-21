@@ -32,8 +32,7 @@ export type creature = {
     handleCurrentACChange?: Function,
     handleCurrentHPChange?: Function,
     handleCurrentTypeChange?: Function,
-    skills: string[],
-    senses: string[],
+    skills: any[],
     size: string,
     stats: statblock,
     saveThrows: saveThrowsType,
@@ -205,7 +204,6 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
             handleCurrentHPChange: this.handleCurrentHPChange,
             handleCurrentTypeChange: this.handleCurrentTypeChange,
             skills: elem.skills,
-            senses: elem.senses,
             size: elem.size,
             stats: stats,
             saveThrows: savethrows,
@@ -279,10 +277,8 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
                         handleCurrentHPChange: this.handleCurrentHPChange,
                         handleCurrentTypeChange: this.handleCurrentTypeChange,
                         skills: filtered[0].skills == [] ? [] : filtered[0].skills.map(elem => {
-                            return elem.name
-                        }),
-                        senses: filtered[0].senses == [] ? [] : filtered[0].senses.map(elem => {
-                            return elem.name
+                            let level = elem.CreatureSkill.skillLevel;
+                            return `${elem.name} ${level}`
                         }),
                         size: filtered[0].size,
                         stats: JSON.parse(filtered[0].stats) || {},
@@ -364,7 +360,6 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
                             handleCurrentTypeChange={creature.handleCurrentTypeChange}
                             saveThrows={creature.saveThrows}
                             skills={creature.skills}
-                            senses={creature.senses}
                             talents={creature.talents}
                             actions={creature.actions}
                             languages={creature.languages}

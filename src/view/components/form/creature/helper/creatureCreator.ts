@@ -22,7 +22,6 @@ export let createCreature = function(): creature {
         kmv: "",
         saveThrows: {"ref":"","will":"","fort":""},
         languages: [],
-        senses: [],
         skills: [],
         talents: [],
         actions: [],
