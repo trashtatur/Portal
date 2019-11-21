@@ -58,8 +58,13 @@ export class Form extends React.Component<IFormProps,IFormState> {
 
     render() {
         return (
-            <Popup modal trigger={this.props.modalTrigger} position={"top center"} >
+            <Popup modal trigger={this.props.modalTrigger}
+                   position={"top center"}
+                   closeOnDocumentClick={false}
+            >
+                {close => (
                 <div className={style.formContainer}>
+                    <button className={style.modalCloseButton} onClick={()=>close()}>X</button>
                     {this.props.type}:<br/>
                     <button className={style.formTypeButton} onClick={()=>this.setFormType("creature")}>Creature</button>
                     <button className={style.formTypeButton} onClick={()=>this.setFormType("language")}>Language</button>
@@ -69,6 +74,7 @@ export class Form extends React.Component<IFormProps,IFormState> {
                     <button className={style.formTypeButton} onClick={()=>this.setFormType("action")}>Action</button>
                     {this.renderForm()}
                 </div>
+                )}
             </Popup>
         );
     }
