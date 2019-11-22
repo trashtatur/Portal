@@ -21,7 +21,7 @@ export class CreatureCardHeader extends React.Component<ICreatureCardHeaderProps
                 <div className={styles.cardTop}>
                     <div className={styles.nameContainer}>
                         <h1 className={styles.name}>{this.props.name}</h1>
-                        <h1 className={styles.label}>{this.props.label}</h1>
+                        <h1 className={styles.label}>{this.props.label==0? "":this.props.label}</h1>
                         <div className={styles.edge}/>
                     </div>
                     <div className={styles.nextToNameContainer}>

@@ -123,9 +123,13 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
     determineLabel(creatureName:string): number {
         let same_creature = this.state.creatureMap.filter(elem => {
             return elem.name == creatureName
+        }).sort(function (cr1, cr2) {
+            if (cr1.label>cr2.label) return 1;
+            if (cr1.label<cr2.label) return -1;
+            return 0;
         });
-        if (same_creature.length == 0) return null;
-        else return same_creature.length +1
+        if (same_creature.length == 0) return 0;
+        else return same_creature[same_creature.length-1].label+1
     }
 
     componentDidMount(): void {

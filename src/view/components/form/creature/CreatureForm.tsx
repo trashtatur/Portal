@@ -626,6 +626,9 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                                 <CreatableSelect
                                     options={this.composeSelectableAttributeOptions("Language")}
                                     className={style.creatureFormSelect}
+                                    defaultValue={this.state.creature.languages.map(elem=>{
+                                        return ({value:elem, label:elem})
+                                    })}
                                     isMulti={true}
                                     onChange={this.handleLanguagesChange}
                                 />
@@ -644,6 +647,7 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                                                     options={this.state.skillData.map(elem=>{
                                                         return {value:elem.name,label:elem.name}
                                                     })}
+                                                    defaultValue={this.state.creature.skills[i].name}
                                                     key={i+"name"}
                                                     className={style.skillFormSelect}
                                                     onChange={(v,o)=>this.handleSkillNameChange(v,o,elem.id)}
@@ -661,6 +665,9 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                                 <CreatableSelect
                                     options={this.composeSelectableAttributeOptions("Talent")}
                                     className={style.creatureFormSelect}
+                                    defaultValue={this.state.creature.talents.map(elem=>{
+                                        return ({value:elem, label:elem})
+                                    })}
                                     isMulti={true}
                                     onChange={this.handleTalentsChange}
                                 />
@@ -670,6 +677,9 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                                 <Select
                                     options={this.composeSelectableAttributeOptions("Action")}
                                     className={style.creatureFormSelect}
+                                    defaultValue={this.state.creature.actions.map(elem=>{
+                                        return ({value:`${elem.name} ${elem.damage}`, label:`${elem.name} ${elem.damage}`})
+                                    })}
                                     isMulti={true}
                                     onChange={this.handleActionsChange}
                                 />
