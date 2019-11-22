@@ -1,6 +1,10 @@
 .creatureDisplayContainer {
-    -webkit-transition-duration: 1s;
+    transition: background-color 1s;
     width: 45em;
+}
+
+.encounterEntity {
+
 }
 
 .creatureDisplayContainer:hover {
@@ -56,4 +60,34 @@
     box-sizing: border-box;
     font-size: 12pt;
     float: right;
+}
+
+.removeCreatureButton {
+    background-color: darkred;
+    color: #c6c6c6;
+    opacity:0;
+    margin-top:2em;
+    margin-left:1em;
+    padding:0.7em;
+    float:left;
+    transition: 0.3s linear;
+    border: 1px solid #ddd;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -o-border-radius: 6px;
+    -ms-border-radius: 6px;
+    border-radius: 6px;
+    -moz-box-shadow: 0 3px 5px #ccc;
+    -webkit-box-shadow: 0 3px 5px #ccc;
+    -o-box-shadow: 0 3px 5px #ccc;
+    -ms-box-shadow: 0 3px 5px #ccc;
+    box-shadow: 0 3px 5px #ccc;
+}
+
+.removeCreatureButton:hover {
+    background-color: red;
+}
+
+.encounterEntity:hover .removeCreatureButton {
+    opacity: 1;
 }

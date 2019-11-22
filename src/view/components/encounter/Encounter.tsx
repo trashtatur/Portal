@@ -59,6 +59,7 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
         this.handleCurrentACChange = this.handleCurrentACChange.bind(this);
         this.handleCurrentHPChange = this.handleCurrentHPChange.bind(this);
         this.handleCurrentTypeChange = this.handleCurrentTypeChange.bind(this);
+        this.handleRemoveFromEncounter = this.handleRemoveFromEncounter.bind(this);
         this.state = {
             creatureMap: [],
             creatureDataMap: []
@@ -84,6 +85,14 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
             return 0;
         });
         this.setState({creatureMap: creatureMapSorted})
+    }
+
+    handleRemoveFromEncounter(id:string) {
+        this.setState({creatureMap:
+            this.state.creatureMap.filter(elem => {
+                return elem.id != id;
+            })
+        })
     }
 
     handleCurrentHPChange(event, id) {
@@ -159,7 +168,6 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
                 selectables[1].options.push({value: entry.name, label: <div><img src="images/selectableLableIcons/player-icon.png" height="20px" width="20px"/>{entry.name}</div>})
             } else if (entry.type == "ally") {
                 selectables[2].options.push({value: entry.name, label: <div><img src="images/selectableLableIcons/ally-icon.png" height="20px" width="20px"/>{entry.name} CR:{entry.challenge}</div>})
-
             }
         });
         return selectables
@@ -171,45 +179,11 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
      * @param elem
      */
     cloneEntry(elem: creature): creature {
-        let stats:statblock = {
-            str: elem.stats.str, int: elem.stats.int, wis:elem.stats.wis,
-            dex: elem.stats.dex, con: elem.stats.con, cha: elem.stats.cha
-        };
-        let savethrows:saveThrowsType = {
-          ref: elem.saveThrows.ref, will:elem.saveThrows.will, fort:elem.saveThrows.fort
-        };
         let creature = {
+            ...elem,
             id: uuidv4(),
-            name: elem.name,
-            type: elem.type,
-            hitpoints: elem.hitpoints,
-            armorclass: elem.armorclass,
             label: elem.label == null ? this.determineLabel(elem.name) : elem.label,
-            alignment: elem.alignment,
-            attackProperties: elem.attackProperties,
-            creatureClass: elem.creatureClass,
-            challenge: elem.challenge,
-            movement: elem.movement,
-            image: elem.image,
-            ini: elem.ini,
-            currentIni: Math.floor(Math.random()*(+20 - +1) + +1) + elem.ini,
-            currentHP: elem.currentHP,
-            currentAC: elem.currentAC,
-            baseAtk: elem.baseAtk,
-            xp: elem.xp,
-            kmb: elem.kmb,
-            kmv: elem.kmv,
-            sortByIni: this.sortByIni,
-            handleCurrentACChange: this.handleCurrentACChange,
-            handleCurrentHPChange: this.handleCurrentHPChange,
-            handleCurrentTypeChange: this.handleCurrentTypeChange,
-            skills: elem.skills,
-            size: elem.size,
-            stats: stats,
-            saveThrows: savethrows,
-            languages: elem.languages,
-            talents: elem.talents,
-            actions: elem.actions
+            currentIni: Math.floor(Math.random()*(+20 - +1) + +1) + elem.ini
         };
         return creature;
     }
@@ -358,6 +332,7 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
                             handleCurrentACChange={creature.handleCurrentACChange}
                             handleCurrentHPChange={creature.handleCurrentHPChange}
                             handleCurrentTypeChange={creature.handleCurrentTypeChange}
+                            handleRemoveFromEncounter={this.handleRemoveFromEncounter}
                             saveThrows={creature.saveThrows}
                             skills={creature.skills}
                             talents={creature.talents}

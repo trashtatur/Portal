@@ -6,7 +6,7 @@ import {CreatureSkill} from "./assocSchemas/CreatureSkill";
 export class Skill extends  Model<Skill> {
 
     @PrimaryKey
-    @Column({type:DataType.UUID})
+    @Column({type:DataType.UUID, defaultValue:DataType.UUIDV4})
     uuid:string;
 
     @AllowNull(false)

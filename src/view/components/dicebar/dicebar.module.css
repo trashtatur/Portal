@@ -9,6 +9,14 @@
     float:left;
     height:1em;
     margin-right: 0.4em;
+    transition:  0.2s linear;
+}
+
+.dieImage:hover {
+    -webkit-box-shadow: -2px -1px 8px 8px rgba(3,77,70,1);
+    -moz-box-shadow: -2px -1px 8px 8px rgba(3,77,70,1);
+    box-shadow: -2px -1px 8px 8px rgba(3,77,70,1);
+    background-color: rgba(3,77,71,1);
 }
 
 .diceResult {

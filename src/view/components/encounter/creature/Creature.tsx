@@ -30,6 +30,7 @@ export interface ICreatureProps {
     handleCurrentHPChange:Function,
     handleCurrentACChange:Function,
     handleCurrentTypeChange:Function,
+    handleRemoveFromEncounter: Function,
     saveThrows: saveThrowsType,
     languages?: string[],
     skills?: string[],
@@ -112,6 +113,10 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
 
     render(): any {
         return (
+            <table className={style.encounterEntity}>
+                <tbody>
+                <tr>
+                <td>
             <div className={style.creatureDisplayContainer}>
                 <CreatureCard
                     name={this.props.name}
@@ -155,6 +160,16 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
                     </div>
                 </div>
             </div>
+                </td>
+                    <td>
+                <button
+                    className={style.removeCreatureButton}
+                    type={"button"}
+                    onClick={()=>this.props.handleRemoveFromEncounter(this.props.id)}> X </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         )
     }
 }

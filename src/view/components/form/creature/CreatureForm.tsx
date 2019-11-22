@@ -11,6 +11,10 @@ import Dropzone from 'react-dropzone-uploader'
 import * as style from "./creatureForm.module.css";
 
 
+const SELECT_OPTION = "select-option";
+const REMOVE_OPTION = "remove-value";
+const CREATE_OPTION = "create-option";
+
 interface ICreatureFormProps {
     creature?: creature;
     type: "edit" | "create";
@@ -382,9 +386,15 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
 
     handleLanguagesChange(value, option) {
         let creature = this.state.creature;
-        creature.languages = value.map(elem => {
-            return elem.value
-        });
+        if (option.action == SELECT_OPTION || option.action == CREATE_OPTION) {
+            creature.languages = value.map(elem => {
+                return elem.value
+            });
+        } else if (option.action == REMOVE_OPTION) {
+            creature.languages = creature.languages.filter(elem=> {
+                return elem != option.removedValue.value
+            })
+        }
         this.setState({creature: creature})
     }
 
@@ -412,42 +422,54 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
 
     handleTalentsChange(value, option) {
         let creature = this.state.creature;
-        creature.talents = value.map(elem => {
-            return elem.value
-        });
+        if (option.action == SELECT_OPTION || option.action==CREATE_OPTION) {
+            creature.talents = value.map(elem => {
+                return elem.value
+            });
+        } else if(option.action == REMOVE_OPTION) {
+            creature.talents = creature.talents.filter(elem=> {
+                return elem != option.removedValue.value;
+            })
+        }
         this.setState({creature: creature})
     }
 
     handleActionsChange(value, option) {
         let creature = this.state.creature;
-        let actions = [];
-        value.forEach(selectedValue => {
-            let action = this.state.actionData.filter(elem => {
-                return elem.name == selectedValue.value.substr(0, selectedValue.value.lastIndexOf(" "))
-            });
+        if (option.action == SELECT_OPTION) {
+            let actions = [];
+            value.forEach(selectedValue => {
+                let action = this.state.actionData.filter(elem => {
+                    return elem.name == selectedValue.value.substr(0, selectedValue.value.lastIndexOf(" "))
+                });
 
-            actions.push(action[0]);
-        });
-        let actions_formatted = actions.map(elem => {
-            return {
-                name: elem.name,
-                rangeType: elem.rangeType,
-                attackBonus: elem.attackBonus,
-                damage: elem.damage,
-                critmod: elem.critMod,
-                damageType: elem.damageType,
-                additionalInfo: elem.additionalInfo
-            }
-        });
-        creature.actions = creature.actions.concat(actions_formatted);
-        let creature_actions_set = [];
-        creature.actions.forEach(elem => {
-            let filter = creature_actions_set.filter(set_elem => {
-                return elem.name == set_elem.name
+                actions.push(action[0]);
             });
-            if (filter.length == 0) creature_actions_set.push(elem)
-        });
-        creature.actions = creature_actions_set;
+            let actions_formatted = actions.map(elem => {
+                return {
+                    name: elem.name,
+                    rangeType: elem.rangeType,
+                    attackBonus: elem.attackBonus,
+                    damage: elem.damage,
+                    critmod: elem.critMod,
+                    damageType: elem.damageType,
+                    additionalInfo: elem.additionalInfo
+                }
+            });
+            creature.actions = creature.actions.concat(actions_formatted);
+            let creature_actions_set = [];
+            creature.actions.forEach(elem => {
+                let filter = creature_actions_set.filter(set_elem => {
+                    return elem.name == set_elem.name
+                });
+                if (filter.length == 0) creature_actions_set.push(elem)
+            });
+            creature.actions = creature_actions_set;
+        } else if (option.action == REMOVE_OPTION) {
+            creature.actions = creature.actions.filter(elem => {
+                return `${elem.name} ${elem.damage}` != option.removedValue.value
+            })
+        }
         this.setState({creature: creature})
     }
 
@@ -622,12 +644,13 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                                                     options={this.state.skillData.map(elem=>{
                                                         return {value:elem.name,label:elem.name}
                                                     })}
+                                                    key={i+"name"}
                                                     className={style.skillFormSelect}
                                                     onChange={(v,o)=>this.handleSkillNameChange(v,o,elem.id)}
                                                 />
                                                 level:
-                                                <input type="text" value={elem.property} id={elem.id + "-prop"}
-                                                       key={i + "prop"}
+                                                <input type="text" value={elem.property}
+                                                       key={i + "level"}
                                                        className={style.skillLevelInput}
                                                        onChange={e=>this.handleSkillLevelChange(e,elem.id)}/>
                                             </label>)
