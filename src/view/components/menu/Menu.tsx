@@ -1,7 +1,6 @@
 import * as React from "react";
-import * as style from './menu.module.css';
-import {editButton} from "./menu.module.css";
 import {Form} from "../form/Form";
+import * as style from './menu.module.css';
 
 export interface IMenuProps {
 

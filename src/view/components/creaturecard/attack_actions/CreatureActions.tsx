@@ -1,18 +1,9 @@
 import * as React from "react";
-import * as style from './creatureAction.module.css';
 import {SingleAction} from "./SingleAction";
 import {CreatureSeparator} from "../separator/CreatureSeparator";
+import {creatureAction} from "../../componentTypes";
+import * as style from './creatureAction.module.css';
 
-export type creatureAction = {
-    name: string,
-    rangeType: string,
-    attackBonus: number,
-    range?: number,
-    damage: string,
-    critmod: string,
-    damageType: string,
-    additionalInfo: string
-}
 
 export interface ICreatureActionProps {
     actions: creatureAction[]

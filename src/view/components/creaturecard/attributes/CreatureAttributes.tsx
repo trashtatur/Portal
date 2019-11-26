@@ -1,5 +1,5 @@
 import * as React from "react";
-import {saveThrowsType} from "../CreatureCard";
+import {saveThrowsType} from "../../componentTypes";
 import * as style from './creatureAttributes.module.css'
 
 

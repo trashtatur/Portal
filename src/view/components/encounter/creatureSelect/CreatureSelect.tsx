@@ -1,11 +1,9 @@
 import * as React from "react";
 import Select from 'react-select';
+import {selectable} from "../../componentTypes";
 import * as style from './creatureSelect.module.css'
 
-type selectable = {
-    value: string,
-    label: string
-}
+
 
 interface ICreatureSelectProps {
     selectableOptions: selectable[]

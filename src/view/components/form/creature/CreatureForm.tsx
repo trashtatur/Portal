@@ -1,4 +1,3 @@
-import {creature} from "../../encounter/Encounter";
 import * as React from "react";
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
@@ -8,6 +7,7 @@ import {createCreature} from "./helper/creatureCreator";
 import {AlignmentSelect} from "./alignment select/AlignmentSelect";
 import {SizeSelect} from "./size select/SizeSelect";
 import Dropzone from 'react-dropzone-uploader'
+import {creature} from "../../componentTypes";
 import * as style from "./creatureForm.module.css";
 
 

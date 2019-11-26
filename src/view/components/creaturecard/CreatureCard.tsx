@@ -9,37 +9,8 @@ import {CreatureAttributes} from "./attributes/CreatureAttributes";
 import {CreatureAttackProperties} from "./attackProperties/CreatureAttackProperties";
 import {CreatureActions} from "./attack_actions/CreatureActions";
 import * as style from "./creatureCard.module.css";
+import {action, attackProperty, saveThrowsType, statblock} from "../componentTypes";
 
-export type attackProperty = {
-    id?:string,
-    name: string,
-    property: string
-}
-
-export type action = {
-    name: string,
-    rangeType: string,
-    attackBonus: number,
-    damage: string,
-    critmod: string,
-    damageType: string,
-    additionalInfo: string
-}
-
-export type saveThrowsType = {
-    ref,
-    will,
-    fort
-}
-
-export type statblock = {
-    str,
-    con,
-    wis,
-    int,
-    cha,
-    dex
-}
 
 export interface ICreatureCardProps {
     name: string,

@@ -1,7 +1,7 @@
 import * as React from "react";
-import * as style from './topBar.module.css'
 import {Menu} from "../menu/Menu";
 import {Dicebar} from "../dicebar/Dicebar";
+import * as style from './topBar.module.css';
 
 export interface ITopParProps {
 

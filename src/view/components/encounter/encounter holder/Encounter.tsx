@@ -1,48 +1,19 @@
 import * as React from "react";
-import {Creature} from "./creature/Creature";
-import {action, attackProperty, saveThrowsType, statblock} from "../creaturecard/CreatureCard";
-import {CreatureSelect} from "./creatureSelect/CreatureSelect";
+import {Creature} from "../creature/Creature";
+import {CreatureSelect} from "../creatureSelect/CreatureSelect";
 import axios from 'axios';
-import {uuidv4} from "../helper/helperFunctions";
+import {uuidv4} from "../../helper/helperFunctions";
+import {creature} from "../../componentTypes";
 import * as style from './encounter.module.css';
 
 
-export type creature = {
-    id?: string,
-    name: string,
-    type: "ally"|"monster"|"player"|"",
-    hitpoints,
-    armorclass,
-    label?: number,
-    alignment: string,
-    image?: File | string,
-    attackProperties: attackProperty[],
-    creatureClass: string,
-    challenge,
-    movement,
-    ini,
-    currentIni?,
-    currentAC?,
-    currentHP?,
-    baseAtk,
-    xp?,
-    kmb,
-    kmv,
-    sortByIni?: Function,
-    handleCurrentACChange?: Function,
-    handleCurrentHPChange?: Function,
-    handleCurrentTypeChange?: Function,
-    skills: any[],
-    size: string,
-    stats: statblock,
-    saveThrows: saveThrowsType,
-    languages: string[],
-    talents: string[]
-    actions: action[]
-}
-
-
 export interface IEncounterProps {
+    addCreatureToRound:Function
+    changeCurrentHPOfCreature:Function
+    changeCurrentACOfCreature:Function
+    changeCurrentIniOfCreature:Function
+    changeTypeOfRoundCreature:Function
+    removeCreatureFromRound:Function
 }
 
 export interface IEncounterState {
@@ -206,6 +177,9 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
             if (creatureA.currentIni > creatureB.currentIni) return -1;
             return 0;
         });
+        to_add.forEach(elem=>{
+           this.props.addCreatureToRound(elem);
+        });
         this.setState({
             creatureMap: creatureMapSorted
         });
@@ -294,7 +268,7 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
 
     render(): any {
         return (
-            <div>
+            <div className={style.encounterCreatureDialogContainer}>
                 <div className={style.addDialog}>
                     <CreatureSelect
                         selectableOptions={this.composeSelectableOptions()}
@@ -342,6 +316,11 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
                             talents={creature.talents}
                             actions={creature.actions}
                             languages={creature.languages}
+                            changeTypeOfRoundCreature={this.props.changeTypeOfRoundCreature}
+                            changeCurrentACOfRoundCreature={this.props.changeCurrentACOfCreature}
+                            changeCurrentHPOfRoundCreature={this.props.changeCurrentHPOfCreature}
+                            changeCurrentIniOfRoundCreature={this.props.changeCurrentIniOfCreature}
+                            removeCreatureFromRound={this.props.removeCreatureFromRound}
                         />
                     )
                 })}

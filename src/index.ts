@@ -15,6 +15,6 @@ async function bootstrap() {
     }
 }
 
-db.dbSync(true).then(()=> {
-    bootstrap();
-});
+db.dbSync(true);
+bootstrap();
+

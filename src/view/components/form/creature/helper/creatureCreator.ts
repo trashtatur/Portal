@@ -1,4 +1,4 @@
-import {creature} from "../../../encounter/Encounter";
+import {creature} from "../../../componentTypes";
 
 
 export let createCreature = function(): creature {

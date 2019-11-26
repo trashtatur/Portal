@@ -10,7 +10,7 @@ const gulp_tcm = require('gulp-typed-css-modules');
 gulp.task("browserify", function() {
     return browserify({
             entries: ["src/view/main.tsx"],
-            debug: true
+            debug: true,
         })
         .require('react')
         .require('react-dom')

@@ -1,5 +1,7 @@
 import * as React from "react";
-import * as style from './creatureRKTP.module.css'
+import * as style from './creatureRKTP.module.css';
+
+
 export interface ICreatureRKTPProps {
     armorclass: number;
     tp: number;

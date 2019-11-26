@@ -21,7 +21,7 @@ import {Fight} from "./Fight";
 import {CreatureFight} from "./assocSchemas/CreatureFight";
 import {Group} from "./Group";
 import {CreatureGroup} from "./assocSchemas/CreatureGroup";
-import {attackProperty} from "../../view/components/creaturecard/CreatureCard";
+import {attackProperty} from "../../view/components/componentTypes";
 
 
 @Table

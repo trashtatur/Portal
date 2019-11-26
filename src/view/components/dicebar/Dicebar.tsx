@@ -1,6 +1,4 @@
 import * as React from "react";
-
-const Popup = require('reactjs-popup');
 import * as style from './dicebar.module.css';
 
 export interface IDicebarProps {

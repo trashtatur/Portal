@@ -1,8 +1,10 @@
 import * as React from "react";
-import {Encounter} from "../encounter/Encounter";
 import {TopBar} from "../topbar/TopBar";
+import {Timeline, TimelineEvent} from "react-event-timeline";
+import {EncounterManager} from "../encounter/encounter manager/EncounterManager";
 import * as style from './app.module.css';
-import {Form} from "../form/Form";
+
+
 
 
 export class App extends React.Component {
@@ -12,7 +14,8 @@ export class App extends React.Component {
         return (
             <div className={style.mainApp}>
                 <TopBar/>
-                <Encounter/>
+                <EncounterManager/>
+
             </div>
         )
     }
