@@ -23,11 +23,13 @@
     "css-modulesify": "^0.28.0",
     "express": "4",
     "gulp-typed-css-modules": "^2.0.1",
+    "lodash": "^4.17.15",
     "method-override": "^3.0.0",
     "multer": "^1.4.2",
     "mysql2": "^1.6.5",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
+    "react-collapsible": "^2.6.1",
     "react-dom": "^16.11.0",
     "react-dropzone-uploader": "^2.11.0",
     "react-event-timeline": "^1.6.3",
@@ -39,7 +41,9 @@
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.1.0",
     "sequelize-typescript": "^1.0.0",
-    "typescript-plugin-css-modules": "^2.0.2"
+    "sqlite": "^3.0.3",
+    "typescript-plugin-css-modules": "^2.0.2",
+    "youtube-api-v3-search": "^1.2.1"
   },
   "devDependencies": {
     "@types/express": "^4.16.1",
@@ -49,6 +53,7 @@
     "gulp": "^4.0.2",
     "nodemon": "^1.19.4",
     "reactify": "^1.1.1",
+    "source-map-support": "^0.5.16",
     "ts-lint": "^4.5.1",
     "ts-node": "^8.4.1",
     "tsify": "^4.0.1",

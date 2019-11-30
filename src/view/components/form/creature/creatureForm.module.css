@@ -1,9 +1,6 @@
 .creatureFormContainer {
     font-size: 9pt;
     display: block;
-    flex-wrap:nowrap;
-    overflow-y: scroll;
-    overflow-x: hidden;
     max-height: 40em;
 }
 
@@ -93,6 +90,7 @@
 }
 
 .creatureFormSubmit:hover {
+    cursor:pointer;
     background-color: darkslategrey;
 }
 
@@ -106,10 +104,30 @@
     color: white;
     text-align: center;
     border: none;
+    transition: background-color 0.5s;
+}
+
+.formAddButton:hover {
+    background-color: darkslategrey;
+    cursor: pointer;
 }
 
 .formPart {
     float: left;
     width: 50%;
+    flex-wrap:nowrap;
+    padding-right: 1em;
+    max-height: 40em;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.formPartCreature {
+    text-align: left;
+    width:52em;
+}
+
+.multiInputFormArea {
+    float:left
 }
 

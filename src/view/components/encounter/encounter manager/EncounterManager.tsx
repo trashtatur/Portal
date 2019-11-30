@@ -14,17 +14,17 @@ export interface IEncounterManagerState {
     currentRound: round
 }
 
-export class EncounterManager extends React.Component<IEncounterManagerProps,IEncounterManagerState> {
+export class EncounterManager extends React.Component<IEncounterManagerProps, IEncounterManagerState> {
 
     constructor(props) {
         super(props);
-        this.state= {
+        this.state = {
             roundLog: [],
             currentRound: {
-                active:true,
-                number:1,
+                active: true,
+                number: 1,
                 startedAt: new Date(),
-                creatureEvents:[]
+                creatureEvents: []
             }
         };
 
@@ -40,8 +40,8 @@ export class EncounterManager extends React.Component<IEncounterManagerProps,IEn
     }
 
     transferCreatureEvents(): roundCreature[] {
-        let previousRound = this.state.roundLog[this.state.roundLog.length-1];
-        if (previousRound!= undefined) return previousRound.creatureEvents.map(elem=>{
+        let previousRound = this.state.roundLog[this.state.roundLog.length - 1];
+        if (previousRound != undefined) return previousRound.creatureEvents.map(elem => {
             return {
                 id: elem.id,
                 name: elem.name,
@@ -51,8 +51,8 @@ export class EncounterManager extends React.Component<IEncounterManagerProps,IEn
                 currentAC: elem.currentAC,
                 entryIni: elem.currentIni,
                 currentIni: elem.currentIni,
-                entryType:elem.currentType,
-                currentType:elem.currentType
+                entryType: elem.currentType,
+                currentType: elem.currentType
             }
         });
         else return []
@@ -64,11 +64,11 @@ export class EncounterManager extends React.Component<IEncounterManagerProps,IEn
         phasingOutRound.active = false;
         this.setState({
             roundLog: this.state.roundLog.concat([phasingOutRound])
-        },()=> {
-            let newRound:round = {
-                number:this.state.roundLog.length+1,
-                active:true,
-                startedAt:new Date(),
+        }, () => {
+            let newRound: round = {
+                number: this.state.roundLog.length + 1,
+                active: true,
+                startedAt: new Date(),
                 creatureEvents: this.transferCreatureEvents()
             };
             this.setState({currentRound: newRound})
@@ -76,7 +76,7 @@ export class EncounterManager extends React.Component<IEncounterManagerProps,IEn
     }
 
     resetRounds() {
-        let creatureEvents:roundCreature[] = this.state.currentRound.creatureEvents.map(elem=> {
+        let creatureEvents: roundCreature[] = this.state.currentRound.creatureEvents.map(elem => {
             return {
                 id: elem.id,
                 name: elem.name,
@@ -86,12 +86,13 @@ export class EncounterManager extends React.Component<IEncounterManagerProps,IEn
                 currentAC: elem.currentAC,
                 entryIni: elem.currentIni,
                 currentIni: elem.currentIni,
-                entryType:elem.currentType,
-                currentType:elem.currentType
+                entryType: elem.currentType,
+                currentType: elem.currentType
             }
         });
-        this.setState({roundLog: []},()=>
-            this.setState({currentRound:
+        this.setState({roundLog: []}, () =>
+            this.setState({
+                currentRound:
                     {
                         active: true,
                         number: 1,
@@ -102,12 +103,12 @@ export class EncounterManager extends React.Component<IEncounterManagerProps,IEn
         )
     }
 
-    addCreatureToRound(creature:creature) {
+    addCreatureToRound(creature: creature) {
         let name = creature.name;
         if (creature.label != 0) name = `${name} ${creature.label}`;
-        let newRoundCreature:roundCreature =
+        let newRoundCreature: roundCreature =
             {
-                id:creature.id,
+                id: creature.id,
                 name: name,
                 entryHP: creature.currentHP,
                 currentHP: creature.currentHP,
@@ -123,64 +124,63 @@ export class EncounterManager extends React.Component<IEncounterManagerProps,IEn
         this.setState({currentRound: currentRound})
     }
 
-    changeCurrentHPOfCreature(newHPValue:number, creatureId:string) {
-        let round= this.state.currentRound;
+    changeCurrentHPOfCreature(newHPValue: number, creatureId: string) {
+        let round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
         }).currentHP = newHPValue;
         this.setState({currentRound: round})
     }
 
-    changeCurrentACOfCreature(newACValue:number, creatureId:string) {
-        let round= this.state.currentRound;
+    changeCurrentACOfCreature(newACValue: number, creatureId: string) {
+        let round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
         }).currentAC = newACValue;
         this.setState({currentRound: round})
     }
 
-    changeCurrentIniOfCreature(newIniValue:number, creatureId:string) {
-        let round= this.state.currentRound;
+    changeCurrentIniOfCreature(newIniValue: number, creatureId: string) {
+        let round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
         }).currentIni = newIniValue;
         this.setState({currentRound: round})
     }
 
-    changeTypeOfRoundCreature(newType:creatureType,creatureId:string) {
-        let round= this.state.currentRound;
+    changeTypeOfRoundCreature(newType: creatureType, creatureId: string) {
+        let round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
         }).currentType = newType;
         this.setState({currentRound: round})
     }
 
-    removeCreatureFromRound(creatureId:string) {
+    removeCreatureFromRound(creatureId: string) {
         let round = this.state.currentRound;
-        round.creatureEvents = round.creatureEvents.filter(elem=> {
+        round.creatureEvents = round.creatureEvents.filter(elem => {
             return elem.id != creatureId
         });
         this.setState({currentRound: round})
     }
 
 
-
     render(): any {
         return (
             <div className={style.encounterManagerContainer}>
-            <Encounter
-                addCreatureToRound={this.addCreatureToRound}
-                changeCurrentACOfCreature={this.changeCurrentACOfCreature}
-                changeCurrentHPOfCreature={this.changeCurrentHPOfCreature}
-                changeCurrentIniOfCreature={this.changeCurrentIniOfCreature}
-                changeTypeOfRoundCreature={this.changeTypeOfRoundCreature}
-                removeCreatureFromRound={this.removeCreatureFromRound}
-            />
-            <div className={style.roundControls}>
-                <button className={style.roundControlButton} onClick={this.addRound}>Add round</button>
-                <button className={style.roundControlButton} onClick={this.resetRounds}>Reset rounds</button>
-            </div>
-            <RoundOverview roundLog={this.state.roundLog} currentRound={this.state.currentRound}/>
+                <Encounter
+                    addCreatureToRound={this.addCreatureToRound}
+                    changeCurrentACOfCreature={this.changeCurrentACOfCreature}
+                    changeCurrentHPOfCreature={this.changeCurrentHPOfCreature}
+                    changeCurrentIniOfCreature={this.changeCurrentIniOfCreature}
+                    changeTypeOfRoundCreature={this.changeTypeOfRoundCreature}
+                    removeCreatureFromRound={this.removeCreatureFromRound}
+                />
+                <div className={style.roundControls}>
+                    <button className={style.roundControlButton} onClick={this.addRound}>Add round</button>
+                    <button className={style.roundControlButton} onClick={this.resetRounds}>Reset rounds</button>
+                </div>
+                <RoundOverview roundLog={this.state.roundLog} currentRound={this.state.currentRound}/>
             </div>
         )
     }

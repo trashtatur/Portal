@@ -1,23 +1,23 @@
 import * as React from "react";
 import {CreatureForm} from "./creature/CreatureForm";
+
 const Popup = require('reactjs-popup');
 import {OneEntryForm} from "./one entry form/OneEntryForm";
 import {ActionForm} from "./action/ActionForm";
 import * as style from './form.module.css'
 
 
-
 export interface IFormProps {
     modalTrigger;
-    type: "edit"|"create"
+    type: "edit" | "create"
 }
 
 export interface IFormState {
-    formType: "creature"|"language"|"sense"|"skill"|"action"|"talent"
+    formType: "creature" | "language" | "sense" | "skill" | "action" | "talent"
 }
 
 
-export class Form extends React.Component<IFormProps,IFormState> {
+export class Form extends React.Component<IFormProps, IFormState> {
 
     constructor(props) {
         super(props);
@@ -30,7 +30,7 @@ export class Form extends React.Component<IFormProps,IFormState> {
 
 
     setFormType(type) {
-        this.setState({formType:type})
+        this.setState({formType: type})
     }
 
     renderForm() {
@@ -61,16 +61,25 @@ export class Form extends React.Component<IFormProps,IFormState> {
                    closeOnDocumentClick={false}
             >
                 {close => (
-                <div className={style.formContainer}>
-                    <button className={style.modalCloseButton} onClick={()=>close()}>X</button>
-                    {this.props.type}:<br/>
-                    <button className={style.formTypeButton} onClick={()=>this.setFormType("creature")}>Creature</button>
-                    <button className={style.formTypeButton} onClick={()=>this.setFormType("language")}>Language</button>
-                    <button className={style.formTypeButton} onClick={()=>this.setFormType("skill")}>Skill</button>
-                    <button className={style.formTypeButton} onClick={()=>this.setFormType("talent")}>Talent</button>
-                    <button className={style.formTypeButton} onClick={()=>this.setFormType("action")}>Action</button>
-                    {this.renderForm()}
-                </div>
+                    <div className={style.formContainer}>
+                        <div className={style.formTopBar}>
+                            <button className={style.modalCloseButton} onClick={() => close()}>X</button>
+                            {this.props.type}:<br/>
+                            <button className={style.formTypeButton}
+                                    onClick={() => this.setFormType("creature")}>Creature
+                            </button>
+                            <button className={style.formTypeButton}
+                                    onClick={() => this.setFormType("language")}>Language
+                            </button>
+                            <button className={style.formTypeButton} onClick={() => this.setFormType("skill")}>Skill
+                            </button>
+                            <button className={style.formTypeButton} onClick={() => this.setFormType("talent")}>Talent
+                            </button>
+                            <button className={style.formTypeButton} onClick={() => this.setFormType("action")}>Action
+                            </button>
+                        </div>
+                        {this.renderForm()}
+                    </div>
                 )}
             </Popup>
         );

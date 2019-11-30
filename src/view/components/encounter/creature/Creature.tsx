@@ -1,7 +1,7 @@
 import * as React from "react";
 import {action, attackProperty, creatureType, saveThrowsType, statblock} from "../../componentTypes";
-import * as style from './creature.module.css';
 import {CreatureCard} from "../../creaturecard/CreatureCard";
+import * as style from './creature.module.css';
 
 
 export interface ICreatureProps {

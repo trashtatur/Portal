@@ -3,6 +3,7 @@ import axios from 'axios'
 import {uuidv4} from "../../helper/helperFunctions";
 import * as style from './oneEntryForm.module.css';
 
+
 export interface IOneEntryFormProps {
     formValue: "language" | "sense" | "skill" | "talent"
     type: "edit" | "create"
@@ -27,9 +28,11 @@ export class OneEntryForm extends React.Component<IOneEntryFormProps, IOneEntryF
     ROUTE = `/V1/${this.props.formValue}`;
 
     async postData(data) {
+        let that = this;
         axios.post(this.ROUTE, data).then(
             function (result) {
-                console.log(result)
+                alert(`Created entries for ${that.props.formValue}(s) in database`);
+                that.setState({inputs:[{value:"",id:uuidv4()}]})
             }
         ).catch(function (error) {
             console.log(error)
@@ -37,7 +40,6 @@ export class OneEntryForm extends React.Component<IOneEntryFormProps, IOneEntryF
     }
 
     handleSubmit(event) {
-        console.log(this.state.inputs);
         this.postData(this.state.inputs);
         event.preventDefault()
     }

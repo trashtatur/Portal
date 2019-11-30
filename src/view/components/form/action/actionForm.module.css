@@ -16,12 +16,13 @@
 }
 
 .formButton:hover{
+    cursor: pointer;
     background-color: darkslategrey;
 }
 
 .formField {
     float: left;
-    width: 100em;
+    width: 110em;
     margin-top: 0.2em;
     margin-bottom: 0.2em;
 }

@@ -1,0 +1,12 @@
+{
+    "db": {
+      "host": "localhost",
+      "dbName": "portal",
+      "dbPassword": "MEINSUPERPASSWORT",
+      "dbUser": "MeinDBUser"
+      "forceDBReset": true
+    }
+    "youtube": {
+        "api_key": "abcdefghijklmnopqrstuvwxyz1234567890"
+    }
+}

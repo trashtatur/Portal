@@ -8,8 +8,8 @@ import {CreatureSeparator} from "./separator/CreatureSeparator";
 import {CreatureAttributes} from "./attributes/CreatureAttributes";
 import {CreatureAttackProperties} from "./attackProperties/CreatureAttackProperties";
 import {CreatureActions} from "./attack_actions/CreatureActions";
-import * as style from "./creatureCard.module.css";
 import {action, attackProperty, saveThrowsType, statblock} from "../componentTypes";
+import * as style from "./creatureCard.module.css";
 
 
 export interface ICreatureCardProps {
@@ -36,6 +36,7 @@ export interface ICreatureCardProps {
     skills?: string[],
     talents?: string[],
     actions?: action[],
+    preview?: boolean
 }
 
 export interface ICreatureCardState {
@@ -72,7 +73,9 @@ export class CreatureCard extends React.Component<ICreatureCardProps, ICreatureC
         return (
             <div className={style.creatureCardContainer} onClick={() => this.toggleFold()}>
                 <CreatureCardHeader name={this.props.name} alignment={this.props.alignment}
-                                    challenge={this.props.challenge} label={this.props.label}/>
+                                    challenge={this.props.challenge} label={this.props.label}
+                                    preview={this.props.preview}
+                />
                 <div className={style.foldInContainer} style={this.determineFolding()}>
                     <CreatureCardTopInfo
                         size={this.props.size}
@@ -81,9 +84,10 @@ export class CreatureCard extends React.Component<ICreatureCardProps, ICreatureC
                         creatureClass={this.props.creatureClass}
                         baseAtk={this.props.baseAtk}
                         xp={this.props.xp}
+                        preview={this.props.preview}
                     />
                     <CreatureRKTP armorclass={this.props.armorclass} tp={this.props.hitpoints}/>
-                    <CreatureImage imagePath={this.props.image}/>
+                    <CreatureImage imagePath={this.props.image} preview={this.props.preview}/>
                     <CreatureStats str={this.props.stats.str}
                                    dex={this.props.stats.dex}
                                    wis={this.props.stats.wis}
@@ -98,6 +102,7 @@ export class CreatureCard extends React.Component<ICreatureCardProps, ICreatureC
                                         talents={this.props.talents}
                                         languages={this.props.languages}
                                         saveThrows={this.props.saveThrows}
+                                        preview={this.props.preview}
                     />
                     <CreatureAttackProperties
                         attackProperties={this.props.attackProperties}/>

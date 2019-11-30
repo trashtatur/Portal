@@ -46,9 +46,18 @@ export class ActionForm extends React.Component<IActionFormProps,IActionFormStat
     ROUTE = '/V1/Action';
 
     async postData(data) {
+        let that=this;
         axios.post(this.ROUTE,data).then(
             function (result) {
-                console.log(result)
+                alert('Created action in database');
+                that.setState({name:""});
+                that.setState({rangeType:""});
+                that.setState({attackBonus:""});
+                that.setState({damage:""});
+                that.setState({damageType:""});
+                that.setState({range:""});
+                that.setState({critMod:""});
+                that.setState({additionalInfo:""});
             }
         ).catch(function (error) {
             console.log(error)

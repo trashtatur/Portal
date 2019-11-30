@@ -15,3 +15,5 @@ export const formTextInputArea: string;
 export const creatureFormSubmit: string;
 export const formAddButton: string;
 export const formPart: string;
+export const formPartCreature: string;
+export const multiInputFormArea: string;

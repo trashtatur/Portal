@@ -7,6 +7,7 @@ import * as style from "../creatureForm.module.css";
 
 export interface ISizeSelectProps {
     handleSizeChange: Function
+    value
 }
 
 export interface ISizeSelectState {
@@ -30,6 +31,8 @@ export class SizeSelect extends React.Component<ISizeSelectProps,ISizeSelectStat
                     {value: "gargantuan", label: "gargantuan"},
                     {value: "colossal", label: "colossal"}
                 ]}
+                isClearable
+                value={this.props.value}
                 onChange={this.props.handleSizeChange}
                 className={style.creatureFormSelect}
             />

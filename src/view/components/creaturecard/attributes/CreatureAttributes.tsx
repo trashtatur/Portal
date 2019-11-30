@@ -4,10 +4,11 @@ import * as style from './creatureAttributes.module.css'
 
 
 export interface ICreatureAttributesProps {
-    skills:string[],
+    skills,
     talents:string[],
     languages:string[],
     saveThrows: saveThrowsType
+    preview?:boolean
 }
 
 export interface ICreatureAttributesState {
@@ -21,13 +22,22 @@ export class CreatureAttributes extends React.Component<ICreatureAttributesProps
         return `${mod};`
     }
 
+    formatSkillsIfPreview(): string {
+        if (!this.props.preview) return this.props.skills.join(", ");
+        return (
+            this.props.skills.map(elem => {
+                return `${elem.name} ${elem.level}`
+            }).join(', ')
+        )
+    }
+
     render(): any {
         return (
             <table className={style.attributeTable}>
                 <tbody>
                     <tr className={style.attributeBlock}>
                         <td className={style.attributeName}>Skills:</td>
-                        <td className={style.attributeEntry}>{this.props.skills.join(", ")}</td>
+                        <td className={style.attributeEntry}>{this.formatSkillsIfPreview()}</td>
                     </tr>
                     <tr className={style.attributeBlock}>
                         <td className={style.attributeName}>Talents:</td>

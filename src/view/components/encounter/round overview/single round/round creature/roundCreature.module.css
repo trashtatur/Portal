@@ -1,6 +1,6 @@
 .creatureIcon {
-    height: 12px;
-    width: 12px;
+    height: 15px;
+    width: 15px;
     float:right;
 }
 
@@ -20,6 +20,7 @@
 
 .attributeEntry {
     margin-top: 0;
+    padding-right: 0.5em;
     margin-bottom: 0;
     text-align: right;
     width: 18em;

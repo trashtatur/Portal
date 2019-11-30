@@ -1,4 +1,4 @@
-var config = require('../dbauth');
+var config = require('../config.json');
 
 
 
@@ -16,11 +16,11 @@ export class DataSupplier {
 
 
     constructor() {
-        this._databaseHost = process.env.WEBSITE_DB_HOST ? process.env.WEBSITE_DB_HOST : config.host;
-        this._databaseName = process.env.WEBSITE_DB_NAME ? process.env.WEBSITE_DB_NAME : config.dbName;
-        this._databasePassword = process.env.WEBSITE_DB_PASSWORD ? process.env.WEBSITE_DB_PASSWORD : config.dbPassword;
-        this._databaseUser = process.env.WEBSITE_DB_USER ? process.env.WEBSITE_DB_USER : config.dbUser;
-        this._forceDBReset = process.env.FORCE_DB_RESET ? process.env.WEBSITE_DB_USER : config.forceDBReset;
+        this._databaseHost = process.env.WEBSITE_DB_HOST ? process.env.WEBSITE_DB_HOST : config.db.host;
+        this._databaseName = process.env.WEBSITE_DB_NAME ? process.env.WEBSITE_DB_NAME : config.db.dbName;
+        this._databasePassword = process.env.WEBSITE_DB_PASSWORD ? process.env.WEBSITE_DB_PASSWORD : config.db.dbPassword;
+        this._databaseUser = process.env.WEBSITE_DB_USER ? process.env.WEBSITE_DB_USER : config.db.dbUser;
+        this._forceDBReset = process.env.FORCE_DB_RESET ? process.env.WEBSITE_DB_USER : config.db.forceDBReset;
     }
 
 

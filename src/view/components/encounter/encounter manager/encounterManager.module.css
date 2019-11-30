@@ -23,6 +23,12 @@
     transition: background-color 0.5s linear;
 }
 
+.roundControlButton:hover {
+    cursor:pointer;
+    background-color:darkslategrey;
+}
+
 .formTypeButton:hover {
+    cursor: pointer;
     background-color: darkslategrey;
 }

@@ -17,6 +17,7 @@
 }
 
 .creatureAddButton:hover {
+    cursor: pointer;
     background-color: #3d3b3b;
 }
 
