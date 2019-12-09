@@ -8,8 +8,9 @@ import {AlignmentSelect} from "./alignment select/AlignmentSelect";
 import {SizeSelect} from "./size select/SizeSelect";
 import Dropzone from 'react-dropzone-uploader'
 import {creature} from "../../componentTypes";
-import * as style from "./creatureForm.module.css";
 import {CreatureCard} from "../../creaturecard/CreatureCard";
+import {CreatureSeparator} from "../../creaturecard/separator/CreatureSeparator";
+import * as style from "./creatureForm.module.css";
 
 
 const SELECT_OPTION = "select-option";
@@ -19,6 +20,7 @@ const CREATE_OPTION = "create-option";
 interface ICreatureFormProps {
     creature?: creature;
     type: "edit" | "create";
+    handleUpdate?: Function
 }
 
 
@@ -44,7 +46,6 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
             actionData: []
         };
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.conditionalCreatureSelect = this.conditionalCreatureSelect.bind(this);
         this.addOneMoreAttackProperty = this.addOneMoreAttackProperty.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleAlignmentChange = this.handleAlignmentChange.bind(this);
@@ -68,53 +69,8 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         this.handleTypeChange = this.handleTypeChange.bind(this);
         this.handleXPChange = this.handleXPChange.bind(this);
         this.handleImageChange = this.handleImageChange.bind(this);
+        this.previewImage = this.previewImage.bind(this);
         this.addOneMoreSkill = this.addOneMoreSkill.bind(this);
-    }
-
-
-    /**
-     * Composes dropdown to select creatures
-     */
-    composeSelectableCreatureOptions(): any[] {
-        let selectables = [
-            {
-                label: "monsters",
-                options: []
-            },
-            {
-                label: "players",
-                options: []
-            },
-            {
-                label: "allies",
-                options: []
-            }
-
-        ];
-
-        this.state.creatureData.forEach(entry => {
-            if (entry.type == "monster") {
-                selectables[0].options.push({
-                    value: entry.name,
-                    label: <div><img src="images/selectableLableIcons/monster-icon.png" height="20px"
-                                     width="20px"/>{entry.name} CR:{entry.challenge}</div>
-                })
-            } else if (entry.type == "player") {
-                selectables[1].options.push({
-                    value: entry.name,
-                    label: <div><img src="images/selectableLableIcons/player-icon.png" height="20px"
-                                     width="20px"/>{entry.name}</div>
-                })
-            } else if (entry.type == "ally") {
-                selectables[2].options.push({
-                    value: entry.name,
-                    label: <div><img src="images/selectableLableIcons/ally-icon.png" height="20px"
-                                     width="20px"/>{entry.name} CR:{entry.challenge}</div>
-                })
-
-            }
-        });
-        return selectables
     }
 
     addOneMoreAttackProperty() {
@@ -125,7 +81,7 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
 
     addOneMoreSkill() {
         let creature = this.state.creature;
-        creature.skills.push({name:"",level:"",id:uuidv4()});
+        creature.skills.push({name: "", level: "", id: uuidv4()});
         this.setState({creature: creature})
 
     }
@@ -163,13 +119,6 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
 
 
     componentDidMount(): void {
-        if (this.props.type == "edit") {
-            this.getAll('Creature').then(result => {
-                this.setState({creatureData: result.data})
-            }).catch(function (error) {
-                console.log(error)
-            });
-        }
 
         this.getAll("Talent").then(result => {
             if (Array.isArray(result.data)) this.setState({talentData: result.data})
@@ -197,28 +146,24 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
 
     }
 
-    conditionalCreatureSelect() {
-        if (this.props.type == "edit") {
-            return (
-                <Select
-                    options={this.composeSelectableCreatureOptions()}
-                    isSearchable={true}
-                    onChange={this.onSelect}
-                    className={style.creatureSelectContainer}
-                />
-            )
-        }
-    }
+    previewImage() {
+        // Default case for image
+        if (this.state.creature.image == "") return null;
+        // Image already existing
+        if (typeof this.state.creature.image == "string") return this.state.creature.image;
+        // Image in form
+        if (this.state.creature.image != null) return URL.createObjectURL(this.state.creature.image);
+        // Image in form deleted
+        return null;
 
-    onSelect() {
-        //For the part when this is an edit form
     }
 
     uploadImage(data: File | string) {
         if (data == null) return true;
         if (typeof data != "string") {
+            console.log(data);
             let file_ext = data.name.substring(data.name.lastIndexOf('.'));
-            let filename = this.state.creature.name +'-'+this.state.creature.challenge+ file_ext;
+            let filename = this.state.creature.name + '-' + this.state.creature.challenge + file_ext;
             const formattedFile = new File([data], filename, {type: data.type});
             const form = new FormData();
             form.append('file', formattedFile);
@@ -240,14 +185,14 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         event.preventDefault();
         this.uploadImage(this.state.creature.image);
         let that = this;
-            axios.post('/V1/Creature', this.setCreatureImageName()).then(
-                function (response) {
-                    alert('Created entry in database');
-                    that.resetForm()
-                }
-            ).catch(function (error) {
-                console.log(error)
-            });
+        axios.post('/V1/Creature', this.setCreatureImageName()).then(
+            function (response) {
+                alert('Created entry in database');
+                that.resetForm()
+            }
+        ).catch(function (error) {
+            console.log(error)
+        });
 
     }
 
@@ -255,7 +200,7 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         this.setState({creature: createCreature()})
     }
 
-    setCreatureImageName():creature {
+    setCreatureImageName(): creature {
         if (this.state.creature.image != null && typeof this.state.creature.image != "string") {
             let creature = this.state.creature;
             creature.image =
@@ -285,13 +230,15 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
 
     handleHPChange(event) {
         let creature = this.state.creature;
-        creature.hitpoints = parseInt(event.target.value);
+        creature.hitpoints = "";
+        if (!isNaN(parseInt(event.target.value))) creature.hitpoints = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
     handleACChange(event) {
         let creature = this.state.creature;
-        creature.armorclass = parseInt(event.target.value);
+        creature.armorclass = "";
+        if (!isNaN(parseInt(event.target.value))) creature.armorclass = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
@@ -332,23 +279,27 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
 
     handleChallengeChange(event) {
         let creature = this.state.creature;
-        creature.challenge = parseInt(event.target.value);
+        creature.challenge = "";
+        if (!isNaN(parseInt(event.target.value))) creature.challenge = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
     handleMovementChange(event) {
         let creature = this.state.creature;
+        creature.movement = "";
+        if (!isNaN(parseInt(event.target.value))) creature.movement = parseInt(event.target.value);
         creature.movement = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
     handleIniChange(event) {
         let creature = this.state.creature;
-        creature.ini = parseInt(event.target.value);
+        creature.ini = "";
+        if (!isNaN(parseInt(event.target.value))) creature.ini = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
-    handleImageChange({meta,file},status) {
+    handleImageChange({meta, file}, status) {
         let creature = this.state.creature;
         creature.image = file;
         this.setState({creature: creature});
@@ -360,13 +311,15 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
 
     handleBaseAtkChange(event) {
         let creature = this.state.creature;
-        creature.baseAtk = parseInt(event.target.value);
+        creature.baseAtk = "";
+        if (!isNaN(parseInt(event.target.value))) creature.baseAtk = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
     handleXPChange(event) {
         let creature = this.state.creature;
-        creature.xp = parseInt(event.target.value);
+        creature.xp = "";
+        if (!isNaN(parseInt(event.target.value))) creature.xp = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
@@ -378,13 +331,15 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
 
     handleStatsChange(event, stat: "str" | "dex" | "wis" | "int" | "cha" | "con") {
         let creature = this.state.creature;
-        creature.stats[stat] = parseInt(event.target.value);
+        creature.stats[stat] = "";
+        if (!isNaN(parseInt(event.target.value))) creature.stats[stat] = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
     handleSaveThrowsChange(event, saveThrow: "ref" | "will" | "fort") {
         let creature = this.state.creature;
-        creature.saveThrows[saveThrow] = parseInt(event.target.value);
+        creature.saveThrows[saveThrow] = "";
+        if (!isNaN(parseInt(event.target.value))) creature.saveThrows[saveThrow] = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
@@ -395,14 +350,14 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                 return elem.value
             });
         } else if (option.action == REMOVE_OPTION) {
-            creature.languages = creature.languages.filter(elem=> {
+            creature.languages = creature.languages.filter(elem => {
                 return elem != option.removedValue.value
             })
         }
         this.setState({creature: creature})
     }
 
-    handleSkillNameChange(value, option,id) {
+    handleSkillNameChange(value, option, id) {
         let creature = this.state.creature;
         creature.skills = creature.skills.map((elem) => {
             if (elem.id !== id) return elem;
@@ -413,11 +368,13 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         });
     }
 
-    handleSkillLevelChange(event,id) {
+    handleSkillLevelChange(event, id) {
         let creature = this.state.creature;
         creature.skills = creature.skills.map((elem) => {
             if (elem.id !== id) return elem;
-            return {name: elem.name, level: event.target.value, id: elem.id};
+            let val = "";
+            if (!isNaN(parseInt(event.target.value))) val = event.target.value;
+            return {name: elem.name, level: parseInt(val), id: elem.id};
         });
         this.setState({
             creature: creature
@@ -426,12 +383,12 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
 
     handleTalentsChange(value, option) {
         let creature = this.state.creature;
-        if (option.action == SELECT_OPTION || option.action==CREATE_OPTION) {
+        if (option.action == SELECT_OPTION || option.action == CREATE_OPTION) {
             creature.talents = value.map(elem => {
                 return elem.value
             });
-        } else if(option.action == REMOVE_OPTION) {
-            creature.talents = creature.talents.filter(elem=> {
+        } else if (option.action == REMOVE_OPTION) {
+            creature.talents = creature.talents.filter(elem => {
                 return elem != option.removedValue.value;
             })
         }
@@ -478,215 +435,284 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
     }
 
     render(): any {
+
+        const ImagePreview = ({meta}) => {
+            let {name, percent, status} = meta;
+            return (<span style={{color: "black"}}> Image set. to change, drop another in </span>)
+        };
         return (
             <div className={style.creatureFormContainer}>
-                {this.conditionalCreatureSelect()}
                 <div className={style.actualCreatureForm}>
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={e => {
+                        this.props.type == "edit" ? this.props.handleUpdate(e) : this.handleSubmit(e)
+                    }}>
                         <div className={style.formPart}>
-                            <label className={`${style.formInputArea} ${style.formTextInputArea}`}>
-                                name:
-                                <input type="text" value={this.state.creature.name} onChange={this.handleNameChange}/>
+                            <label className={style.formTextInputArea}>
+                                <strong>name:</strong>
+                                <input type="text"
+                                       value={this.state.creature.name}
+                                       className={style.creatureFormInput}
+                                       placeholder={"e.g. great red wyrm"}
+                                       onChange={this.handleNameChange}/>
                             </label>
-                            <label className={`${style.formInputArea} ${style.formTextInputArea}`}>
-                                type:
-                                <input type="radio" name="creatureType" onChange={this.handleTypeChange}
-                                       value={"player"} checked={this.typeBoxChecked("player")}/> player
-                                <input type="radio" name="creatureType" onChange={this.handleTypeChange}
-                                       value={"monster"} checked={this.typeBoxChecked("monster")}/> monster
-                                <input type="radio" name="creatureType" onChange={this.handleTypeChange}
-                                       value={"ally"} checked={this.typeBoxChecked("ally")}/> ally
+                            <label className={style.formTextInputArea}>
+                                <strong>type:</strong>
+                                <div className={style.creatureTypeContainer}>
+                                    <input type="radio" name="creatureType" onChange={this.handleTypeChange}
+                                           value={"player"} checked={this.typeBoxChecked("player")}/> player
+                                    <input type="radio" name="creatureType" onChange={this.handleTypeChange}
+                                           value={"monster"} checked={this.typeBoxChecked("monster")}/> monster
+                                    <input type="radio" name="creatureType" onChange={this.handleTypeChange}
+                                           value={"ally"} checked={this.typeBoxChecked("ally")}/> ally
+                                </div>
                             </label>
-                            <label className={`${style.formInputArea} ${style.formTextInputArea}`}>
-                                hitpoints:
+                            <label className={style.formTextInputArea}>
+                                <strong>hitpoints:</strong>
                                 <input type="number" value={this.state.creature.hitpoints}
-                                       onChange={this.handleHPChange}/>
+                                       onChange={this.handleHPChange}
+                                       placeholder={"a creatures life"}
+                                       className={style.creatureFormInput}
+                                />
                             </label>
-                            <label className={`${style.formInputArea} ${style.formTextInputArea}`}>
-                                armorclass:
+                            <label className={style.formTextInputArea}>
+                                <strong>armorclass:</strong>
                                 <input type="number" value={this.state.creature.armorclass}
-                                       onChange={this.handleACChange}/>
+                                       onChange={this.handleACChange}
+                                       placeholder={"A creatures armor"}
+                                       className={style.creatureFormInput}
+                                />
                             </label>
-                            <label className={`${style.formInputArea} ${style.formSelectContainer}`}>
-                                alignment:
-                                <AlignmentSelect handleAlignmentChange={this.handleAlignmentChange} value={this.state.creature.alignment}/>
+                            <label className={style.formSelectContainer}>
+                                <strong>alignment:</strong>
+                                <AlignmentSelect handleAlignmentChange={this.handleAlignmentChange}
+                                                 value={this.state.creature.alignment}
+                                />
                             </label>
-                            <label className={`${style.formInputArea} ${style.formTextInputArea}`}>
-                                creature class:
+                            <CreatureSeparator/>
+                            <label className={style.formTextInputArea}>
+                                <strong>creature type:</strong>
                                 <input type="text" value={this.state.creature.creatureClass}
-                                       onChange={this.handleCreatureClassChange}/>
+                                       onChange={this.handleCreatureClassChange}
+                                       placeholder={"e.g. humanoid (goblin)..."}
+                                       className={style.creatureFormInput}
+                                />
                             </label>
                             <label className={style.multiInputFormArea}>
-                                attack Properties:
+                                <strong className={style.multiInputFormLabel}>attack Properties:</strong>
                                 <button type={"button"} onClick={this.addOneMoreAttackProperty}
-                                        className={style.formAddButton}>+</button>
+                                        className={style.formAddButton}
+                                        style={{marginLeft:"26%"}}
+                                >+</button>
                                 {
                                     this.state.creature.attackProperties.map((elem, i) => {
                                         return (
-                                            <label className={`${style.formInputArea} ${style.formTextInputArea}`}
+                                            <label className={style.formTextInputArea}
                                                    key={i}>
-                                                name:
+                                                name:&nbsp;
                                                 <input type="text" value={elem.name} id={elem.id + "-name"}
                                                        key={i + "name"}
+                                                       placeholder={"e.g. brute"}
+                                                       className={style.attackPropertyNameField}
                                                        onChange={this.handleAttackPropertiesNameChange}/>
-                                                property:
-                                                <input type="text" value={elem.property} id={elem.id + "-prop"}
+                                                <p className={style.attackPropertyValueLabel}>property:</p>
+                                                <textarea value={elem.property} id={elem.id + "-prop"}
                                                        key={i + "prop"}
+                                                       className={style.attackPropertyValueField}
+                                                       placeholder={"e.g. When the creature hits an enemy with a melee attack," +
+                                                       "the enemy takes +5 additional physical damage and is stunned for " +
+                                                       "1d4 rounds, if it doesn't succeed a saving throw (FORT) DC 15 ..."}
                                                        onChange={this.handleAttackPropertiesValueChange}/>
                                             </label>)
                                     })}
                             </label>
-                            <label className={`${style.formInputArea} ${style.formTextInputArea}`}>
-                                challenge:
+                            <label className={style.formTextInputArea}>
+                                <strong>challenge:</strong>
                                 <input type="number" value={this.state.creature.challenge}
-                                       onChange={this.handleChallengeChange}/>
-                            </label>
-                            <label className={`${style.formInputArea} ${style.formTextInputArea}`}>
-                                movement:
-                                <input type="number" value={this.state.creature.movement}
-                                       onChange={this.handleMovementChange}/>
-                            </label>
-                            <label className={`${style.formInputArea} ${style.formTextInputArea}`}>
-                                initiative modifier:
-                                <input type="number" value={this.state.creature.ini} onChange={this.handleIniChange}/>
-                            </label>
-                            <label className={`${style.formInputArea} ${style.formTextInputArea}`}>
-                                base Attack bonus:
-                                <input type="number" value={this.state.creature.baseAtk}
-                                       onChange={this.handleBaseAtkChange}/>
-                            </label>
-
-                            <label className={`${style.formInputArea} ${style.formTextInputArea}`}>
-                                xp:
-                                <input type="number" value={this.state.creature.xp} onChange={this.handleXPChange}/>
-                            </label>
-                            <label className={`${style.formInputArea} ${style.formSelectContainer}`}>
-                                size:
-                                <SizeSelect handleSizeChange={this.handleSizeChange}
-                                            value={{value:this.state.creature.size,label:this.state.creature.size}}
+                                       onChange={this.handleChallengeChange}
+                                       placeholder={"how strong this is"}
+                                       className={style.creatureFormInput}
                                 />
                             </label>
-                            <label className={`${style.formInputArea} ${style.formTextInputArea}`}>
-                                stats:&nbsp;
-                                <label>
-                                    str:
-                                    <input className={style.subInput} type="number"
-                                           value={this.state.creature.stats.str}
-                                           onChange={e => this.handleStatsChange(e, "str")}/>
-                                </label>
-                                <label>
-                                    dex:
-                                    <input className={style.subInput} type="number"
-                                           value={this.state.creature.stats.dex}
-                                           onChange={e => this.handleStatsChange(e, "dex")}/>
-                                </label>
-                                <label>
-                                    int:
-                                    <input className={style.subInput} type="number"
-                                           value={this.state.creature.stats.int}
-                                           onChange={e => this.handleStatsChange(e, "int")}/>
-                                </label>
-                                <label>
-                                    wis:
-                                    <input className={style.subInput} type="number"
-                                           value={this.state.creature.stats.wis}
-                                           onChange={e => this.handleStatsChange(e, "wis")}/>
-                                </label>
-                                <label>
-                                    con:
-                                    <input className={style.subInput} type="number"
-                                           value={this.state.creature.stats.con}
-                                           onChange={e => this.handleStatsChange(e, "con")}/>
-                                </label>
-                                <label>
-                                    cha:
-                                    <input className={style.subInput} type="number"
-                                           value={this.state.creature.stats.cha}
-                                           onChange={e => this.handleStatsChange(e, "cha")}/>
-                                </label>
+                            <label className={style.formTextInputArea}>
+                                <strong>movement:</strong>
+                                <input type="number" value={this.state.creature.movement}
+                                       onChange={this.handleMovementChange}
+                                       placeholder={"How far this moves"}
+                                       className={style.creatureFormInput}
+                                />
                             </label>
-                            <label className={`${style.formInputArea} ${style.formTextInputArea}`}>
-                                save throws:&nbsp;
-                                <label>
-                                    ref:
-                                    <input className={style.subInput} type="number"
-                                           value={this.state.creature.saveThrows.ref}
-                                           onChange={e => this.handleSaveThrowsChange(e, "ref")}/>
-                                </label>
-                                <label>
-                                    will:
-                                    <input className={style.subInput} type="number"
-                                           value={this.state.creature.saveThrows.will}
-                                           onChange={e => this.handleSaveThrowsChange(e, "will")}/>
-                                </label>
-                                <label>
-                                    fort:
-                                    <input className={style.subInput} type="number"
-                                           value={this.state.creature.saveThrows.fort}
-                                           onChange={e => this.handleSaveThrowsChange(e, "fort")}/>
-                                </label>
+                            <label className={style.formTextInputArea}>
+                                <strong>initiative modifier:</strong>
+                                <input type="number"
+                                       value={this.state.creature.ini}
+                                       onChange={this.handleIniChange}
+                                       placeholder={"ini bonus to rolls"}
+                                       className={style.creatureFormInput}
+                                />
                             </label>
-                            <label className={`${style.formInputArea} ${style.formSelectContainer}`}>
-                                languages:
+                            <label className={style.formTextInputArea}>
+                                <strong>base Attack bonus:</strong>
+                                <input type="number" value={this.state.creature.baseAtk}
+                                       onChange={this.handleBaseAtkChange}
+                                       placeholder={"Bonus to attack rolls"}
+                                       className={style.creatureFormInput}
+                                />
+                            </label>
+
+                            <label className={style.formTextInputArea}>
+                                <strong>xp:</strong>
+                                <input
+                                    type="number" value={this.state.creature.xp}
+                                    onChange={this.handleXPChange}
+                                    placeholder={"the xp it yields"}
+                                    className={style.creatureFormInput}
+                                />
+                            </label>
+                            <CreatureSeparator/>
+                            <label className={style.formSelectContainer}>
+                                <strong>size:</strong>
+                                <SizeSelect handleSizeChange={this.handleSizeChange}
+                                            value={{value: this.state.creature.size, label: this.state.creature.size}}
+                                />
+                            </label>
+                            <label className={style.formTextInputArea} style={{height: '13%'}}>
+                                <strong>stats:&nbsp;</strong>
+                                <div className={style.valBlockContainer}>
+                                    <label className={style.singleVal}>
+                                        str:&nbsp;
+                                        <input className={style.subInput} type="number"
+                                               value={this.state.creature.stats.str}
+                                               onChange={e => this.handleStatsChange(e, "str")}/>
+                                    </label>
+                                    <label className={style.singleVal}>
+                                        dex:&nbsp;
+                                        <input className={style.subInput} type="number"
+                                               value={this.state.creature.stats.dex}
+                                               onChange={e => this.handleStatsChange(e, "dex")}/>
+                                    </label>
+                                    <label className={style.singleVal}>
+                                        con:
+                                        <input className={style.subInput} type="number"
+                                               value={this.state.creature.stats.con}
+                                               onChange={e => this.handleStatsChange(e, "con")}/>
+                                    </label>
+
+                                </div>
+                                <div className={style.valBlockContainer}>
+                                    <label className={style.singleVal}>
+                                        int:&nbsp;
+                                        <input className={style.subInput} type="number"
+                                               value={this.state.creature.stats.int}
+                                               onChange={e => this.handleStatsChange(e, "int")}/>
+                                    </label>
+                                    <label className={style.singleVal}>
+                                        wis:&nbsp;
+                                        <input className={style.subInput} type="number"
+                                               value={this.state.creature.stats.wis}
+                                               onChange={e => this.handleStatsChange(e, "wis")}/>
+                                    </label>
+                                    <label className={style.singleVal}>
+                                        cha:&nbsp;
+                                        <input className={style.subInput} type="number"
+                                               value={this.state.creature.stats.cha}
+                                               onChange={e => this.handleStatsChange(e, "cha")}/>
+                                    </label>
+                                </div>
+                            </label>
+                            <label className={style.formTextInputArea}>
+                                <strong>save throws:&nbsp;</strong>
+                                <div  className={style.valBlockContainer}>
+                                    <label className={style.singleVal}>
+                                        ref:
+                                        <input className={style.subInput} type="number"
+                                               value={this.state.creature.saveThrows.ref}
+                                               onChange={e => this.handleSaveThrowsChange(e, "ref")}/>
+                                    </label>
+                                    <label className={style.singleVal}>
+                                        will:
+                                        <input className={style.subInput} type="number"
+                                               value={this.state.creature.saveThrows.will}
+                                               onChange={e => this.handleSaveThrowsChange(e, "will")}/>
+                                    </label>
+                                    <label className={style.singleVal}>
+                                        fort:
+                                        <input className={style.subInput} type="number"
+                                               value={this.state.creature.saveThrows.fort}
+                                               onChange={e => this.handleSaveThrowsChange(e, "fort")}/>
+                                    </label>
+                                </div>
+                            </label>
+                            <label className={style.multiInputFormArea}>
+                                <strong className={style.multiInputFormLabel}>skills:</strong>
+                                <button type={"button"} onClick={this.addOneMoreSkill}
+                                        className={style.formAddButton}
+                                        style={{marginLeft:"45%"}}
+                                >+</button
+                                >
+                                {
+                                    this.state.creature.skills.map((elem, i) => {
+                                        return (
+                                            <label className={style.formTextInputArea}
+                                                   key={i}>
+                                                <p className={style.skillLabel}>name:&nbsp;</p>
+                                                <CreatableSelect
+                                                    options={this.state.skillData.map(elem => {
+                                                        return {value: elem.name, label: elem.name}
+                                                    })}
+                                                    value={{
+                                                        value: this.state.creature.skills[i].name,
+                                                        label: this.state.creature.skills[i].name
+                                                    }}
+                                                    isClearable
+                                                    key={i + "name"}
+                                                    className={style.skillFormSelect}
+                                                    onChange={(v, o) => this.handleSkillNameChange(v, o, elem.id)}
+                                                />
+                                                level:
+                                                <input type="text" value={elem.level}
+                                                       key={i + "level"}
+                                                       className={style.skillLevelInput}
+                                                       onChange={e => this.handleSkillLevelChange(e, elem.id)}/>
+                                            </label>)
+                                    })}
+                            </label>
+                            <CreatureSeparator/>
+                            <label className={style.formSelectContainer}>
+                                <strong>languages:</strong>
                                 <CreatableSelect
                                     options={this.composeSelectableAttributeOptions("Language")}
                                     className={style.creatureFormSelect}
-                                    value={this.state.creature.languages.map(elem=>{
-                                        return ({value:elem, label:elem})
+                                    value={this.state.creature.languages.map(elem => {
+                                        return ({value: elem, label: elem})
                                     })}
                                     isClearable
                                     isMulti={true}
                                     onChange={this.handleLanguagesChange}
                                 />
                             </label>
-                            <label className={style.multiInputFormArea}>
-                                skills:
-                                <button type={"button"} onClick={this.addOneMoreSkill}
-                                        className={style.formAddButton}>+</button>
-                                {
-                                    this.state.creature.skills.map((elem, i) => {
-                                        return (
-                                            <label className={`${style.formInputArea} ${style.formTextInputArea}`}
-                                                   key={i}>
-                                                <p className={style.skillLabel}>name:</p>
-                                                <CreatableSelect
-                                                    options={this.state.skillData.map(elem=>{
-                                                        return {value:elem.name,label:elem.name}
-                                                    })}
-                                                    value={this.state.creature.skills[i].name}
-                                                    isClearable
-                                                    key={i+"name"}
-                                                    className={style.skillFormSelect}
-                                                    onChange={(v,o)=>this.handleSkillNameChange(v,o,elem.id)}
-                                                />
-                                                level:
-                                                <input type="text" value={elem.property}
-                                                       key={i + "level"}
-                                                       className={style.skillLevelInput}
-                                                       onChange={e=>this.handleSkillLevelChange(e,elem.id)}/>
-                                            </label>)
-                                    })}
-                            </label>
-                            <label className={`${style.formInputArea} ${style.formSelectContainer}`}>
-                                talents:
+                            <label className={style.formSelectContainer}>
+                                <strong>talents:</strong>
                                 <CreatableSelect
                                     options={this.composeSelectableAttributeOptions("Talent")}
                                     className={style.creatureFormSelect}
-                                    value={this.state.creature.talents.map(elem=>{
-                                        return ({value:elem, label:elem})
+                                    value={this.state.creature.talents.map(elem => {
+                                        return ({value: elem, label: elem})
                                     })}
                                     isClearable
                                     isMulti={true}
                                     onChange={this.handleTalentsChange}
                                 />
                             </label>
-                            <label className={`${style.formInputArea} ${style.formSelectContainer}`}>
-                                actions:
+                            <label className={style.formSelectContainer}>
+                                <strong>actions:</strong>
                                 <Select
                                     options={this.composeSelectableAttributeOptions("Action")}
                                     className={style.creatureFormSelect}
-                                    value={this.state.creature.actions.map(elem=>{
-                                        return ({value:`${elem.name} ${elem.damage}`, label:`${elem.name} ${elem.damage}`})
+                                    value={this.state.creature.actions.map(elem => {
+                                        return ({
+                                            value: `${elem.name} ${elem.damage}`,
+                                            label: `${elem.name} ${elem.damage}`
+                                        })
                                     })}
                                     isClearable
                                     isMulti={true}
@@ -694,27 +720,28 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                                 />
                             </label>
                             <label className={style.imageUploadContainer}>
-                            <p className={style.imageLabel}>Image:</p>
-                            <Dropzone
-                                onChangeStatus={this.handleImageChange}
-                                maxFiles={1}
-                                multiple={false}
-                                canCancel={false}
-                                accept="image/*"
-                                inputContent="Drop an Image"
-                                styles={{
-                                    dropzone: {
-                                        width: "16em",
-                                        height: "15em",
-                                        float:"right",
-                                        color:"lightgrey",
-                                        overflow:"hidden",
-                                    },
-                                    dropzoneActive: { borderColor: 'lightgrey' }
-                                }}
-                            />
+                                <strong className={style.imageLabel}>Image:</strong>
+                                <Dropzone
+                                    onChangeStatus={this.handleImageChange}
+                                    maxFiles={1}
+                                    multiple={false}
+                                    canCancel={false}
+                                    accept="image/*"
+                                    inputContent="Drop an Image"
+                                    PreviewComponent={ImagePreview}
+                                    styles={{
+                                        dropzone: {
+                                            width: "30em",
+                                            height: "3em",
+                                            float: "right",
+                                            color: "lightgrey",
+                                            overflow: "hidden",
+                                        },
+                                        dropzoneActive: {borderColor: 'lightgrey'}
+                                    }}
+                                />
                             </label>
-                            <label className={`${style.formInputArea} ${style.formTextInputArea}`}>
+                            <label className={style.formTextInputArea}>
                                 <button type={"submit"} className={style.creatureFormSubmit}>submit</button>
                             </label>
                         </div>
@@ -740,8 +767,9 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                                 skills={this.state.creature.skills}
                                 talents={this.state.creature.talents}
                                 xp={this.state.creature.xp}
+                                image={this.previewImage()}
                                 preview={true}
-                             />
+                            />
                         </div>
                     </form>
                 </div>

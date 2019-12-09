@@ -36,7 +36,7 @@ export interface ICreatureCardProps {
     skills?: string[],
     talents?: string[],
     actions?: action[],
-    preview?: boolean
+    preview?:boolean
 }
 
 export interface ICreatureCardState {
@@ -74,7 +74,6 @@ export class CreatureCard extends React.Component<ICreatureCardProps, ICreatureC
             <div className={style.creatureCardContainer} onClick={() => this.toggleFold()}>
                 <CreatureCardHeader name={this.props.name} alignment={this.props.alignment}
                                     challenge={this.props.challenge} label={this.props.label}
-                                    preview={this.props.preview}
                 />
                 <div className={style.foldInContainer} style={this.determineFolding()}>
                     <CreatureCardTopInfo
@@ -84,10 +83,9 @@ export class CreatureCard extends React.Component<ICreatureCardProps, ICreatureC
                         creatureClass={this.props.creatureClass}
                         baseAtk={this.props.baseAtk}
                         xp={this.props.xp}
-                        preview={this.props.preview}
                     />
                     <CreatureRKTP armorclass={this.props.armorclass} tp={this.props.hitpoints}/>
-                    <CreatureImage imagePath={this.props.image} preview={this.props.preview}/>
+                    <CreatureImage imagePath={this.props.image}/>
                     <CreatureStats str={this.props.stats.str}
                                    dex={this.props.stats.dex}
                                    wis={this.props.stats.wis}

@@ -9,8 +9,8 @@
 
 .cardTop {
     border-bottom: 0.1em solid black;
-    height:3.2em;
-    width: 45em;
+    height:38pt;
+    width: 100%;
 }
 
 .nameContainer {
@@ -22,8 +22,8 @@
 .nextToNameContainer {
     display: inline-block;
     float: left;
-    height: 3em;
-    width: 25.9em;
+    height: 100%;
+    width: 58%;
 }
 
 .name {

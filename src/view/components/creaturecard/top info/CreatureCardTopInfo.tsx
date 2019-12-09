@@ -1,15 +1,13 @@
 import * as React from "react";
-import {CSSProperties} from "react";
 import * as style from "./creatureCardTopInfo.module.css"
 
 export interface ICreatureCardTopInfoProps {
-    size:string;
+    size: string;
     creatureClass: string;
     movement: number;
     ini: number;
     baseAtk: number;
-    xp?:number;
-    preview?:boolean
+    xp?: number;
 }
 
 export interface ICreatureCardTopInfoState {
@@ -17,23 +15,11 @@ export interface ICreatureCardTopInfoState {
 }
 
 
+export class CreatureCardTopInfo extends React.Component<ICreatureCardTopInfoProps, ICreatureCardTopInfoState> {
 
-export class CreatureCardTopInfo extends React.Component<ICreatureCardTopInfoProps,ICreatureCardTopInfoState> {
-
-    constructor(props) {
-        super(props);
-        this.ifPreview = this.ifPreview.bind(this);
-    }
-
-
-    ifPreview():CSSProperties {
-        if (this.props.preview) return {height:"10em", width:"50em"};
-        else return {};
-    }
-
-    render():any {
-        return(
-            <div className={style.topInfoContainer} style={this.ifPreview()}>
+    render(): any {
+        return (
+            <div className={style.topInfoContainer}>
                 <p className={style.size}>{this.props.size}</p>
                 <p className={style.creatureClass}>{this.props.creatureClass}</p>
                 <p className={style.movement}>Movement: {this.props.movement}</p>

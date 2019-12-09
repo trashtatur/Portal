@@ -38,4 +38,9 @@ gulp.task('tcm', function(){
         }));
 });
 
+gulp.task('watch',function () {
+    gulp.watch('src/**/components/**/*.tsx','browserify');
+    gulp.watch('src/**/components/**/*.module.css','default');
+});
+
 gulp.task("default", gulp.series('tcm','browserify'));

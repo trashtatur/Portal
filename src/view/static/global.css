@@ -10,7 +10,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    min-height: 120px;
+    min-height: 30px;
     overflow: scroll;
     margin: 1em auto 0;
     position: relative;

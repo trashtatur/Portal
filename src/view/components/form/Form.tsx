@@ -5,6 +5,7 @@ const Popup = require('reactjs-popup');
 import {OneEntryForm} from "./one entry form/OneEntryForm";
 import {ActionForm} from "./action/ActionForm";
 import * as style from './form.module.css'
+import {CreatureEditWrapper} from "./creature/edit wrapper/CreatureEditWrapper";
 
 
 export interface IFormProps {
@@ -37,6 +38,7 @@ export class Form extends React.Component<IFormProps, IFormState> {
         if (this.state.formType != null) {
             switch (this.state.formType) {
                 case "creature":
+                    if (this.props.type == "edit") return <CreatureEditWrapper/>;
                     return <CreatureForm type={this.props.type}/>;
                 case "action":
                     return <ActionForm type={this.props.type}/>;
