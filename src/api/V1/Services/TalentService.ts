@@ -23,13 +23,11 @@ export class TalentService {
         let condition = {};
         condition[key]=value;
         let talents:Talent[] = [];
-        value.forEach(singleVal => {
+        for (let singleVal of value) {
             condition[key]=singleVal;
-            Talent.findOrCreate({where:condition, defaults:{name:singleVal}})
-                .then(([result,created])=> {
-                    talents.push(result)
-                });
-        });
+            let result = await Talent.findOrCreate({where:condition, defaults:{name:singleVal}});
+            talents.push(result[0])
+        }
         return talents;
     }
 

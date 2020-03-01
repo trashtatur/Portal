@@ -41,9 +41,9 @@ export class CreatureResourceController {
      * @param creatureData
      */
     @Post()
-    async createCreature(@BodyParams() creatureData:object): Promise<string> {
+    async createCreature(@BodyParams() creatureData: object): Promise<string> {
         let includeList = this.determineIncludeList(creatureData);
-        let creature = await this.creatureService.create(creatureData,includeList);
+        let creature = await this.creatureService.create(creatureData, includeList);
         return JSON.stringify(creature)
     }
 
@@ -53,30 +53,36 @@ export class CreatureResourceController {
     async uploadCreatureImage(@MultipartFile("file") file: Express.Multer.File): Promise<any> {
         let intended_filename = file.originalname;
         let current_residence = file.path;
-        await this.creatureService.moveCreatureImage(current_residence,intended_filename);
+        await this.creatureService.moveCreatureImage(current_residence, intended_filename);
         return true
     }
 
-    @Put('/name/:creatureName')
-    async updateOneCreature(@BodyParams('creatureData') creatureData:object): Promise<string> {
+    @Put('/update/:creatureName/:creatureChallenge')
+    async updateOneCreature(
+        @BodyParams('creatureData') creatureData: object,
+        @PathParams('creatureName') creatureName:string,
+        @PathParams('creatureChallenge') creatureChallenge:string
+        ): Promise<string>
+    {
         let includeList = this.determineIncludeList(creatureData);
-        let updated_creature = await this.creatureService.update(creatureData,includeList);
+        let updated_creature = await this.creatureService
+            .update(creatureData, creatureName, creatureChallenge, includeList);
         return JSON.stringify(updated_creature)
     }
 
     @Get()
     async allCreatures(): Promise<string> {
-        let creatures = await this.creatureService.findAll([Language,Talent,Skill,Action]);
+        let creatures = await this.creatureService.findAll([Language, Talent, Skill, Action]);
         return JSON.stringify(creatures)
     }
 
     @Get('/name/:creatureName')
     async creatureByName(@PathParams("creatureName") creatureName: string): Promise<string> {
-        let creature = await this.creatureService.findOneBy('name',creatureName,[Language,Talent,Skill,Action]);
+        let creature = await this.creatureService.findOneBy('name', creatureName, [Language, Talent, Skill, Action]);
         return JSON.stringify(creature)
     }
 
-    private determineIncludeList(creatureData:object): Includeable[] {
+    private determineIncludeList(creatureData: object): Includeable[] {
         let includeList = [];
         if ("languages" in creatureData) includeList.push(Language);
         if ("skills" in creatureData) includeList.push(Skill);

@@ -18,17 +18,14 @@ export class LanguageService {
 
     }
 
-    async findBy(key,value,include?:Includeable[]): Promise<Language[]> {
+    async findBy(key,value,include?:Includeable[]): Promise<Promise<Language>[]> {
         let condition = {};
-        condition[key]=value;
-        let langs:Language[] = [];
-        value.forEach(singleVal => {
+        let langs = [];
+        for (let singleVal of value) {
             condition[key]=singleVal;
-            Language.findOrCreate({where:condition, defaults:{name:singleVal}})
-                .then(([result,created])=> {
-                langs.push(result)
-            });
-        });
+            let response = await Language.findOrCreate({where:condition, defaults:{name:singleVal}});
+            langs.push(response[0])
+        }
         return langs;
     }
 

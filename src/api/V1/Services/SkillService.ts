@@ -23,13 +23,11 @@ export class SkillService {
         let condition = {};
         condition[key]=value;
         let skills:Skill[] = [];
-        value.forEach(singleVal => {
-            condition[key]=singleVal;
-            Skill.findOrCreate({where:condition, defaults:{name:singleVal}})
-                .then(([result,created])=> {
-                    skills.push(result)
-                });
-        });
+        for (let singleVal of value) {
+           condition[key]=singleVal;
+           let result = await Skill.findOrCreate({where:condition, defaults:{name:singleVal}});
+           skills.push(result[0])
+        }
         return skills;
     }
 

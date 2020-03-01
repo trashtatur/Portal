@@ -71,25 +71,32 @@ export class CreatureService {
 
     /**
      * Updates a single creature instance. Expects the original name in the data package to find it
-     * @param data
-     * @param include
+     * @param changeCreature
+     * @param creatureName
+     * @param creatureChallenge
+     * @param include?
      */
-    async update(data: object, include?: Includeable[]): Promise<Creature> {
-        let creature = await Creature.findOne({where: {name: data['original_name']}});
-        creature.name = data['name'];
-        creature.hitpoints = data['hitpoints'];
-        creature.alignment = data['alignment'];
-        creature.armorclass = data['armorclass'];
-        creature.creatureClass = data['creatureClass'];
-        creature.challenge = data['challenge'];
-        creature.movement = data['movement'];
-        creature.ini = data['ini'];
-        creature.baseAtk = data['baseAtk'];
-        creature.xp = data['xp'];
-        creature.size = data['size'];
-        creature.stats = data['stats'];
-        creature.saveThrows = data['saveThrows'];
-        let creature_updated = await this.checkAssociatedTables(include, data, creature);
+    async update(changeCreature: object, creatureName, creatureChallenge, include?: Includeable[]): Promise<Creature> {
+        let creature = await Creature.findOne({where:
+                {
+                    name: creatureName,
+                    challenge: creatureChallenge
+                }
+        });
+        creature.name = changeCreature['name'];
+        creature.hitpoints = changeCreature['hitpoints'];
+        creature.alignment = changeCreature['alignment'];
+        creature.armorclass = changeCreature['armorclass'];
+        creature.creatureClass = changeCreature['creatureClass'];
+        creature.challenge = changeCreature['challenge'];
+        creature.movement = changeCreature['movement'];
+        creature.ini = changeCreature['ini'];
+        creature.baseAtk = changeCreature['baseAtk'];
+        creature.xp = changeCreature['xp'];
+        creature.size = changeCreature['size'];
+        creature.stats = changeCreature['stats'];
+        creature.saveThrows = changeCreature['saveThrows'];
+        let creature_updated = await this.checkAssociatedTables(include, changeCreature, creature);
         return creature_updated.save();
     }
 
@@ -156,7 +163,7 @@ export class CreatureService {
         let languages = await this.languageService.findBy("name", languagesList);
         languages.forEach(language => {
             // @ts-ignore
-            creature.addLanguage(language)
+            creature.addLanguage( language)
         });
         return creature
     }
