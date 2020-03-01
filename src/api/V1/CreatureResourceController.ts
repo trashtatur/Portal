@@ -4,7 +4,7 @@ import {Talent} from "../../db/schemas/Talent";
 import {Skill} from "../../db/schemas/Skill";
 import {Action} from "../../db/schemas/Action";
 import {MulterOptions, MultipartFile} from "@tsed/multipartfiles";
-import {CreatureService} from "./Services/CreatureService";
+import {CreatureService} from "../../services/CreatureService";
 import {Includeable} from "sequelize";
 
 

@@ -1,6 +1,5 @@
 import {BodyParams, Controller, Get, PathParams, Post} from "@tsed/common";
-import {Action} from "../../db/schemas/Action";
-import {ActionService} from "./Services/ActionService";
+import {ActionService} from "../../services/ActionService";
 
 @Controller('/Action')
 export class ActionResourceController {

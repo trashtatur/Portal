@@ -1,5 +1,5 @@
 import {Controller} from "@tsed/common";
-import {GroupService} from "./Services/GroupService";
+import {GroupService} from "../../services/GroupService";
 
 @Controller('/group')
 export class GroupResourceController {

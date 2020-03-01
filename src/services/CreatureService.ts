@@ -1,14 +1,14 @@
 import {Service} from "@tsed/di";
-import {Creature} from "../../../db/schemas/Creature";
+import {Creature} from "../db/schemas/Creature";
 import {Includeable} from "sequelize";
 import {LanguageService} from "./LanguageService";
-import {Language} from "../../../db/schemas/Language";
+import {Language} from "../db/schemas/Language";
 import {SkillService} from "./SkillService";
 import {TalentService} from "./TalentService";
 import {ActionService} from "./ActionService";
-import {Skill} from "../../../db/schemas/Skill";
-import {Talent} from "../../../db/schemas/Talent";
-import {Action} from "../../../db/schemas/Action";
+import {Skill} from "../db/schemas/Skill";
+import {Talent} from "../db/schemas/Talent";
+import {Action} from "../db/schemas/Action";
 import * as fs from "fs";
 import {join} from "path";
 

@@ -1,6 +1,6 @@
 import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
-import {Language} from "../../../db/schemas/Language";
+import {Language} from "../db/schemas/Language";
 
 @Service()
 export class LanguageService {

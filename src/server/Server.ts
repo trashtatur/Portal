@@ -15,7 +15,7 @@ import {join} from "path";
     mount: {
         "/V1": "${rootDir}/../api/V1/**/*Controller.ts"
     },
-    componentsScan: ["${rootDir}/api/V1/Services/*Service.ts"],
+    componentsScan: ["${rootDir}/services/*Service.ts"],
     statics: {
         "/": join(__dirname, "..", "view/static"),
         "/build":join(__dirname,"..","..","build"),

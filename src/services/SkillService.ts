@@ -1,7 +1,7 @@
 import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
-import {Skill} from "../../../db/schemas/Skill";
-import {Language} from "../../../db/schemas/Language";
+import {Skill} from "../db/schemas/Skill";
+import {Language} from "../db/schemas/Language";
 
 @Service()
 export class SkillService {

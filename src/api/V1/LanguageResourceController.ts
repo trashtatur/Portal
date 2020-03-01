@@ -1,5 +1,5 @@
 import {BodyParams, Controller, Get, Post} from "@tsed/common";
-import {LanguageService} from "./Services/LanguageService";
+import {LanguageService} from "../../services/LanguageService";
 
 @Controller('/language')
 export class LanguageResourceController {

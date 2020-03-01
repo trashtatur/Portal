@@ -1,5 +1,5 @@
 import {BodyParams, Controller, Get, Post} from "@tsed/common";
-import {TalentService} from "./Services/TalentService";
+import {TalentService} from "../../services/TalentService";
 
 @Controller('/talent')
 export class TalentResourceController {

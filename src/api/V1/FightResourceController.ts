@@ -1,5 +1,5 @@
 import {Controller} from "@tsed/common";
-import {FightService} from "./Services/FightService";
+import {FightService} from "../../services/FightService";
 
 
 @Controller('/fight')

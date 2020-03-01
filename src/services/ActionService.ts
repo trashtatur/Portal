@@ -1,6 +1,6 @@
 import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
-import {Action} from "../../../db/schemas/Action";
+import {Action} from "../db/schemas/Action";
 
 @Service()
 export class ActionService {
