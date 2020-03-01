@@ -1,6 +1,5 @@
 import * as React from "react";
-import {CSSProperties} from "react";
-import * as style from './creatureImage.module.css'
+import * as style from './creatureImage.css'
 
 export interface ICreatureImageProps {
     imagePath?:string

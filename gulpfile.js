@@ -29,18 +29,18 @@ gulp.task("browserify", function() {
 
 
 gulp.task('tcm', function(){
-    return gulp.src(["src/**/*.module.css"], {
+    return gulp.src(["src/view/components/**/*.css"], {
         base: '.',
     })
         .pipe(gulp_tcm())
         .pipe(gulp.dest(file => {
-            return file.base
+            return `./build/cssTypes/${file.base}`
         }));
 });
 
 gulp.task('watch',function () {
     gulp.watch('src/**/components/**/*.tsx','browserify');
-    gulp.watch('src/**/components/**/*.module.css','default');
+    gulp.watch('src/**/components/**/*.css','default');
 });
 
 gulp.task("default", gulp.series('tcm','browserify'));

@@ -1,6 +1,6 @@
 import * as React from "react";
 import axios from "axios";
-import * as style from './actionForm.module.css';
+import * as style from './actionForm.css';
 
 export interface IActionFormProps {
     type:"edit"|"create"

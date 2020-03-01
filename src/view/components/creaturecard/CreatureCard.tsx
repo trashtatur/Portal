@@ -9,7 +9,7 @@ import {CreatureAttributes} from "./attributes/CreatureAttributes";
 import {CreatureAttackProperties} from "./attackProperties/CreatureAttackProperties";
 import {CreatureActions} from "./attack_actions/CreatureActions";
 import {action, attackProperty, saveThrowsType, statblock} from "../componentTypes";
-import * as style from "./creatureCard.module.css";
+import * as style from "./creatureCard.css";
 
 
 export interface ICreatureCardProps {

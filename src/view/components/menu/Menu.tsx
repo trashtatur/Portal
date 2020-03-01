@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Form} from "../form/Form";
-import * as style from './menu.module.css';
+import * as style from './menu.css';
 
 export interface IMenuProps {
 

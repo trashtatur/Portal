@@ -2,7 +2,7 @@ import * as React from "react";
 import {Encounter} from "../encounter holder/Encounter";
 import {RoundOverview} from "../round overview/RoundOverview";
 import {creature, creatureType, round, roundCreature} from "../../componentTypes";
-import * as style from './encounterManager.module.css';
+import * as style from './encounterManager.css';
 
 
 export interface IEncounterManagerProps {

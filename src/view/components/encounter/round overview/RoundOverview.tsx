@@ -2,7 +2,7 @@ import * as React from "react";
 import {Timeline, TimelineEvent} from "react-event-timeline";
 import {round} from "../../componentTypes";
 import {SingleRound} from "./single round/SingleRound";
-import * as style from './roundOverview.module.css';
+import * as style from './roundOverview.css';
 
 export interface IRoundOverviewProps {
     roundLog: round[]

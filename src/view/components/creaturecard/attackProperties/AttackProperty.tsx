@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as style from './creatureAttackProperties.module.css'
+import * as style from './creatureAttackProperties.css';
 
 export interface IAttackPropertyProps {
     name:string,

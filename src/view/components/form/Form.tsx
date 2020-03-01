@@ -4,7 +4,7 @@ import {CreatureForm} from "./creature/CreatureForm";
 const Popup = require('reactjs-popup');
 import {OneEntryForm} from "./one entry form/OneEntryForm";
 import {ActionForm} from "./action/ActionForm";
-import * as style from './form.module.css'
+import * as style from './form.css'
 import {CreatureEditWrapper} from "./creature/edit wrapper/CreatureEditWrapper";
 
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as style from './creatureSeparator.module.css'
+import * as style from './creatureSeparator.css'
 
 export interface ICreatureSeparatorProps {
 

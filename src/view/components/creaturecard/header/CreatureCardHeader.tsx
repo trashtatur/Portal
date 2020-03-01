@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as styles from './creaturecardHeader.module.css'
+import * as styles from './creaturecardHeader.css'
 
 export interface ICreatureCardHeaderProps {
     name:string;

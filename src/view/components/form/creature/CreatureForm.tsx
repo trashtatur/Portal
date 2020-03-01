@@ -10,7 +10,7 @@ import Dropzone from 'react-dropzone-uploader'
 import {creature} from "../../componentTypes";
 import {CreatureCard} from "../../creaturecard/CreatureCard";
 import {CreatureSeparator} from "../../creaturecard/separator/CreatureSeparator";
-import * as style from "./creatureForm.module.css";
+import * as style from "./creatureForm.css";
 
 
 const SELECT_OPTION = "select-option";

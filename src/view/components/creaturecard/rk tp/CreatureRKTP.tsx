@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as style from './creatureRKTP.module.css';
+import * as style from './creatureRKTP.css';
 
 
 export interface ICreatureRKTPProps {

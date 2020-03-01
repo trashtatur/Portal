@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Collapsible from 'react-collapsible';
 import {YoutubePlayer} from "./youtube/YoutubePlayer";
-import * as style from './mediaBar.module.css'
+import * as style from './mediaBar.css'
 
 export interface IMediaBarProps {
 

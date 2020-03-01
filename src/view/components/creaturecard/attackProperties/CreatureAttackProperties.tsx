@@ -1,7 +1,7 @@
 import * as React from "react";
 import {CreatureSeparator} from "../separator/CreatureSeparator";
 import {AttackProperty} from "./AttackProperty";
-import * as style from './creatureAttackProperties.module.css'
+import * as style from './creatureAttackProperties.css';
 
 type attackProperty = {
     name:string,

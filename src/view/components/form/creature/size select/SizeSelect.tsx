@@ -1,6 +1,6 @@
 import * as React from "react";
 import Select from 'react-select';
-import * as style from "../creatureForm.module.css";
+import * as style from "../creatureForm.css";
 
 
 

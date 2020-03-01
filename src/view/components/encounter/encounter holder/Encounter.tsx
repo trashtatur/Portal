@@ -4,7 +4,7 @@ import {CreatureSelect} from "../creatureSelect/CreatureSelect";
 import axios from 'axios';
 import {uuidv4} from "../../helper/helperFunctions";
 import {creature} from "../../componentTypes";
-import * as style from './encounter.module.css';
+import * as style from './encounter.css';
 
 
 export interface IEncounterProps {
@@ -262,6 +262,9 @@ export class Encounter extends React.Component<IEncounterProps, IEncounterState>
             this.creatures_to_add = this.creatures_to_add.filter(elem => {
                 return elem.name != option.removedValue.value
             })
+        }
+        if (option.action == 'clear') {
+            this.creatures_to_add = [];
         }
     }
 

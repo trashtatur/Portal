@@ -1,7 +1,7 @@
 import * as React from "react";
 import axios from 'axios'
 import {uuidv4} from "../../helper/helperFunctions";
-import * as style from './oneEntryForm.module.css';
+import * as style from './oneEntryForm.css';
 
 
 export interface IOneEntryFormProps {

@@ -2,7 +2,7 @@ import * as React from "react";
 import {TopBar} from "../topbar/TopBar";
 import {EncounterManager} from "../encounter/encounter manager/EncounterManager";
 import {MediaBar} from "../media menu/MediaBar";
-import * as style from './app.module.css';
+import * as style from './app.css';
 
 
 

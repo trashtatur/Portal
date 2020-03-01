@@ -1,6 +1,6 @@
 import * as React from "react";
 import {saveThrowsType} from "../../componentTypes";
-import * as style from './creatureAttributes.module.css'
+import * as style from './creatureAttributes.css'
 
 
 export interface ICreatureAttributesProps {

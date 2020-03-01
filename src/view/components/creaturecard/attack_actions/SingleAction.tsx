@@ -1,6 +1,6 @@
 import * as React from "react";
 import {creatureAction} from "../../componentTypes";
-import * as style from './creatureAction.module.css';
+import * as style from './creatureAction.css';
 
 export interface ISingleActionProps {
     action: creatureAction

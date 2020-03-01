@@ -4,7 +4,7 @@ import Select from 'react-select';
 import axios from "axios";
 import {creature} from "../../../componentTypes";
 import {uuidv4} from "../../../helper/helperFunctions";
-import * as style from './creatureEditWrapper.module.css';
+import * as style from './creatureEditWrapper.css';
 
 
 export interface ICreatureEditWrapperProps {
@@ -63,7 +63,7 @@ export class CreatureEditWrapper extends React.Component<ICreatureEditWrapperPro
                 })
             } else if (entry.type == "player") {
                 selectables[1].options.push({
-                    value: entry.name,
+                    value: {name: entry.name, challenge: entry.challenge},
                     label: <div><img src="images/selectableLableIcons/player-icon.png" height="20px"
                                      width="20px"/>{entry.name}</div>
                 })
@@ -142,7 +142,13 @@ export class CreatureEditWrapper extends React.Component<ICreatureEditWrapperPro
     }
 
     handleUpdate() {
-
+        axios.put(`/update/${this.state.originalCreature.name}/${this.state.originalCreature.challenge}`,
+                this.state.creature
+            ).then(function (result) {
+                console.log(result)
+        }).catch(function (error) {
+            console.log(error)
+        })
     }
 
     render(): any {
@@ -152,6 +158,7 @@ export class CreatureEditWrapper extends React.Component<ICreatureEditWrapperPro
                     options={this.composeSelectableCreatureOptions()}
                     className={style.creatureEditSelect}
                     onChange={this.handleCreatureSelect}
+                    maxMenuHeight={200}
                 />
                 {this.state.creature &&
                      <CreatureForm ref={ref=>this.formRef=ref} type={"edit"} creature={this.state.creature} handleUpdate={this.handleUpdate}/>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as style from './dicebar.module.css';
+import * as style from './dicebar.css';
 
 export interface IDicebarProps {
 

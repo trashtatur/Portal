@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {roundCreature} from "../../../../componentTypes";
 import {ReactElement} from "react";
-import * as style from './roundCreature.module.css';
+import * as style from './roundCreature.css';
 
 export interface IRoundCreatureProps extends roundCreature {
 

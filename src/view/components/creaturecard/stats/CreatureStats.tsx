@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as style from './creatureStats.module.css'
+import * as style from './creatureStats.css'
 
 export interface ICreatureStatsProps {
     str: number
