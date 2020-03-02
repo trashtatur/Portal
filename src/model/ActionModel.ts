@@ -1,7 +1,7 @@
 import {ModelInterface} from "./ModelInterface";
 import {Damage} from "./dataModel/Damage";
 import {RangeType} from "./dataModel/RangeType";
-import {DamageTypes} from "./dataModel/DamageTypes";
+import {DamageType} from "./dataModel/DamageType";
 
 export class ActionModel implements ModelInterface {
     private readonly _name: string;
@@ -10,7 +10,7 @@ export class ActionModel implements ModelInterface {
     private readonly _range: number;
     private readonly _damage: Damage;
     private readonly _critMod: number;
-    private readonly _damageType: DamageTypes | DamageTypes[];
+    private readonly _damageType: DamageType | DamageType[];
     private readonly _additionalInfo: string;
 
     constructor(
@@ -20,7 +20,7 @@ export class ActionModel implements ModelInterface {
         range: number,
         damage: Damage,
         critMod: number,
-        damageType: DamageTypes | DamageTypes[],
+        damageType: DamageType | DamageType[],
         additionalInfo?: string
     ) {
         this._name = name;
@@ -57,7 +57,7 @@ export class ActionModel implements ModelInterface {
         return this._critMod;
     }
 
-    get damageType(): DamageTypes | DamageTypes[] {
+    get damageType(): DamageType | DamageType[] {
         return this._damageType;
     }
 

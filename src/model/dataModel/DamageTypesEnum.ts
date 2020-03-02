@@ -1,4 +1,4 @@
-export enum DamageTypes {
+export enum DamageTypesEnum {
     PHYSICAL_BLUDGEONING = 'physical / bludgeoning',
     PHYSICAL_PIERCING = 'physical / piercing',
     PHYSICAL_SLASHING = 'physical / slashing',
@@ -13,6 +13,5 @@ export enum DamageTypes {
     SONIC= 'sonic',
     HYBRID_DAMAGE = 'hybrid damage',
     UNTYPED_DAMAGE = 'untyped damage',
-    MAGICAL = '(magical)'
 }
 
