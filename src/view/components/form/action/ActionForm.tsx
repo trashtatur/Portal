@@ -1,23 +1,24 @@
 import * as React from "react";
 import axios from "axios";
+import {ReactElement} from "react";
 import * as style from './actionForm.css';
 
-export interface IActionFormProps {
-    type:"edit"|"create"
+export interface ActionFormProps {
+    type: "edit" | "create";
 }
 
-export interface IActionFormState {
-    name:string,
-    rangeType:string,
-    attackBonus,
-    range,
-    damage:string,
-    critMod:string,
-    damageType:string,
-    additionalInfo:string
+export interface ActionFormState {
+    name: string;
+    rangeType: string;
+    attackBonus;
+    range;
+    damage: string;
+    critMod: string;
+    damageType: string;
+    additionalInfo: string;
 }
 
-export class ActionForm extends React.Component<IActionFormProps,IActionFormState> {
+export class ActionForm extends React.Component<ActionFormProps, ActionFormState> {
 
     constructor(props) {
         super(props);
@@ -45,63 +46,61 @@ export class ActionForm extends React.Component<IActionFormProps,IActionFormStat
 
     ROUTE = '/V1/Action';
 
-    async postData(data) {
-        let that=this;
-        axios.post(this.ROUTE,data).then(
-            function (result) {
-                alert('Created action in database');
-                that.setState({name:""});
-                that.setState({rangeType:""});
-                that.setState({attackBonus:""});
-                that.setState({damage:""});
-                that.setState({damageType:""});
-                that.setState({range:""});
-                that.setState({critMod:""});
-                that.setState({additionalInfo:""});
-            }
-        ).catch(function (error) {
+    async postData(data): Promise<void> {
+        try {
+            await axios.post(this.ROUTE, data);
+            alert('Created action in database');
+            this.setState({name: ""});
+            this.setState({rangeType: ""});
+            this.setState({attackBonus: ""});
+            this.setState({damage: ""});
+            this.setState({damageType: ""});
+            this.setState({range: ""});
+            this.setState({critMod: ""});
+            this.setState({additionalInfo: ""});
+        } catch (error) {
             console.log(error)
-        })
+        }
     }
 
-    handleSubmit(event) {
+    handleSubmit(event): void {
         event.preventDefault();
         this.postData(this.state)
     }
 
-    handleNameChange(event) {
-        this.setState({name:event.target.value})
+    handleNameChange(event): void {
+        this.setState({name: event.target.value})
     }
 
-    handleRangeTypeChange(event) {
-        this.setState({rangeType:event.target.value})
+    handleRangeTypeChange(event): void {
+        this.setState({rangeType: event.target.value})
     }
 
-    handleAttackBonusChange(event) {
-        this.setState({attackBonus:event.target.value})
+    handleAttackBonusChange(event): void {
+        this.setState({attackBonus: event.target.value})
     }
 
-    handleRangeChange(event) {
+    handleRangeChange(event): void {
         this.setState({range: event.target.value})
     }
 
-    handleDamageChange(event) {
+    handleDamageChange(event): void {
         this.setState({damage: event.target.value})
     }
 
-    handleCritModChange(event) {
+    handleCritModChange(event): void {
         this.setState({critMod: event.target.value})
     }
 
-    handleDamageTypeChange(event) {
+    handleDamageTypeChange(event): void {
         this.setState({damageType: event.target.value})
     }
 
-    handleAdditionalInfoChange(event) {
+    handleAdditionalInfoChange(event): void {
         this.setState({additionalInfo: event.target.value})
     }
 
-    render(): any {
+    render(): ReactElement {
         return (
             <div className={style.formContainer}>
                 <form onSubmit={this.handleSubmit}>
@@ -135,7 +134,8 @@ export class ActionForm extends React.Component<IActionFormProps,IActionFormStat
                     </label>
                     <label className={style.formField}>
                         additional info:
-                        <input type={"text"} value={this.state.additionalInfo} onChange={this.handleAdditionalInfoChange}/>
+                        <input type={"text"} value={this.state.additionalInfo}
+                               onChange={this.handleAdditionalInfoChange}/>
                     </label>
                     <button type={"submit"} className={style.formButton}>submit</button>
                 </form>

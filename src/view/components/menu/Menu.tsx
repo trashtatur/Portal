@@ -1,18 +1,11 @@
 import * as React from "react";
 import {Form} from "../form/Form";
+import {ReactElement} from "react";
 import * as style from './menu.css';
 
-export interface IMenuProps {
+export class Menu extends React.Component {
 
-}
-
-export interface IMenuState {
-
-}
-
-export class Menu extends React.Component<IMenuProps,IMenuState> {
-
-    render(): any {
+    render(): ReactElement {
         return (
             <div className={style.menuContainer}>
                 <Form
@@ -22,7 +15,7 @@ export class Menu extends React.Component<IMenuProps,IMenuState> {
                 <Form
                     modalTrigger={<button className={style.menuAddButton}>+</button>}
                     type={"create"}
-                 />
+                />
             </div>
         )
     }

@@ -2,19 +2,15 @@ import * as React from "react";
 import {Encounter} from "../encounter holder/Encounter";
 import {RoundOverview} from "../round overview/RoundOverview";
 import {creature, creatureType, round, roundCreature} from "../../componentTypes";
+import {ReactElement} from "react";
 import * as style from './encounterManager.css';
 
-
-export interface IEncounterManagerProps {
-
+export interface EncounterManagerState {
+    roundLog: round[];
+    currentRound: round;
 }
 
-export interface IEncounterManagerState {
-    roundLog: round[]
-    currentRound: round
-}
-
-export class EncounterManager extends React.Component<IEncounterManagerProps, IEncounterManagerState> {
+export class EncounterManager extends React.Component<{}, EncounterManagerState> {
 
     constructor(props) {
         super(props);
@@ -40,7 +36,7 @@ export class EncounterManager extends React.Component<IEncounterManagerProps, IE
     }
 
     transferCreatureEvents(): roundCreature[] {
-        let previousRound = this.state.roundLog[this.state.roundLog.length - 1];
+        const previousRound = this.state.roundLog[this.state.roundLog.length - 1];
         if (previousRound != undefined) return previousRound.creatureEvents.map(elem => {
             return {
                 id: elem.id,
@@ -58,14 +54,14 @@ export class EncounterManager extends React.Component<IEncounterManagerProps, IE
         else return []
     }
 
-    addRound() {
+    addRound(): void {
 
-        let phasingOutRound = this.state.currentRound;
+        const phasingOutRound = this.state.currentRound;
         phasingOutRound.active = false;
         this.setState({
             roundLog: this.state.roundLog.concat([phasingOutRound])
         }, () => {
-            let newRound: round = {
+            const newRound: round = {
                 number: this.state.roundLog.length + 1,
                 active: true,
                 startedAt: new Date(),
@@ -75,8 +71,8 @@ export class EncounterManager extends React.Component<IEncounterManagerProps, IE
         });
     }
 
-    resetRounds() {
-        let creatureEvents: roundCreature[] = this.state.currentRound.creatureEvents.map(elem => {
+    resetRounds(): void {
+        const creatureEvents: roundCreature[] = this.state.currentRound.creatureEvents.map(elem => {
             return {
                 id: elem.id,
                 name: elem.name,
@@ -103,61 +99,61 @@ export class EncounterManager extends React.Component<IEncounterManagerProps, IE
         )
     }
 
-    addCreatureToRound(creature: creature) {
-        let name = creature.name;
-        if (creature.label != 0) name = `${name} ${creature.label}`;
-        let newRoundCreature: roundCreature =
+    addCreatureToRound(creatureToAdd: creature): void {
+        let name = creatureToAdd.name;
+        if (creatureToAdd.label != 0) name = `${name} ${creatureToAdd.label}`;
+        const newRoundCreature: roundCreature =
             {
-                id: creature.id,
+                id: creatureToAdd.id,
                 name: name,
-                entryHP: creature.currentHP,
-                currentHP: creature.currentHP,
-                entryAC: creature.currentAC,
-                currentAC: creature.currentAC,
-                entryIni: creature.currentIni,
-                currentIni: creature.currentIni,
-                entryType: creature.type,
-                currentType: creature.type
+                entryHP: creatureToAdd.currentHP,
+                currentHP: creatureToAdd.currentHP,
+                entryAC: creatureToAdd.currentAC,
+                currentAC: creatureToAdd.currentAC,
+                entryIni: creatureToAdd.currentIni,
+                currentIni: creatureToAdd.currentIni,
+                entryType: creatureToAdd.type,
+                currentType: creatureToAdd.type
             };
-        let currentRound = this.state.currentRound;
+        const currentRound = this.state.currentRound;
         this.state.currentRound.creatureEvents.push(newRoundCreature);
         this.setState({currentRound: currentRound})
     }
 
-    changeCurrentHPOfCreature(newHPValue: number, creatureId: string) {
-        let round = this.state.currentRound;
+    changeCurrentHPOfCreature(newHPValue: number, creatureId: string): void {
+        const round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
         }).currentHP = newHPValue;
         this.setState({currentRound: round})
     }
 
-    changeCurrentACOfCreature(newACValue: number, creatureId: string) {
-        let round = this.state.currentRound;
+    changeCurrentACOfCreature(newACValue: number, creatureId: string): void {
+        const round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
         }).currentAC = newACValue;
         this.setState({currentRound: round})
     }
 
-    changeCurrentIniOfCreature(newIniValue: number, creatureId: string) {
-        let round = this.state.currentRound;
+    changeCurrentIniOfCreature(newIniValue: number, creatureId: string): void {
+        const round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
         }).currentIni = newIniValue;
         this.setState({currentRound: round})
     }
 
-    changeTypeOfRoundCreature(newType: creatureType, creatureId: string) {
-        let round = this.state.currentRound;
+    changeTypeOfRoundCreature(newType: creatureType, creatureId: string): void {
+        const round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
         }).currentType = newType;
         this.setState({currentRound: round})
     }
 
-    removeCreatureFromRound(creatureId: string) {
-        let round = this.state.currentRound;
+    removeCreatureFromRound(creatureId: string): void {
+        const round = this.state.currentRound;
         round.creatureEvents = round.creatureEvents.filter(elem => {
             return elem.id != creatureId
         });
@@ -165,7 +161,7 @@ export class EncounterManager extends React.Component<IEncounterManagerProps, IE
     }
 
 
-    render(): any {
+    render(): ReactElement {
         return (
             <div className={style.encounterManagerContainer}>
                 <Encounter

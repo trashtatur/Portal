@@ -1,24 +1,17 @@
 import * as React from "react";
 import Select from 'react-select';
+import {ReactElement} from "react";
 import * as style from "../creatureForm.css";
 
-
-
-
-export interface ISizeSelectProps {
-    handleSizeChange: Function
-    value
+export interface SizeSelectProps {
+    handleSizeChange: Function;
+    value;
 }
 
-export interface ISizeSelectState {
+export class SizeSelect extends React.Component<SizeSelectProps> {
 
-}
-
-export class SizeSelect extends React.Component<ISizeSelectProps,ISizeSelectState>{
-
-
-    render(): any {
-        return(
+    render(): ReactElement {
+        return (
             <Select
                 options={[
                     {value: "fine", label: "fine"},

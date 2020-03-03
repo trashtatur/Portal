@@ -1,21 +1,12 @@
 import * as React from 'react'
 import Collapsible from 'react-collapsible';
 import {YoutubePlayer} from "./youtube/YoutubePlayer";
+import {ReactElement} from "react";
 import * as style from './mediaBar.css'
 
-export interface IMediaBarProps {
+export class MediaBar extends React.Component {
 
-}
-
-export interface IMediaBarState {
-
-}
-
-
-export class MediaBar extends React.Component<IMediaBarProps, IMediaBarState> {
-
-
-    render(): any {
+    render(): ReactElement {
         return (
             <Collapsible className={style.mediaBarContainer}
                          openedClassName={style.mediaBarContainer}

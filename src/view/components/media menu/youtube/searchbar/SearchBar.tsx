@@ -1,31 +1,32 @@
 import * as React from 'react'
+import {ReactElement} from "react";
 
-export interface ISearchBarProps {
-    onSearchTermChange:Function
+export interface SearchBarProps {
+    onSearchTermChange: Function;
 }
 
-export interface ISearchBarState {
-    term:string
+export interface SearchBarState {
+    term: string;
 }
 
-export class SearchBar extends React.Component<ISearchBarProps, ISearchBarState> {
+export class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
 
     constructor(props) {
         super(props);
         this.state={
             term:''
-        }
+        };
 
         this.onInputChange = this.onInputChange.bind(this);
     }
 
-    onInputChange(term) {
+    onInputChange(term): void {
         this.setState({ term });
         this.props.onSearchTermChange(term);
     }
 
 
-    render(): any {
+    render(): ReactElement {
         return (
             <div className="search-bar" style={{margin: "20px", textAlign: "center"}}>
                 <input
@@ -35,7 +36,5 @@ export class SearchBar extends React.Component<ISearchBarProps, ISearchBarState>
                 />
             </div>
         )
-
     }
-
 }

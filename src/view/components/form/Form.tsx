@@ -1,24 +1,25 @@
 import * as React from "react";
 import {CreatureForm} from "./creature/CreatureForm";
-
-const Popup = require('reactjs-popup');
 import {OneEntryForm} from "./one entry form/OneEntryForm";
 import {ActionForm} from "./action/ActionForm";
-import * as style from './form.css'
 import {CreatureEditWrapper} from "./creature/edit wrapper/CreatureEditWrapper";
+import {ReactElement} from "react";
+import * as style from './form.css'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const Popup = require("reactjs-popup");
 
 
-export interface IFormProps {
+export interface FormProps {
     modalTrigger;
-    type: "edit" | "create"
+    type: "edit" | "create";
 }
 
-export interface IFormState {
-    formType: "creature" | "language" | "sense" | "skill" | "action" | "talent"
+export interface FormState {
+    formType: "creature" | "language" | "sense" | "skill" | "action" | "talent";
 }
 
 
-export class Form extends React.Component<IFormProps, IFormState> {
+export class Form extends React.Component<FormProps, FormState> {
 
     constructor(props) {
         super(props);
@@ -29,12 +30,11 @@ export class Form extends React.Component<IFormProps, IFormState> {
         }
     }
 
-
-    setFormType(type) {
+    setFormType(type): void {
         this.setState({formType: type})
     }
 
-    renderForm() {
+    renderForm(): ReactElement {
         if (this.state.formType != null) {
             switch (this.state.formType) {
                 case "creature":
@@ -49,14 +49,13 @@ export class Form extends React.Component<IFormProps, IFormState> {
                 case "language":
                     return <OneEntryForm formValue={this.state.formType} type={this.props.type}/>;
                 default:
-                    return ""
+                    return <div/>
             }
         }
-        return "";
-
+        return <div/>;
     }
 
-    render() {
+    render(): ReactElement {
         return (
             <Popup modal trigger={this.props.modalTrigger}
                    position={"top center"}

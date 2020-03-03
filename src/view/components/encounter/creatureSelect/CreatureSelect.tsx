@@ -1,24 +1,17 @@
 import * as React from "react";
 import Select from 'react-select';
-import {selectable} from "../../componentTypes";
+import {ReactElement} from "react";
+import {selectableCreatures} from "../../componentTypes";
 import * as style from './creatureSelect.css'
 
-
-
-interface ICreatureSelectProps {
-    selectableOptions: selectable[]
+interface CreatureSelectProps {
+    selectableOptions: selectableCreatures[];
     onSelect;
 }
 
-interface ICreatureSelectState {
+export class CreatureSelect extends React.Component<CreatureSelectProps> {
 
-}
-
-export class CreatureSelect extends React.Component<ICreatureSelectProps,ICreatureSelectState> {
-
-
-
-    render(): any {
+    render(): ReactElement {
         return (
             <Select
                 options={this.props.selectableOptions}

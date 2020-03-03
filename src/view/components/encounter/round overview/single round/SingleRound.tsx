@@ -1,22 +1,19 @@
 import * as React from 'react'
 import {round} from "../../../componentTypes";
 import {RoundCreature} from "./round creature/RoundCreature";
+import {ReactElement} from "react";
 
-export interface ISingleRoundProps {
-    roundData:round
-    pastRounds:round[]
+export interface SingleRoundProps {
+    roundData: round;
+    pastRounds: round[];
 }
 
-export interface ISingleRoundState {
+export class SingleRound extends React.Component<SingleRoundProps> {
 
-}
-
-export class SingleRound extends React.Component<ISingleRoundProps, ISingleRoundState> {
-
-    render(): any {
+    render(): ReactElement {
         return (
             <div>
-                {this.props.roundData.creatureEvents.map((elem,i)=> {
+                {this.props.roundData.creatureEvents.map((elem, i) => {
                     return <RoundCreature
                         key={i}
                         id={elem.id}
@@ -29,7 +26,7 @@ export class SingleRound extends React.Component<ISingleRoundProps, ISingleRound
                         currentIni={elem.currentIni}
                         entryType={elem.entryType}
                         currentType={elem.currentType}
-                        />
+                    />
                 })}
             </div>
         )

@@ -1,20 +1,16 @@
 import * as React from 'react'
+import {ReactElement} from "react";
 
-export interface IVideoListItemProps {
-    onVideoSelect:Function
-    video
-
+export interface VideoListItemProps {
+    onVideoSelect: Function;
+    video;
 }
 
-export interface IVideoListItemState {
-
-}
-
-export class VideoListItem extends React.Component<IVideoListItemProps, IVideoListItemState> {
+export class VideoListItem extends React.Component<VideoListItemProps> {
 
     imageUrl = this.props.video.snippet.thumbnails.default.url;
 
-    render(): any {
+    render(): ReactElement {
         return (
             <li onClick={() => this.props.onVideoSelect(this.props.video)} className="list-group-item">
                 <div className="video-list media">

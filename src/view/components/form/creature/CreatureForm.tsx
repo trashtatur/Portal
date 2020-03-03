@@ -1,15 +1,23 @@
 import * as React from "react";
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {uuidv4} from "../../helper/helperFunctions";
 import {createCreature} from "./helper/creatureCreator";
 import {AlignmentSelect} from "./alignment select/AlignmentSelect";
 import {SizeSelect} from "./size select/SizeSelect";
 import Dropzone from 'react-dropzone-uploader'
-import {creature} from "../../componentTypes";
+import {
+    actionDataEntry,
+    creature,
+    languageDataEntry,
+    selectableFormElement,
+    skillDataEntry,
+    talentDataEntry
+} from "../../componentTypes";
 import {CreatureCard} from "../../creaturecard/CreatureCard";
 import {CreatureSeparator} from "../../creaturecard/separator/CreatureSeparator";
+import {ReactElement} from "react";
 import * as style from "./creatureForm.css";
 
 
@@ -17,29 +25,27 @@ const SELECT_OPTION = "select-option";
 const REMOVE_OPTION = "remove-value";
 const CREATE_OPTION = "create-option";
 
-interface ICreatureFormProps {
+interface CreatureFormProps {
     creature?: creature;
     type: "edit" | "create";
-    handleUpdate?: Function
+    handleUpdate?: Function;
 }
 
 
-interface ICreatureFormState {
+interface CreatureFormState {
     creature: creature;
-    creatureData: any[]
-    languageData: any[]
-    talentData: any[]
-    skillData: any[]
-    actionData: any[]
+    languageData: languageDataEntry[];
+    talentData: talentDataEntry[];
+    skillData: skillDataEntry[];
+    actionData: actionDataEntry[];
 }
 
-export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureFormState> {
+export class CreatureForm extends React.Component<CreatureFormProps, CreatureFormState> {
 
     constructor(props) {
         super(props);
         this.state = {
             creature: this.props.type == "edit" ? this.props.creature : createCreature(),
-            creatureData: [],
             languageData: [],
             talentData: [],
             skillData: [],
@@ -73,21 +79,21 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         this.addOneMoreSkill = this.addOneMoreSkill.bind(this);
     }
 
-    addOneMoreAttackProperty() {
-        let creature = this.state.creature;
+    addOneMoreAttackProperty(): void {
+        const creature = this.state.creature;
         creature.attackProperties.push({property: "", name: "", id: uuidv4()});
         this.setState({creature: creature})
     }
 
-    addOneMoreSkill() {
-        let creature = this.state.creature;
+    addOneMoreSkill(): void {
+        const creature = this.state.creature;
         creature.skills.push({name: "", level: "", id: uuidv4()});
         this.setState({creature: creature})
 
     }
 
-    composeSelectableAttributeOptions(attribute: "Talent" | "Action" | "Language") {
-        let selectables = [];
+    composeSelectableAttributeOptions(attribute: "Talent" | "Action" | "Language"): selectableFormElement[] {
+        const selectables = [];
         switch (attribute) {
             case "Language":
                 this.state.languageData.forEach(elem => {
@@ -111,7 +117,7 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
     }
 
 
-    async getAll(whatToGet: "Creature" | "Talent" | "Sense" | "Skill" | "Action" | "Language") {
+    async getAll(whatToGet: "Creature" | "Talent" | "Sense" | "Skill" | "Action" | "Language"): Promise<AxiosResponse> {
         return await axios.get(
             `/V1/${whatToGet}`
         )
@@ -146,7 +152,7 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
 
     }
 
-    previewImage() {
+    previewImage(): null | string {
         // Default case for image
         if (this.state.creature.image == "") return null;
         // Image already existing
@@ -155,15 +161,14 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         if (this.state.creature.image != null) return URL.createObjectURL(this.state.creature.image);
         // Image in form deleted
         return null;
-
     }
 
-    uploadImage(data: File | string) {
+    uploadImage(data: File | string): AxiosResponse | boolean {
         if (data == null) return true;
         if (typeof data != "string") {
             console.log(data);
-            let file_ext = data.name.substring(data.name.lastIndexOf('.'));
-            let filename = this.state.creature.name + '-' + this.state.creature.challenge + file_ext;
+            const fileExtension = data.name.substring(data.name.lastIndexOf('.'));
+            const filename = this.state.creature.name + '-' + this.state.creature.challenge + fileExtension;
             const formattedFile = new File([data], filename, {type: data.type});
             const form = new FormData();
             form.append('file', formattedFile);
@@ -181,81 +186,79 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         }
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event): Promise<void> {
         event.preventDefault();
         this.uploadImage(this.state.creature.image);
-        let that = this;
-        axios.post('/V1/Creature', this.setCreatureImageName()).then(
-            function (response) {
-                alert('Created entry in database');
-                that.resetForm()
-            }
-        ).catch(function (error) {
+        try {
+            await axios.post('/V1/Creature', this.setCreatureImageName());
+            alert('Created entry in database');
+            this.resetForm();
+        } catch (error) {
             console.log(error)
-        });
-
+        }
     }
 
-    resetForm() {
+    resetForm(): void {
         this.setState({creature: createCreature()})
     }
 
     setCreatureImageName(): creature {
-        if (this.state.creature.image != null && typeof this.state.creature.image != "string") {
-            let creature = this.state.creature;
-            creature.image =
-                //@ts-ignore
-                `images/creatureImages/${creature.name}-${creature.challenge}/${creature.name}-${creature.challenge}${creature.image.name.substring(creature.image.name.lastIndexOf('.'))}`;
+        if (this.state.creature.image != null) {
+            const creature = this.state.creature;
+            if (typeof creature.image !== "string") {
+                creature.image =
+                    `images/creatureImages/${creature.name}-${creature.challenge}/${creature.name}-${creature.challenge}${creature.image.name.substring(creature.image.name.lastIndexOf('.'))}`;
+            }
             console.log(creature);
             return creature;
         }
         return this.state.creature
     }
 
-    handleNameChange(event) {
-        let creature = this.state.creature;
+    handleNameChange(event): void {
+        const creature = this.state.creature;
         creature.name = event.target.value;
         this.setState({creature: creature})
     }
 
-    handleTypeChange(event) {
-        let creature = this.state.creature;
+    handleTypeChange(event): void {
+        const creature = this.state.creature;
         creature.type = event.target.value;
         this.setState({creature: creature})
     }
 
-    typeBoxChecked(typeValue) {
+    typeBoxChecked(typeValue): boolean {
         return this.state.creature.type == typeValue;
     }
 
-    handleHPChange(event) {
-        let creature = this.state.creature;
+    handleHPChange(event): void {
+        const creature = this.state.creature;
         creature.hitpoints = "";
         if (!isNaN(parseInt(event.target.value))) creature.hitpoints = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
-    handleACChange(event) {
-        let creature = this.state.creature;
+    handleACChange(event): void {
+        const creature = this.state.creature;
         creature.armorclass = "";
         if (!isNaN(parseInt(event.target.value))) creature.armorclass = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
-    handleAlignmentChange(value, option) {
-        let creature = this.state.creature;
+    handleAlignmentChange(value): void {
+        const creature = this.state.creature;
         creature.alignment = value.value;
         this.setState({creature: creature})
     }
 
-    handleCreatureClassChange(event) {
-        let creature = this.state.creature;
+    handleCreatureClassChange(event): void {
+        const creature = this.state.creature;
         creature.creatureClass = event.target.value;
         this.setState({creature: creature})
     }
 
-    handleAttackPropertiesNameChange(event) {
-        let creature = this.state.creature;
+    handleAttackPropertiesNameChange(event): void {
+        const creature = this.state.creature;
         creature.attackProperties = creature.attackProperties.map((elem) => {
             if (elem.id + '-name' !== event.target.id) return elem;
             return {name: event.target.value, property: elem.property, id: elem.id};
@@ -265,8 +268,8 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         });
     }
 
-    handleAttackPropertiesValueChange(event) {
-        let creature = this.state.creature;
+    handleAttackPropertiesValueChange(event): void {
+        const creature = this.state.creature;
         creature.attackProperties = creature.attackProperties.map((elem) => {
             if (elem.id + '-prop' !== event.target.id) return elem;
             return {name: elem.name, property: event.target.value, id: elem.id};
@@ -277,30 +280,30 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
     }
 
 
-    handleChallengeChange(event) {
-        let creature = this.state.creature;
+    handleChallengeChange(event): void {
+        const creature = this.state.creature;
         creature.challenge = "";
         if (!isNaN(parseInt(event.target.value))) creature.challenge = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
-    handleMovementChange(event) {
-        let creature = this.state.creature;
+    handleMovementChange(event): void {
+        const creature = this.state.creature;
         creature.movement = "";
         if (!isNaN(parseInt(event.target.value))) creature.movement = parseInt(event.target.value);
         creature.movement = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
-    handleIniChange(event) {
-        let creature = this.state.creature;
+    handleIniChange(event): void {
+        const creature = this.state.creature;
         creature.ini = "";
         if (!isNaN(parseInt(event.target.value))) creature.ini = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
-    handleImageChange({meta, file}, status) {
-        let creature = this.state.creature;
+    handleImageChange({meta, file}, status): void {
+        const creature = this.state.creature;
         creature.image = file;
         this.setState({creature: creature});
         if (status == "removed") {
@@ -309,42 +312,42 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         }
     }
 
-    handleBaseAtkChange(event) {
-        let creature = this.state.creature;
+    handleBaseAtkChange(event): void {
+        const creature = this.state.creature;
         creature.baseAtk = "";
         if (!isNaN(parseInt(event.target.value))) creature.baseAtk = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
-    handleXPChange(event) {
-        let creature = this.state.creature;
+    handleXPChange(event): void {
+        const creature = this.state.creature;
         creature.xp = "";
         if (!isNaN(parseInt(event.target.value))) creature.xp = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
-    handleSizeChange(value, option) {
-        let creature = this.state.creature;
+    handleSizeChange(value): void {
+        const creature = this.state.creature;
         creature.size = value.value;
         this.setState({creature: creature})
     }
 
-    handleStatsChange(event, stat: "str" | "dex" | "wis" | "int" | "cha" | "con") {
-        let creature = this.state.creature;
+    handleStatsChange(event, stat: "str" | "dex" | "wis" | "int" | "cha" | "con"): void {
+        const creature = this.state.creature;
         creature.stats[stat] = "";
         if (!isNaN(parseInt(event.target.value))) creature.stats[stat] = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
-    handleSaveThrowsChange(event, saveThrow: "ref" | "will" | "fort") {
-        let creature = this.state.creature;
+    handleSaveThrowsChange(event, saveThrow: "ref" | "will" | "fort"): void {
+        const creature = this.state.creature;
         creature.saveThrows[saveThrow] = "";
         if (!isNaN(parseInt(event.target.value))) creature.saveThrows[saveThrow] = parseInt(event.target.value);
         this.setState({creature: creature})
     }
 
-    handleLanguagesChange(value, option) {
-        let creature = this.state.creature;
+    handleLanguagesChange(value, option): void {
+        const creature = this.state.creature;
         if (option.action == SELECT_OPTION || option.action == CREATE_OPTION) {
             creature.languages = value.map(elem => {
                 return elem.value
@@ -357,8 +360,8 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         this.setState({creature: creature})
     }
 
-    handleSkillNameChange(value, option, id) {
-        let creature = this.state.creature;
+    handleSkillNameChange(value, option, id): void {
+        const creature = this.state.creature;
         creature.skills = creature.skills.map((elem) => {
             if (elem.id !== id) return elem;
             return {name: value.value, level: elem.level, id: elem.id};
@@ -368,8 +371,8 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         });
     }
 
-    handleSkillLevelChange(event, id) {
-        let creature = this.state.creature;
+    handleSkillLevelChange(event, id): void {
+        const creature = this.state.creature;
         creature.skills = creature.skills.map((elem) => {
             if (elem.id !== id) return elem;
             let val = "";
@@ -381,8 +384,8 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         });
     }
 
-    handleTalentsChange(value, option) {
-        let creature = this.state.creature;
+    handleTalentsChange(value, option): void {
+        const creature = this.state.creature;
         if (option.action == SELECT_OPTION || option.action == CREATE_OPTION) {
             creature.talents = value.map(elem => {
                 return elem.value
@@ -395,18 +398,18 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         this.setState({creature: creature})
     }
 
-    handleActionsChange(value, option) {
-        let creature = this.state.creature;
+    handleActionsChange(value, option): void {
+        const creature = this.state.creature;
         if (option.action == SELECT_OPTION) {
-            let actions = [];
+            const actions = [];
             value.forEach(selectedValue => {
-                let action = this.state.actionData.filter(elem => {
+                const action = this.state.actionData.filter(elem => {
                     return elem.name == selectedValue.value.substr(0, selectedValue.value.lastIndexOf(" "))
                 });
 
                 actions.push(action[0]);
             });
-            let actions_formatted = actions.map(elem => {
+            const actionsFormatted = actions.map(elem => {
                 return {
                     name: elem.name,
                     rangeType: elem.rangeType,
@@ -417,15 +420,15 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                     additionalInfo: elem.additionalInfo
                 }
             });
-            creature.actions = creature.actions.concat(actions_formatted);
-            let creature_actions_set = [];
+            creature.actions = creature.actions.concat(actionsFormatted);
+            const creatureActionsSet = [];
             creature.actions.forEach(elem => {
-                let filter = creature_actions_set.filter(set_elem => {
-                    return elem.name == set_elem.name
+                const filter = creatureActionsSet.filter(setElem => {
+                    return elem.name == setElem.name
                 });
-                if (filter.length == 0) creature_actions_set.push(elem)
+                if (filter.length == 0) creatureActionsSet.push(elem)
             });
-            creature.actions = creature_actions_set;
+            creature.actions = creatureActionsSet;
         } else if (option.action == REMOVE_OPTION) {
             creature.actions = creature.actions.filter(elem => {
                 return `${elem.name} ${elem.damage}` != option.removedValue.value
@@ -434,10 +437,9 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
         this.setState({creature: creature})
     }
 
-    render(): any {
+    render(): ReactElement {
 
-        const ImagePreview = ({meta}) => {
-            let {name, percent, status} = meta;
+        const ImagePreview = () => {
             return (<span style={{color: "black"}}> Image set. to change, drop another in </span>)
         };
         return (
@@ -501,8 +503,9 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                                 <strong className={style.multiInputFormLabel}>attack Properties:</strong>
                                 <button type={"button"} onClick={this.addOneMoreAttackProperty}
                                         className={style.formAddButton}
-                                        style={{marginLeft:"26%"}}
-                                >+</button>
+                                        style={{marginLeft: "26%"}}
+                                >+
+                                </button>
                                 {
                                     this.state.creature.attackProperties.map((elem, i) => {
                                         return (
@@ -516,12 +519,12 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                                                        onChange={this.handleAttackPropertiesNameChange}/>
                                                 <p className={style.attackPropertyValueLabel}>property:</p>
                                                 <textarea value={elem.property} id={elem.id + "-prop"}
-                                                       key={i + "prop"}
-                                                       className={style.attackPropertyValueField}
-                                                       placeholder={"e.g. When the creature hits an enemy with a melee attack," +
-                                                       "the enemy takes +5 additional physical damage and is stunned for " +
-                                                       "1d4 rounds, if it doesn't succeed a saving throw (FORT) DC 15 ..."}
-                                                       onChange={this.handleAttackPropertiesValueChange}/>
+                                                          key={i + "prop"}
+                                                          className={style.attackPropertyValueField}
+                                                          placeholder={"e.g. When the creature hits an enemy with a melee attack," +
+                                                          "the enemy takes +5 additional physical damage and is stunned for " +
+                                                          "1d4 rounds, if it doesn't succeed a saving throw (FORT) DC 15 ..."}
+                                                          onChange={this.handleAttackPropertiesValueChange}/>
                                             </label>)
                                     })}
                             </label>
@@ -621,7 +624,7 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                             </label>
                             <label className={style.formTextInputArea}>
                                 <strong>save throws:&nbsp;</strong>
-                                <div  className={style.valBlockContainer}>
+                                <div className={style.valBlockContainer}>
                                     <label className={style.singleVal}>
                                         ref:
                                         <input className={style.subInput} type="number"
@@ -646,8 +649,9 @@ export class CreatureForm extends React.Component<ICreatureFormProps, ICreatureF
                                 <strong className={style.multiInputFormLabel}>skills:</strong>
                                 <button type={"button"} onClick={this.addOneMoreSkill}
                                         className={style.formAddButton}
-                                        style={{marginLeft:"45%"}}
-                                >+</button
+                                        style={{marginLeft: "45%"}}
+                                >+
+                                </button
                                 >
                                 {
                                     this.state.creature.skills.map((elem, i) => {

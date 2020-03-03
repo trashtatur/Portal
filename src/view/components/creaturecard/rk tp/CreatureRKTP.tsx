@@ -1,19 +1,15 @@
 import * as React from "react";
+import {ReactElement} from "react";
 import * as style from './creatureRKTP.css';
 
-
-export interface ICreatureRKTPProps {
+export interface CreatureRKTPProps {
     armorclass: number;
     tp: number;
 }
 
-export interface ICreatureRKTPState {
+export class CreatureRKTP extends React.Component<CreatureRKTPProps> {
 
-}
-
-export class CreatureRKTP extends React.Component<ICreatureRKTPProps,ICreatureRKTPState> {
-
-    render(): any {
+    render(): ReactElement {
         return (
             <div className={style.creatureRKTPContainer}>
                 <p className={style.key}>AC:</p>

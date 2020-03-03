@@ -1,21 +1,19 @@
 import * as React from "react";
+import {ReactElement} from "react";
 import * as style from './creatureImage.css'
 
-export interface ICreatureImageProps {
-    imagePath?:string
+export interface CreatureImageProps {
+    imagePath?: string;
 }
 
-export interface ICreatureState {
+export class CreatureImage extends React.Component<CreatureImageProps> {
 
-}
-
-export class CreatureImage extends React.Component<ICreatureImageProps,ICreatureState> {
-
-    render(): any {
+    render(): ReactElement {
         return (
             <img
                 className={style.creatureImage}
                 src={this.props.imagePath || 'images/creatureImages/__unknown/__unknown.png'}
+                alt={"Creature image"}
             />
         )
     }

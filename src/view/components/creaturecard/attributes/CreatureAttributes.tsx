@@ -1,24 +1,20 @@
 import * as React from "react";
 import {saveThrowsType} from "../../componentTypes";
+import {ReactElement} from "react";
 import * as style from './creatureAttributes.css'
 
-
-export interface ICreatureAttributesProps {
-    skills,
-    talents:string[],
-    languages:string[],
-    saveThrows: saveThrowsType
-    preview?:boolean
+export interface CreatureAttributesProps {
+    skills;
+    talents: string[];
+    languages: string[];
+    saveThrows: saveThrowsType;
+    preview?: boolean;
 }
 
-export interface ICreatureAttributesState {
+export class CreatureAttributes extends React.Component<CreatureAttributesProps> {
 
-}
-
-export class CreatureAttributes extends React.Component<ICreatureAttributesProps,ICreatureAttributesState>{
-
-    determineModPrefix(mod:number):string {
-        if (mod>=0) return `+${mod}`;
+    determineModPrefix(mod: number): string {
+        if (mod >= 0) return `+${mod}`;
         return `${mod};`
     }
 
@@ -31,28 +27,28 @@ export class CreatureAttributes extends React.Component<ICreatureAttributesProps
         )
     }
 
-    render(): any {
+    render(): ReactElement {
         return (
             <table className={style.attributeTable}>
                 <tbody>
-                    <tr className={style.attributeBlock}>
-                        <td className={style.attributeName}>Skills:</td>
-                        <td className={style.attributeEntry}>{this.formatSkillsIfPreview()}</td>
-                    </tr>
-                    <tr className={style.attributeBlock}>
-                        <td className={style.attributeName}>Talents:</td>
-                        <td className={style.attributeEntry}>{this.props.talents.join(", ")}</td>
-                    </tr>
-                    <tr className={style.attributeBlock}>
-                        <td className={style.attributeName}>Languages:</td>
-                        <td className={style.attributeEntry}>{this.props.languages.join(", ")}</td>
-                    </tr>
-                    <tr className={style.attributeBlock}>
-                        <td className={style.attributeName}>Save throws:</td>
-                        <td className={style.attributeEntry}>
-                            WIL:{this.determineModPrefix(this.props.saveThrows.will)} FORT:{this.determineModPrefix(this.props.saveThrows.fort)} REF:{this.determineModPrefix(this.props.saveThrows.ref)}
-                        </td>
-                    </tr>
+                <tr className={style.attributeBlock}>
+                    <td className={style.attributeName}>Skills:</td>
+                    <td className={style.attributeEntry}>{this.formatSkillsIfPreview()}</td>
+                </tr>
+                <tr className={style.attributeBlock}>
+                    <td className={style.attributeName}>Talents:</td>
+                    <td className={style.attributeEntry}>{this.props.talents.join(", ")}</td>
+                </tr>
+                <tr className={style.attributeBlock}>
+                    <td className={style.attributeName}>Languages:</td>
+                    <td className={style.attributeEntry}>{this.props.languages.join(", ")}</td>
+                </tr>
+                <tr className={style.attributeBlock}>
+                    <td className={style.attributeName}>Save throws:</td>
+                    <td className={style.attributeEntry}>
+                        WIL:{this.determineModPrefix(this.props.saveThrows.will)} FORT:{this.determineModPrefix(this.props.saveThrows.fort)} REF:{this.determineModPrefix(this.props.saveThrows.ref)}
+                    </td>
+                </tr>
                 </tbody>
             </table>
         )

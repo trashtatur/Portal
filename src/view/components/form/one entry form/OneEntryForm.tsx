@@ -1,19 +1,21 @@
 import * as React from "react";
 import axios from 'axios'
 import {uuidv4} from "../../helper/helperFunctions";
+import {oneEntryFormEntry} from "../../componentTypes";
+import {ReactElement} from "react";
 import * as style from './oneEntryForm.css';
 
 
-export interface IOneEntryFormProps {
-    formValue: "language" | "sense" | "skill" | "talent"
-    type: "edit" | "create"
+export interface OneEntryFormProps {
+    formValue: "language" | "sense" | "skill" | "talent";
+    type: "edit" | "create";
 }
 
-export interface IOneEntryFormState {
-    inputs: any[]
+export interface OneEntryFormState {
+    inputs: oneEntryFormEntry[];
 }
 
-export class OneEntryForm extends React.Component<IOneEntryFormProps, IOneEntryFormState> {
+export class OneEntryForm extends React.Component<OneEntryFormProps, OneEntryFormState> {
 
     constructor(props) {
         super(props);
@@ -27,24 +29,22 @@ export class OneEntryForm extends React.Component<IOneEntryFormProps, IOneEntryF
 
     ROUTE = `/V1/${this.props.formValue}`;
 
-    async postData(data) {
-        let that = this;
-        axios.post(this.ROUTE, data).then(
-            function (result) {
-                alert(`Created entries for ${that.props.formValue}(s) in database`);
-                that.setState({inputs:[{value:"",id:uuidv4()}]})
-            }
-        ).catch(function (error) {
+    async postData(data): Promise<void> {
+        try {
+            await axios.post(this.ROUTE, data);
+            alert(`Created entries for ${this.props.formValue}(s) in database`);
+            this.setState({inputs: [{value: "", id: uuidv4()}]});
+        } catch (error) {
             console.log(error)
-        })
+        }
     }
 
-    handleSubmit(event) {
+    handleSubmit(event): void {
         this.postData(this.state.inputs);
         event.preventDefault()
     }
 
-    handleFieldChange(event) {
+    handleFieldChange(event): void {
         this.setState({
             inputs: this.state.inputs.map((elem) => {
                 if (elem.id !== event.target.id) return elem;
@@ -53,13 +53,13 @@ export class OneEntryForm extends React.Component<IOneEntryFormProps, IOneEntryF
         });
     }
 
-    addOneMore(event) {
-        let new_inputs = this.state.inputs;
-        new_inputs.push({value: "", id: uuidv4()});
-        this.setState({inputs: new_inputs})
+    addOneMore(event): void {
+        const newInputs = this.state.inputs;
+        newInputs.push({value: "", id: uuidv4()});
+        this.setState({inputs: newInputs})
     }
 
-    removeOne(id) {
+    removeOne(id): void {
         this.setState({
             inputs: this.state.inputs.filter(elem => {
                 return elem.id != id
@@ -68,7 +68,7 @@ export class OneEntryForm extends React.Component<IOneEntryFormProps, IOneEntryF
     }
 
 
-    render(): any {
+    render(): ReactElement {
         return (
             <div className={style.formContainer}>
                 <button onClick={this.addOneMore} className={style.formAddButton}>+</button>
@@ -82,7 +82,7 @@ export class OneEntryForm extends React.Component<IOneEntryFormProps, IOneEntryF
                                         {this.props.formValue}
                                         <input id={elem.id} type={"text"} value={elem.value}
                                                onChange={this.handleFieldChange}/>
-                                        <button type={"button"} onClick={()=>this.removeOne(elem.id)}
+                                        <button type={"button"} onClick={() => this.removeOne(elem.id)}
                                                 className={style.formButton}>-
                                         </button>
                                     </label>

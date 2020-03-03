@@ -1,60 +1,61 @@
 import * as React from "react";
 import {action, attackProperty, creatureType, saveThrowsType, statblock} from "../../componentTypes";
 import {CreatureCard} from "../../creaturecard/CreatureCard";
+import {ReactElement} from "react";
 import * as style from './creature.css';
 
 
-export interface ICreatureProps {
-    id: string
-    name: string
-    type: "ally" | "monster" | "player" | ""
-    hitpoints: number
-    armorclass: number
-    label?: number
-    alignment: string
-    creatureClass: string
-    attackProperties?: attackProperty[]
-    challenge: number
-    movement: number
-    image?
-    ini: number
-    currentIni: number
-    currentAC: number
-    currentHP: number
-    baseAtk: number
-    xp?: number
-    size: string
-    stats: statblock
-    kmb: number
-    kmv: number
-    sortByIni: Function
-    handleCurrentHPChange: Function
-    handleCurrentACChange: Function
-    handleCurrentTypeChange: Function
-    handleRemoveFromEncounter: Function
-    saveThrows: saveThrowsType
-    languages?: string[]
-    skills?: string[]
-    talents?: string[]
-    actions?: action[]
+export interface CreatureProps {
+    id: string;
+    name: string;
+    type: "ally" | "monster" | "player" | "";
+    hitpoints: number;
+    armorclass: number;
+    label?: number;
+    alignment: string;
+    creatureClass: string;
+    attackProperties?: attackProperty[];
+    challenge: number;
+    movement: number;
+    image?;
+    ini: number;
+    currentIni: number;
+    currentAC: number;
+    currentHP: number;
+    baseAtk: number;
+    xp?: number;
+    size: string;
+    stats: statblock;
+    kmb: number;
+    kmv: number;
+    sortByIni: Function;
+    handleCurrentHPChange: Function;
+    handleCurrentACChange: Function;
+    handleCurrentTypeChange: Function;
+    handleRemoveFromEncounter: Function;
+    saveThrows: saveThrowsType;
+    languages?: string[];
+    skills?: string[];
+    talents?: string[];
+    actions?: action[];
 
-    changeCurrentHPOfRoundCreature: Function
-    changeCurrentACOfRoundCreature: Function
-    changeCurrentIniOfRoundCreature: Function
-    changeTypeOfRoundCreature: Function
-    removeCreatureFromRound: Function
+    changeCurrentHPOfRoundCreature: Function;
+    changeCurrentACOfRoundCreature: Function;
+    changeCurrentIniOfRoundCreature: Function;
+    changeTypeOfRoundCreature: Function;
+    removeCreatureFromRound: Function;
 }
 
-export interface ICreatureState {
-    hitpoints: number
-    armorclass: number
-    currentIni: number
-    currentAC: number,
-    currentHP: number,
-    type: creatureType
+export interface CreatureState {
+    hitpoints: number;
+    armorclass: number;
+    currentIni: number;
+    currentAC: number;
+    currentHP: number;
+    type: creatureType;
 }
 
-export class Creature extends React.Component<ICreatureProps, ICreatureState> {
+export class Creature extends React.Component<CreatureProps, CreatureState> {
 
     constructor(props) {
         super(props);
@@ -77,19 +78,19 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
     ALLY_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(2,47,18,1) 70%, rgba(0,255,128,1) 100%)";
     DEFAULT_BG = "black";
 
-    handleIniChange(event) {
+    handleIniChange(event): void {
         this.setState({currentIni: event.target.value})
     }
 
-    handleACChange(event) {
+    handleACChange(event): void {
         this.setState({currentAC: event.target.value})
     }
 
-    handleHPChange(event) {
+    handleHPChange(event): void {
         this.setState({currentHP: event.target.value})
     }
 
-    handleTypeChange(event) {
+    handleTypeChange(event): void {
         this.setState({type: event.target.value})
     }
 
@@ -118,7 +119,7 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
         return this.state.type == fieldValue;
     }
 
-    render(): any {
+    render(): ReactElement {
         return (
             <table className={style.encounterEntity}>
                 <tbody>
@@ -158,7 +159,7 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
                                                                                 onBlur={e => {
                                                                                     this.handleHPChange(e);
                                                                                     this.props.handleCurrentHPChange(e, this.props.id);
-                                                                                    this.props.changeCurrentHPOfRoundCreature(e.target.value,this.props.id);
+                                                                                    this.props.changeCurrentHPOfRoundCreature(e.target.value, this.props.id);
                                                                                 }}/></p>
                                     <p className={style.statDisplay}>AC: <input type="number"
                                                                                 className={style.inputField}
@@ -166,33 +167,33 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
                                                                                 onBlur={e => {
                                                                                     this.handleACChange(e);
                                                                                     this.props.handleCurrentACChange(e, this.props.id);
-                                                                                    this.props.changeCurrentACOfRoundCreature(e.target.value,this.props.id);
+                                                                                    this.props.changeCurrentACOfRoundCreature(e.target.value, this.props.id);
                                                                                 }}/></p>
                                     <p className={style.statDisplay}>INI:<input type="number"
                                                                                 className={style.inputField}
                                                                                 defaultValue={this.state.currentIni}
                                                                                 onBlur={e => {
                                                                                     this.handleIniChange(e);
-                                                                                    this.props.changeCurrentIniOfRoundCreature(e.target.value,this.props.id);
+                                                                                    this.props.changeCurrentIniOfRoundCreature(e.target.value, this.props.id);
                                                                                     this.props.sortByIni(e, this.props.id);
                                                                                 }}/></p>
                                     <p className={style.statDisplay}>Type:
                                         <input name={this.props.id + "type"} type="radio" value={"ally"}
                                                checked={this.typeChecked('ally')} onChange={e => {
                                             this.handleTypeChange(e);
-                                            this.props.changeTypeOfRoundCreature(e.target.value,this.props.id);
+                                            this.props.changeTypeOfRoundCreature(e.target.value, this.props.id);
                                             this.props.handleCurrentTypeChange(e, this.props.id);
                                         }}/>Ally
                                         <input name={this.props.id + "type"} type="radio" value={"monster"}
                                                checked={this.typeChecked('monster')} onChange={e => {
                                             this.handleTypeChange(e);
-                                            this.props.changeTypeOfRoundCreature(e.target.value,this.props.id);
+                                            this.props.changeTypeOfRoundCreature(e.target.value, this.props.id);
                                             this.props.handleCurrentTypeChange(e, this.props.id);
                                         }}/>Monster
                                         <input name={this.props.id + "type"} type="radio" value={"player"}
                                                checked={this.typeChecked('player')} onChange={e => {
                                             this.handleTypeChange(e);
-                                            this.props.changeTypeOfRoundCreature(e.target.value,this.props.id);
+                                            this.props.changeTypeOfRoundCreature(e.target.value, this.props.id);
                                             this.props.handleCurrentTypeChange(e, this.props.id);
                                         }}/>Player
                                     </p>
@@ -211,7 +212,7 @@ export class Creature extends React.Component<ICreatureProps, ICreatureState> {
                             onClick={() => {
                                 this.props.handleRemoveFromEncounter(this.props.id);
                                 this.props.removeCreatureFromRound(this.props.id);
-                                }
+                            }
                             }> X
                         </button>
                     </td>

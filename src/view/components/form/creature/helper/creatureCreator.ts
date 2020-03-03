@@ -1,7 +1,7 @@
 import {creature} from "../../../componentTypes";
 
 
-export let createCreature = function(): creature {
+export const createCreature = function(): creature {
     return {
         name:"",
         type: "",

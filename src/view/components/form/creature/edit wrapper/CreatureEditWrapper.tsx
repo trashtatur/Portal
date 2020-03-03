@@ -2,29 +2,26 @@ import * as React from 'react'
 import {CreatureForm} from "../CreatureForm";
 import Select from 'react-select';
 import axios from "axios";
-import {creature} from "../../../componentTypes";
+import {creature, selectableCreatures} from "../../../componentTypes";
 import {uuidv4} from "../../../helper/helperFunctions";
+import {ReactElement} from "react";
 import * as style from './creatureEditWrapper.css';
 
 
-export interface ICreatureEditWrapperProps {
-
+export interface CreatureEditWrapperState {
+    creature: creature;
+    originalCreature: creature;
+    creatureData;
 }
 
-export interface ICreatureEditWrapperState {
-    creature:creature
-    originalCreature:creature
-    creatureData
-}
-
-export class CreatureEditWrapper extends React.Component<ICreatureEditWrapperProps, ICreatureEditWrapperState> {
+export class CreatureEditWrapper extends React.Component<{}, CreatureEditWrapperState> {
 
     constructor(props) {
         super(props);
         this.state = {
             creature: null,
             creatureData: [],
-            originalCreature:null
+            originalCreature: null
         };
 
         this.composeSelectableCreatureOptions = this.composeSelectableCreatureOptions.bind(this);
@@ -32,13 +29,13 @@ export class CreatureEditWrapper extends React.Component<ICreatureEditWrapperPro
         this.getAllCreatures = this.getAllCreatures.bind(this);
     }
 
-    formRef:CreatureForm = null;
+    formRef: CreatureForm = null;
 
     /**
      * Composes dropdown to select creatures
      */
-    composeSelectableCreatureOptions(): any[] {
-        let selectables = [
+    composeSelectableCreatureOptions(): selectableCreatures[] {
+        const selectables = [
             {
                 label: "monsters",
                 options: []
@@ -59,18 +56,21 @@ export class CreatureEditWrapper extends React.Component<ICreatureEditWrapperPro
                 selectables[0].options.push({
                     value: {name: entry.name, challenge: entry.challenge},
                     label: <div><img src="images/selectableLableIcons/monster-icon.png" height="20px"
+                                     alt={"Monster icon"}
                                      width="20px"/>{entry.name} CR:{entry.challenge}</div>
                 })
             } else if (entry.type == "player") {
                 selectables[1].options.push({
                     value: {name: entry.name, challenge: entry.challenge},
                     label: <div><img src="images/selectableLableIcons/player-icon.png" height="20px"
+                                     alt={"Player icon"}
                                      width="20px"/>{entry.name}</div>
                 })
             } else if (entry.type == "ally") {
                 selectables[2].options.push({
                     value: entry.name,
                     label: <div><img src="images/selectableLableIcons/ally-icon.png" height="20px"
+                                     alt={"Ally icon"}
                                      width="20px"/>{entry.name} CR:{entry.challenge}</div>
                 })
 
@@ -83,16 +83,16 @@ export class CreatureEditWrapper extends React.Component<ICreatureEditWrapperPro
         this.getAllCreatures()
     }
 
-    async getAllCreatures() {
-        let creatures = await axios.get('/V1/Creature');
+    async getAllCreatures(): Promise<void> {
+        const creatures = await axios.get('/V1/Creature');
         this.setState({creatureData: creatures.data})
     }
 
-    handleCreatureSelect(value,option) {
-        let filtered = this.state.creatureData.find(elem=>{
+    handleCreatureSelect(value): void {
+        const filtered = this.state.creatureData.find(elem => {
             return (elem.name == value.value.name && elem.challenge == value.value.challenge)
         });
-        let creature:creature = {
+        const creature: creature = {
             name: filtered.name,
             type: filtered.type,
             hitpoints: filtered.hitpoints,
@@ -104,15 +104,15 @@ export class CreatureEditWrapper extends React.Component<ICreatureEditWrapperPro
             creatureClass: filtered.creatureClass,
             challenge: filtered.challenge,
             movement: filtered.movement,
-            image:filtered.image,
+            image: filtered.image,
             ini: filtered.ini,
             baseAtk: filtered.baseAtk,
             xp: filtered.xp || 0,
             kmb: filtered.kmb || 0,
             kmv: filtered.kmv || 0,
             skills: filtered.skills == [] ? [] : filtered.skills.map(elem => {
-                let level = elem.CreatureSkill.skillLevel;
-                return {name:elem.name, level:level, id:uuidv4}
+                const level = elem.CreatureSkill.skillLevel;
+                return {name: elem.name, level: level, id: uuidv4}
             }),
             size: filtered.size,
             stats: JSON.parse(filtered.stats) || {},
@@ -124,7 +124,7 @@ export class CreatureEditWrapper extends React.Component<ICreatureEditWrapperPro
                 return elem.name
             }),
             actions: filtered.actions == [] ? [] : filtered.actions.map(elem => {
-                return  {
+                return {
                     name: elem.name,
                     rangeType: elem.rangeType,
                     range: elem.range,
@@ -136,22 +136,22 @@ export class CreatureEditWrapper extends React.Component<ICreatureEditWrapperPro
                 }
             })
         };
-        this.setState({originalCreature:creature});
-        this.setState({creature:creature});
-        this.formRef.setState({creature:creature});
+        this.setState({originalCreature: creature});
+        this.setState({creature: creature});
+        this.formRef.setState({creature: creature});
     }
 
-    handleUpdate() {
+    handleUpdate(): void {
         axios.put(`/update/${this.state.originalCreature.name}/${this.state.originalCreature.challenge}`,
-                this.state.creature
-            ).then(function (result) {
-                console.log(result)
+            this.state.creature
+        ).then(function (result) {
+            console.log(result)
         }).catch(function (error) {
             console.log(error)
         })
     }
 
-    render(): any {
+    render(): ReactElement {
         return (
             <div className={style.editFormContainer}>
                 <Select
@@ -161,7 +161,8 @@ export class CreatureEditWrapper extends React.Component<ICreatureEditWrapperPro
                     maxMenuHeight={200}
                 />
                 {this.state.creature &&
-                     <CreatureForm ref={ref=>this.formRef=ref} type={"edit"} creature={this.state.creature} handleUpdate={this.handleUpdate}/>
+                <CreatureForm ref={ref => this.formRef = ref} type={"edit"} creature={this.state.creature}
+                              handleUpdate={this.handleUpdate}/>
                 }
             </div>
         )

@@ -1,21 +1,16 @@
 import * as React from 'react'
+import {ReactElement} from "react";
 
-export interface IVideoDetailProps {
-    video
+export interface VideoDetailProps {
+    video;
 }
 
-export interface IVideoDetailState {
+export class VideoDetail extends React.Component<VideoDetailProps> {
 
-}
+    render(): ReactElement {
 
-export class VideoDetail extends React.Component<IVideoDetailProps, IVideoDetailState> {
-
-
-
-    render(): any {
-
-        let videoId = this.props.video == null ? "" : this.props.video.id.videoId;
-        let url = videoId == null ? "" : `https://www.youtube.com/embed/${videoId}`;
+        const videoId = this.props.video == null ? "" : this.props.video.id.videoId;
+        const url = videoId == null ? "" : `https://www.youtube.com/embed/${videoId}`;
 
         return (
             <div>
@@ -33,7 +28,5 @@ export class VideoDetail extends React.Component<IVideoDetailProps, IVideoDetail
                 )}
             </div>
         )
-
     }
-
 }

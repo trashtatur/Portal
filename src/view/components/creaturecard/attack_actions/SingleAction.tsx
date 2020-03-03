@@ -1,19 +1,15 @@
 import * as React from "react";
 import {creatureAction} from "../../componentTypes";
+import {ReactElement} from "react";
 import * as style from './creatureAction.css';
 
-export interface ISingleActionProps {
-    action: creatureAction
+export interface SingleActionProps {
+    action: creatureAction;
 }
 
-export interface ISingleActionState {
+export class SingleAction extends React.Component<SingleActionProps> {
 
-}
-
-export class SingleAction extends React.Component<ISingleActionProps, ISingleActionState> {
-
-
-    render(): any {
+    render(): ReactElement {
         return (
             <p className={style.actionTitle}>
                 {this.props.action.name}&nbsp;

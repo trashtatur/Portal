@@ -2,20 +2,16 @@ import * as React from "react";
 import {SingleAction} from "./SingleAction";
 import {CreatureSeparator} from "../separator/CreatureSeparator";
 import {creatureAction} from "../../componentTypes";
+import {ReactElement} from "react";
 import * as style from './creatureAction.css';
 
-
-export interface ICreatureActionProps {
-    actions: creatureAction[]
+export interface CreatureActionProps {
+    actions: creatureAction[];
 }
 
-export interface ICreatureActionState {
+export class CreatureActions extends React.Component<CreatureActionProps> {
 
-}
-
-export class CreatureActions extends React.Component<ICreatureActionProps, ICreatureActionState> {
-
-    render(): any {
+    render(): ReactElement {
         return (
             <div>
                 <p className={style.preSeparator}>
@@ -30,5 +26,4 @@ export class CreatureActions extends React.Component<ICreatureActionProps, ICrea
             </div>
         )
     }
-
 }

@@ -9,42 +9,43 @@ import {CreatureAttributes} from "./attributes/CreatureAttributes";
 import {CreatureAttackProperties} from "./attackProperties/CreatureAttackProperties";
 import {CreatureActions} from "./attack_actions/CreatureActions";
 import {action, attackProperty, saveThrowsType, statblock} from "../componentTypes";
+import {ReactElement} from "react";
 import * as style from "./creatureCard.css";
 
 
-export interface ICreatureCardProps {
-    name: string,
-    hitpoints: number,
-    armorclass: number,
-    label?: number,
-    alignment: string,
-    creatureClass: string,
-    attackProperties?: attackProperty[],
-    challenge: number,
-    movement: number,
-    ini: number,
-    image?: string,
-    baseAtk: number,
-    xp?: number,
-    size: string,
-    stats: statblock,
-    kmb: number,
-    kmv: number,
-    saveThrows: saveThrowsType,
-    foldable?: boolean,
-    languages?: string[],
-    skills?: string[],
-    talents?: string[],
-    actions?: action[],
-    preview?:boolean
+export interface CreatureCardProps {
+    name: string;
+    hitpoints: number;
+    armorclass: number;
+    label?: number;
+    alignment: string;
+    creatureClass: string;
+    attackProperties?: attackProperty[];
+    challenge: number;
+    movement: number;
+    ini: number;
+    image?: string;
+    baseAtk: number;
+    xp?: number;
+    size: string;
+    stats: statblock;
+    kmb: number;
+    kmv: number;
+    saveThrows: saveThrowsType;
+    foldable?: boolean;
+    languages?: string[];
+    skills?: string[];
+    talents?: string[];
+    actions?: action[];
+    preview?: boolean;
 }
 
-export interface ICreatureCardState {
-    isFolded: boolean
-    foldable: boolean
+export interface CreatureCardState {
+    isFolded: boolean;
+    foldable: boolean;
 }
 
-export class CreatureCard extends React.Component<ICreatureCardProps, ICreatureCardState> {
+export class CreatureCard extends React.Component<CreatureCardProps, CreatureCardState> {
 
     constructor(props) {
         super(props);
@@ -55,11 +56,11 @@ export class CreatureCard extends React.Component<ICreatureCardProps, ICreatureC
     }
 
     determineFolding(): object {
-        if (this.state.isFolded) return {visibility:"hidden",opacity:0,display:"none"};
-        return {visibility:"visible",opacity:1,display:"inline-block"};
+        if (this.state.isFolded) return {visibility: "hidden", opacity: 0, display: "none"};
+        return {visibility: "visible", opacity: 1, display: "inline-block"};
     }
 
-    toggleFold() {
+    toggleFold(): void {
         if (this.state.foldable) {
             if (this.state.isFolded) {
                 this.setState({isFolded: false})
@@ -69,7 +70,7 @@ export class CreatureCard extends React.Component<ICreatureCardProps, ICreatureC
         }
     }
 
-    render() {
+    render(): ReactElement {
         return (
             <div className={style.creatureCardContainer} onClick={() => this.toggleFold()}>
                 <CreatureCardHeader name={this.props.name} alignment={this.props.alignment}

@@ -3,19 +3,11 @@ import {roundCreature} from "../../../../componentTypes";
 import {ReactElement} from "react";
 import * as style from './roundCreature.css';
 
-export interface IRoundCreatureProps extends roundCreature {
-
-}
-
-export interface IRoundCreatureState {
-
-}
-
 const PLAYER_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(2,35,47,0.6727065826330532) 57%, rgba(0,232,255,1) 100%)";
 const MONSTER_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(47,2,2,0.6727065826330532) 57%, rgba(255,0,0,1) 100%)";
 const ALLY_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(2,47,18,0.6727065826330532) 57%, rgba(0,255,128,1) 100%)";
 
-export class RoundCreature extends React.Component<IRoundCreatureProps, IRoundCreatureState> {
+export class RoundCreature extends React.Component<roundCreature> {
 
     constructor(props) {
         super(props);
@@ -39,6 +31,7 @@ export class RoundCreature extends React.Component<IRoundCreatureProps, IRoundCr
                 <p className={style.attributeEntry}>{this.props.entryHP} changed to {this.props.currentHP}&nbsp;
                     <img
                         src={"images/roundSymbols/hp.png"}
+                        alt={"round hitpoints symbol"}
                         className={style.creatureIcon}
                     />
                 </p>)
@@ -52,6 +45,7 @@ export class RoundCreature extends React.Component<IRoundCreatureProps, IRoundCr
                 <p className={style.attributeEntry}> {this.props.entryAC} changed to {this.props.currentAC}&nbsp;
                     <img
                         src={"images/roundSymbols/ac.png"}
+                        alt={"round armorclass symbol"}
                         className={style.creatureIcon}
                     />
                 </p>
@@ -66,6 +60,7 @@ export class RoundCreature extends React.Component<IRoundCreatureProps, IRoundCr
                 <p className={style.attributeEntry}>{this.props.entryIni} changed to {this.props.currentIni}&nbsp;
                     <img
                         src={"images/roundSymbols/ini.png"}
+                        alt={"Round initiative symbol"}
                         className={style.creatureIcon}
                     />
                 </p>
@@ -80,6 +75,7 @@ export class RoundCreature extends React.Component<IRoundCreatureProps, IRoundCr
                 <p className={style.attributeEntry}>{this.props.entryType} changed to {this.props.currentType}&nbsp;
                     <img
                         src={"images/roundSymbols/type.png"}
+                        alt={"Round creature type symbol"}
                         className={style.creatureIcon}
                     />
                 </p>
@@ -88,7 +84,7 @@ export class RoundCreature extends React.Component<IRoundCreatureProps, IRoundCr
         return null
     }
 
-    determineTitleBackground() {
+    determineTitleBackground(): string {
         switch (this.props.currentType) {
             case "ally":
                 return ALLY_GRADIENT;
@@ -101,11 +97,12 @@ export class RoundCreature extends React.Component<IRoundCreatureProps, IRoundCr
         }
     }
 
-    render(): any {
+    render(): ReactElement {
         return (
             <div className={style.roundCreatureContainer}>
                 <h4 style={{background: this.determineTitleBackground()}}
                     className={style.creatureName}>{this.props.name}&nbsp;<img src={this.determineTypeIcon()}
+                                                                               alt={"creature initial type"}
                                                                                className={style.creatureTitleType}/>
                 </h4>
                 {this.determineHPChange()}

@@ -1,24 +1,23 @@
 import * as React from 'react';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const _ = require('lodash');
-let config = require('../../../../config.json');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const config = require('./youtubeConfig.json');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const searchYoutube = require('youtube-api-v3-search');
 import {VideoDetail} from "./video detail/VideoDetail";
 import {VideoList} from "./video list/VideoList";
 import {SearchBar} from "./searchbar/SearchBar";
+import {ReactElement} from "react";
 
-
-export interface IYoutubePlayerProps {
-
-}
-
-export interface IYoutubePlayerState {
-    videos:any[]
-    selectedVideo
+export interface YoutubePlayerState {
+    videos;
+    selectedVideo;
 }
 
 const API_KEY = config.youtube.api_key;
 
-export class YoutubePlayer extends React.Component<IYoutubePlayerProps, IYoutubePlayerState> {
+export class YoutubePlayer extends React.Component<{}, YoutubePlayerState> {
 
     constructor(props) {
         super(props);
@@ -32,7 +31,7 @@ export class YoutubePlayer extends React.Component<IYoutubePlayerProps, IYoutube
         this.videoSearch('ambient')
     }
 
-    videoSearch(term) {
+    videoSearch(term): void {
         searchYoutube(API_KEY, {q:term, type:"video", part:'snippet'}).then(videos =>{
             this.setState({
                 videos: videos.items,
@@ -42,7 +41,7 @@ export class YoutubePlayer extends React.Component<IYoutubePlayerProps, IYoutube
     }
 
 
-    render(): any {
+    render(): ReactElement {
 
         const videoSearch = _.debounce(term => {
             this.videoSearch(term);

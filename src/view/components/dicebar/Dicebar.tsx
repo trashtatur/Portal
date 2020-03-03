@@ -1,31 +1,28 @@
 import * as React from "react";
+import {ReactElement} from "react";
 import * as style from './dicebar.css';
 
-export interface IDicebarProps {
-
+export interface DicebarState {
+    dieValue: string;
 }
 
-export interface IDicebarState {
-    dieValue: string
-}
-
-export class Dicebar extends React.Component<IDicebarProps, IDicebarState> {
+export class Dicebar extends React.Component<{},DicebarState> {
 
     constructor(props) {
         super(props);
         this.state = {
             dieValue: null
-        }
+        };
         this.setDiceResult = this.setDiceResult.bind(this);
     }
 
 
-    setDiceResult(diceType: 4 | 6 | 8 | 10 | 12 | 20) {
-        let min = 1;
+    setDiceResult(diceType: 4 | 6 | 8 | 10 | 12 | 20): void {
+        const min = 1;
         this.setState({dieValue: (Math.floor(Math.random() * (diceType - min + 1)) + min).toString()})
     }
 
-    render(): any {
+    render(): ReactElement {
         return (
             <div className={style.diceBarContainer}>
                 <img src={'images/dice/d4.png'} className={style.dieImage} alt={"d4"}

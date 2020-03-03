@@ -1,19 +1,15 @@
 import * as React from 'react'
 import {VideoListItem} from "./video list item/VideoListItem";
+import {ReactElement} from "react";
 
-export interface IVideoListProps {
-    videos
-    onVideoSelect
+export interface VideoListProps {
+    videos;
+    onVideoSelect;
 }
 
-export interface IVideoListState {
+export class VideoList extends React.Component<VideoListProps> {
 
-}
-
-export class VideoList extends React.Component<IVideoListProps, IVideoListState> {
-
-
-    render(): any {
+    render(): ReactElement {
         return (
             this.props.videos.map(video => {
                 return (
@@ -26,5 +22,4 @@ export class VideoList extends React.Component<IVideoListProps, IVideoListState>
             })
         )
     }
-
 }

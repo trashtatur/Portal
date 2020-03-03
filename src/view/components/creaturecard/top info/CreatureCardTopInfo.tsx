@@ -1,7 +1,8 @@
 import * as React from "react";
-import * as style from "./creatureCardTopInfo.module.css"
+import {ReactElement} from "react";
+import * as style from "./creatureCardTopInfo.css"
 
-export interface ICreatureCardTopInfoProps {
+export interface CreatureCardTopInfoProps {
     size: string;
     creatureClass: string;
     movement: number;
@@ -10,14 +11,9 @@ export interface ICreatureCardTopInfoProps {
     xp?: number;
 }
 
-export interface ICreatureCardTopInfoState {
+export class CreatureCardTopInfo extends React.Component<CreatureCardTopInfoProps> {
 
-}
-
-
-export class CreatureCardTopInfo extends React.Component<ICreatureCardTopInfoProps, ICreatureCardTopInfoState> {
-
-    render(): any {
+    render(): ReactElement {
         return (
             <div className={style.topInfoContainer}>
                 <p className={style.size}>{this.props.size}</p>

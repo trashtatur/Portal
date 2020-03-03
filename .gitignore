@@ -6,6 +6,7 @@ src/images/creatureImages/*
 ### JetBrains template
 .idea
 config.json
+src/view/components/**/youtubeConfig.json
 ### Node template
 # Logs
 logs
