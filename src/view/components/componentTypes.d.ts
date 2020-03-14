@@ -157,4 +157,5 @@ export type oneEntryFormEntry = {
     value: string;
     id: string;
 }
-export type creatureType = "ally" | "player" | "monster" | ""
+
+export type creatureType = "ally" | "player" | "monster" | "summon" | ""

@@ -1,6 +1,8 @@
 import * as React from "react";
 import axios from "axios";
 import {ReactElement} from "react";
+import {ActionViewModel} from "../../../model/action/ActionViewModel";
+import {DamageTypeSelect} from "./damageTypeSelect/DamageTypeSelect";
 import * as style from './actionForm.css';
 
 export interface ActionFormProps {
@@ -8,14 +10,7 @@ export interface ActionFormProps {
 }
 
 export interface ActionFormState {
-    name: string;
-    rangeType: string;
-    attackBonus;
-    range;
-    damage: string;
-    critMod: string;
-    damageType: string;
-    additionalInfo: string;
+    action: ActionViewModel;
 }
 
 export class ActionForm extends React.Component<ActionFormProps, ActionFormState> {
@@ -23,124 +18,182 @@ export class ActionForm extends React.Component<ActionFormProps, ActionFormState
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
-            rangeType: "",
-            attackBonus: "",
-            range: "",
-            damage: "",
-            critMod: "",
-            damageType: "",
-            additionalInfo: ""
+            action: new ActionViewModel()
         };
-        this.handleNameChange = this.handleNameChange.bind(this);
-        this.handleRangeChange = this.handleRangeChange.bind(this);
-        this.handleRangeTypeChange = this.handleRangeTypeChange.bind(this);
-        this.handleAttackBonusChange = this.handleAttackBonusChange.bind(this);
-        this.handleCritModChange = this.handleCritModChange.bind(this);
-        this.handleDamageChange = this.handleDamageChange.bind(this);
-        this.handleDamageTypeChange = this.handleDamageTypeChange.bind(this);
-        this.handleAdditionalInfoChange = this.handleAdditionalInfoChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.postData = this.postData.bind(this);
     }
 
     ROUTE = '/V1/Action';
 
-    async postData(data): Promise<void> {
+    postData = async (data): Promise<void> => {
         try {
             await axios.post(this.ROUTE, data);
             alert('Created action in database');
-            this.setState({name: ""});
-            this.setState({rangeType: ""});
-            this.setState({attackBonus: ""});
-            this.setState({damage: ""});
-            this.setState({damageType: ""});
-            this.setState({range: ""});
-            this.setState({critMod: ""});
-            this.setState({additionalInfo: ""});
+            this.setState({action: new ActionViewModel()});
         } catch (error) {
             console.log(error)
         }
-    }
+    };
 
-    handleSubmit(event): void {
+    handleSubmit = (event): void => {
         event.preventDefault();
         this.postData(this.state)
-    }
+    };
 
-    handleNameChange(event): void {
-        this.setState({name: event.target.value})
-    }
+    handleNameChange = (event): void => {
+        const actionVM = this.state.action;
+        actionVM.name = event.target.value;
+        this.setState({action: actionVM})
+    };
 
-    handleRangeTypeChange(event): void {
-        this.setState({rangeType: event.target.value})
-    }
+    handleRangeTypeChange = (event): void => {
+        const actionVM = this.state.action;
+        actionVM.rangeType = event.target.value;
+        this.setState({action: actionVM})
+    };
 
-    handleAttackBonusChange(event): void {
-        this.setState({attackBonus: event.target.value})
-    }
+    handleAttackBonusChange = (event): void => {
+        const actionVM = this.state.action;
+        if (event.target.value === '') {
+            actionVM.attackBonus = null;
+        } else {
+            actionVM.attackBonus = Number(event.target.value);
+        }
+        this.setState({action: actionVM})
+    };
 
-    handleRangeChange(event): void {
-        this.setState({range: event.target.value})
-    }
+    handleRangeChange = (event): void => {
+        const actionVM = this.state.action;
+        if (event.target.value == '') {
+            actionVM.range = null;
+        } else {
+            actionVM.range = Number(event.target.value);
+        }
+        this.setState({action: actionVM})
+    };
 
-    handleDamageChange(event): void {
-        this.setState({damage: event.target.value})
-    }
+    handleDamageDieTypeChange = (event): void => {
+        const actionVM = this.state.action;
+        if (event.target.value == '') {
+            actionVM.damage.diceType = null;
+        } else {
+            actionVM.damage.diceType = Number(event.target.value);
+        }
+        this.setState({action: actionVM})
+    };
 
-    handleCritModChange(event): void {
-        this.setState({critMod: event.target.value})
-    }
+    handleDamageDieCountChange = (event): void => {
+        const actionVM = this.state.action;
+        if (event.target.value == '') {
+            actionVM.damage.diceCount = null;
+        } else {
+            actionVM.damage.diceCount = Number(event.target.value);
+        }
+        this.setState({action: actionVM})
+    };
 
-    handleDamageTypeChange(event): void {
-        this.setState({damageType: event.target.value})
-    }
+    handleCritModChange = (event): void => {
+        const actionVM = this.state.action;
+        if (event.target.value == '') {
+            actionVM.critMod = null;
+        } else {
+            actionVM.critMod = Number(event.target.value);
+        }
+        this.setState({action: actionVM})
+    };
 
-    handleAdditionalInfoChange(event): void {
-        this.setState({additionalInfo: event.target.value})
-    }
+    handleDamageTypeChange = (value, option): void => {
+        const actionVM = this.state.action;
+        if (option.action == "select-option") {
+            actionVM.damageType.damageType = value.map(elem => {
+                return elem.value
+            });
+        }
+        this.setState({action: actionVM})
+    };
+
+    handleAdditionalInfoChange = (event): void => {
+        const actionVM = this.state.action;
+        actionVM.additionalInfo = event.target.value;
+        this.setState({action: actionVM})
+    };
 
     render(): ReactElement {
         return (
             <div className={style.formContainer}>
                 <form onSubmit={this.handleSubmit}>
-                    <label className={style.formField}>
-                        name:
-                        <input type={"text"} value={this.state.name} onChange={this.handleNameChange}/>
-                    </label>
-                    <label className={style.formField}>
-                        range type:
-                        <input type={"text"} value={this.state.rangeType} onChange={this.handleRangeTypeChange}/>
-                    </label>
-                    <label className={style.formField}>
-                        attack bonus:
-                        <input type={"number"} value={this.state.attackBonus} onChange={this.handleAttackBonusChange}/>
-                    </label>
-                    <label className={style.formField}>
-                        range:
-                        <input type={"number"} value={this.state.range} onChange={this.handleRangeChange}/>
-                    </label>
-                    <label className={style.formField}>
-                        damage:
-                        <input type={"text"} value={this.state.damage} onChange={this.handleDamageChange}/>
-                    </label>
-                    <label className={style.formField}>
-                        crit mod:
-                        <input type={"text"} value={this.state.critMod} onChange={this.handleCritModChange}/>
-                    </label>
-                    <label className={style.formField}>
-                        damage type:
-                        <input type={"text"} value={this.state.damageType} onChange={this.handleDamageTypeChange}/>
-                    </label>
-                    <label className={style.formField}>
-                        additional info:
-                        <input type={"text"} value={this.state.additionalInfo}
-                               onChange={this.handleAdditionalInfoChange}/>
-                    </label>
+                    <div className={style.formSegment} style={{height: '40px'}}>
+                        <label className={style.formField}>
+                            name:
+                            <input type={"text"} value={this.state.action.name} onChange={this.handleNameChange}/>
+                        </label>
+                    </div>
+                    <div className={style.formSegment} style={{height: '100px'}}>
+                        <label className={style.formField}>
+                            range type:
+                            <input type={"text"} value={this.state.action.rangeType}
+                                   onChange={this.handleRangeTypeChange}/>
+                        </label>
+                        <label className={style.formField}>
+                            range:
+                            <input type={"number"} value={this.state.action.getFormattedRange()}
+                                   onChange={this.handleRangeChange}/>
+                        </label>
+                        <label className={style.formField}>
+                            attack bonus:
+                            <input type={"number"} value={this.state.action.getFormattedAttackBonus()}
+                                   onChange={this.handleAttackBonusChange}/>
+                        </label>
+                    </div>
+                    <div className={style.formSegment} style={{height: '65px'}}>
+                        <label className={style.formField}>
+                            damage:
+                            <input
+                                type={"text"}
+                                className={style.diceField}
+                                value={this.state.action.damage.getFormattedDiceCount()}
+                                onChange={this.handleDamageDieCountChange}
+                            />
+                            d
+                            <input
+                                type={"text"}
+                                className={style.diceField}
+                                value={this.state.action.damage.getFormattedDiceType()}
+                                onChange={this.handleDamageDieTypeChange}
+                            />
+                        </label>
+                        <label className={style.formField}>
+                            crit mod:
+                            <input type={"number"} value={this.state.action.getFormattedCritMod()}
+                                   onChange={this.handleCritModChange}/>
+                        </label>
+                    </div>
+                    <div className={style.formSegment} style={{height: '85px'}}>
+                        <label className={style.formField}>
+                            type:
+                            <DamageTypeSelect
+                                handleSelectChange={this.handleDamageTypeChange}
+                                className={style.damageTypeSelect}
+                                damageTypeValue={this.state.action.damageType}
+                            />
+                        </label>
+                        <label className={style.formField}>
+                            magical?
+                            <input
+                                type={"checkbox"}
+                                checked={this.state.action.damageType.isMagic}
+                            />
+                        </label>
+                    </div>
+                    <div  className={style.formSegment} style={{height: '90px'}}>
+                        <label className={style.formField}>
+                            additional info:
+                            <input type={"text"} value={this.state.action.additionalInfo}
+                                   onChange={this.handleAdditionalInfoChange}/>
+                        </label>
+                    </div>
                     <button type={"submit"} className={style.formButton}>submit</button>
                 </form>
             </div>
         )
     }
-
 }

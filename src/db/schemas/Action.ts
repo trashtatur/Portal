@@ -7,13 +7,13 @@ export class Action extends Model<Action> {
 
     @PrimaryKey
     @Column({
-        type:DataType.UUID, defaultValue:DataType.UUIDV4
+        type: DataType.UUID, defaultValue: DataType.UUIDV4
     })
     uuid: string;
 
     @AllowNull(false)
     @Column({
-        unique:'name_dmg'
+        unique: 'name_dmg'
     })
     name: string;
 
@@ -23,7 +23,7 @@ export class Action extends Model<Action> {
 
     @AllowNull(false)
     @Column
-    attackBonus:number;
+    attackBonus: number;
 
     @AllowNull(false)
     @Column(
@@ -32,10 +32,14 @@ export class Action extends Model<Action> {
     range;
 
     @AllowNull(false)
+    @Column
+    magical: boolean;
+
+    @AllowNull(false)
     @Column({
-        unique:'name_dmg'
+        unique: 'name_dmg'
     })
-    damage:string;
+    damage: string;
 
     @AllowNull(false)
     @Column
@@ -49,7 +53,7 @@ export class Action extends Model<Action> {
     @Column
     additionalInfo: string;
 
-    @BelongsToMany(()=>Creature, ()=>CreatureAction)
+    @BelongsToMany(() => Creature, () => CreatureAction)
     creatures: Creature[]
 }
 

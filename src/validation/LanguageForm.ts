@@ -1,10 +1,14 @@
 import {FormValidatorInterface} from "./FormValidatorInterface";
-import validate from "validate.js";
-import {oneEntryFormConstraints} from "./OneEntryFormConstraints";
+import {Type, validate} from 'validate-typescript'
 
-class LanguageForm implements FormValidatorInterface {
 
-    validate(data: object): boolean | object {
-        return validate(data, oneEntryFormConstraints)
+export class LanguageForm {
+
+    schema = {
+        inputs: [{value: Type(String), id: Type(String)}]
+    };
+
+    validate(data): boolean | object {
+        return validate(this.schema, data)
     }
 }

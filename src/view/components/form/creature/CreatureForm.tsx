@@ -466,6 +466,8 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
                                            value={"monster"} checked={this.typeBoxChecked("monster")}/> monster
                                     <input type="radio" name="creatureType" onChange={this.handleTypeChange}
                                            value={"ally"} checked={this.typeBoxChecked("ally")}/> ally
+                                    <input type="radio" name="creatureType" onChange={this.handleTypeChange}
+                                           value={"summon"} checked={this.typeBoxChecked("summon")}/> summon
                                 </div>
                             </label>
                             <label className={style.formTextInputArea}>

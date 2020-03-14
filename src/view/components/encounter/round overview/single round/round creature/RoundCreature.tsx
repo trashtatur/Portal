@@ -6,6 +6,7 @@ import * as style from './roundCreature.css';
 const PLAYER_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(2,35,47,0.6727065826330532) 57%, rgba(0,232,255,1) 100%)";
 const MONSTER_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(47,2,2,0.6727065826330532) 57%, rgba(255,0,0,1) 100%)";
 const ALLY_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(2,47,18,0.6727065826330532) 57%, rgba(0,255,128,1) 100%)";
+const SUMMON_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(67,1,64,0.4654236694677871) 57%, rgba(67,1,64,1) 100%)";
 
 export class RoundCreature extends React.Component<roundCreature> {
 
@@ -22,7 +23,7 @@ export class RoundCreature extends React.Component<roundCreature> {
 
 
     determineTypeIcon(): string {
-        return `images/selectableLableIcons/${this.props.currentType}-icon.png`
+        return `images/selectableLabelIcons/${this.props.currentType}-icon.png`
     }
 
     determineHPChange(): ReactElement {
@@ -92,6 +93,8 @@ export class RoundCreature extends React.Component<roundCreature> {
                 return MONSTER_GRADIENT;
             case "player":
                 return PLAYER_GRADIENT;
+            case "summon":
+                return SUMMON_GRADIENT;
             default:
                 return ""
         }

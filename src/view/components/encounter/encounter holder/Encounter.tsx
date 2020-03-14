@@ -1,10 +1,11 @@
 import * as React from "react";
+import {ReactElement} from "react";
 import {Creature} from "../creature/Creature";
 import {CreatureSelect} from "../creatureSelect/CreatureSelect";
 import axios, {AxiosResponse} from 'axios';
 import {uuidv4} from "../../helper/helperFunctions";
 import {creature, selectableCreatures} from "../../componentTypes";
-import {ReactElement} from "react";
+import {CreatureSelectLabel} from "../../creatureSelectLabel/CreatureSelectLabel";
 import * as style from './encounter.css';
 
 
@@ -56,8 +57,17 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
             if (creatureA.currentIni > creatureB.currentIni) return -1;
             return 0;
         });
-        this.setState({creatureMap: creatureMapSorted})
+        this.setState({creatureMap: creatureMapSorted}, ()=> this.setToSessionStorage())
     }
+
+    setToSessionStorage = (): void => {
+        sessionStorage.setItem('encounterCreatureDataMap',JSON.stringify(this.state.creatureMap))
+    };
+
+    getFromSessionStorage = (): creature[] => {
+        const stringCreatureData = sessionStorage.getItem('encounterCreatureDataMap');
+        return JSON.parse(stringCreatureData);
+    };
 
     handleRemoveFromEncounter(id: string): void {
         this.setState({
@@ -65,7 +75,7 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
                 this.state.creatureMap.filter(elem => {
                     return elem.id != id;
                 })
-        })
+        }, ()=> this.setToSessionStorage())
     }
 
     handleCurrentHPChange(event, id): void {
@@ -73,7 +83,7 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
         creatureMap.filter(creature => {
             return creature.id == id
         })[0].currentHP = parseInt(event.target.value);
-        this.setState({creatureMap: creatureMap})
+        this.setState({creatureMap: creatureMap}, () => this.setToSessionStorage())
     }
 
     handleCurrentACChange(event, id): void {
@@ -81,7 +91,7 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
         creatureMap.filter(creature => {
             return creature.id == id
         })[0].currentAC = parseInt(event.target.value);
-        this.setState({creatureMap: creatureMap})
+        this.setState({creatureMap: creatureMap},()=> this.setToSessionStorage())
     }
 
     handleCurrentTypeChange(event, id): void {
@@ -89,7 +99,7 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
         creatureMap.filter(creature => {
             return creature.id == id
         })[0].type = event.target.value;
-        this.setState({creatureMap: creatureMap})
+        this.setState({creatureMap: creatureMap},()=> this.setToSessionStorage())
     }
 
     determineLabel(creatureName: string): number {
@@ -105,6 +115,10 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
     }
 
     componentDidMount(): void {
+        const potentialEncounter = this.getFromSessionStorage();
+        if (potentialEncounter) {
+            this.setState({creatureMap: potentialEncounter});
+        }
         this.getAllCreatures().then(result => {
             this.setState({creatureDataMap: result.data})
         });
@@ -132,25 +146,37 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
             {
                 label: "allies",
                 options: []
+            },
+            {
+                label: "summons",
+                options: []
             }
-
         ];
 
         this.state.creatureDataMap.forEach(entry => {
             if (entry.type == "monster") {
                 selectables[0].options.push({value: entry.name,
-                    label: <div><img src="images/selectableLableIcons/monster-icon.png" height="20px"
-                                     width="20px"/>{entry.name} CR:{entry.challenge}</div>
+                    label: <CreatureSelectLabel image={'monster-icon.png'}
+                                                id={entry.uuid}
+                                                labelText={`${entry.name} CR: ${entry.challenge}`}/>
                 })
             } else if (entry.type == "player") {
                 selectables[1].options.push({value: entry.name,
-                    label: <div><img src="images/selectableLableIcons/player-icon.png" height="20px"
-                                     width="20px"/>{entry.name}</div>
+                    label: <CreatureSelectLabel image={'player-icon.png'}
+                                                id={entry.uuid}
+                                                labelText={`${entry.name}`}/>
                 })
             } else if (entry.type == "ally") {
                 selectables[2].options.push({value: entry.name,
-                    label: <div><img src="images/selectableLableIcons/ally-icon.png" height="20px"
-                                     width="20px"/>{entry.name} CR:{entry.challenge}</div>
+                    label: <CreatureSelectLabel image={'ally-icon.png'}
+                                                id={entry.uuid}
+                                                labelText={`${entry.name} CR: ${entry.challenge}`}/>
+                })
+            } else if (entry.type == "summon") {
+                selectables[3].options.push({value: entry.name,
+                    label: <CreatureSelectLabel image={'summon-icon.png'}
+                                                id={entry.uuid}
+                                                labelText={`${entry.name} CR: ${entry.challenge}`}/>
                 })
             }
         });
@@ -190,7 +216,7 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
         });
         this.setState({
             creatureMap: creatureMapSorted
-        });
+        },() => this.setToSessionStorage());
     }
 
 
@@ -316,10 +342,10 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
                             stats={creature.stats}
                             kmb={creature.kmb}
                             kmv={creature.kmv}
-                            sortByIni={creature.sortByIni}
-                            handleCurrentACChange={creature.handleCurrentACChange}
-                            handleCurrentHPChange={creature.handleCurrentHPChange}
-                            handleCurrentTypeChange={creature.handleCurrentTypeChange}
+                            sortByIni={this.sortByIni}
+                            handleCurrentACChange={this.handleCurrentACChange}
+                            handleCurrentHPChange={this.handleCurrentHPChange}
+                            handleCurrentTypeChange={this.handleCurrentTypeChange}
                             handleRemoveFromEncounter={this.handleRemoveFromEncounter}
                             saveThrows={creature.saveThrows}
                             skills={creature.skills}

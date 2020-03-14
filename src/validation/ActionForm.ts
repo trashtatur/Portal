@@ -1,111 +1,48 @@
 import {RangeType} from "../model/dataModel/RangeType";
-import {DamageTypesEnum} from "../model/dataModel/DamageTypesEnum";
-import validate from 'validate.js'
 import {FormValidatorInterface} from "./FormValidatorInterface";
+import {Optional, Options, Type, validate, Validator} from 'validate-typescript';
+import {DamageTypesEnum} from "../model/dataModel/DamageTypesEnum";
+import {ValidatorError} from "validate-typescript/lib/errors";
 
-const constraints = {
-    "name": {
-        presence: true,
-        length: {
-            maximum: 255,
-            tooLong: 'Your actions name was too long. Maximum is 255 characters'
-        }
-    },
-    "rangeType": {
-        presence: true,
-        inclusion: {
-            within: [RangeType.MELEE, RangeType.RANGED],
-            message: `Range type must be either "${RangeType.RANGED}" or "${RangeType.MELEE}". You provided %{value}`
-        }
-    },
-    "attackBonus": {
-        presence: true,
-        numericality: {
-            onlyInteger: true
-        }
-    },
-    "range": {
-        presence: true,
-        numericality: {
-            onlyInteger: true,
-            greaterThan: 0
-        }
-    },
-    "damage": {
-        presence: true,
-        format: {
-            pattern: (/^\d+([dDwW])\d+$/),
-            message: 'Your damage must be in the format "integer > 0"(d or w)"integer > 0" (example 1d8 or also 1w12)'
-        }
-    },
-    "critMod": {
-        presence: true,
-        numericality: {
-            onlyInteger: true,
-            greaterThan: 0
-        }
-    },
-    "damageType": {
-        presence: true,
-        "damageType.type": function (value: Array<DamageTypesEnum>): boolean {
-            const damageTypes = [
-                DamageTypesEnum.PHYSICAL_SLASHING,
-                DamageTypesEnum.PHYSICAL_PIERCING,
-                DamageTypesEnum.PHYSICAL_BLUDGEONING,
-                DamageTypesEnum.ENERGY_FIRE,
-                DamageTypesEnum.ENERGY_COLD,
-                DamageTypesEnum.ENERGY_ACID,
-                DamageTypesEnum.ENERGY_ELECTRIC,
-                DamageTypesEnum.ALIGNED_ENERGY,
-                DamageTypesEnum.NEGATIVE_ENERGY,
-                DamageTypesEnum.POSITIVE_ENERGY,
-                DamageTypesEnum.FORCE,
-                DamageTypesEnum.SONIC,
-                DamageTypesEnum.UNTYPED_DAMAGE
-            ];
-            //Value must be array
-            if (!value && !Array.isArray(value)) {
-                return false
-            }
-            //Damage is hybrid damage
-            if (value.length > 1) {
-                //Damage must be indicated as hybrid by fist index
-                if (value[0] != DamageTypesEnum.HYBRID_DAMAGE) {
-                    return false;
-                }
-                //All damage types must be valid
-                value.forEach(elem => {
-                    if (!damageTypes.includes(elem)) {
-                        return false
-                    }
-                })
-            }
-            //Damage is not hybrid damage
-            if (value.length == 1) {
-                //Damage type must be valid
-                if (!damageTypes.includes(value[0])) {
-                    return false;
-                }
-            }
-            //array cant be empty
-            if (value.length == 0) {
-                return false
-            }
-            return true
+export class ActionForm implements FormValidatorInterface{
+
+    schema = {
+        _name: Type(String),
+        _rangeType: Options([RangeType.MELEE,RangeType.RANGED]),
+        _attackBonus: Type(Number),
+        _range: Type(Number),
+        _damage: {
+            _diceCount: Type(Number),
+            _diceType: Type(Number),
         },
-        "damageType.magical": {
-            presence: true,
-            type: "boolean"
+        _critMod: Type(Number),
+        _damageType: {
+            _damageType: [Type(String)],
+            _isMagic: Type(Boolean),
+        },
+        _additionalInfo: Optional(Type(String))
+    };
+
+    validate(data): boolean|object {
+        try {
+            if (this.validateDamageType(data._damageType._damageType)) {
+                return validate(this.schema, data)
+            }
+        } catch (error) {
+            console.log(error.message)
         }
-    },
-    "additional info": {
-        presence: false
     }
-};
 
-class ActionForm implements FormValidatorInterface{
-
-    validate(data: object): boolean|object {
-        return validate(data,constraints)
+    private validateDamageType(damageTypes: Array<DamageTypesEnum>): boolean {
+        damageTypes.forEach(damageType => {
+            if (!(Object.values(DamageTypesEnum).includes(damageType))) {
+                throw new ValidatorError(
+                    'ActionFormValidator',
+                    'damageTypes',
+                    damageType,
+                    null)
+            }
+        });
+        return true;
     }
 }

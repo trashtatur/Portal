@@ -20,6 +20,7 @@
 
 
 .titleContainer {
+    width: 22%;
     float: right;
 }
 
@@ -48,14 +49,13 @@
     float: right;
 }
 
-.name {
+.currentInfoContainer {
     color: white;
     padding-top: 0.45em;
     padding-right: 0.4em;
     padding-bottom: 0.45em;
     margin: 0;
     font-weight: bold;
-    width: 12.8em;
     text-align: right;
     height: 80%;
     box-sizing: border-box;

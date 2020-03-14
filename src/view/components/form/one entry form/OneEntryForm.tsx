@@ -40,7 +40,7 @@ export class OneEntryForm extends React.Component<OneEntryFormProps, OneEntryFor
     }
 
     handleSubmit(event): void {
-        this.postData(this.state.inputs);
+        this.postData(this.state);
         event.preventDefault()
     }
 

@@ -12,5 +12,6 @@ export enum DamageTypesEnum {
     FORCE = 'force',
     SONIC= 'sonic',
     UNTYPED_DAMAGE = 'untyped damage',
+    NONE = ''
 }
 

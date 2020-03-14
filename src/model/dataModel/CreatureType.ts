@@ -1,5 +1,6 @@
 export enum CreatureType {
     PLAYER = 'player',
     MONSTER = 'monster',
-    ALLY = 'ally'
+    ALLY = 'ally',
+    SUMMON = 'summon'
 }

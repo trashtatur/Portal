@@ -29,7 +29,7 @@ export class Creature extends Model<Creature> {
 
     @PrimaryKey
     @Column({type:DataType.UUID, defaultValue: DataType.UUIDV4})
-    uuid:string;
+    uuid: string;
 
     @AllowNull(false)
     @Column({
@@ -38,7 +38,7 @@ export class Creature extends Model<Creature> {
     name: string;
 
     @Is('type',value => {
-        let checklist = ['player','monster','ally'];
+        const checklist = ['player','monster','ally', 'summon'];
         if (!checklist.includes(value.toLowerCase())) {
             throw Error(`${value} must be one of these values: ${checklist}`)
         }
@@ -54,14 +54,14 @@ export class Creature extends Model<Creature> {
     @AllowNull(true)
     @Column({ type: DataType.STRING(2000)})
     get attackProperties() {
-        let value = this.getDataValue('attackProperties');
+        const value = this.getDataValue('attackProperties');
         // @ts-ignore
-        let value_parsed = JSON.parse(value);
+        const value_parsed = JSON.parse(value);
         return value_parsed
     };
 
-    set attackProperties(val:attackProperty[]) {
-        let parsed_val = val.map(elem => {
+    set attackProperties(val: attackProperty[]) {
+        const parsed_val = val.map(elem => {
            return `{"name":"${elem.name}", "property":"${elem.property}"}`
         });
         // @ts-ignore
@@ -103,7 +103,7 @@ export class Creature extends Model<Creature> {
     xp: number;
 
     @Is('size',value=>{
-        let testlist = ["colossal","gargantuan", "huge","large","medium","small","tiny","diminutive","fine"];
+        const testlist = ["colossal","gargantuan", "huge","large","medium","small","tiny","diminutive","fine"];
         if (!testlist.includes(value.toLowerCase().trim())) {
             throw new Error(`Size value must be one of: ${JSON.stringify(testlist)}`)
         }
@@ -116,10 +116,10 @@ export class Creature extends Model<Creature> {
         let value_parsed = value;
         if (typeof value_parsed != "object") value_parsed = JSON.parse(value);
         if (typeof value_parsed == "object") {
-            let val_keys = Object.keys(value_parsed).map(val => {return val.toLowerCase()});
+            const val_keys = Object.keys(value_parsed).map(val => {return val.toLowerCase()});
             const testlist = ["str","dex","wis","int","cha","con"];
             if (JSON.stringify(testlist.sort()) == JSON.stringify(val_keys.sort())) {
-                let check = Object.values(value_parsed).filter(val => {
+                const check = Object.values(value_parsed).filter(val => {
                     if (typeof val == "number") return val;
                 });
                 if (check.length != Object.values(value_parsed).length) {
@@ -161,10 +161,10 @@ export class Creature extends Model<Creature> {
         let value_parsed = value;
         if (typeof value_parsed != "object") value_parsed = JSON.parse(value);
         if (typeof value_parsed == "object") {
-            let val_keys = Object.keys(value_parsed).map(val => {return val.toLowerCase()});
+            const val_keys = Object.keys(value_parsed).map(val => {return val.toLowerCase()});
             const testlist = ["ref","will","fort"];
             if (JSON.stringify(testlist.sort()) == JSON.stringify(val_keys.sort())) {
-                let check = Object.values(value_parsed).filter(val => {
+                const check = Object.values(value_parsed).filter(val => {
                     if (typeof val == "number") return val;
                 });
                 if (check.length != Object.values(value_parsed).length) {
@@ -212,7 +212,7 @@ export class Creature extends Model<Creature> {
 
     @BeforeCreate
     @BeforeUpdate
-    static setKmbKmv(instance:Creature) {
+    static setKmbKmv(instance: Creature) {
         instance.kmb = instance.getKMB();
         instance.kmv = instance.getKMV();
         instance.sizemod = instance.getModForSizeForKM();
@@ -222,7 +222,7 @@ export class Creature extends Model<Creature> {
      * @return {int}
      */
     getKMB() {
-        let size = this.size.toLowerCase().trim();
+        const size = this.size.toLowerCase().trim();
         if (size === "klein" || size === "sehr klein" || size === "winzig" || size === "mini") {
             // @ts-ignore
             return this.baseAtk + this.getModForStat(this.get('stats').dex) + this.getModForSizeForKM()
@@ -253,7 +253,7 @@ export class Creature extends Model<Creature> {
      * @returns {int}
      */
     getModForSizeForKM() {
-        let size_adjusted = this.size.toLowerCase().trim();
+        const size_adjusted = this.size.toLowerCase().trim();
         switch (size_adjusted) {
             case "colossal":
                 return 8;

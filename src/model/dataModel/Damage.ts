@@ -17,4 +17,8 @@ export class Damage {
     get diceType(): number {
         return this._diceType;
     }
+
+    getDamageString(): string {
+        return `${this._diceCount}d${this.diceType}`
+    }
 }

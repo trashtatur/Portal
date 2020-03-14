@@ -21,7 +21,7 @@ export class ActionResourceController {
     }
 
     @Post()
-    async createAction(@BodyParams() actionData:object):Promise<string> {
+    async createAction(@BodyParams() actionData: object): Promise<string> {
         let action = this.actionService.create(actionData);
         return JSON.stringify(action);
     }

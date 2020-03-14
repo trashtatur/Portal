@@ -10,7 +10,7 @@ export class ActionModel implements ModelInterface {
     private readonly _range: number;
     private readonly _damage: Damage;
     private readonly _critMod: number;
-    private readonly _damageType: DamageType | DamageType[];
+    private readonly _damageTypes: DamageType;
     private readonly _additionalInfo: string;
 
     constructor(
@@ -20,7 +20,7 @@ export class ActionModel implements ModelInterface {
         range: number,
         damage: Damage,
         critMod: number,
-        damageType: DamageType | DamageType[],
+        damageType: DamageType,
         additionalInfo?: string
     ) {
         this._name = name;
@@ -29,7 +29,7 @@ export class ActionModel implements ModelInterface {
         this._range = range;
         this._damage = damage;
         this._critMod = critMod;
-        this._damageType = damageType;
+        this._damageTypes = damageType;
         this._additionalInfo = additionalInfo;
     }
 
@@ -57,8 +57,8 @@ export class ActionModel implements ModelInterface {
         return this._critMod;
     }
 
-    get damageType(): DamageType | DamageType[] {
-        return this._damageType;
+    get damageTypes(): DamageType {
+        return this._damageTypes;
     }
 
     get additionalInfo(): string {

@@ -1,9 +1,31 @@
 import {DamageTypesEnum} from "./DamageTypesEnum";
 
 export class DamageType {
+    private readonly _damageTypes: DamageTypesEnum[];
+    private readonly _isMagic: boolean;
     constructor(
-        damageType: DamageTypesEnum,
-        isMagic: boolean
+        damageTypes: DamageTypesEnum[],
+        isMagic: boolean,
+        isHybrid: boolean
     ) {
+        this._damageTypes = damageTypes;
+        this._isMagic = isMagic;
+    }
+
+    get damageTypes(): DamageTypesEnum[] {
+        return this._damageTypes;
+    }
+
+    get isMagic(): boolean {
+        return this._isMagic;
+    }
+
+    getDamageTypesString(): string {
+        let damageTypesString = '';
+        if (this._damageTypes.length>1) {
+            damageTypesString = '(hybrid) '
+        }
+        damageTypesString += this._damageTypes.toString();
+        return damageTypesString;
     }
 }

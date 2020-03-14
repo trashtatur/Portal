@@ -1,3 +1,4 @@
-export interface ModelToEntityMapperInterface {
+export interface DataToModelMapperInterface {
 
+    map(data);
 }

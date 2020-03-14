@@ -1,12 +1,15 @@
 import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
 import {Language} from "../db/schemas/Language";
+import {LanguageForm} from "../validation/LanguageForm";
 
 @Service()
 export class LanguageService {
 
-    async create(data:any[], include?:Includeable[]): Promise<Language[]> {
-        let langData= data.map(elem=>{return {name: elem.value}});
+    async create(data, include?:Includeable[]): Promise<Language[]> {
+        const langForm = new LanguageForm();
+        const valid = langForm.validate(data);
+        const langData= data.map(elem=>{return {name: elem.value}});
         return Language.bulkCreate(langData,{include:include})
     }
 

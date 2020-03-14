@@ -5,6 +5,7 @@ import axios from "axios";
 import {creature, selectableCreatures} from "../../../componentTypes";
 import {uuidv4} from "../../../helper/helperFunctions";
 import {ReactElement} from "react";
+import {CreatureSelectLabel} from "../../../creatureSelectLabel/CreatureSelectLabel";
 import * as style from './creatureEditWrapper.css';
 
 
@@ -47,6 +48,10 @@ export class CreatureEditWrapper extends React.Component<{}, CreatureEditWrapper
             {
                 label: "allies",
                 options: []
+            },
+            {
+                label: "summons",
+                options: []
             }
 
         ];
@@ -55,25 +60,31 @@ export class CreatureEditWrapper extends React.Component<{}, CreatureEditWrapper
             if (entry.type == "monster") {
                 selectables[0].options.push({
                     value: {name: entry.name, challenge: entry.challenge},
-                    label: <div><img src="images/selectableLableIcons/monster-icon.png" height="20px"
-                                     alt={"Monster icon"}
-                                     width="20px"/>{entry.name} CR:{entry.challenge}</div>
+                    label: <CreatureSelectLabel image={'monster-icon.png'}
+                                                id={entry.uuid}
+                                                labelText={`${entry.name} CR: ${entry.challenge}`}/>
                 })
             } else if (entry.type == "player") {
                 selectables[1].options.push({
                     value: {name: entry.name, challenge: entry.challenge},
-                    label: <div><img src="images/selectableLableIcons/player-icon.png" height="20px"
-                                     alt={"Player icon"}
-                                     width="20px"/>{entry.name}</div>
+                    label: <CreatureSelectLabel image={'player-icon.png'}
+                                                id={entry.uuid}
+                                                labelText={`${entry.name}`}/>
                 })
             } else if (entry.type == "ally") {
                 selectables[2].options.push({
                     value: entry.name,
-                    label: <div><img src="images/selectableLableIcons/ally-icon.png" height="20px"
-                                     alt={"Ally icon"}
-                                     width="20px"/>{entry.name} CR:{entry.challenge}</div>
+                    label: <CreatureSelectLabel image={'ally-icon.png'}
+                                                id={entry.uuid}
+                                                labelText={`${entry.name} CR: ${entry.challenge}`}/>
                 })
-
+            } else if (entry.type == "summon") {
+                selectables[3].options.push({
+                    value: entry.name,
+                    label: <CreatureSelectLabel image={'summon-icon.png'}
+                                                id={entry.uuid}
+                                                labelText={`${entry.name} CR: ${entry.challenge}`}/>
+                })
             }
         });
         return selectables

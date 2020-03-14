@@ -15,7 +15,7 @@ export class LanguageResourceController {
     }
 
     @Post()
-    async createLanguage(@BodyParams() languageData:any[]): Promise<string> {
+    async createLanguage(@BodyParams() languageData): Promise<string> {
         let language = await this.languageService.create(languageData);
         return JSON.stringify(language)
     }

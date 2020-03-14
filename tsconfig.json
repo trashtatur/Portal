@@ -21,6 +21,7 @@
   "include": [
     "src/global.d.ts",
     "src/view/components/componentTypes.d.ts",
+    "build/cssTypes/**/*.d.ts",
     "src/**/*"
   ],
   "exclude": [

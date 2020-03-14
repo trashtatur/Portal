@@ -8,7 +8,7 @@ import * as style from './creature.css';
 export interface CreatureProps {
     id: string;
     name: string;
-    type: "ally" | "monster" | "player" | "";
+    type: "ally" | "monster" | "player" | "summon" | "";
     hitpoints: number;
     armorclass: number;
     label?: number;
@@ -76,6 +76,7 @@ export class Creature extends React.Component<CreatureProps, CreatureState> {
     MONSTER_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(47,2,2,1) 70%, rgba(255,0,9,1) 100%)";
     PLAYER_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(9,115,121,1) 70%, rgba(0,241,255,1) 100%)";
     ALLY_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(2,47,18,1) 70%, rgba(0,255,128,1) 100%)";
+    SUMMON_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(67,1,64,1) 70%, rgba(67,1,64,1) 100%)";
     DEFAULT_BG = "black";
 
     handleIniChange(event): void {
@@ -107,6 +108,10 @@ export class Creature extends React.Component<CreatureProps, CreatureState> {
             case 'player':
                 return {
                     background: this.PLAYER_GRADIENT
+                };
+            case 'summon':
+                return {
+                    background: this.SUMMON_GRADIENT
                 };
             default:
                 return {
@@ -196,10 +201,16 @@ export class Creature extends React.Component<CreatureProps, CreatureState> {
                                             this.props.changeTypeOfRoundCreature(e.target.value, this.props.id);
                                             this.props.handleCurrentTypeChange(e, this.props.id);
                                         }}/>Player
+                                        <input name={this.props.id + "type"} type="radio" value={"summon"}
+                                               checked={this.typeChecked('summon')} onChange={e => {
+                                            this.handleTypeChange(e);
+                                            this.props.changeTypeOfRoundCreature(e.target.value, this.props.id);
+                                            this.props.handleCurrentTypeChange(e, this.props.id);
+                                        }}/>Summon
                                     </p>
                                 </div>
                                 <div className={style.titleContainer}>
-                                    <h1 className={style.name} style={this.determineGradientType()}>Current</h1>
+                                    <h1 className={style.currentInfoContainer} style={this.determineGradientType()}>Current</h1>
                                     <div className={style.edge}/>
                                 </div>
                             </div>

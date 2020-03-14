@@ -1,5 +1,6 @@
 .formContainer {
     font-size: 9pt;
+    width: 40%;
     display: inline-block;
 }
 
@@ -15,6 +16,11 @@
     transition: background-color 0.5s linear;
 }
 
+.formSegment {
+    border-bottom: 1px solid #888888;
+    margin-bottom: 8px;
+}
+
 .formButton:hover{
     cursor: pointer;
     background-color: darkslategrey;
@@ -22,7 +28,16 @@
 
 .formField {
     float: left;
-    width: 110em;
+    width: 100%;
     margin-top: 0.2em;
     margin-bottom: 0.2em;
+}
+
+.damageTypeSelect {
+    width: 70%;
+    float: right;
+}
+
+.diceField {
+    width: 8%;
 }
