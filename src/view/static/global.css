@@ -46,10 +46,10 @@
     bottom: 0;
     left: 0;
     right: 0;
-    font-family: 'Helvetica', sans-serif;
+    font-family: 'Trajan Pro', serif;
     font-size: 20px;
     font-weight: 600;
-    color: #2484FF;
+    color: #8c15a2;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     cursor: pointer;
@@ -65,7 +65,7 @@
     background-color: #E6E6E6;
     color: #2484FF;
     border: none;
-    font-family: 'Helvetica', sans-serif;
+    font-family: "Trajan Pro", serif;
     border-radius: 4px;
     font-size: 14px;
     font-weight: 600;
@@ -104,7 +104,7 @@
 
 .dzu-previewImage {
     width: auto;
-    max-width: 140px;
+    max-width: 40px;
     border-radius: 4px;
 }
 
@@ -130,7 +130,7 @@
     background-color: #2484FF;
     border: none;
     border-radius: 4px;
-    font-family: 'Helvetica', sans-serif;
+    font-family: "Trajan Pro", serif;
     font-size: 14px;
     font-weight: 600;
     color: #FFF;

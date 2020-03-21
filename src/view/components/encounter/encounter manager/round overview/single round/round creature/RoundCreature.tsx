@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {roundCreature} from "../../../../componentTypes";
+import {roundCreature} from "../../../../../componentTypes";
 import {ReactElement} from "react";
 import * as style from './roundCreature.css';
 

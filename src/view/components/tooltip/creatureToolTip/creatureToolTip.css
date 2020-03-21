@@ -1,0 +1,33 @@
+.creatureToolTipContainer {
+    height: 200px;
+    width: 300px;
+}
+
+.creatureImage {
+    float: right;
+    padding-top: 5px;
+    padding-right: 5px;
+    display: inline-block;
+    max-width: 150px;
+    max-height: 200px;
+}
+
+.toolTipStatBlock {
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+.toolTipStatEntry {
+    height: 10%;
+    padding-right: 10px;
+    font-size: 13pt;
+    font-weight: bold;
+    color: darkred;
+}
+
+.toolTipStatEntryValue {
+    font-size: 11pt;
+    color: black;
+}

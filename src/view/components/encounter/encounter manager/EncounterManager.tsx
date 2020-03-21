@@ -1,6 +1,6 @@
 import * as React from "react";
-import {Encounter} from "../encounter holder/Encounter";
-import {RoundOverview} from "../round overview/RoundOverview";
+import {Encounter} from "./encounter/Encounter";
+import {RoundOverview} from "./round overview/RoundOverview";
 import {creature, creatureType, round, roundCreature} from "../../componentTypes";
 import {ReactElement} from "react";
 import * as style from './encounterManager.css';

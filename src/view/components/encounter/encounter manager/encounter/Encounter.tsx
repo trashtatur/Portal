@@ -1,11 +1,12 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import {Creature} from "../creature/Creature";
-import {CreatureSelect} from "../creatureSelect/CreatureSelect";
+import {Creature} from "../../creature/Creature";
+import {CreatureSelect} from "../../creatureSelect/CreatureSelect";
 import axios, {AxiosResponse} from 'axios';
-import {uuidv4} from "../../helper/helperFunctions";
-import {creature, selectableCreatures} from "../../componentTypes";
-import {CreatureSelectLabel} from "../../creatureSelectLabel/CreatureSelectLabel";
+import {uuidv4} from "../../../helper/helperFunctions";
+import {creature, selectableCreatures} from "../../../componentTypes";
+import {CreatureSelectLabel} from "../../../creatureSelectLabel/CreatureSelectLabel";
+import {AddSummon} from "../../addSummon/AddSummon";
 import * as style from './encounter.css';
 
 
@@ -157,26 +158,26 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
             if (entry.type == "monster") {
                 selectables[0].options.push({value: entry.name,
                     label: <CreatureSelectLabel image={'monster-icon.png'}
-                                                id={entry.uuid}
+                                                creature={entry}
                                                 labelText={`${entry.name} CR: ${entry.challenge}`}/>
                 })
             } else if (entry.type == "player") {
                 selectables[1].options.push({value: entry.name,
                     label: <CreatureSelectLabel image={'player-icon.png'}
-                                                id={entry.uuid}
+                                                creature={entry}
                                                 labelText={`${entry.name}`}/>
                 })
             } else if (entry.type == "ally") {
                 selectables[2].options.push({value: entry.name,
                     label: <CreatureSelectLabel image={'ally-icon.png'}
-                                                id={entry.uuid}
+                                                creature={entry}
                                                 labelText={`${entry.name} CR: ${entry.challenge}`}/>
                 })
             } else if (entry.type == "summon") {
                 selectables[3].options.push({value: entry.name,
                     label: <CreatureSelectLabel image={'summon-icon.png'}
-                                                id={entry.uuid}
-                                                labelText={`${entry.name} CR: ${entry.challenge}`}/>
+                                                creature={entry}
+                                                labelText={`${entry.name}`}/>
                 })
             }
         });
@@ -313,9 +314,10 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
                             this.creatureSelect = ref
                         }}
                     />
-                    <button className={style.creatureAddButton} type="button" onClick={this.addCreatures}>Add Creature
+                    <button className={style.creatureAddButton} type="button" onClick={this.addCreatures}>Add
                     </button>
                 </div>
+                <AddSummon/>
                 {this.state.creatureMap.map(creature => {
                     return (
                         <Creature

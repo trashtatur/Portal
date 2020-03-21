@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Timeline, TimelineEvent} from "react-event-timeline";
-import {round} from "../../componentTypes";
+import {round} from "../../../componentTypes";
 import {SingleRound} from "./single round/SingleRound";
 import {ReactElement} from "react";
 

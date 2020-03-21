@@ -61,28 +61,28 @@ export class CreatureEditWrapper extends React.Component<{}, CreatureEditWrapper
                 selectables[0].options.push({
                     value: {name: entry.name, challenge: entry.challenge},
                     label: <CreatureSelectLabel image={'monster-icon.png'}
-                                                id={entry.uuid}
+                                                creature={entry}
                                                 labelText={`${entry.name} CR: ${entry.challenge}`}/>
                 })
             } else if (entry.type == "player") {
                 selectables[1].options.push({
                     value: {name: entry.name, challenge: entry.challenge},
                     label: <CreatureSelectLabel image={'player-icon.png'}
-                                                id={entry.uuid}
+                                                creature={entry}
                                                 labelText={`${entry.name}`}/>
                 })
             } else if (entry.type == "ally") {
                 selectables[2].options.push({
                     value: entry.name,
                     label: <CreatureSelectLabel image={'ally-icon.png'}
-                                                id={entry.uuid}
+                                                creature={entry}
                                                 labelText={`${entry.name} CR: ${entry.challenge}`}/>
                 })
             } else if (entry.type == "summon") {
                 selectables[3].options.push({
                     value: entry.name,
                     label: <CreatureSelectLabel image={'summon-icon.png'}
-                                                id={entry.uuid}
+                                                creature={entry}
                                                 labelText={`${entry.name} CR: ${entry.challenge}`}/>
                 })
             }

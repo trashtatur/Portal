@@ -43,4 +43,4 @@ gulp.task('watch',function () {
     gulp.watch('src/**/components/**/*.css',gulp.series('default'));
 });
 
-gulp.task("default", gulp.series('tcm','browserify'));
+gulp.task("default", gulp.series('tcm', 'browserify', 'watch'));

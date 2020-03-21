@@ -6,30 +6,11 @@ import axios from "axios";
 
 export interface CreatureSelectLabelProps {
     image: string;
-    id: string;
+    creature;
     labelText: string;
 }
 
-export interface CreatureSelectLabelState {
-    creatureData;
-    hasData: boolean;
-}
-
-export class CreatureSelectLabel extends React.Component<CreatureSelectLabelProps, CreatureSelectLabelState> {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            creatureData: null,
-            hasData: false,
-        }
-    }
-
-    retrieveData = async (): Promise<any> => {
-        const creatureData = await axios.get(`/V1/creature/id/${this.props.id}`);
-        this.setState({creatureData: creatureData.data},
-            () => this.setState({hasData: true}, () => console.log(this.state.creatureData)));
-    };
+export class CreatureSelectLabel extends React.Component<CreatureSelectLabelProps> {
 
     render(): ReactElement {
         return (
@@ -40,8 +21,8 @@ export class CreatureSelectLabel extends React.Component<CreatureSelectLabelProp
                      alt={"Selectable creature entry type"}
                 />
                 {this.props.labelText}
-                <ToolTip retrieveData={this.retrieveData} parentHasData={this.state.hasData}>
-                    <CreatureToolTip creatureData={this.state.creatureData}/>
+                <ToolTip>
+                    <CreatureToolTip creature={this.props.creature}/>
                 </ToolTip>
             </div>
         )
