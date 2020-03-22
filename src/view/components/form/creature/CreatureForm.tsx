@@ -31,7 +31,6 @@ interface CreatureFormProps {
     handleUpdate?: Function;
 }
 
-
 interface CreatureFormState {
     creature: creature;
     languageData: languageDataEntry[];
@@ -51,48 +50,22 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
             skillData: [],
             actionData: []
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.addOneMoreAttackProperty = this.addOneMoreAttackProperty.bind(this);
-        this.handleNameChange = this.handleNameChange.bind(this);
-        this.handleAlignmentChange = this.handleAlignmentChange.bind(this);
-        this.handleCreatureClassChange = this.handleCreatureClassChange.bind(this);
-        this.handleHPChange = this.handleHPChange.bind(this);
-        this.handleACChange = this.handleACChange.bind(this);
-        this.handleActionsChange = this.handleActionsChange.bind(this);
-        this.handleAttackPropertiesNameChange = this.handleAttackPropertiesNameChange.bind(this);
-        this.handleAttackPropertiesValueChange = this.handleAttackPropertiesValueChange.bind(this);
-        this.handleBaseAtkChange = this.handleBaseAtkChange.bind(this);
-        this.handleChallengeChange = this.handleChallengeChange.bind(this);
-        this.handleIniChange = this.handleIniChange.bind(this);
-        this.handleLanguagesChange = this.handleLanguagesChange.bind(this);
-        this.handleMovementChange = this.handleMovementChange.bind(this);
-        this.handleSaveThrowsChange = this.handleSaveThrowsChange.bind(this);
-        this.handleSizeChange = this.handleSizeChange.bind(this);
-        this.handleSkillNameChange = this.handleSkillNameChange.bind(this);
-        this.handleSkillLevelChange = this.handleSkillLevelChange.bind(this);
-        this.handleStatsChange = this.handleStatsChange.bind(this);
-        this.handleTalentsChange = this.handleTalentsChange.bind(this);
-        this.handleTypeChange = this.handleTypeChange.bind(this);
-        this.handleXPChange = this.handleXPChange.bind(this);
-        this.handleImageChange = this.handleImageChange.bind(this);
-        this.previewImage = this.previewImage.bind(this);
-        this.addOneMoreSkill = this.addOneMoreSkill.bind(this);
     }
 
-    addOneMoreAttackProperty(): void {
+    addOneMoreAttackProperty = (): void => {
         const creature = this.state.creature;
         creature.attackProperties.push({property: "", name: "", id: uuidv4()});
         this.setState({creature: creature})
-    }
+    };
 
-    addOneMoreSkill(): void {
+    addOneMoreSkill = (): void => {
         const creature = this.state.creature;
         creature.skills.push({name: "", level: "", id: uuidv4()});
         this.setState({creature: creature})
 
-    }
+    };
 
-    composeSelectableAttributeOptions(attribute: "Talent" | "Action" | "Language"): selectableFormElement[] {
+    composeSelectableAttributeOptions = (attribute: "Talent" | "Action" | "Language"): selectableFormElement[] => {
         const selectables = [];
         switch (attribute) {
             case "Language":
@@ -114,17 +87,15 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
                 break;
         }
         return selectables;
-    }
+    };
 
-
-    async getAll(whatToGet: "Creature" | "Talent" | "Sense" | "Skill" | "Action" | "Language"): Promise<AxiosResponse> {
+    getAll = async(whatToGet: "Creature" | "Talent" | "Sense" | "Skill" | "Action" | "Language"): Promise<AxiosResponse> => {
         return await axios.get(
             `/V1/${whatToGet}`
         )
-    }
+    };
 
-
-    componentDidMount(): void {
+    componentDidMount = (): void => {
 
         this.getAll("Talent").then(result => {
             if (Array.isArray(result.data)) this.setState({talentData: result.data})
@@ -150,9 +121,9 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
             console.log(error)
         });
 
-    }
+    };
 
-    previewImage(): null | string {
+    previewImage = (): null | string => {
         // Default case for image
         if (this.state.creature.image == "") return null;
         // Image already existing
@@ -161,9 +132,9 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
         if (this.state.creature.image != null) return URL.createObjectURL(this.state.creature.image);
         // Image in form deleted
         return null;
-    }
+    };
 
-    async handleSubmit(event): Promise<void> {
+    handleSubmit = async(event): Promise<void> =>{
         event.preventDefault();
         uploadImage(this.state.creature.image, this.state.creature.name, this.state.creature.challenge);
         try {
@@ -173,57 +144,55 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
         } catch (error) {
             console.log(error)
         }
-    }
+    };
 
-    resetForm(): void {
+    resetForm = (): void => {
         this.setState({creature: createCreature()})
-    }
+    };
 
-
-
-    handleNameChange(event): void {
+    handleNameChange = (event): void => {
         const creature = this.state.creature;
         creature.name = event.target.value;
         this.setState({creature: creature})
-    }
+    };
 
-    handleTypeChange(event): void {
+    handleTypeChange = (event): void => {
         const creature = this.state.creature;
         creature.type = event.target.value;
         this.setState({creature: creature})
-    }
+    };
 
-    typeBoxChecked(typeValue): boolean {
+    typeBoxChecked = (typeValue): boolean => {
         return this.state.creature.type == typeValue;
-    }
+    };
 
-    handleHPChange(event): void {
+    handleHPChange = (event): void => {
         const creature = this.state.creature;
         creature.hitpoints = "";
         if (!isNaN(parseInt(event.target.value))) creature.hitpoints = parseInt(event.target.value);
         this.setState({creature: creature})
-    }
+    };
 
-    handleACChange(event): void {
+    handleACChange = (event): void => {
         const creature = this.state.creature;
         creature.armorclass = "";
         if (!isNaN(parseInt(event.target.value))) creature.armorclass = parseInt(event.target.value);
         this.setState({creature: creature})
-    }
+    };
 
-    handleAlignmentChange(value): void {
+    handleAlignmentChange = (value): void => {
         const creature = this.state.creature;
         creature.alignment = value.value;
         this.setState({creature: creature})
-    }
+    };
 
-    handleCreatureClassChange(event): void {
+    handleCreatureClassChange = (event): void => {
         const creature = this.state.creature;
         creature.creatureClass = event.target.value;
         this.setState({creature: creature})
-    }
+    };
 
-    handleAttackPropertiesNameChange(event): void {
+    handleAttackPropertiesNameChange = (event): void => {
         const creature = this.state.creature;
         creature.attackProperties = creature.attackProperties.map((elem) => {
             if (elem.id + '-name' !== event.target.id) return elem;
@@ -232,9 +201,9 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
         this.setState({
             creature: creature
         });
-    }
+    };
 
-    handleAttackPropertiesValueChange(event): void {
+    handleAttackPropertiesValueChange = (event): void => {
         const creature = this.state.creature;
         creature.attackProperties = creature.attackProperties.map((elem) => {
             if (elem.id + '-prop' !== event.target.id) return elem;
@@ -243,32 +212,32 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
         this.setState({
             creature: creature
         });
-    }
+    };
 
 
-    handleChallengeChange(event): void {
+    handleChallengeChange = (event): void => {
         const creature = this.state.creature;
         creature.challenge = "";
         if (!isNaN(parseInt(event.target.value))) creature.challenge = parseInt(event.target.value);
         this.setState({creature: creature})
-    }
+    };
 
-    handleMovementChange(event): void {
+    handleMovementChange = (event): void => {
         const creature = this.state.creature;
         creature.movement = "";
         if (!isNaN(parseInt(event.target.value))) creature.movement = parseInt(event.target.value);
         creature.movement = parseInt(event.target.value);
         this.setState({creature: creature})
-    }
+    };
 
-    handleIniChange(event): void {
+    handleIniChange = (event): void => {
         const creature = this.state.creature;
         creature.ini = "";
         if (!isNaN(parseInt(event.target.value))) creature.ini = parseInt(event.target.value);
         this.setState({creature: creature})
-    }
+    };
 
-    handleImageChange({meta, file}, status): void {
+    handleImageChange = ({meta, file}, status): void => {
         const creature = this.state.creature;
         creature.image = file;
         this.setState({creature: creature});
@@ -276,43 +245,43 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
             creature.image = null;
             this.setState({creature: creature})
         }
-    }
+    };
 
-    handleBaseAtkChange(event): void {
+    handleBaseAtkChange = (event): void => {
         const creature = this.state.creature;
         creature.baseAtk = "";
         if (!isNaN(parseInt(event.target.value))) creature.baseAtk = parseInt(event.target.value);
         this.setState({creature: creature})
-    }
+    };
 
-    handleXPChange(event): void {
+    handleXPChange = (event): void => {
         const creature = this.state.creature;
         creature.xp = "";
         if (!isNaN(parseInt(event.target.value))) creature.xp = parseInt(event.target.value);
         this.setState({creature: creature})
-    }
+    };
 
-    handleSizeChange(value): void {
+    handleSizeChange = (value): void => {
         const creature = this.state.creature;
         creature.size = value.value;
         this.setState({creature: creature})
-    }
+    };
 
-    handleStatsChange(event, stat: "str" | "dex" | "wis" | "int" | "cha" | "con"): void {
+    handleStatsChange = (event, stat: "str" | "dex" | "wis" | "int" | "cha" | "con"): void => {
         const creature = this.state.creature;
         creature.stats[stat] = "";
         if (!isNaN(parseInt(event.target.value))) creature.stats[stat] = parseInt(event.target.value);
         this.setState({creature: creature})
-    }
+    };
 
-    handleSaveThrowsChange(event, saveThrow: "ref" | "will" | "fort"): void {
+    handleSaveThrowsChange = (event, saveThrow: "ref" | "will" | "fort"): void => {
         const creature = this.state.creature;
         creature.saveThrows[saveThrow] = "";
         if (!isNaN(parseInt(event.target.value))) creature.saveThrows[saveThrow] = parseInt(event.target.value);
         this.setState({creature: creature})
-    }
+    };
 
-    handleLanguagesChange(value, option): void {
+    handleLanguagesChange = (value, option): void => {
         const creature = this.state.creature;
         if (option.action == SELECT_OPTION || option.action == CREATE_OPTION) {
             creature.languages = value.map(elem => {
@@ -324,9 +293,9 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
             })
         }
         this.setState({creature: creature})
-    }
+    };
 
-    handleSkillNameChange(value, option, id): void {
+    handleSkillNameChange = (value, option, id): void => {
         const creature = this.state.creature;
         creature.skills = creature.skills.map((elem) => {
             if (elem.id !== id) return elem;
@@ -335,9 +304,9 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
         this.setState({
             creature: creature
         });
-    }
+    };
 
-    handleSkillLevelChange(event, id): void {
+    handleSkillLevelChange = (event, id): void => {
         const creature = this.state.creature;
         creature.skills = creature.skills.map((elem) => {
             if (elem.id !== id) return elem;
@@ -348,9 +317,9 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
         this.setState({
             creature: creature
         });
-    }
+    };
 
-    handleTalentsChange(value, option): void {
+    handleTalentsChange = (value, option): void => {
         const creature = this.state.creature;
         if (option.action == SELECT_OPTION || option.action == CREATE_OPTION) {
             creature.talents = value.map(elem => {
@@ -362,9 +331,9 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
             })
         }
         this.setState({creature: creature})
-    }
+    };
 
-    handleActionsChange(value, option): void {
+    handleActionsChange = (value, option): void => {
         const creature = this.state.creature;
         if (option.action == SELECT_OPTION) {
             const actions = [];
@@ -401,7 +370,7 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
             })
         }
         this.setState({creature: creature})
-    }
+    };
 
     render(): ReactElement {
 
