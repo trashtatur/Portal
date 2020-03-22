@@ -34,6 +34,9 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
         this.handleCurrentHPChange = this.handleCurrentHPChange.bind(this);
         this.handleCurrentTypeChange = this.handleCurrentTypeChange.bind(this);
         this.handleRemoveFromEncounter = this.handleRemoveFromEncounter.bind(this);
+        this.sortCreatureMap = this.sortCreatureMap.bind(this);
+        this.addSummonedCreature = this.addSummonedCreature.bind(this);
+        this.cloneEntry = this.cloneEntry.bind(this);
         this.state = {
             creatureMap: [],
             creatureDataMap: []
@@ -53,11 +56,7 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
         creatureMap.filter(creature => {
             return creature.id == id
         })[0].currentIni = parseInt(event.target.value);
-        const creatureMapSorted = creatureMap.sort((creatureA, creatureB) => {
-            if (creatureA.currentIni < creatureB.currentIni) return 1;
-            if (creatureA.currentIni > creatureB.currentIni) return -1;
-            return 0;
-        });
+        const creatureMapSorted = this.sortCreatureMap(creatureMap);
         this.setState({creatureMap: creatureMapSorted}, ()=> this.setToSessionStorage())
     }
 
@@ -111,7 +110,7 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
             if (cr1.label < cr2.label) return -1;
             return 0;
         });
-        if (sameCreature.length == 0) return 0;
+        if (sameCreature.length == 0) return 1;
         else return sameCreature[sameCreature.length - 1].label + 1
     }
 
@@ -194,24 +193,42 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
             ...elem,
             id: uuidv4(),
             label: elem.label == null ? this.determineLabel(elem.name) : elem.label,
-            currentIni: Math.floor(Math.random() * (+20 - +1) + +1) + elem.ini
+            currentIni: Math.floor(Math.random() * (20 - 1) + 1) + elem.ini
         };
     }
 
-    /**
-     * Adds selected creatures
-     */
+    sortCreatureMap(creatureMap: Array<creature>): Array<creature> {
+        return creatureMap.sort((creatureA, creatureB) => {
+            if (creatureA.currentIni < creatureB.currentIni) return 1;
+            if (creatureA.currentIni > creatureB.currentIni) return -1;
+            return 0;
+        });
+    }
+
+    addSummonedCreature(creature: creature): void {
+        creature.ini = parseInt(creature.ini);
+        const summon = this.cloneEntry(creature);
+        summon.handleCurrentACChange = this.handleCurrentACChange;
+        summon.handleCurrentHPChange = this.handleCurrentHPChange;
+        summon.handleCurrentTypeChange = this.handleCurrentTypeChange;
+        summon.currentAC = summon.armorclass;
+        summon.currentHP = summon.hitpoints;
+
+        const creatureMap = this.state.creatureMap;
+        creatureMap.push(summon);
+        this.props.addCreatureToRound(summon);
+        this.setState(
+            {creatureMap: this.sortCreatureMap(creatureMap)},()=> this.setToSessionStorage()
+        )
+    }
+
     addCreatures(): void {
         const toAdd = this.creaturesToAdd.map(elem => {
             return this.cloneEntry(elem)
         });
         let creatureMap = this.state.creatureMap;
         creatureMap = creatureMap.concat(toAdd);
-        const creatureMapSorted = creatureMap.sort((creatureA, creatureB) => {
-            if (creatureA.currentIni < creatureB.currentIni) return 1;
-            if (creatureA.currentIni > creatureB.currentIni) return -1;
-            return 0;
-        });
+        const creatureMapSorted = this.sortCreatureMap(creatureMap);
         toAdd.forEach(elem => {
             this.props.addCreatureToRound(elem);
         });
@@ -220,13 +237,6 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
         },() => this.setToSessionStorage());
     }
 
-
-    /**
-     * Reacts to select or remove event.
-     * and then preps the selected creatures for creation
-     * @param selected
-     * @param option
-     */
     onSelect(selected, option): void {
         if (option.action == 'select-option') {
             const creaturesToAdd: creature[] = [];
@@ -251,7 +261,7 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
                         movement: filtered[0].movement,
                         image: filtered[0].image,
                         ini: filtered[0].ini,
-                        currentIni: Math.floor(Math.random() * (+20 - +1) + +1) + filtered[0].ini,
+                        currentIni: Math.floor(Math.random() * (20 - 1) + 1) + filtered[0].ini,
                         currentAC: filtered[0].armorclass,
                         currentHP: filtered[0].hitpoints,
                         baseAtk: filtered[0].baseAtk,
@@ -317,7 +327,7 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
                     <button className={style.creatureAddButton} type="button" onClick={this.addCreatures}>Add
                     </button>
                 </div>
-                <AddSummon/>
+                <AddSummon addToEncounter={this.addSummonedCreature}/>
                 {this.state.creatureMap.map(creature => {
                     return (
                         <Creature

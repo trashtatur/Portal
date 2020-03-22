@@ -2,7 +2,7 @@ import * as React from "react";
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import axios, {AxiosResponse} from "axios";
-import {uuidv4} from "../../helper/helperFunctions";
+import {setCreatureImageName, uploadImage, uuidv4} from "../../helper/helperFunctions";
 import {createCreature} from "./helper/creatureCreator";
 import {AlignmentSelect} from "./alignment select/AlignmentSelect";
 import {SizeSelect} from "./size select/SizeSelect";
@@ -163,34 +163,11 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
         return null;
     }
 
-    uploadImage(data: File | string): AxiosResponse | boolean {
-        if (data == null) return true;
-        if (typeof data != "string") {
-            console.log(data);
-            const fileExtension = data.name.substring(data.name.lastIndexOf('.'));
-            const filename = this.state.creature.name + '-' + this.state.creature.challenge + fileExtension;
-            const formattedFile = new File([data], filename, {type: data.type});
-            const form = new FormData();
-            form.append('file', formattedFile);
-            axios.put(
-                '/V1/creature/image', form
-            ).then(
-                function (result) {
-                    console.log(result);
-                    return result.data
-                }
-            ).catch(function (error) {
-                console.log(error);
-                return false
-            });
-        }
-    }
-
     async handleSubmit(event): Promise<void> {
         event.preventDefault();
-        this.uploadImage(this.state.creature.image);
+        uploadImage(this.state.creature.image, this.state.creature.name, this.state.creature.challenge);
         try {
-            await axios.post('/V1/Creature', this.setCreatureImageName());
+            await axios.post('/V1/Creature', setCreatureImageName(this.state.creature));
             alert('Created entry in database');
             this.resetForm();
         } catch (error) {
@@ -202,18 +179,7 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
         this.setState({creature: createCreature()})
     }
 
-    setCreatureImageName(): creature {
-        if (this.state.creature.image != null) {
-            const creature = this.state.creature;
-            if (typeof creature.image !== "string") {
-                creature.image =
-                    `images/creatureImages/${creature.name}-${creature.challenge}/${creature.name}-${creature.challenge}${creature.image.name.substring(creature.image.name.lastIndexOf('.'))}`;
-            }
-            console.log(creature);
-            return creature;
-        }
-        return this.state.creature
-    }
+
 
     handleNameChange(event): void {
         const creature = this.state.creature;

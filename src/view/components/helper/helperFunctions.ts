@@ -1,5 +1,7 @@
+import axios, {AxiosResponse} from "axios";
+import {creature} from "../componentTypes";
 
-export const uuidv4 = function(): string {
+export const uuidv4 = function (): string {
     let d = new Date().getTime();//Timestamp
     let d2 = (performance && performance.now && (performance.now() * 1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -13,4 +15,37 @@ export const uuidv4 = function(): string {
         }
         return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
+};
+
+export const uploadImage = (data: File | string, creatureName: string, creatureChallenge: number): AxiosResponse | boolean => {
+    if (data == null) return true;
+    if (typeof data != "string") {
+        const fileExtension = data.name.substring(data.name.lastIndexOf('.'));
+        const filename = creatureName + '-' + creatureChallenge + fileExtension;
+        const formattedFile = new File([data], filename, {type: data.type});
+        const form = new FormData();
+        form.append('file', formattedFile);
+        axios.put(
+            '/V1/creature/image', form
+        ).then(
+            function (result) {
+                console.log(result);
+                return result.data
+            }
+        ).catch(function (error) {
+            console.log(error);
+            return false
+        });
+    }
+};
+
+export const setCreatureImageName = (creature: creature): creature => {
+    if (creature != null) {
+        if (typeof creature.image !== "string") {
+            creature.image =
+                `images/creatureImages/${creature.name}-${creature.challenge}/${creature.name}-${creature.challenge}${creature.image.name.substring(creature.image.name.lastIndexOf('.'))}`;
+        }
+        console.log(creature);
+    }
+    return creature
 };
