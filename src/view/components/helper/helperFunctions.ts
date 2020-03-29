@@ -49,3 +49,10 @@ export const setCreatureImageName = (creature: creature): creature => {
     }
     return creature
 };
+
+export const replaceRefsForJSON = (key, value) => {
+    if (key === 'ref' || key === 'encounterRef') {
+        return null;
+    }
+    return value;
+}

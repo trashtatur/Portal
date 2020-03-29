@@ -4,31 +4,24 @@
 }
 
 .toolTipContent {
+    width: 300px;
     position: absolute;
     visibility: hidden;
     background: white;
-    top: -10px;
-    left: 140%;
-    border: black dotted 1px;
+    top: -24px;
+    left: 40%;
+    border: black solid 1px;
     z-index: 1;
     opacity: 0;
     transition: opacity 0.3s;
+    -webkit-box-shadow: 13px 0 17px -6px rgba(0,0,0,0.44);
+    -moz-box-shadow: 13px 0 17px -6px rgba(0,0,0,0.44);
+    box-shadow: 13px 0 17px -6px rgba(0,0,0,0.44);
 }
 
 .toolTipContainer:hover .toolTipContent {
     visibility: visible;
     opacity: 1;
-}
-
-.toolTipContainer .toolTipContent::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 100%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent #555 transparent transparent;
 }
 
 .toolTipIcon {

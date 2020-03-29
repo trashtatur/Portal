@@ -2,6 +2,7 @@ import * as React from "react";
 import {Form} from "../form/Form";
 import {ReactElement} from "react";
 import * as style from './menu.css';
+import {CSVImporter} from "../importer/CSVImporter";
 
 export class Menu extends React.Component {
 
@@ -9,13 +10,14 @@ export class Menu extends React.Component {
         return (
             <div className={style.menuContainer}>
                 <Form
-                    modalTrigger={<button className={style.menuEditButton}>🖉</button>}
+                    modalTrigger={<button className={style.menuButton}>🖉</button>}
                     type={"edit"}
                 />
                 <Form
-                    modalTrigger={<button className={style.menuAddButton}>+</button>}
+                    modalTrigger={<button className={style.menuButton}>+</button>}
                     type={"create"}
                 />
+                <CSVImporter modalTrigger={<button className={style.menuButton}>⇑</button> }/>
             </div>
         )
     }

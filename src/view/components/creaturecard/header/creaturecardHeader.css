@@ -14,6 +14,7 @@
 }
 
 .nameContainer {
+    width: 22vw;
     height: 38pt;
     display: flex;
     float: left;
@@ -33,10 +34,10 @@
     padding-left: 0.4em;
     margin: 0;
     font-weight: bold;
-    width: 11.8em;
+    width: 87%;
     height: 100%;
     box-sizing: border-box;
-    font-size: 16pt;
+    font-size: 1.5vw;
 }
 
 .label {

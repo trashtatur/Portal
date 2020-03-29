@@ -44,7 +44,7 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
     }
 
     creaturesToAdd = [];
-    creatureSelect = null;
+    creatureRefs = [];
 
     /**
      * Sorts creature list by initiative
@@ -57,11 +57,11 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
             return creature.id == id
         })[0].currentIni = parseInt(event.target.value);
         const creatureMapSorted = this.sortCreatureMap(creatureMap);
-        this.setState({creatureMap: creatureMapSorted}, ()=> this.setToSessionStorage())
+        this.setState({creatureMap: creatureMapSorted}, () => this.setToSessionStorage())
     }
 
     setToSessionStorage = (): void => {
-        sessionStorage.setItem('encounterCreatureDataMap',JSON.stringify(this.state.creatureMap))
+        sessionStorage.setItem('encounterCreatureDataMap', JSON.stringify(this.state.creatureMap))
     };
 
     getFromSessionStorage = (): creature[] => {
@@ -75,7 +75,7 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
                 this.state.creatureMap.filter(elem => {
                     return elem.id != id;
                 })
-        }, ()=> this.setToSessionStorage())
+        }, () => this.setToSessionStorage())
     }
 
     handleCurrentHPChange(event, id): void {
@@ -91,7 +91,7 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
         creatureMap.filter(creature => {
             return creature.id == id
         })[0].currentAC = parseInt(event.target.value);
-        this.setState({creatureMap: creatureMap},()=> this.setToSessionStorage())
+        this.setState({creatureMap: creatureMap}, () => this.setToSessionStorage())
     }
 
     handleCurrentTypeChange(event, id): void {
@@ -99,7 +99,7 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
         creatureMap.filter(creature => {
             return creature.id == id
         })[0].type = event.target.value;
-        this.setState({creatureMap: creatureMap},()=> this.setToSessionStorage())
+        this.setState({creatureMap: creatureMap}, () => this.setToSessionStorage())
     }
 
     determineLabel(creatureName: string): number {
@@ -155,25 +155,29 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
 
         this.state.creatureDataMap.forEach(entry => {
             if (entry.type == "monster") {
-                selectables[0].options.push({value: entry.name,
+                selectables[0].options.push({
+                    value: entry.name,
                     label: <CreatureSelectLabel image={'monster-icon.png'}
                                                 creature={entry}
                                                 labelText={`${entry.name} CR: ${entry.challenge}`}/>
                 })
             } else if (entry.type == "player") {
-                selectables[1].options.push({value: entry.name,
+                selectables[1].options.push({
+                    value: entry.name,
                     label: <CreatureSelectLabel image={'player-icon.png'}
                                                 creature={entry}
                                                 labelText={`${entry.name}`}/>
                 })
             } else if (entry.type == "ally") {
-                selectables[2].options.push({value: entry.name,
+                selectables[2].options.push({
+                    value: entry.name,
                     label: <CreatureSelectLabel image={'ally-icon.png'}
                                                 creature={entry}
                                                 labelText={`${entry.name} CR: ${entry.challenge}`}/>
                 })
             } else if (entry.type == "summon") {
-                selectables[3].options.push({value: entry.name,
+                selectables[3].options.push({
+                    value: entry.name,
                     label: <CreatureSelectLabel image={'summon-icon.png'}
                                                 creature={entry}
                                                 labelText={`${entry.name}`}/>
@@ -218,7 +222,7 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
         creatureMap.push(summon);
         this.props.addCreatureToRound(summon);
         this.setState(
-            {creatureMap: this.sortCreatureMap(creatureMap)},()=> this.setToSessionStorage()
+            {creatureMap: this.sortCreatureMap(creatureMap)}, () => this.setToSessionStorage()
         )
     }
 
@@ -234,7 +238,7 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
         });
         this.setState({
             creatureMap: creatureMapSorted
-        },() => this.setToSessionStorage());
+        }, () => this.setToSessionStorage());
     }
 
     onSelect(selected, option): void {
@@ -283,7 +287,12 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
                             return elem.name
                         }),
                         talents: filtered[0].talents == [] ? [] : filtered[0].talents.map(elem => {
-                            return elem.name
+                            return {
+                                name: elem.name,
+                                type: elem.type,
+                                benefits: elem.benefits,
+                                conditions: elem.conditions
+                            }
                         }),
                         actions: filtered[0].actions == [] ? [] : filtered[0].actions.map(elem => {
                             return {
@@ -320,9 +329,6 @@ export class Encounter extends React.Component<EncounterProps, EncounterState> {
                     <CreatureSelect
                         selectableOptions={this.composeSelectableOptions()}
                         onSelect={this.onSelect}
-                        ref={ref => {
-                            this.creatureSelect = ref
-                        }}
                     />
                     <button className={style.creatureAddButton} type="button" onClick={this.addCreatures}>Add
                     </button>

@@ -1,5 +1,8 @@
 import {BodyParams, Controller, Get, Post} from "@tsed/common";
 import {TalentService} from "../../services/TalentService";
+import * as CSV from 'csv-string';
+import {MulterOptions} from "@tsed/multipartfiles";
+
 
 @Controller('/talent')
 export class TalentResourceController {
@@ -15,8 +18,15 @@ export class TalentResourceController {
     }
 
     @Post()
-    async createTalent(@BodyParams() talentData:any[]) {
+    async createTalent(@BodyParams() talentData:any[]): Promise<string> {
         let talent = await this.talentService.create(talentData);
         return JSON.stringify(talent)
+    }
+
+    @Post('/csv')
+    async importCSV(@BodyParams() data): Promise<string> {
+        const result = CSV.parse(data.data);
+        await this.talentService.bulkCreateFromCSV(result as unknown as Array<Array<string>>);
+        return JSON.stringify(result);
     }
 }

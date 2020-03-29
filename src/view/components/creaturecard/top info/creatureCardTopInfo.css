@@ -7,6 +7,17 @@
     width: 60em;
 }
 
+.topInfoSoftLabel {
+    background-color: #e5e5e5;
+    margin-right: 2px;
+    margin-top: 4px;
+    display: inline-block;
+    border: 5px solid #e5e5e5;
+    line-height: 10px;
+    padding: 0 5px;
+    border-radius: 20px;
+}
+
 .size {
     float: left;
 }
@@ -22,13 +33,13 @@
 }
 
 .initiative {
-    margin-left: 7em;
+    margin-left: 3em;
     float: left;
 
 }
 
 .baseAtk {
-    margin-left: 7em;
+    margin-left: 3em;
     float: left;
 
 }

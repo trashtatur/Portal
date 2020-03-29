@@ -1,5 +1,6 @@
 import {action, attackProperty, saveThrowsType, statblock} from "./creaturecard/CreatureCard";
-import {JSXElementConstructor} from "react";
+import {CreatureSizesEnum} from "../model/dataModel/CreatureSizesEnum";
+import {ReactElement} from "react";
 
 export type creature = {
     id?: string;
@@ -27,11 +28,11 @@ export type creature = {
     handleCurrentHPChange?: Function;
     handleCurrentTypeChange?: Function;
     skills: any[];
-    size: string;
+    size: CreatureSizesEnum;
     stats: statblock;
     saveThrows: saveThrowsType;
     languages: string[];
-    talents: string[];
+    talents: talent[];
     actions: action[];
 }
 
@@ -67,6 +68,15 @@ export type attackProperty = {
     id?: string;
     name: string;
     property: string;
+}
+
+export type talent = {
+    name: string;
+    type: string;
+    description;
+    benefits: string;
+    conditions: string;
+    note?: string;
 }
 
 export type action = {

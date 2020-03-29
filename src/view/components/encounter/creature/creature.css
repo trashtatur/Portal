@@ -1,5 +1,5 @@
 .creatureDisplayContainer {
-    transition: background-color 1s;
+    transition: box-shadow 0.3s linear;
     width: 45em;
 }
 
@@ -9,7 +9,9 @@
 
 .creatureDisplayContainer:hover {
     cursor: pointer;
-    background-color: #c6c6c6 !important;
+    -webkit-box-shadow: 13px 0px 12px -6px rgba(0,0,0,0.75);
+    -moz-box-shadow: 13px 0px 12px -6px rgba(0,0,0,0.75);
+    box-shadow: 13px 0px 12px -6px rgba(0,0,0,0.75);
 }
 
 .creatureCurrentContainer {

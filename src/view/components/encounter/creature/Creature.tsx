@@ -1,7 +1,8 @@
 import * as React from "react";
-import {action, attackProperty, creatureType, saveThrowsType, statblock} from "../../componentTypes";
+import {action, attackProperty, creatureType, saveThrowsType, statblock, talent} from "../../componentTypes";
 import {CreatureCard} from "../../creaturecard/CreatureCard";
 import {ReactElement} from "react";
+import {CreatureSizesEnum} from "../../../model/dataModel/CreatureSizesEnum";
 import * as style from './creature.css';
 
 
@@ -24,7 +25,7 @@ export interface CreatureProps {
     currentHP: number;
     baseAtk: number;
     xp?: number;
-    size: string;
+    size: CreatureSizesEnum;
     stats: statblock;
     kmb: number;
     kmv: number;
@@ -36,7 +37,7 @@ export interface CreatureProps {
     saveThrows: saveThrowsType;
     languages?: string[];
     skills?: string[];
-    talents?: string[];
+    talents?: talent[];
     actions?: action[];
 
     changeCurrentHPOfRoundCreature: Function;

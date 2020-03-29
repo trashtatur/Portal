@@ -1,11 +1,14 @@
 import * as React from "react";
-import {saveThrowsType} from "../../componentTypes";
+import {saveThrowsType, talent} from "../../componentTypes";
 import {ReactElement} from "react";
-import * as style from './creatureAttributes.css'
+import {ToolTip} from "../../uiBasic/tooltip/ToolTip";
+import {uuidv4} from "../../helper/helperFunctions";
+import {TalentToolTip} from "../../tooltipContents/talentToolTip/TalentToolTip";
+import * as style from './creatureAttributes.css';
 
 export interface CreatureAttributesProps {
     skills;
-    talents: string[];
+    talents: talent[];
     languages: string[];
     saveThrows: saveThrowsType;
     preview?: boolean;
@@ -27,6 +30,17 @@ export class CreatureAttributes extends React.Component<CreatureAttributesProps>
         )
     }
 
+    formatTalentName = (talentName: string): ReactElement => {
+        if (talentName.substr(talentName.length - 8) === '(combat)') {
+            const cleanedName = talentName.substr(0, talentName.length - 8)
+            return (
+                <span className={style.talentEntry}>
+                    {cleanedName}<img src={'/images/combat-icon.png'} className={style.combatTalentIcon}/>
+                </span>)
+        }
+        return <span className={style.talentEntry}>{talentName}</span>
+    };
+
     render(): ReactElement {
         return (
             <table className={style.attributeTable}>
@@ -37,7 +51,19 @@ export class CreatureAttributes extends React.Component<CreatureAttributesProps>
                 </tr>
                 <tr className={style.attributeBlock}>
                     <td className={style.attributeName}>Talents:</td>
-                    <td className={style.attributeEntry}>{this.props.talents.join(", ")}</td>
+                    <td className={style.attributeEntry}>
+                        {this.props.talents.map(talent => {
+                            return (
+                                <ToolTip
+                                    key={uuidv4()}
+                                    toolTipTrigger={<span
+                                        className={style.talentEntry}>{this.formatTalentName(talent.name)}</span>}
+                                >
+                                    <TalentToolTip talent={talent}/>
+                                </ToolTip>
+                            )
+                        })}
+                    </td>
                 </tr>
                 <tr className={style.attributeBlock}>
                     <td className={style.attributeName}>Languages:</td>

@@ -8,8 +8,10 @@ import {CreatureSeparator} from "./separator/CreatureSeparator";
 import {CreatureAttributes} from "./attributes/CreatureAttributes";
 import {CreatureAttackProperties} from "./attackProperties/CreatureAttackProperties";
 import {CreatureActions} from "./attack_actions/CreatureActions";
-import {action, attackProperty, saveThrowsType, statblock} from "../componentTypes";
+import {action, attackProperty, saveThrowsType, statblock, talent} from "../componentTypes";
 import {ReactElement} from "react";
+import {StatsViewModel} from "../../model/creature/StatsViewModel";
+import {CreatureSizesEnum} from "../../model/dataModel/CreatureSizesEnum";
 import * as style from "./creatureCard.css";
 
 
@@ -27,7 +29,7 @@ export interface CreatureCardProps {
     image?: string;
     baseAtk: number;
     xp?: number;
-    size: string;
+    size: CreatureSizesEnum;
     stats: statblock;
     kmb: number;
     kmv: number;
@@ -35,7 +37,7 @@ export interface CreatureCardProps {
     foldable?: boolean;
     languages?: string[];
     skills?: string[];
-    talents?: string[];
+    talents?: talent[];
     actions?: action[];
     preview?: boolean;
 }
@@ -87,15 +89,7 @@ export class CreatureCard extends React.Component<CreatureCardProps, CreatureCar
                     />
                     <CreatureRKTP armorclass={this.props.armorclass} tp={this.props.hitpoints}/>
                     <CreatureImage imagePath={this.props.image}/>
-                    <CreatureStats str={this.props.stats.str}
-                                   dex={this.props.stats.dex}
-                                   wis={this.props.stats.wis}
-                                   int={this.props.stats.int}
-                                   cha={this.props.stats.cha}
-                                   con={this.props.stats.con}
-                                   kmb={this.props.kmb}
-                                   kmv={this.props.kmv}
-                    />
+                    <CreatureStats statsVM={new StatsViewModel(this.props.stats, this.props.size, this.props.baseAtk)}/>
                     <CreatureSeparator/>
                     <CreatureAttributes skills={this.props.skills}
                                         talents={this.props.talents}

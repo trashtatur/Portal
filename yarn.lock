@@ -1827,6 +1827,11 @@ csstype@^2.2.0, csstype@^2.5.7:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.7.tgz#20b0024c20b6718f4eda3853a1f5a1cce7f5e4a5"
   integrity sha512-9Mcn9sFbGBAdmimWb2gLVDtFJzeKtDGIr76TUqmjZrw9LFXBMSU70lcs+C0/7fyCd6iBDqmksUcCOUIkisPHsQ==
 
+csv-string@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/csv-string/-/csv-string-3.2.0.tgz#d034b62dfcd10b95ff7e584401d15355805673bd"
+  integrity sha512-JN3iAuFJ+r7+CwF6UtP3U8ryorRkQp8NT+9VufeiRV+Xyv+Q8HPPBHGm4LAq7YihTQYmUnIeYy5CPQ8Y2GhMkg==
+
 d@1, d@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/d/-/d-1.0.1.tgz#8698095372d58dbee346ffd0c7093f99f8f9eb5a"

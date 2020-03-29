@@ -26,7 +26,7 @@ export class SingleRound extends React.Component<SingleRoundProps> {
                         currentIni={elem.currentIni}
                         entryType={elem.entryType}
                         currentType={elem.currentType}
-                    />
+                     />
                 })}
             </div>
         )

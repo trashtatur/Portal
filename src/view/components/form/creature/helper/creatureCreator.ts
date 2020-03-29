@@ -1,4 +1,5 @@
 import {creature} from "../../../componentTypes";
+import {CreatureSizesEnum} from "../../../../model/dataModel/CreatureSizesEnum";
 
 
 export const createCreature = function(): creature {
@@ -16,7 +17,7 @@ export const createCreature = function(): creature {
         ini: "",
         baseAtk: "",
         xp: "",
-        size: "",
+        size: CreatureSizesEnum.EMPTY,
         stats: {"str":"","dex":"","int":"","wis":"","con":"","cha":""},
         kmb: "",
         kmv: "",

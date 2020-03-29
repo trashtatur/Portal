@@ -1,0 +1,27 @@
+.modalCloseButton {
+    font-family: "Trajan Pro", serif;
+    background-color: black;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    font-weight: bold;
+    padding-top:0.3em;
+    border: none;
+    font-size: 10pt;
+    float: right;
+    transition: background-color 0.5s linear;
+}
+
+.modalTopBar {
+    margin-bottom: 10px;
+}
+
+.importerContainer {
+    text-align: center;
+    display: block;
+}
+
+.importTypeSelect {
+    width: 40%;
+    margin-left: 30%;
+}

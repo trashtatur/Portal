@@ -34,12 +34,11 @@ export class Server extends ServerLoader{
             compress = require('compression'),
             methodOverride = require('method-override');
 
-
         this.use(GlobalAcceptMimesMiddleware)
             .use(cookieParser())
             .use(compress({}))
             .use(methodOverride())
-            .use(bodyParser.json())
+            .use(bodyParser.json({limit: '10mb', extended: true}))
             .use(bodyParser.urlencoded({
                 extended: true
             }));

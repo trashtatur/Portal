@@ -16,7 +16,6 @@ export class Dicebar extends React.Component<{},DicebarState> {
         this.setDiceResult = this.setDiceResult.bind(this);
     }
 
-
     setDiceResult(diceType: 4 | 6 | 8 | 10 | 12 | 20): void {
         const min = 1;
         this.setState({dieValue: (Math.floor(Math.random() * (diceType - min + 1)) + min).toString()})

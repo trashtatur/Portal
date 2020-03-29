@@ -1,0 +1,20 @@
+.talentTooltipContainer {
+    padding: 5px
+}
+
+.talentPartParagraph {
+    margin-bottom: 4px;
+}
+
+.talentPart {
+    padding-right: 5px;
+    font-size: 10pt;
+    font-weight: bold;
+    color: darkred;
+}
+
+.talentPartValue {
+    color: black;
+    font-size: 9pt;
+    font-weight: normal;
+}

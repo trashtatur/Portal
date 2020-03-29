@@ -1,9 +1,11 @@
 import * as React from "react";
 import {ReactElement} from "react";
+import {getSizeModFromSizeEnum} from "../../../model/dataModel/CreatureSizeModifierEnum";
+import {CreatureSizesEnum} from "../../../model/dataModel/CreatureSizesEnum";
 import * as style from "./creatureCardTopInfo.css"
 
 export interface CreatureCardTopInfoProps {
-    size: string;
+    size: CreatureSizesEnum;
     creatureClass: string;
     movement: number;
     ini: number;
@@ -16,11 +18,11 @@ export class CreatureCardTopInfo extends React.Component<CreatureCardTopInfoProp
     render(): ReactElement {
         return (
             <div className={style.topInfoContainer}>
-                <p className={style.size}>{this.props.size}</p>
-                <p className={style.creatureClass}>{this.props.creatureClass}</p>
-                <p className={style.movement}>Movement: {this.props.movement}</p>
-                <p className={style.initiative}>Ini: {this.props.ini}</p>
-                <p className={style.baseAtk}>Base Attack: {this.props.baseAtk}</p>
+                <p className={`${style.topInfoSoftLabel} ${style.size}`}>{this.props.size} ({getSizeModFromSizeEnum(this.props.size)})</p>
+                <p className={`${style.topInfoSoftLabel} ${style.creatureClass}`}>{this.props.creatureClass}</p>
+                <p className={`${style.topInfoSoftLabel} ${style.movement}`}>Movement: {this.props.movement}</p>
+                <p className={`${style.topInfoSoftLabel} ${style.initiative}`}>Ini: {this.props.ini}</p>
+                <p className={`${style.topInfoSoftLabel} ${style.baseAtk}`}>Base Attack: {this.props.baseAtk}</p>
                 <p className={style.xp}>({this.props.xp || "?"} XP)</p>
             </div>
         )

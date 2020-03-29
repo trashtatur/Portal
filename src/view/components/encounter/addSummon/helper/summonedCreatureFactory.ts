@@ -1,4 +1,5 @@
 import {creature} from "../../../componentTypes";
+import {CreatureSizesEnum} from "../../../../model/dataModel/CreatureSizesEnum";
 
 
 export const createSummonedCreature = (): creature => {
@@ -18,7 +19,7 @@ export const createSummonedCreature = (): creature => {
         ini: "",
         baseAtk: 0,
         xp: 0,
-        size: "medium",
+        size: CreatureSizesEnum.MEDIUM,
         stats: {"str": 10,"dex": 10,"int": 10,"wis": 10,"con": 10,"cha": 10},
         kmb: 10,
         kmv: 10,

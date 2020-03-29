@@ -3,22 +3,7 @@
     float: right;
 }
 
-.menuAddButton {
-    background-color: transparent;
-    color: white;
-    width:2em;
-    height:2em;
-    padding:0;
-    border-radius:0;
-    margin-left: 0.5em;
-    font-size:12.0pt;
-    border: 0.05em solid lightgrey;
-    float:right;
-    margin-bottom: 0.2em;
-    transition: background-color 0.5s;
-}
-
-.menuEditButton {
+.menuButton {
     background-color: transparent;
     color: white;
     width:2em;
@@ -34,7 +19,7 @@
     transition: background-color 0.5s;
 }
 
-.menuEditButton:hover, .menuAddButton:hover {
+.menuButton:hover {
     background-color: darkslategrey;
     cursor: pointer;
 }
