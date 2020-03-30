@@ -4,6 +4,8 @@ import {CreatureSizesEnum} from "../dataModel/CreatureSizesEnum";
 
 export class StatsViewModel {
 
+    BASE_CMD_BONUS = 10;
+
     LABELS = {
         STR: "STR",
         CON: "CON",
@@ -101,7 +103,7 @@ export class StatsViewModel {
 
     getCMD() {
         return this._baseAttack + this.getModForStat(this.strength) +
-            this.getModForStat(this.dexterity) + getSizeModFromSizeEnum(this._creatureSize)
+            this.getModForStat(this.dexterity) + getSizeModFromSizeEnum(this._creatureSize) + this.BASE_CMD_BONUS;
     }
 
     getCMB() {
@@ -111,7 +113,9 @@ export class StatsViewModel {
             || this._creatureSize === CreatureSizesEnum.FINE) {
             return this._baseAttack + this.getModForStat(this._dexterity) + getSizeModFromSizeEnum(this._creatureSize)
         }
-        return this._baseAttack + this.getModForStat(this.strength) + getSizeModFromSizeEnum(this._creatureSize)
+        return this._baseAttack
+            + this.getModForStat(this.strength)
+            + getSizeModFromSizeEnum(this._creatureSize)
     }
 
     /**
