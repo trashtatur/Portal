@@ -56,6 +56,7 @@ export class CreatureAttributes extends React.Component<CreatureAttributesProps>
                             return (
                                 <ToolTip
                                     key={uuidv4()}
+                                    widthInPX={350}
                                     toolTipTrigger={<span
                                         className={style.talentEntry}>{this.formatTalentName(talent.name)}</span>}
                                 >

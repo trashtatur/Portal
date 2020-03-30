@@ -1,13 +1,26 @@
 import * as React from 'react';
-import {ReactElement, ReactNode} from 'react';
+import {CSSProperties, ReactElement} from 'react';
 import * as style from './tooltip.css'
 
 interface ToolTipProps {
     toolTipTrigger?: ReactElement;
+    widthInPX?: number;
+    heightInPX?: number;
     children?;
 }
 
 export class ToolTip extends React.Component<ToolTipProps> {
+
+    conditionalStyle = (): CSSProperties=> {
+      const properties: CSSProperties = {};
+      if (this.props.widthInPX) {
+          properties.width = this.props.widthInPX+'px'
+      }
+      if (this.props.heightInPX) {
+          properties.height = this.props.heightInPX+'px';
+      }
+      return properties;
+    };
 
     render(): ReactElement {
         let trigger = <img
@@ -22,7 +35,7 @@ export class ToolTip extends React.Component<ToolTipProps> {
         return (
             <div className={style.toolTipContainer}>
                 {trigger}
-                <div className={style.toolTipContent}>
+                <div className={style.toolTipContent} style={this.conditionalStyle()}>
                 {this.props.children}
                 </div>
             </div>
