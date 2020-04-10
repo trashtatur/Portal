@@ -8,10 +8,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@tsed/common": "5.33.2",
-    "@tsed/core": "5.33.2",
-    "@tsed/di": "5.33.2",
-    "@tsed/multipartfiles": "5.33.2",
+    "@tsed/common": "5.44.17",
+    "@tsed/core": "5.44.17",
+    "@tsed/di": "5.44.17",
+    "@tsed/multipartfiles": "5.44.17",
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
@@ -38,6 +38,7 @@
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.1.0",
     "sequelize-typescript": "^1.0.0",
+    "ts-log-debug": "5.4.1",
     "typescript-plugin-css-modules": "^2.0.2",
     "validate-typescript": "^4.0.2",
     "youtube-api-v3-search": "^1.2.1"

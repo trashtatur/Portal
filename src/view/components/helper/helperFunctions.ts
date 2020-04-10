@@ -45,7 +45,6 @@ export const setCreatureImageName = (creature: creature): creature => {
             creature.image =
                 `images/creatureImages/${creature.name}-${creature.challenge}/${creature.name}-${creature.challenge}${creature.image.name.substring(creature.image.name.lastIndexOf('.'))}`;
         }
-        console.log(creature);
     }
     return creature
 };
