@@ -1,91 +1,91 @@
 import * as React from "react";
-import {Timeline, TimelineEvent} from "react-event-timeline";
 import {round} from "../../../componentTypes";
 import {SingleRound} from "./single round/SingleRound";
 import {ReactElement} from "react";
+import {uuidv4} from "../../../helper/helperFunctions";
+import * as style from './roundOverview.css'
 
-export interface RoundOverviewProps {
+interface RoundOverviewProps {
     roundLog: round[];
     currentRound: round;
+    addRound: Function;
+    resetRounds: Function;
 }
 
-export class RoundOverview extends React.Component<RoundOverviewProps> {
+interface RoundOverviewState {
+    allRounds: Map<number,boolean>;
+}
+
+export class RoundOverview extends React.Component<RoundOverviewProps, RoundOverviewState> {
 
     constructor(props) {
         super(props);
-
-        this.ifActiveRoundColor = this.ifActiveRoundColor.bind(this);
-        this.ifActiveRound = this.ifActiveRound.bind(this);
-
+        this.state = {
+            allRounds: new Map<number, boolean>().set(1, true)
+        }
     }
 
-    inactive_icon = "◌";
-    active_icon = "⭗";
-    active_color = "dodgerblue";
-    inactive_color = "orange";
+    singleRoundDetailsRef: HTMLElement = null;
 
+    addNewRound = (): void => {
+        const allRounds = this.state.allRounds;
+        allRounds.set(this.props.currentRound.number +1, false);
+        this.setState({allRounds: allRounds}, () => {
+            this.props.addRound();
+        })
+    };
 
-    ifActiveRound(round: round): string {
-        if (round.active) return this.active_icon;
-        return this.inactive_icon
-    }
+    selectRoundForRoundDetails = (roundNumber: number): void => {
+        if (this.singleRoundDetailsRef === null) {
+            return;
+        }
+        const allRounds = this.state.allRounds;
+        [...allRounds.keys()].forEach((key) => {
+            allRounds.set(key, false);
+        });
+        allRounds.set(roundNumber, true);
+        this.setState({allRounds: allRounds});
+    };
 
-    ifActiveRoundColor(round: round): string {
-        if (round.active) return this.active_color;
-        return this.inactive_color
-    }
+    determineIfRoundIsSelected = (roundNumber: number): boolean => {
+        return this.state.allRounds.get(roundNumber) === true;
+    };
 
     render(): ReactElement {
         return (
-            <Timeline orientation={"right"} style={{
-                width: "25%",
-                height: "100%",
-                float: "right",
-                marginRight: "0.5em"
-            }}>
-                <TimelineEvent
-                    title={`Round ${this.props.currentRound.number}`}
-                    createdAt={this.props.currentRound.startedAt.toLocaleTimeString()}
-                    subtitle={`${this.ifActiveRound(this.props.currentRound)} active`}
-                    subtitleStyle={{color: `${this.ifActiveRoundColor(this.props.currentRound)}`}}
-                    contentStyle={{
-                        boxShadow: '0 0 6px 1px #a09c98'
-                    }}
-                    bubbleStyle={{
-                        backgroundColor: "slategrey",
-                        borderColor: "darkslategrey"
-                    }}
-                    icon={<img src={"images/round/round.svg"} style={{height: 20, width: 20}}/>}>
-
-                    <SingleRound roundData={this.props.currentRound} pastRounds={this.props.roundLog}/>
-
-                </TimelineEvent>
-                {
-                    this.props.roundLog.map((round, i) => {
-                        return (
-                            <TimelineEvent
-                                key={i}
-                                collapsible={true}
-                                title={`Round ${round.number}`}
-                                createdAt={round.startedAt.toLocaleTimeString()}
-                                subtitle={`${this.ifActiveRound(round)} active`}
-                                subtitleStyle={{color: `${this.ifActiveRoundColor(round)}`}}
-                                contentStyle={{
-                                    boxShadow: '0 0 6px 1px #a09c98'
-                                }}
-                                bubbleStyle={{
-                                    backgroundColor: "slategrey",
-                                    borderColor: "darkslategrey"
-                                }}
-                                icon={<img src={"images/round/round.svg"} style={{height: 20, width: 20}}/>}
-                            >
-                                <SingleRound roundData={round} pastRounds={this.props.roundLog}/>
-                            </TimelineEvent>
-                        )
+            <>
+                <div className={style.roundOverviewContainer}>
+                    <button
+                        className={style.addRoundButton}
+                        onClick={this.addNewRound}
+                    >+
+                    </button>
+                    <SingleRound
+                        key={uuidv4()}
+                        roundData={this.props.currentRound}
+                        pastRounds={this.props.roundLog}
+                        roundDetailsPortal={this.singleRoundDetailsRef}
+                        isActive={true}
+                        isSelected={this.determineIfRoundIsSelected(this.props.currentRound.number)}
+                        selectThisRound={this.selectRoundForRoundDetails}
+                    />
+                    {this.props.roundLog.map((round) => {
+                        return <SingleRound
+                            key={uuidv4()}
+                            roundData={round}
+                            pastRounds={this.props.roundLog}
+                            roundDetailsPortal={this.singleRoundDetailsRef}
+                            isActive={false}
+                            isSelected={this.determineIfRoundIsSelected(round.number)}
+                            selectThisRound={this.selectRoundForRoundDetails}
+                        />
                     }).reverse()
-                }
-            </Timeline>
+                    }
+                </div>
+                <div className={style.singleRoundDetailsContainer} ref={ref => this.singleRoundDetailsRef = ref}>
+                    {/** RoundDetails will be rendered here */}
+                </div>
+            </>
         )
     }
-
 }

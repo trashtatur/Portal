@@ -23,18 +23,9 @@ export class EncounterManager extends React.Component<{}, EncounterManagerState>
                 creatureEvents: []
             }
         };
-
-        this.addRound = this.addRound.bind(this);
-        this.resetRounds = this.resetRounds.bind(this);
-        this.addCreatureToRound = this.addCreatureToRound.bind(this);
-        this.transferCreatureEvents = this.transferCreatureEvents.bind(this);
-        this.changeTypeOfRoundCreature = this.changeTypeOfRoundCreature.bind(this);
-        this.changeCurrentIniOfCreature = this.changeCurrentIniOfCreature.bind(this);
-        this.changeCurrentACOfCreature = this.changeCurrentACOfCreature.bind(this);
-        this.changeCurrentHPOfCreature = this.changeCurrentHPOfCreature.bind(this);
-        this.removeCreatureFromRound = this.removeCreatureFromRound.bind(this);
     }
 
+    initialized = false;
 
     setRoundLogToSessionStorage = (): void => {
         sessionStorage.setItem('encounterRoundLog', JSON.stringify(this.state.roundLog));
@@ -66,7 +57,7 @@ export class EncounterManager extends React.Component<{}, EncounterManagerState>
         return currentRound;
     };
 
-    componentDidMount(): void {
+    componentDidMount = (): void => {
         const potentialRoundLog = this.getRoundLogFromSessionStorage();
         const potentialCurrentRound = this.getCurrentRoundFromSessionStorage();
         if (potentialCurrentRound) {
@@ -75,9 +66,10 @@ export class EncounterManager extends React.Component<{}, EncounterManagerState>
         if (potentialRoundLog) {
             this.setState({roundLog: potentialRoundLog});
         }
-    }
+        this.initialized = true;
+    };
 
-    transferCreatureEvents(): roundCreature[] {
+    transferCreatureEvents = (): roundCreature[] => {
         const previousRound = this.state.roundLog[this.state.roundLog.length - 1];
         if (previousRound != undefined) return previousRound.creatureEvents.map(elem => {
             return {
@@ -94,10 +86,12 @@ export class EncounterManager extends React.Component<{}, EncounterManagerState>
             }
         });
         else return []
-    }
+    };
 
-    addRound(): void {
-
+    addRound = (): void => {
+        if (!this.initialized) {
+            return;
+        }
         const phasingOutRound = this.state.currentRound;
         phasingOutRound.active = false;
         this.setState({
@@ -113,9 +107,12 @@ export class EncounterManager extends React.Component<{}, EncounterManagerState>
             this.setState({currentRound: newRound},
                 () => this.setCurrentRoundToSessionStorage())
         });
-    }
+    };
 
-    resetRounds(): void {
+    resetRounds = (): void => {
+        if (!this.initialized) {
+            return;
+        }
         const creatureEvents: roundCreature[] = this.state.currentRound.creatureEvents.map(elem => {
             return {
                 id: elem.id,
@@ -144,9 +141,9 @@ export class EncounterManager extends React.Component<{}, EncounterManagerState>
                 this.setCurrentRoundToSessionStorage()
             })
         )
-    }
+    };
 
-    addCreatureToRound(creatureToAdd: creature): void {
+    addCreatureToRound = (creatureToAdd: creature): void => {
         let name = creatureToAdd.name;
         if (creatureToAdd.label != 0) name = `${name} ${creatureToAdd.label}`;
         const newRoundCreature: roundCreature =
@@ -166,71 +163,76 @@ export class EncounterManager extends React.Component<{}, EncounterManagerState>
         currentRound.creatureEvents.push(newRoundCreature);
         this.setState({currentRound: currentRound},
             () => this.setCurrentRoundToSessionStorage())
-    }
+    };
 
-    changeCurrentHPOfCreature(newHPValue: number, creatureId: string): void {
+    changeCurrentHPOfCreature = (newHPValue: number, creatureId: string): void => {
         const round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
         }).currentHP = newHPValue;
         this.setState({currentRound: round},
             () => this.setCurrentRoundToSessionStorage())
-    }
+    };
 
-    changeCurrentACOfCreature(newACValue: number, creatureId: string): void {
+    changeCurrentACOfCreature = (newACValue: number, creatureId: string): void => {
         const round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
         }).currentAC = newACValue;
         this.setState({currentRound: round},
             () => this.setCurrentRoundToSessionStorage())
-    }
+    };
 
-    changeCurrentIniOfCreature(newIniValue: number, creatureId: string): void {
+    changeCurrentIniOfCreature = (newIniValue: number, creatureId: string): void => {
         const round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
         }).currentIni = newIniValue;
         this.setState({currentRound: round},
             () => this.setCurrentRoundToSessionStorage())
-    }
+    };
 
-    changeTypeOfRoundCreature(newType: creatureType, creatureId: string): void {
+    changeTypeOfRoundCreature = (newType: creatureType, creatureId: string): void => {
         const round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
         }).currentType = newType;
         this.setState({currentRound: round},
             () => this.setCurrentRoundToSessionStorage())
-    }
+    };
 
-    removeCreatureFromRound(creatureId: string): void {
+    removeCreatureFromRound = (creatureId: string): void => {
         const round = this.state.currentRound;
         round.creatureEvents = round.creatureEvents.filter(elem => {
             return elem.id != creatureId
         });
         this.setState({currentRound: round},
             () => this.setCurrentRoundToSessionStorage())
-    }
+    };
 
 
     render(): ReactElement {
         return (
-            <div className={style.encounterManagerContainer}>
-                <Encounter
-                    addCreatureToRound={this.addCreatureToRound}
-                    changeCurrentACOfCreature={this.changeCurrentACOfCreature}
-                    changeCurrentHPOfCreature={this.changeCurrentHPOfCreature}
-                    changeCurrentIniOfCreature={this.changeCurrentIniOfCreature}
-                    changeTypeOfRoundCreature={this.changeTypeOfRoundCreature}
-                    removeCreatureFromRound={this.removeCreatureFromRound}
-                />
-                <div className={style.roundControls}>
-                    <button className={style.roundControlButton} onClick={this.addRound}>Add round</button>
-                    <button className={style.roundControlButton} onClick={this.resetRounds}>Reset rounds</button>
+            <>
+                <div>
+                    <RoundOverview
+                        roundLog={this.state.roundLog}
+                        currentRound={this.state.currentRound}
+                        addRound={this.addRound}
+                        resetRounds={this.resetRounds}
+                    />
                 </div>
-                <RoundOverview roundLog={this.state.roundLog} currentRound={this.state.currentRound}/>
-            </div>
+                <div className={style.encounterManagerContainer}>
+                    <Encounter
+                        addCreatureToRound={this.addCreatureToRound}
+                        changeCurrentACOfCreature={this.changeCurrentACOfCreature}
+                        changeCurrentHPOfCreature={this.changeCurrentHPOfCreature}
+                        changeCurrentIniOfCreature={this.changeCurrentIniOfCreature}
+                        changeTypeOfRoundCreature={this.changeTypeOfRoundCreature}
+                        removeCreatureFromRound={this.removeCreatureFromRound}
+                    />
+                </div>
+            </>
         )
     }
 }

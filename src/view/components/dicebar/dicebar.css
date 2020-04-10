@@ -1,4 +1,5 @@
 .diceBarContainer {
+    width: 263px;
     display:inline-block;
     float:left;
     height:1.2em;

@@ -84,7 +84,7 @@ export class StatsViewModel {
         this._charisma = value;
     }
 
-    getAsString(attributeToGet: string): string {
+    getAsString = (attributeToGet: string): string => {
         switch (attributeToGet) {
             case this.LABELS.STR:
                 return this._strength.toString();
@@ -99,14 +99,21 @@ export class StatsViewModel {
             case this.LABELS.DEX:
                 return this.LABELS.DEX.toString();
         }
-    }
+    };
 
-    getCMD() {
+    getCMD = (): number => {
         return this._baseAttack + this.getModForStat(this.strength) +
             this.getModForStat(this.dexterity) + getSizeModFromSizeEnum(this._creatureSize) + this.BASE_CMD_BONUS;
-    }
+    };
 
-    getCMB() {
+    getCMB = (): number => {
+        if (typeof this._baseAttack === 'string'
+            || typeof this._strength === 'string'
+            || typeof this._dexterity === 'string'
+            || this._creatureSize === ''
+        ) {
+            return 0;
+        }
         if (this._creatureSize === CreatureSizesEnum.SMALL
             || this._creatureSize === CreatureSizesEnum.TINY
             || this._creatureSize === CreatureSizesEnum.DIMINUTIVE
@@ -116,14 +123,14 @@ export class StatsViewModel {
         return this._baseAttack
             + this.getModForStat(this.strength)
             + getSizeModFromSizeEnum(this._creatureSize)
-    }
+    };
 
     /**
      * @private
      */
-    getModForStat(attr): number {
+    getModForStat = (attr): number => {
         return (Math.floor(attr / 2)) - 5
-    }
+    };
 
     returnStatMod = (statValue: number): string => {
         const mod = (Math.floor(statValue / 2)) - 5;

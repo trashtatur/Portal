@@ -1,31 +1,9 @@
 .encounterManagerContainer {
     width: 100%;
     margin: 0;
-    display: inline-block;
-}
-
-.roundControls {
-    float:left;
-    margin-top: 2em;
-    display: inline-block;
-}
-
-.roundControlButton {
-    font-family: "Trajan Pro", serif;
-    float:left;
-    font-size: 8pt;
-    margin-right: 0.5em;
-    background-color: black;
-    color: white;
-    text-align: center;
-    border: none;
-    padding: 0.8em;
-    transition: background-color 0.5s linear;
-}
-
-.roundControlButton:hover {
-    cursor:pointer;
-    background-color:darkslategrey;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .formTypeButton:hover {

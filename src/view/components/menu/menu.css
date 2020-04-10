@@ -1,6 +1,5 @@
 .menuContainer {
-    display: inline-block;
-    float: right;
+    width: 263px;
 }
 
 .menuButton {

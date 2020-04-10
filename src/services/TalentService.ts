@@ -1,5 +1,5 @@
 import {Service} from "@tsed/di";
-import {Includeable, Op} from "sequelize";
+import {Includeable} from "sequelize";
 import {Talent} from "../db/schemas/Talent";
 
 @Service()
@@ -18,9 +18,9 @@ export class TalentService {
             talent['name'] = dataArray[0].trim();
             talent['type'] = dataArray[1].trim();
             talent['description'] = dataArray[2].trim();
-            talent['benefits'] = dataArray[5].trim();
-            talent['conditions'] = this.formatTalentConditions(dataArray[3], dataArray[4]);
-            talent['note'] = dataArray[6].trim() !== '' ? dataArray[6] : null;
+            talent['benefits'] = dataArray[6].trim();
+            talent['conditions'] = this.formatTalentConditions(dataArray[3], dataArray[4], dataArray[5]);
+            talent['note'] = null;
             resultJSONArray.push(talent);
         });
         return Talent.bulkCreate(resultJSONArray,
@@ -59,7 +59,7 @@ export class TalentService {
         return Talent.findAll({include:include})
     }
 
-    formatTalentConditions(statPrerequisites?: string, talentPrerequisites?: string): string|null {
+    formatTalentConditions(statPrerequisites?: string, talentPrerequisites?: string, skillPreRequisites?: string): string|null {
         let conditions = '';
         if (statPrerequisites) {
             conditions+=statPrerequisites;
@@ -69,6 +69,13 @@ export class TalentService {
                 conditions+=', '
             }
             conditions+=talentPrerequisites
+        }
+
+        if (talentPrerequisites) {
+            if (conditions != '') {
+                conditions+=', '
+            }
+            conditions+=skillPreRequisites
         }
         if (conditions != '') return conditions;
         return null;

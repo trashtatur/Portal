@@ -30,7 +30,7 @@ export class RoundCreature extends React.Component<RoundCreaturePropsInterface> 
     determineHPChange = (): ReactElement => {
         if (this.props.currentHP != this.props.entryHP) {
             return (
-                <p className={style.attributeEntry}>{this.props.entryHP} changed to {this.props.currentHP}&nbsp;
+                <p className={style.attributeEntry}>{this.props.entryHP} ⟶ {this.props.currentHP}&nbsp;
                     <img
                         src={"images/roundSymbols/hp.png"}
                         alt={"round hitpoints symbol"}
@@ -44,7 +44,7 @@ export class RoundCreature extends React.Component<RoundCreaturePropsInterface> 
     determineACChange = (): ReactElement => {
         if (this.props.currentAC != this.props.entryAC) {
             return (
-                <p className={style.attributeEntry}> {this.props.entryAC} changed to {this.props.currentAC}&nbsp;
+                <p className={style.attributeEntry}> {this.props.entryAC} ⟶ {this.props.currentAC}&nbsp;
                     <img
                         src={"images/roundSymbols/ac.png"}
                         alt={"round armorclass symbol"}
@@ -59,7 +59,7 @@ export class RoundCreature extends React.Component<RoundCreaturePropsInterface> 
     determineIniChange = (): ReactElement => {
         if (this.props.currentIni != this.props.entryIni) {
             return (
-                <p className={style.attributeEntry}>{this.props.entryIni} changed to {this.props.currentIni}&nbsp;
+                <p className={style.attributeEntry}>{this.props.entryIni} ⟶ {this.props.currentIni}&nbsp;
                     <img
                         src={"images/roundSymbols/ini.png"}
                         alt={"Round initiative symbol"}
@@ -74,7 +74,7 @@ export class RoundCreature extends React.Component<RoundCreaturePropsInterface> 
     determineTypeChange = (): ReactElement => {
         if (this.props.currentType != this.props.entryType) {
             return (
-                <p className={style.attributeEntry}>{this.props.entryType} changed to {this.props.currentType}&nbsp;
+                <p className={style.attributeEntry}>{this.props.entryType} ⟶ {this.props.currentType}&nbsp;
                     <img
                         src={"images/roundSymbols/type.png"}
                         alt={"Round creature type symbol"}

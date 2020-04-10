@@ -1,8 +1,8 @@
 import * as React from "react";
 import {Form} from "../form/Form";
 import {ReactElement} from "react";
-import * as style from './menu.css';
 import {CSVImporter} from "../importer/CSVImporter";
+import * as style from './menu.css';
 
 export class Menu extends React.Component {
 
