@@ -1,0 +1,55 @@
+.adventureOverviewContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Trajan Pro", serif;
+}
+
+.addNewAdventureButton {
+    cursor: pointer;
+    border-radius: 30%;
+    padding: 10px;
+    font-size: 12pt;
+    color: #222;
+    background-color: white;
+    border-color: transparent;
+    box-shadow:  4px 4px 8px #d9d9d9,
+    -4px -4px 8px #f1f0f052;
+    transition: all 0.5s linear;
+}
+
+.addNewAdventureButton:hover {
+    background: linear-gradient(145deg, #efefef, #f1f0f052);
+    transform: scale(1.1);
+}
+
+.adventureFormContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    border-bottom: 1px solid lightgrey;
+    border-top: 1px solid lightgrey;
+    width: 80%;
+    transition: opacity 0.5s linear,
+                height 0.5s linear,
+                min-height 0.5s linear;
+}
+
+.adventureCardsContainer {
+    width: 85%;
+    height: auto;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    transition: height 1s linear, width 1s linear;
+}
+
+.singleAdventureContainer {
+    border-top: #303e49;
+    display: flex;
+    width: 60%;
+    align-items: center;
+    flex-direction: column;
+}

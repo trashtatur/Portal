@@ -2,8 +2,9 @@ import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
 import {Action} from "../db/schemas/Action";
 import {ActionForm} from "../validation/ActionForm";
-import {ActionModelMapper} from "../mapping/toEntity/ActionModelMapper";
+import {ActionModelMapper} from "../mapping/fromDataToModel/ActionModelMapper";
 import {ActionRepository} from "../repositories/ActionRepository";
+import {ActionModel} from "../model/ActionModel";
 
 @Service()
 export class ActionService {
@@ -13,7 +14,7 @@ export class ActionService {
         this._actionRepository = new ActionRepository();
     }
 
-    async create(data, include?: Includeable[]) {
+    async create(data, include?: Includeable[]): Promise<ActionModel> {
         const actionFormValidator = new ActionForm();
         const validatedData = actionFormValidator.validate(data.action);
         if (validatedData) {
@@ -21,6 +22,7 @@ export class ActionService {
             const actionModel = mapper.map(validatedData);
             return this._actionRepository.create(actionModel);
         }
+        return null;
     }
 
     async delete(data: object) {

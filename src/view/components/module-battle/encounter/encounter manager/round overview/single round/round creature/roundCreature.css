@@ -1,0 +1,36 @@
+.creatureIcon {
+    height: 15px;
+    width: 15px;
+    float:right;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+.creatureTitleType {
+    height: 20px;
+    width: 20px;
+    float: right;
+}
+
+.creatureName {
+    line-height: 16pt;
+    font-weight: bold;
+}
+
+.roundCreatureContainer {
+    font-size: 10pt;
+    margin-left: 10px;
+    width: 150px;
+    min-width: 200px;
+    font-family: "Trajan Pro", serif;
+}
+
+.attributeEntry {
+    width: 100%;
+    margin-top: 2px;
+    font-size: 9.5pt;
+    padding-right: 0.5em;
+    margin-bottom: 0;
+    text-align: right;
+    display: inline-block;
+}

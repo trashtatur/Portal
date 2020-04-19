@@ -1,4 +1,4 @@
-import {BodyParams, Controller, Get, PathParams, Post, Put, Req, Res, Status} from "@tsed/common";
+import {BodyParams, Controller, Get, PathParams, Post, Put, Status} from "@tsed/common";
 import {Language} from "../../db/schemas/Language";
 import {Talent} from "../../db/schemas/Talent";
 import {Skill} from "../../db/schemas/Skill";
@@ -6,6 +6,7 @@ import {Action} from "../../db/schemas/Action";
 import {MulterOptions, MultipartFile} from "@tsed/multipartfiles";
 import {CreatureService} from "../../services/CreatureService";
 import {Includeable} from "sequelize";
+import {creatureData} from "../../types/backendTypes";
 
 
 @Controller('/creature')
@@ -16,32 +17,8 @@ export class CreatureResourceController {
         this.creatureService = creatureService;
     }
 
-    /**
-     * creatureData defined as follow:
-     * {
-     *      name: string,
-     *      hitpoints: int,
-     *      alignment: string,
-     *      armorclass: number,
-     *      creatureClass: string,
-     *      challenge: int,
-     *      movement: int,
-     *      ini: int,
-     *      baseAtk: int,
-     *      ?xp: int,
-     *      ?image: File,
-     *      size: string',
-     *      stats:{"str":int,"dex":int,"wis":int,"int":int,"cha":int,"con":int},
-     *      saveThrows:{"ref":int,"will":int,"fort":int},
-     *      ?languages: [string],
-     *      ?skills: [string],
-     *      ?talents: [string],
-     *      ?actions: [Action],
-     * }
-     * @param creatureData
-     */
     @Post()
-    async createCreature(@BodyParams() creatureData: object): Promise<string> {
+    async createCreature(@BodyParams() creatureData: creatureData): Promise<string> {
         const includeList = this.determineIncludeList(creatureData);
         const creature = await this.creatureService.create(creatureData, includeList);
         return JSON.stringify(creature)
@@ -59,7 +36,7 @@ export class CreatureResourceController {
 
     @Put('/update/:creatureName/:creatureChallenge')
     async updateOneCreature(
-        @BodyParams('creatureData') creatureData: object,
+        @BodyParams('creatureData') creatureData: creatureData,
         @PathParams('creatureName') creatureName: string,
         @PathParams('creatureChallenge') creatureChallenge: string
         ): Promise<string>
@@ -88,7 +65,7 @@ export class CreatureResourceController {
         return JSON.stringify(creature)
     }
 
-    private determineIncludeList(creatureData: object): Includeable[] {
+    private determineIncludeList(creatureData: creatureData): Includeable[] {
         const includeList = [];
         if ("languages" in creatureData) includeList.push(Language);
         if ("skills" in creatureData) includeList.push(Skill);

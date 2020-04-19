@@ -1,0 +1,33 @@
+.adventureCreateForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90%;
+    width: 90%;
+}
+
+.formSection {
+    display: flex;
+    padding-top: 5px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.coreTextArea {
+    width: 70%;
+    resize: vertical;
+}
+
+.nameTextInput {
+    width: 70%;
+}
+
+.adventureSubmit {
+    background: white;
+    border-radius: 30%;
+    border-color: transparent;
+    padding: 6px;
+    color: #222;
+    box-shadow:  4px 4px 8px #d9d9d9,
+    -4px -4px 8px #f1f0f052;
+}

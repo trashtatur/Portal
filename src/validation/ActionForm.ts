@@ -1,6 +1,6 @@
 import {RangeType} from "../model/dataModel/RangeType";
 import {FormValidatorInterface} from "./FormValidatorInterface";
-import {Optional, Options, Type, validate, Validator} from 'validate-typescript';
+import {Optional, Options, Type, validate} from 'validate-typescript';
 import {DamageTypesEnum} from "../model/dataModel/DamageTypesEnum";
 import {ValidatorError} from "validate-typescript/lib/errors";
 

@@ -1,4 +1,4 @@
-import {action, attackProperty, saveThrowsType, statblock} from "./creaturecard/CreatureCard";
+import {action, attackProperty, saveThrowsType, statblock} from "./module-battle/creaturecard/CreatureCard";
 import {CreatureSizesEnum} from "../model/dataModel/CreatureSizesEnum";
 import {ReactElement} from "react";
 
@@ -169,3 +169,10 @@ export type oneEntryFormEntry = {
 }
 
 export type creatureType = "ally" | "player" | "monster" | "summon" | ""
+
+export type adventureData = {
+    _id: string;
+    _name: string;
+    _core: string;
+    _scenes?: Array<any>;
+}

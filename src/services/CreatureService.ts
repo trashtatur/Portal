@@ -11,6 +11,7 @@ import {Talent} from "../db/schemas/Talent";
 import {Action} from "../db/schemas/Action";
 import * as fs from "fs";
 import {join} from "path";
+import {creatureData} from "../types/backendTypes";
 
 const mkdirp = require('mkdirp');
 
@@ -33,7 +34,7 @@ export class CreatureService {
      * @param data
      * @param include
      */
-    async create(data: object, include?: Includeable[]) {
+    async create(data: creatureData, include?: Includeable[]) {
         const creature = await Creature.build(
             {
                 name: data['name'],

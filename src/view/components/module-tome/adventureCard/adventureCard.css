@@ -1,0 +1,31 @@
+.adventureCardContainer {
+    cursor: pointer;
+    width: 200px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 17px;
+    border-radius: 26px;
+    background: linear-gradient(145deg, #efefef, #ffffff);
+    box-shadow:  18px 18px 36px #e0e0e0,
+    -18px -18px 36px #f1f0f052;
+    transition: all 0.5s ease-in-out;
+}
+
+.adventureCardContainer:hover {
+    transform: scale(1.1);
+}
+
+.adventureName {
+    flex: 1;
+    padding-bottom: 3px;
+    border-bottom: grey 1px solid;
+}
+
+.adventureCore {
+    flex: 4;
+    font-size: 9pt;
+    margin-top: 4px;
+    overflow-wrap: break-word;
+}
