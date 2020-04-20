@@ -11,9 +11,11 @@ export class SceneViewModel{
     private _additionalDescription = '';
     private _images: Array<string> = [];
     private _treasure = '';
+    private _adventureId?: string;
 
     constructor(
         id?: string,
+        adventureId?: string,
         number: number = null,
         name = '',
         hook = '',
@@ -27,6 +29,7 @@ export class SceneViewModel{
         treasure = '',
     ) {
         this._id = id;
+        this._adventureId = adventureId;
         this._number = number;
         this._name = name;
         this._hook = hook;
@@ -46,6 +49,14 @@ export class SceneViewModel{
 
     set id(value: string) {
         this._id = value;
+    }
+
+    get adventureId(): string {
+        return this._adventureId;
+    }
+
+    set adventureId(value: string) {
+        this._adventureId = value;
     }
 
     get number(): number {
