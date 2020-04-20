@@ -12,8 +12,9 @@ export class AdventureResourceController {
 
 
     @Get('/id/:adventureId')
-    async adventureById(@PathParams('adventureId') adventureId: number): Promise<string> {
-        return ''
+    async adventureById(@PathParams('adventureId') adventureId: string): Promise<string> {
+        const adventure = await this.adventureService.findOneBy('uuid', adventureId);
+        return JSON.stringify(adventure);
     }
 
     @Get()
@@ -25,7 +26,7 @@ export class AdventureResourceController {
     @Post()
     async createAdventure(@BodyParams() adventureData: adventureData): Promise<string> {
         const adventureModel = this.adventureService.create(adventureData);
-        return ''
+        return '';
     }
 
     @Put()

@@ -1,5 +1,7 @@
-import {AllowNull, Column, DataType, HasMany, Model, PrimaryKey, Table} from "sequelize-typescript";
+import {AllowNull, BelongsToMany, Column, DataType, HasMany, Model, PrimaryKey, Table} from "sequelize-typescript";
 import {Scene} from "./Scene";
+import {Person} from "./Person";
+import {AdventurePerson} from "./assocSchemas/AdventurePerson";
 
 @Table
 export class Adventure extends Model<Adventure>{
@@ -17,5 +19,8 @@ export class Adventure extends Model<Adventure>{
     core;
 
     @HasMany(() => Scene)
-    scenes: Scene[]
+    scenes: Scene[];
+
+    @BelongsToMany(()=> Person, ()=>AdventurePerson)
+    persons: Person[];
 }

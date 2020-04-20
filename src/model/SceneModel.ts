@@ -1,4 +1,5 @@
 import {ModelInterface} from "./ModelInterface";
+import {PersonModel} from "./PersonModel";
 
 export class SceneModel implements ModelInterface {
     private readonly _id: string;
@@ -13,6 +14,7 @@ export class SceneModel implements ModelInterface {
     private readonly _additionalDescription?: string;
     private readonly _images?: Array<string>;
     private readonly _treasure?: string;
+    private readonly _persons?: Array<PersonModel>;
 
     constructor(
         id: string,
@@ -27,8 +29,9 @@ export class SceneModel implements ModelInterface {
         additionalDescription?: string,
         images?: Array<string>,
         treasure?: string,
-
+        persons?: Array<PersonModel>
     ) {
+        this._persons = persons;
         this._id = id;
         this._number = number;
         this._name = name;
@@ -89,5 +92,9 @@ export class SceneModel implements ModelInterface {
 
     get treasure(): string {
         return this._treasure;
+    }
+
+    get persons(): Array<PersonModel> {
+        return this._persons;
     }
 }

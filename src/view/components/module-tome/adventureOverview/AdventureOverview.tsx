@@ -5,7 +5,6 @@ import {AdventureViewModel} from "../../../model/adventure/AdventureViewModel";
 import {AdventureDataToViewModelMapper} from "../../../mapping/AdventureDataToViewModelMapper";
 import {AdventureForm} from "../adventureForm/AdventureForm";
 import {AdventureCard} from "../adventureCard/AdventureCard";
-import {SingleAdventure} from "../singleAdventure/SingleAdventure";
 import * as style from './adventureOverview.css'
 
 interface AdventureOverviewProps {
@@ -58,42 +57,8 @@ export class AdventureOverview extends React.Component<AdventureOverviewProps, A
         }
     };
 
-    collapseAdventureOverview = (): CSSProperties => {
-        const overflowX = this.state.adventures.length > 5 ? 'auto' : 'hidden';
-        if (this.state.openedAdventure) {
-            return {
-                height: "250px",
-                overflowX: overflowX,
-                flexWrap: "nowrap",
-                width: "100%",
-                alignItems: 'center',
-            }
-        }
-    };
-
-    openSingleAdventureEntry = (): CSSProperties => {
-        if (this.state.openedAdventure) {
-            return {
-                opacity: 1
-            }
-        }
-        return {
-            opacity: 0
-        }
-    };
-
     toggleAdventureFormOpen = (): void => {
         this.setState({adventureFormIsOpen: !this.state.adventureFormIsOpen})
-    };
-
-
-    openAdventure = (adventureId: string): void => {
-        const openedAdventure = this.state.adventures.find(adventure => {
-            if (adventure.id === adventureId) {
-                return adventure
-            }
-        });
-        this.setState({openedAdventure: openedAdventure});
     };
 
     render(): ReactNode {
@@ -109,7 +74,7 @@ export class AdventureOverview extends React.Component<AdventureOverviewProps, A
                         <AdventureForm />
                     }
                 </div>
-                <div className={style.adventureCardsContainer} style={this.collapseAdventureOverview()}>
+                <div className={style.adventureCardsContainer}>
                     {
                         this.state.adventures.map(adventure => {
                             return (
@@ -118,22 +83,10 @@ export class AdventureOverview extends React.Component<AdventureOverviewProps, A
                                     adventureId={adventure.id}
                                     name={adventure.name}
                                     core={adventure.core}
-                                    openAdventure={this.openAdventure}
                                 />
                             )
                         })
                     }
-                </div>
-                <div style={this.openSingleAdventureEntry()} className={style.singleAdventureContainer}>
-                {
-                    this.state.openedAdventure &&
-                        <SingleAdventure
-                            adventureId={this.state.openedAdventure.id}
-                            name={this.state.openedAdventure.name}
-                            core={this.state.openedAdventure.core}
-                            scenes={this.state.openedAdventure.scenes}
-                        />
-                }
                 </div>
             </div>
         )

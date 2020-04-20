@@ -8,6 +8,8 @@ import {
 } from "sequelize-typescript";
 import {Adventure} from "./Adventure";
 import {SceneScene} from "./assocSchemas/SceneScene";
+import {Person} from "./Person";
+import {ScenePerson} from "./assocSchemas/ScenePerson";
 
 @Table
 export class Scene extends Model<Scene> {
@@ -60,6 +62,9 @@ export class Scene extends Model<Scene> {
 
     @BelongsToMany(()=> Scene, ()=>SceneScene, 'childSceneId')
     childScenes: Scene[];
+
+    @BelongsToMany(()=> Person, ()=> ScenePerson)
+    persons: Person[];
 
     @BelongsTo(()=> Adventure)
     adventure: Adventure;

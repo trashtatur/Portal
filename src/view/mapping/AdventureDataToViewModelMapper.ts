@@ -4,7 +4,11 @@ import {adventureData} from "../components/componentTypes";
 export class AdventureDataToViewModelMapper {
 
     mapSingle(data: adventureData): AdventureViewModel {
-        return null;
+        return new AdventureViewModel(
+            data._id,
+            data._name,
+            data._core
+        )
     }
 
     mapMultiple(dataArray: Array<adventureData>): AdventureViewModel[] {

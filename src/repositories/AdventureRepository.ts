@@ -14,7 +14,10 @@ export class AdventureRepository {
     }
 
     async findOneBy(key, value): Promise<Adventure> {
-        return null
+        const condition = {};
+        condition[key] = value;
+        return Adventure.findOne(
+            {where: condition});
     }
 
     async findAll(): Promise<Adventure[]> {

@@ -1,5 +1,13 @@
+.singleAdventureContainer {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    align-items: center;
+}
+
 .adventureName {
-    font-size: 16pt;
+    font-size: 35pt;
     color: #222;
     font-weight: bolder;
     text-shadow: 2px 2px 2px #f1f0f052
@@ -26,15 +34,4 @@
 .addSceneButton:hover {
     background: linear-gradient(145deg, #efefef, #f1f0f052);
     transform: scale(1.1);
-}
-
-.singleSceneFormContainer {
-    background-color: white;
-    padding: 10px;
-    position: absolute;
-    opacity: 0.95;
-    z-index: 1;
-    width: 100%;
-    top: 100%;
-    transition: all 1s ease-in-out;
 }

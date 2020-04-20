@@ -35,7 +35,8 @@ export class AdventureService {
     }
 
     async findOneBy(key, value): Promise<AdventureModel> {
-        return null;
+        const adventureEntity = await this.adventureRepository.findOneBy(key, value);
+        return this.adventureEntityToModelMapper.map(adventureEntity);
     }
 
     async findAll(): Promise<AdventureModel[]> {

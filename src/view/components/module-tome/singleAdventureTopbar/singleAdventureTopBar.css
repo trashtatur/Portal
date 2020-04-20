@@ -1,0 +1,23 @@
+.singleAdventureTopBarContainer {
+    padding: 10px;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.topBarButton {
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 20%;
+    border-color: transparent;
+    background: white;
+    box-shadow:  4px 4px 8px #d9d9d9,
+    -4px -4px 8px #f1f0f052;
+    transition: all 0.5s linear;
+}
+
+.topBarButton:hover {
+    background: linear-gradient(145deg, #efefef, #f1f0f052);
+    transform: scale(1.1);
+}

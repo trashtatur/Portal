@@ -1,22 +1,26 @@
 import {ModelInterface} from "./ModelInterface";
 import {SceneModel} from "./SceneModel";
+import {PersonModel} from "./PersonModel";
 
 export class AdventureModel implements ModelInterface {
-    private readonly _scenes: SceneModel[];
     private readonly _id: string;
     private readonly _name: string;
     private readonly _core: string;
+    private readonly _scenes?: SceneModel[];
+    private readonly _persons?: PersonModel[];
 
     constructor(
         id: string,
         name: string,
         core: string,
-        scenes: SceneModel[]
+        scenes?: SceneModel[],
+        persons?: PersonModel[]
     ) {
         this._id = id;
         this._name = name;
         this._core = core;
         this._scenes = scenes;
+        this._persons = persons;
     }
 
     get scenes(): SceneModel[] {
@@ -33,5 +37,9 @@ export class AdventureModel implements ModelInterface {
 
     get core(): string {
         return this._core;
+    }
+
+    get persons(): PersonModel[] {
+        return this._persons;
     }
 }

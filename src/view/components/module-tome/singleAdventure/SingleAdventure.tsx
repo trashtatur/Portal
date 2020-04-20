@@ -1,19 +1,23 @@
 import * as React from 'react';
-import {CSSProperties, ReactNode} from 'react';
-import {SceneViewModel} from "../../../model/scene/SceneViewModel";
+import {ReactNode} from 'react';
 import {SingleSceneForm} from "../singleSceneForm/SingleSceneForm";
 import {SceneGraph} from "../sceneGraph/SceneGraph";
+import { RouteComponentProps } from 'react-router';
+import axios from 'axios';
+import {AdventureDataToViewModelMapper} from "../../../mapping/AdventureDataToViewModelMapper";
+import {AdventureViewModel} from "../../../model/adventure/AdventureViewModel";
+import {SingleAdventureTopBar} from "../singleAdventureTopbar/SingleAdventureTopBar";
+import {FlyUpContainer} from "../../uiBasic/flyUpContainer/FlyUpContainer";
 import * as style from './singleAdventure.css';
 
-interface SingleAdventureProps {
+interface MatchParams {
     adventureId: string;
-    name: string;
-    core: string;
-    scenes: Array<SceneViewModel>;
 }
+interface SingleAdventureProps extends RouteComponentProps<MatchParams> {}
 
 interface SingleAdventureState {
     sceneFormOpen: boolean;
+    adventure: AdventureViewModel;
 }
 
 export class SingleAdventure extends React.Component<SingleAdventureProps, SingleAdventureState> {
@@ -22,17 +26,24 @@ export class SingleAdventure extends React.Component<SingleAdventureProps, Singl
         super(props);
         this.state = {
             sceneFormOpen: false,
+            adventure: new AdventureViewModel(),
         }
     }
 
-    openSceneFormStyleChange = (): CSSProperties => {
-        if (this.state.sceneFormOpen) {
-            return {
-                top: '30%',
-                height: '70%',
-                boxShadow: '0px -5px 33px -4px rgba(0,0,0,0.75)',
-            }
+    componentDidMount = async(): Promise<void> => {
+        try {
+            const adventure = await axios.get(`V1/Adventure/id/${this.props.match.params.adventureId}`);
+            const mapper = new AdventureDataToViewModelMapper();
+            this.setState({adventure: mapper.mapSingle(adventure.data)});
+        } catch (e) {
+            console.log(e)
         }
+    };
+
+    openSceneOverview = (): void => {
+    };
+
+    openPersonsOverview = (): void => {
     };
 
     addScene = (): void => {
@@ -41,27 +52,29 @@ export class SingleAdventure extends React.Component<SingleAdventureProps, Singl
 
     render(): ReactNode {
         return (
-            <>
+            <div className={style.singleAdventureContainer}>
                 <div className={style.adventureName}>
-                    {this.props.name}
+                    {this.state.adventure.name}
                 </div>
+                <SingleAdventureTopBar openScenes={this.openSceneOverview} openPersons={this.openPersonsOverview} />
                 <div className={style.adventureCore}>
-                    {this.props.core}
+                    {this.state.adventure.core}
                 </div>
                 <button
                     className={style.addSceneButton}
                     onClick={this.addScene}
                 >Add Scene
                 </button>
-                <div className={style.singleSceneFormContainer} style={this.openSceneFormStyleChange()}>
-                    {this.state.sceneFormOpen &&
+                <FlyUpContainer
+                    open={this.state.sceneFormOpen}
+                    closeHandler={()=>{this.setState({sceneFormOpen: false})}}
+                >
                     <SingleSceneForm
-                        adventureId={this.props.adventureId}
-                        scenesToChoseFrom={this.props.scenes}/>
-                    }
-                </div>
-                <SceneGraph scenes={this.props.scenes}/>
-            </>
+                        adventureId={this.state.adventure.id}
+                        scenesToChoseFrom={this.state.adventure.scenes}/>
+                </FlyUpContainer>
+                <SceneGraph scenes={this.state.adventure.scenes}/>
+            </div>
         )
     }
 }
