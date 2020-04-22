@@ -4,12 +4,12 @@ import {
     DataType, ForeignKey,
     Model,
     PrimaryKey,
-    Table, BelongsToMany
+    Table, BelongsToMany, HasMany
 } from "sequelize-typescript";
 import {Adventure} from "./Adventure";
-import {SceneScene} from "./assocSchemas/SceneScene";
 import {Person} from "./Person";
 import {ScenePerson} from "./assocSchemas/ScenePerson";
+import {Col} from "sequelize/types/lib/utils";
 
 @Table
 export class Scene extends Model<Scene> {
@@ -44,11 +44,15 @@ export class Scene extends Model<Scene> {
 
     @AllowNull(false)
     @Column
-    act: string;
+    act: number;
 
     @AllowNull(true)
     @Column
     images: string;
+
+    @AllowNull(true)
+    @Column({type: DataType.TEXT({length: 'medium'})})
+    parentScenes;
 
     @Column({type: DataType.TEXT({length: 'long'})})
     additionalDescription;
@@ -56,12 +60,6 @@ export class Scene extends Model<Scene> {
     @AllowNull(false)
     @Column({type: DataType.TEXT({length: 'long'})})
     resolve;
-
-    @BelongsToMany(()=> Scene, ()=>SceneScene, 'parentSceneId')
-    parentScenes: Scene[];
-
-    @BelongsToMany(()=> Scene, ()=>SceneScene, 'childSceneId')
-    childScenes: Scene[];
 
     @BelongsToMany(()=> Person, ()=> ScenePerson)
     persons: Person[];

@@ -14,56 +14,6 @@ export class SceneEntityToModelMapper implements EntityToModelMapperInterface{
 
     map(entity: Scene): SceneModel {
 
-        let childSceneModels = [];
-        if (entity.childScenes !== undefined) {
-            let personModels = [];
-            if (entity.persons !== undefined) {
-                personModels = entity.persons.map(person => {
-                    return this.personEntityToModelMapper.map(person);
-                })
-            }
-            childSceneModels = entity.childScenes.map(sceneEntity => {
-                return new SceneModel(
-                    sceneEntity.id,
-                    sceneEntity.number,
-                    sceneEntity.name,
-                    sceneEntity.hook,
-                    sceneEntity.token,
-                    sceneEntity.act,sceneEntity.resolve,
-                    null,
-                    null,
-                    sceneEntity.additionalDescription,
-                    sceneEntity.images.split(','),
-                    sceneEntity.treasure,
-                    personModels
-                )
-            });
-        }
-        let parentSceneModels = [];
-        if (entity.parentScenes !== undefined) {
-            let personModels = [];
-            if (entity.persons !== undefined) {
-                personModels = entity.persons.map(person => {
-                    return this.personEntityToModelMapper.map(person);
-                })
-            }
-            parentSceneModels = entity.parentScenes.map(sceneEntity => {
-                return new SceneModel(
-                    sceneEntity.id,
-                    sceneEntity.number,
-                    sceneEntity.name,
-                    sceneEntity.hook,
-                    sceneEntity.token,
-                    sceneEntity.act,sceneEntity.resolve,
-                    null,
-                    null,
-                    sceneEntity.additionalDescription,
-                    sceneEntity.images.split(','),
-                    sceneEntity.treasure,
-                    personModels
-                )
-            });
-        }
         let personModels = [];
         if (entity.persons !== undefined) {
             personModels = entity.persons.map(person => {
@@ -71,15 +21,15 @@ export class SceneEntityToModelMapper implements EntityToModelMapperInterface{
             })
         }
         return new SceneModel(
-            entity.id,
+            entity.uuid,
+            entity.adventureId,
             entity.number,
             entity.name,
             entity.hook,
             entity.token,
             entity.act,
             entity.resolve,
-            childSceneModels,
-            parentSceneModels,
+            [],
             entity.additionalDescription,
             entity.images.split(','),
             entity.treasure,

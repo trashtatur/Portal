@@ -1,16 +1,18 @@
 export type sceneData = {
-    id?: string;
-    number: number;
-    name: string;
-    hook: string;
-    token: string;
-    resolve: string;
-    treasure?: string;
-    childScenes?: Array<string>;
-    parentScenes?: Array<string>;
-    additionalDescription?: string;
-    images?: Array<string>;
-    persons?: Array<string>;
+    _id?: string;
+    _adventureId: string;
+    _number: number;
+    _name: string;
+    _hook: string;
+    _token: string;
+    _act: number;
+    _resolve: string;
+    _treasure?: string;
+    _childScenes?: Array<sceneData>;
+    _parentScenes?: Array<sceneData>;
+    _additionalDescription?: string;
+    _images?: Array<string>;
+    _persons?: Array<string>;
 };
 
 export type adventureData = {

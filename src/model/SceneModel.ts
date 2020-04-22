@@ -3,14 +3,14 @@ import {PersonModel} from "./PersonModel";
 
 export class SceneModel implements ModelInterface {
     private readonly _id: string;
+    private readonly _adventureId: string;
     private readonly _number: number;
     private readonly _name: string;
     private readonly _hook: string;
     private readonly _token: string;
-    private readonly _act: string;
+    private readonly _act: number;
     private readonly _resolve: string;
-    private readonly _childScenes: Array<SceneModel>;
-    private readonly _parentScenes?: Array<SceneModel>;
+    private _parentScenes?: Array<SceneModel>;
     private readonly _additionalDescription?: string;
     private readonly _images?: Array<string>;
     private readonly _treasure?: string;
@@ -18,13 +18,13 @@ export class SceneModel implements ModelInterface {
 
     constructor(
         id: string,
+        adventureId: string,
         number: number,
         name: string,
         hook: string,
         token: string,
-        act: string,
+        act: number,
         resolve: string,
-        childScenes: Array<SceneModel>,
         parentScenes?: Array<SceneModel>,
         additionalDescription?: string,
         images?: Array<string>,
@@ -32,6 +32,7 @@ export class SceneModel implements ModelInterface {
         persons?: Array<PersonModel>
     ) {
         this._persons = persons;
+        this._adventureId = adventureId;
         this._id = id;
         this._number = number;
         this._name = name;
@@ -39,7 +40,6 @@ export class SceneModel implements ModelInterface {
         this._token = token;
         this._act = act;
         this._resolve = resolve;
-        this._childScenes = childScenes;
         this._parentScenes = parentScenes;
         this._additionalDescription = additionalDescription;
         this._images = images;
@@ -54,6 +54,10 @@ export class SceneModel implements ModelInterface {
         return this._number;
     }
 
+    get adventureId(): string {
+        return this._adventureId;
+    }
+
     get name(): string {
         return this._name;
     }
@@ -66,7 +70,7 @@ export class SceneModel implements ModelInterface {
         return this._token;
     }
 
-    get act(): string {
+    get act(): number {
         return this._act;
     }
 
@@ -74,12 +78,12 @@ export class SceneModel implements ModelInterface {
         return this._resolve;
     }
 
-    get childScenes(): Array<SceneModel> {
-        return this._childScenes;
-    }
-
     get parentScenes(): Array<SceneModel> {
         return this._parentScenes;
+    }
+
+    set parentScenes(value: Array<SceneModel>) {
+        this._parentScenes = value;
     }
 
     get additionalDescription(): string {

@@ -1,13 +1,20 @@
 import {AdventureViewModel} from "../model/adventure/AdventureViewModel";
 import {adventureData} from "../components/componentTypes";
+import {SceneDataToViewModelMapper} from "./SceneDataToViewModelMapper";
 
 export class AdventureDataToViewModelMapper {
+    private readonly sceneDataToViewModelMapper: SceneDataToViewModelMapper;
+
+    constructor() {
+        this.sceneDataToViewModelMapper = new SceneDataToViewModelMapper();
+    }
 
     mapSingle(data: adventureData): AdventureViewModel {
         return new AdventureViewModel(
             data._id,
             data._name,
-            data._core
+            data._core,
+            this.sceneDataToViewModelMapper.mapMultiple(data._scenes)
         )
     }
 
@@ -15,11 +22,7 @@ export class AdventureDataToViewModelMapper {
         const adventures = [];
         dataArray.forEach(adventure => {
             adventures.push(
-                new AdventureViewModel(
-                    adventure._id,
-                    adventure._name,
-                    adventure._core
-                )
+                this.mapSingle(adventure)
             )
         });
         return adventures;

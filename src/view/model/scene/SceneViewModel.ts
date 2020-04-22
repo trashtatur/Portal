@@ -4,9 +4,8 @@ export class SceneViewModel{
     private _name = '';
     private _hook = '';
     private _token = '';
-    private _act = '';
+    private _act = null;
     private _resolve = '';
-    private _childScenes: Array<SceneViewModel> = [];
     private _parentScenes: Array<SceneViewModel> = [];
     private _additionalDescription = '';
     private _images: Array<string> = [];
@@ -20,9 +19,8 @@ export class SceneViewModel{
         name = '',
         hook = '',
         token = '',
-        act = '',
+        act: number = null,
         resolve = '',
-        childScenes: Array<SceneViewModel> = [],
         parentScenes: Array<SceneViewModel> = [],
         additionalDescription = '',
         images: Array<string> = [],
@@ -36,7 +34,6 @@ export class SceneViewModel{
         this._token = token;
         this._act = act;
         this._resolve = resolve;
-        this._childScenes = childScenes;
         this._parentScenes = parentScenes;
         this._additionalDescription = additionalDescription;
         this._images = images;
@@ -98,11 +95,11 @@ export class SceneViewModel{
         this._token = value;
     }
 
-    get act(): string {
+    get act(): number {
         return this._act;
     }
 
-    set act(value: string) {
+    set act(value: number) {
         this._act = value;
     }
 
@@ -119,14 +116,6 @@ export class SceneViewModel{
 
     set resolve(value: string) {
         this._resolve = value;
-    }
-
-    get childScenes(): Array<SceneViewModel> {
-        return this._childScenes;
-    }
-
-    set childScenes(value: Array<SceneViewModel>) {
-        this._childScenes = value;
     }
 
     get parentScenes(): Array<SceneViewModel> {

@@ -11,7 +11,7 @@ export class SceneResourceController {
         this.sceneService = sceneService;
     }
 
-    @Get('/id/:adventureId')
+    @Get('/id/:sceneId')
     async sceneById(@PathParams('sceneId') sceneId: number): Promise<string> {
         return ''
     }
@@ -24,7 +24,7 @@ export class SceneResourceController {
     @Post()
     async createScene(@BodyParams() sceneData: sceneData): Promise<string> {
         const sceneModel = this.sceneService.create(sceneData);
-        return ''
+        return JSON.stringify(sceneModel);
     }
 
     @Put()

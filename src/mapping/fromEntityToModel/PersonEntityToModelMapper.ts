@@ -1,9 +1,6 @@
 import {EntityToModelMapperInterface} from "../EntityToModelMapperInterface";
 import {PersonModel} from "../../model/PersonModel";
 import {Person} from "../../db/schemas/Person";
-import {SceneEntityToModelMapper} from "./SceneEntityToModelMapper";
-import {AdventureEntityToModelMapper} from "./AdventureEntityToModelMapper";
-import {Service} from "@tsed/di";
 import {AdventureModel} from "../../model/AdventureModel";
 import {SceneModel} from "../../model/SceneModel";
 
@@ -25,13 +22,13 @@ export class PersonEntityToModelMapper implements EntityToModelMapperInterface{
             scenes = entity.scenes.map(scene => {
                 new SceneModel(
                     scene.uuid,
+                    scene.adventureId,
                     scene.number,
                     scene.name,
                     scene.hook,
                     scene.token,
                     scene.act,
                     scene.resolve,
-                    [],
                     [],
                     scene.additionalDescription,
                     null,
@@ -41,7 +38,7 @@ export class PersonEntityToModelMapper implements EntityToModelMapperInterface{
             })
         }
         return new PersonModel(
-            entity.id,
+            entity.uuid,
             entity.name,
             entity.type,
             entity.needs,

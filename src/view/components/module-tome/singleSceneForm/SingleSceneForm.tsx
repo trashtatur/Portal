@@ -50,7 +50,11 @@ export class SingleSceneForm extends React.Component<SingleSceneFormProps, Singl
 
     handleNumberChange = (event): void => {
         const scene = this.state.scene;
-        scene.number = event.target.value;
+        if (event.target.value === '') {
+            scene.number = null;
+        } else {
+            scene.number = Number(event.target.value);
+        }
         this.setState({scene: scene});
     };
 
@@ -80,7 +84,11 @@ export class SingleSceneForm extends React.Component<SingleSceneFormProps, Singl
 
     handleActChange = (event): void => {
         const scene = this.state.scene;
-        scene.act = event.target.value;
+        if (event.target.value === '') {
+            scene.act = null
+        } else {
+            scene.act = Number(event.target.value);
+        }
         this.setState({scene: scene});
     };
 
@@ -100,7 +108,7 @@ export class SingleSceneForm extends React.Component<SingleSceneFormProps, Singl
                             return elem;
                         }
                     });
-                    if (valueFilter !== null) {
+                    if (valueFilter) {
                         return scene;
                     }
                 });

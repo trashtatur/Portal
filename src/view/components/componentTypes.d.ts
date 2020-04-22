@@ -174,5 +174,42 @@ export type adventureData = {
     _id: string;
     _name: string;
     _core: string;
-    _scenes?: Array<any>;
+    _scenes?: Array<sceneData>;
+}
+
+export type sceneData = {
+    _id: string;
+    _act: number;
+    _additionalDescription?: string;
+    _adventureId: string;
+    _childScenes?: Array<sceneData>;
+    _hook: string;
+    _images?: Array<string>;
+    _name: string;
+    _number: number;
+    _parentScenes?: Array<sceneData>;
+    _persons?: Array<personData>;
+    _resolve: string;
+    _token: string;
+    _treasure?: string;
+}
+
+export type personData = {}
+
+export type sceneGraphData = {
+    nodes: Array<nodeData>;
+    links: Array<linkData>;
+}
+
+type nodeData = {
+    id: number;
+    color?: string;
+    size?: string;
+    symbolType?: string;
+    fontColor?: string;
+}
+
+type linkData = {
+    source: number;
+    target: number;
 }

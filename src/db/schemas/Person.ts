@@ -4,7 +4,7 @@ import {AdventurePerson} from "./assocSchemas/AdventurePerson";
 import {Scene} from "./Scene";
 import {ScenePerson} from "./assocSchemas/ScenePerson";
 
-@Table
+@Table({tableName: 'Persons'})
 export class Person extends Model<Person>{
 
     @PrimaryKey

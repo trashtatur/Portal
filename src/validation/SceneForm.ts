@@ -13,8 +13,6 @@ export class SceneForm implements FormValidatorInterface{
         _token: Type(String),
         _resolve: Type(String),
         _treasure: Type(String),
-        _childScenes: Optional([Type(String)]),
-        _parentScenes: Optional([Type(String)]),
         _additionalDescription: Optional(Type(String)),
         _images: Optional([Type(String)]),
         _persons: Optional([Type(String)])

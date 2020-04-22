@@ -1,6 +1,5 @@
 import {
-    AllowNull, BeforeCreate,
-    BeforeUpdate,
+    AllowNull,
     BelongsToMany,
     Column,
     DataType,

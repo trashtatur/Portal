@@ -28,14 +28,13 @@ export class CreatureService {
 
     }
 
-
     /**
      * Creates a creature instance. Associates other table entries based on include list
      * @param data
      * @param include
      */
     async create(data: creatureData, include?: Includeable[]) {
-        const creature = await Creature.build(
+        const creature = await Creature.create(
             {
                 name: data['name'],
                 hitpoints: data['hitpoints'],
@@ -55,8 +54,7 @@ export class CreatureService {
                 saveThrows: data['saveThrows']
             }
         );
-        const creature_created = await creature.save();
-        const creature_built = await this.checkAssociatedTables(include, data, creature_created);
+        const creature_built = await this.checkAssociatedTables(include, data, creature);
         creature_built.save();
         return creature
     }
@@ -162,9 +160,8 @@ export class CreatureService {
 
     private async addLanguages(creature: Creature, languagesList: string[]): Promise<Creature> {
         const languages = await this.languageService.findBy("name", languagesList);
-        languages.forEach(language => {
-            // @ts-ignore
-            creature.addLanguage( language)
+        languages.forEach(async language => {
+            creature.$add('language', await language)
         });
         return creature
     }
@@ -172,8 +169,7 @@ export class CreatureService {
     private async addTalents(creature: Creature, talentList: string[]): Promise<Creature> {
         const talents = await this.talentService.findBy("name", talentList);
         talents.forEach(talent => {
-            // @ts-ignore
-            creature.addTalent(talent)
+            creature.$add('talent', talent)
         });
         return creature
     }
@@ -183,8 +179,7 @@ export class CreatureService {
         const skills = await this.skillService.findBy("name", skillList_formatted);
         skills.forEach(skill => {
             const skillLevel = skillList.filter(elem=>{return elem.name==skill.name})[0].level;
-            // @ts-ignore
-            creature.addSkill(skill,{through:{skillLevel:skillLevel}})
+            creature.$add('skill',skill ,{through:{skillLevel:skillLevel}})
         });
         return creature
     }
@@ -192,8 +187,7 @@ export class CreatureService {
     private async addActions(creature: Creature, actionList: string[]): Promise<Creature> {
         const actions = await this.actionService.findBy("name", actionList);
         actions.forEach(action => {
-            // @ts-ignore
-            creature.addAction(action)
+            creature.$add('action', action);
         });
         return creature
     }

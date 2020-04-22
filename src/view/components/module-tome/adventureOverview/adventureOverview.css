@@ -1,5 +1,6 @@
 .adventureOverviewContainer {
     display: flex;
+    width: 90%;
     flex-direction: column;
     align-items: center;
     font-family: "Trajan Pro", serif;

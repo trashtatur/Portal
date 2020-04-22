@@ -65,6 +65,7 @@ export class SingleAdventure extends React.Component<SingleAdventureProps, Singl
                     onClick={this.addScene}
                 >Add Scene
                 </button>
+                <SceneGraph scenes={this.state.adventure.scenes}/>
                 <FlyUpContainer
                     open={this.state.sceneFormOpen}
                     closeHandler={()=>{this.setState({sceneFormOpen: false})}}
@@ -73,7 +74,6 @@ export class SingleAdventure extends React.Component<SingleAdventureProps, Singl
                         adventureId={this.state.adventure.id}
                         scenesToChoseFrom={this.state.adventure.scenes}/>
                 </FlyUpContainer>
-                <SceneGraph scenes={this.state.adventure.scenes}/>
             </div>
         )
     }
