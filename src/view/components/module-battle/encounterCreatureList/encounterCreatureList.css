@@ -1,0 +1,35 @@
+.encounterCreatureDialogContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50em;
+}
+
+.creatureSelect {
+    width: 90%;
+    float: left;
+    padding-top: 0.5em;
+}
+
+.creatureAddButton {
+    background: black;
+    font-family: "Trajan Pro", serif;
+    color: white;
+    font-size: 8pt;
+    padding: 1em;
+    float: left;
+    margin: 1em;
+    border: none;
+    -webkit-transition-duration: 1s;
+}
+
+.creatureAddButton:hover {
+    cursor: pointer;
+    background-color: #3d3b3b;
+}
+
+.addDialog {
+    margin-top: 1em;
+    display: inline-block;
+    width:92%;
+}

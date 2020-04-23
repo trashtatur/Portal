@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Form} from "../../module-battle/form/Form";
+import {FormBattleModal} from "../../module-battle/formBattleModal/FormBattleModal";
 import {ReactElement} from "react";
 import {CSVImporter} from "../importer/CSVImporter";
 import {Link} from 'react-router-dom'
@@ -11,11 +11,11 @@ export class Menu extends React.Component {
     render(): ReactElement {
         return (
             <div className={style.menuContainer}>
-                <Form
+                <FormBattleModal
                     modalTrigger={<button className={style.menuButton}>🖉</button>}
                     type={"edit"}
                 />
-                <Form
+                <FormBattleModal
                     modalTrigger={<button className={style.menuButton}>+</button>}
                     type={"create"}
                 />

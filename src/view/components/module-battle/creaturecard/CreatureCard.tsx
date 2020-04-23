@@ -1,13 +1,13 @@
 import * as React from "react";
-import {CreatureCardHeader} from "./header/CreatureCardHeader";
-import {CreatureCardTopInfo} from "./top info/CreatureCardTopInfo";
-import {CreatureRKTP} from "./rk tp/CreatureRKTP";
-import {CreatureStats} from "./stats/CreatureStats";
-import {CreatureImage} from "./image/CreatureImage";
-import {CreatureSeparator} from "./separator/CreatureSeparator";
-import {CreatureAttributes} from "./attributes/CreatureAttributes";
-import {CreatureAttackProperties} from "./attackProperties/CreatureAttackProperties";
-import {CreatureActions} from "./attack_actions/CreatureActions";
+import {CreaturecardHeader} from "../creaturecardHeader/CreaturecardHeader";
+import {CreaturecardProperties} from "../creaturecardProperties/CreaturecardProperties";
+import {CreaturecardACHP} from "../creaturecardACHP/CreaturecardACHP";
+import {CreaturecardStats} from "../creaturecardStats/CreaturecardStats";
+import {CreaturecardImage} from "../creaturecardImage/CreaturecardImage";
+import {RedFadeLine} from "../../uiBasic/redFadeLine/RedFadeLine";
+import {CreaturecardAttributes} from "../creaturecardAttributes/CreaturecardAttributes";
+import {CreaturecardAttackProperties} from "../creaturecardAttackProperties/CreaturecardAttackProperties";
+import {CreaturecardActions} from "../creaturecardActions/CreaturecardActions";
 import {action, attackProperty, saveThrowsType, statblock, talent} from "../../componentTypes";
 import {ReactElement} from "react";
 import {StatsViewModel} from "../../../model/creature/StatsViewModel";
@@ -75,11 +75,11 @@ export class CreatureCard extends React.Component<CreatureCardProps, CreatureCar
     render(): ReactElement {
         return (
             <div className={style.creatureCardContainer} onClick={() => this.toggleFold()}>
-                <CreatureCardHeader name={this.props.name} alignment={this.props.alignment}
+                <CreaturecardHeader name={this.props.name} alignment={this.props.alignment}
                                     challenge={this.props.challenge} label={this.props.label}
                 />
                 <div className={style.foldInContainer} style={this.determineFolding()}>
-                    <CreatureCardTopInfo
+                    <CreaturecardProperties
                         size={this.props.size}
                         movement={this.props.movement}
                         ini={this.props.ini}
@@ -87,19 +87,19 @@ export class CreatureCard extends React.Component<CreatureCardProps, CreatureCar
                         baseAtk={this.props.baseAtk}
                         xp={this.props.xp}
                     />
-                    <CreatureRKTP armorclass={this.props.armorclass} tp={this.props.hitpoints}/>
-                    <CreatureImage imagePath={this.props.image}/>
-                    <CreatureStats statsVM={new StatsViewModel(this.props.stats, this.props.size, this.props.baseAtk)}/>
-                    <CreatureSeparator/>
-                    <CreatureAttributes skills={this.props.skills}
-                                        talents={this.props.talents}
-                                        languages={this.props.languages}
-                                        saveThrows={this.props.saveThrows}
-                                        preview={this.props.preview}
+                    <CreaturecardACHP armorclass={this.props.armorclass} tp={this.props.hitpoints}/>
+                    <CreaturecardImage imagePath={this.props.image}/>
+                    <CreaturecardStats statsVM={new StatsViewModel(this.props.stats, this.props.size, this.props.baseAtk)}/>
+                    <RedFadeLine/>
+                    <CreaturecardAttributes skills={this.props.skills}
+                                            talents={this.props.talents}
+                                            languages={this.props.languages}
+                                            saveThrows={this.props.saveThrows}
+                                            preview={this.props.preview}
                     />
-                    <CreatureAttackProperties
+                    <CreaturecardAttackProperties
                         attackProperties={this.props.attackProperties}/>
-                    <CreatureActions actions={this.props.actions}/>
+                    <CreaturecardActions actions={this.props.actions}/>
                 </div>
             </div>
         );

@@ -1,6 +1,6 @@
 import * as React from "react";
 import {TopBar} from "../common/topbar/TopBar";
-import {EncounterManager} from "../module-battle/encounter/encounter manager/EncounterManager";
+import {Encounter} from "../module-battle/encounter/Encounter";
 import {MediaBar} from "../common/media menu/MediaBar";
 import {Route, Switch} from "react-router-dom";
 import {ReactElement} from "react";
@@ -22,7 +22,7 @@ export class App extends React.Component {
                     </Route>
                     <Route exact path={RoutesEnum.BATTLE}>
                         <TopBar/>
-                        <EncounterManager />
+                        <Encounter />
                     </Route>
                     <Route exact path={RoutesEnum.TOME}>
                         <TopBar />

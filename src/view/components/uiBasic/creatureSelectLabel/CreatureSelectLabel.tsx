@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {ReactElement} from 'react';
 import {ToolTip} from "../tooltip/ToolTip";
-import {CreatureToolTip} from "../../module-battle/tooltipContents/creatureToolTip/CreatureToolTip";
+import {CreatureToolTip} from "../../module-battle/toolTipCreature/CreatureToolTip";
 import axios from "axios";
 
 export interface CreatureSelectLabelProps {

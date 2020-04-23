@@ -158,11 +158,6 @@ export type actionDataEntry = {
     uuid: string;
 }
 
-export type selectableFormElement = {
-    label: string;
-    value: string;
-}
-
 export type oneEntryFormEntry = {
     value: string;
     id: string;

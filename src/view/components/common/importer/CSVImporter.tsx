@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
 import Select from 'react-select';
-import {selectableFormElement} from "../../componentTypes";
+import {selectable} from "../../componentTypes";
 import Dropzone from 'react-dropzone-uploader';
 import {BaseEntities} from "../../../model/enumeration/BaseEntities";
 import axios from 'axios';
@@ -18,7 +18,7 @@ export interface CSVImporterState {
     importedData: File;
 }
 
-const SELECTABLE_IMPORTS: selectableFormElement[] = [
+const SELECTABLE_IMPORTS: selectable[] = [
     {
         label: BaseEntities.TALENT,
         value: BaseEntities.TALENT
