@@ -49,7 +49,7 @@ export class CreatureResourceController {
 
     @Get()
     async allCreatures(): Promise<string> {
-        const creatures = await this.creatureService.findAll([Language, Talent, Skill, Action]);
+        const creatures = await this.creatureService.findAll();
         return JSON.stringify(creatures)
     }
 

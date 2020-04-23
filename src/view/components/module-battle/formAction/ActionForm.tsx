@@ -92,7 +92,7 @@ export class ActionForm extends React.Component<ActionFormProps, ActionFormState
     };
 
     handleIsMagicChange = (event): void => {
-
+        
     };
 
     handleCritModChange = (event): void => {

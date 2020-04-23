@@ -12,20 +12,30 @@ import {Action} from "../db/schemas/Action";
 import * as fs from "fs";
 import {join} from "path";
 import {creatureData} from "../types/backendTypes";
-
+import {CreatureRepository} from "../repositories/CreatureRepository";
+import {CreatureModel} from "../model/CreatureModel";
 const mkdirp = require('mkdirp');
-
 
 @Service()
 export class CreatureService {
+    private languageService: LanguageService;
+    private skillService: SkillService;
+    private talentService: TalentService;
+    private actionService: ActionService;
+    private creatureRepository: CreatureRepository;
 
     constructor(
-        private readonly languageService: LanguageService,
-        private readonly skillService: SkillService,
-        private readonly talentService: TalentService,
-        private readonly actionService: ActionService,
+        languageService: LanguageService,
+        skillService: SkillService,
+        talentService: TalentService,
+        actionService: ActionService,
+        creatureRepository: CreatureRepository
     ) {
-
+        this.languageService = languageService;
+        this.skillService = skillService;
+        this.talentService = talentService;
+        this.actionService = actionService;
+        this.creatureRepository = creatureRepository;
     }
 
     /**
@@ -130,8 +140,8 @@ export class CreatureService {
      * Returns all creatures. Includes associated tables as provided
      * @param include
      */
-    async findAll(include?: Includeable[]): Promise<Creature[]> {
-        return Creature.findAll({include: include});
+    async findAll(): Promise<CreatureModel[]> {
+        return this.creatureRepository.findAll();
     }
 
     async moveCreatureImage(currentLocation: string, newFileName: string) {

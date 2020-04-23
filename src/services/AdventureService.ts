@@ -2,7 +2,7 @@ import {AdventureRepository} from "../repositories/AdventureRepository";
 import {AdventureModel} from "../model/AdventureModel";
 import {adventureData} from "../types/backendTypes";
 import {AdventureForm} from "../validation/AdventureForm";
-import {AdventureModelMapper} from "../mapping/fromDataToModel/AdventureModelMapper";
+import {AdventureDataToModelMapper} from "../mapping/fromDataToModel/AdventureDataToModelMapper";
 import {Service} from "@tsed/di";
 import {AdventureEntityToModelMapper} from "../mapping/fromEntityToModel/AdventureEntityToModelMapper";
 import {DataValidationException} from "../exception/DataValidationException";
@@ -11,13 +11,13 @@ import {DataValidationException} from "../exception/DataValidationException";
 export class AdventureService {
     private readonly adventureRepository: AdventureRepository;
     private adventureForm: AdventureForm;
-    private adventureDataToModelMapper: AdventureModelMapper;
+    private adventureDataToModelMapper: AdventureDataToModelMapper;
     private adventureEntityToModelMapper: AdventureEntityToModelMapper;
 
     constructor(
         adventureRepository: AdventureRepository,
         adventureForm: AdventureForm,
-        adventureDataToModelMapper: AdventureModelMapper,
+        adventureDataToModelMapper: AdventureDataToModelMapper,
         adventureEntityToModelMapper: AdventureEntityToModelMapper
     ) {
         this.adventureRepository = adventureRepository;

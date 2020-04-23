@@ -3,7 +3,6 @@ import {
     BelongsToMany,
     Column,
     DataType,
-    Is,
     Model,
     PrimaryKey,
     Table
@@ -20,7 +19,6 @@ import {Fight} from "./Fight";
 import {CreatureFight} from "./assocSchemas/CreatureFight";
 import {Group} from "./Group";
 import {CreatureGroup} from "./assocSchemas/CreatureGroup";
-import {attackProperty} from "../../view/components/componentTypes";
 
 
 @Table
@@ -36,12 +34,6 @@ export class Creature extends Model<Creature> {
     })
     name: string;
 
-    @Is('type',value => {
-        const checklist = ['player','monster','ally', 'summon'];
-        if (!checklist.includes(value.toLowerCase())) {
-            throw Error(`${value} must be one of these values: ${checklist}`)
-        }
-    })
     @AllowNull(false)
     @Column
     type: string;
@@ -51,21 +43,8 @@ export class Creature extends Model<Creature> {
     armorclass: number;
 
     @AllowNull(true)
-    @Column({ type: DataType.STRING(2000)})
-    get attackProperties() {
-        const value = this.getDataValue('attackProperties');
-        // @ts-ignore
-        const value_parsed = JSON.parse(value);
-        return value_parsed
-    };
-
-    set attackProperties(val: attackProperty[]) {
-        const parsed_val = val.map(elem => {
-           return `{"name":"${elem.name}", "property":"${elem.property}"}`
-        });
-        // @ts-ignore
-        this.setDataValue('attackProperties',`[${parsed_val.join()}]`)
-    }
+    @Column({type: DataType.TEXT({length: 'long'})})
+    attackProperties;
 
     @AllowNull(false)
     @Column
@@ -101,91 +80,17 @@ export class Creature extends Model<Creature> {
     @Column
     xp: number;
 
-    @Is('size',value=>{
-        const testlist = ["colossal","gargantuan", "huge","large","medium","small","tiny","diminutive","fine"];
-        if (!testlist.includes(value.toLowerCase().trim())) {
-            throw new Error(`Size value must be one of: ${JSON.stringify(testlist)}`)
-        }
-    })
     @AllowNull(false)
     @Column
     size: string;
 
-    @Is('stats', value => {
-        let value_parsed = value;
-        if (typeof value_parsed != "object") value_parsed = JSON.parse(value);
-        if (typeof value_parsed == "object") {
-            const val_keys = Object.keys(value_parsed).map(val => {return val.toLowerCase()});
-            const testlist = ["str","dex","wis","int","cha","con"];
-            if (JSON.stringify(testlist.sort()) == JSON.stringify(val_keys.sort())) {
-                const check = Object.values(value_parsed).filter(val => {
-                    if (typeof val == "number") return val;
-                });
-                if (check.length != Object.values(value_parsed).length) {
-                    throw Error(`At least value_parsed in the stat map (${JSON.stringify(value_parsed)}) is not a number`)
-                }
-            } else {
-                throw Error(`The provided stat map (${JSON.stringify(value)}) does not have all keys`)
-            }
-        } else {
-            throw Error(`The provided stat map (${JSON.stringify(value)}) is not a proper JSON map`)
-        }
-    })
     @AllowNull(false)
-    @Column(DataType.JSON)
-    get stats(): object {
-        // @ts-ignore
-        return this.getDataValue('stats')
-    }
+    @Column({type: DataType.TEXT({length: 'long'})})
+    stats;
 
-    set stats(value) {
-        // @ts-ignore
-        this.setDataValue('stats', value);
-    }
-
-    @AllowNull(true)
-    @Column
-    kmv: number;
-
-    @AllowNull(true)
-    @Column
-    kmb: number;
-
-    @AllowNull(true)
-    @Column
-    sizemod: number;
-
-
-    @Is('saveThrows', value => {
-        let value_parsed = value;
-        if (typeof value_parsed != "object") value_parsed = JSON.parse(value);
-        if (typeof value_parsed == "object") {
-            const val_keys = Object.keys(value_parsed).map(val => {return val.toLowerCase()});
-            const testlist = ["ref","will","fort"];
-            if (JSON.stringify(testlist.sort()) == JSON.stringify(val_keys.sort())) {
-                const check = Object.values(value_parsed).filter(val => {
-                    if (typeof val == "number") return val;
-                });
-                if (check.length != Object.values(value_parsed).length) {
-                    throw Error(`At least value_parsed in the save throws map (${JSON.stringify(value_parsed)}) is not a number`)
-                }
-            } else {
-                throw Error(`The provided save throws map (${JSON.stringify(value)}) does not have all keys`)
-            }
-        } else {
-            throw Error(`The provided save throws map (${JSON.stringify(value)}) is not a proper JSON map`)
-        }
-    })
     @AllowNull(false)
-    @Column(DataType.JSON)
-    get saveThrows(): string[] {
-        // @ts-ignore
-        return this.getDataValue('saveThrows')
-    }
-
-    set saveThrows(val) {
-        this.setDataValue('saveThrows', val);
-    }
+    @Column({type: DataType.TEXT({length: 'long'})})
+    saveThrows;
 
     @AllowNull(true)
     @Column({ type: DataType.STRING(2000)})
@@ -208,7 +113,6 @@ export class Creature extends Model<Creature> {
 
     @BelongsToMany(()=>Group, ()=> CreatureGroup)
     groups: Group[];
-
 }
 
 

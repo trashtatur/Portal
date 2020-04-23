@@ -1,4 +1,4 @@
-export enum CreatureType {
+export enum CreatureTypeEnum {
     PLAYER = 'player',
     MONSTER = 'monster',
     ALLY = 'ally',

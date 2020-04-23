@@ -2,7 +2,7 @@ import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
 import {Action} from "../db/schemas/Action";
 import {ActionForm} from "../validation/ActionForm";
-import {ActionModelMapper} from "../mapping/fromDataToModel/ActionModelMapper";
+import {ActionDataToModelMapper} from "../mapping/fromDataToModel/ActionDataToModelMapper";
 import {ActionRepository} from "../repositories/ActionRepository";
 import {ActionModel} from "../model/ActionModel";
 
@@ -18,7 +18,7 @@ export class ActionService {
         const actionFormValidator = new ActionForm();
         const validatedData = actionFormValidator.validate(data.action);
         if (validatedData) {
-            const mapper = new ActionModelMapper();
+            const mapper = new ActionDataToModelMapper();
             const actionModel = mapper.map(validatedData);
             return this._actionRepository.create(actionModel);
         }

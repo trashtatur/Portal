@@ -4,18 +4,18 @@ import {sceneData} from "../types/backendTypes";
 import {Service} from "@tsed/di";
 import {SceneForm} from "../validation/SceneForm";
 import {DataValidationException} from "../exception/DataValidationException";
-import {SceneModelMapper} from "../mapping/fromDataToModel/SceneModelMapper";
+import {SceneDataToModelMapper} from "../mapping/fromDataToModel/SceneDataToModelMapper";
 
 @Service()
 export class SceneService {
     private readonly sceneRepository: SceneRepository;
     private readonly sceneForm: SceneForm;
-    private readonly sceneDataToModelMapper: SceneModelMapper;
+    private readonly sceneDataToModelMapper: SceneDataToModelMapper;
 
     constructor(
         sceneRepository: SceneRepository,
         sceneForm: SceneForm,
-        sceneDataToModelMapper: SceneModelMapper
+        sceneDataToModelMapper: SceneDataToModelMapper
     ) {
         this.sceneForm = sceneForm;
         this.sceneRepository = sceneRepository;

@@ -1,14 +1,14 @@
-import {RangeType} from "../model/dataModel/RangeType";
+import {RangeTypeEnum} from "../model/enumeration/RangeTypeEnum";
 import {FormValidatorInterface} from "./FormValidatorInterface";
 import {Optional, Options, Type, validate} from 'validate-typescript';
-import {DamageTypesEnum} from "../model/dataModel/DamageTypesEnum";
+import {DamageTypesEnum} from "../model/enumeration/DamageTypesEnum";
 import {ValidatorError} from "validate-typescript/lib/errors";
 
 export class ActionForm implements FormValidatorInterface{
 
     schema = {
         _name: Type(String),
-        _rangeType: Options([RangeType.MELEE,RangeType.RANGED]),
+        _rangeType: Options([RangeTypeEnum.MELEE,RangeTypeEnum.RANGED]),
         _attackBonus: Type(Number),
         _range: Type(Number),
         _damage: {

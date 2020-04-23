@@ -1,7 +1,7 @@
 import {ModelInterface} from "./ModelInterface";
 import {AttackProperty} from "./dataModel/AttackProperty";
 import {Alignment} from "./dataModel/Alignment";
-import {CreatureType} from "./dataModel/CreatureType";
+import {CreatureTypeEnum} from "./enumeration/CreatureTypeEnum";
 import {CreatureSize} from "./dataModel/CreatureSize";
 import {CreatureStats} from "./dataModel/CreatureStats";
 import {SavingThrows} from "./dataModel/SavingThrows";
@@ -10,9 +10,9 @@ import {LanguageModel} from "./LanguageModel";
 import {SkillModel} from "./SkillModel";
 import {TalentModel} from "./TalentModel";
 
-class CreatureModel implements ModelInterface{
+export class CreatureModel implements ModelInterface{
     private readonly _name: string;
-    private readonly _type: CreatureType;
+    private readonly _type: CreatureTypeEnum;
     private readonly _armorclass: number;
     private readonly _hitpoints: number;
     private readonly _alignment: Alignment;
@@ -23,9 +23,6 @@ class CreatureModel implements ModelInterface{
     private readonly _baseAtk: number;
     private readonly _size: CreatureSize;
     private readonly _stats: CreatureStats;
-    private readonly _kmv: number;
-    private readonly _kmb: number;
-    private readonly _sizemod: number;
     private readonly _saveThrows: SavingThrows;
     private readonly _xp?: number;
     private readonly _image?: string;
@@ -37,7 +34,7 @@ class CreatureModel implements ModelInterface{
 
     constructor(
         name: string,
-        type: CreatureType,
+        type: CreatureTypeEnum,
         armorclass: number,
         hitpoints: number,
         alignment: Alignment,
@@ -48,9 +45,6 @@ class CreatureModel implements ModelInterface{
         baseAtk: number,
         size: CreatureSize,
         stats: CreatureStats,
-        kmv: number,
-        kmb: number,
-        sizemod: number,
         saveThrows: SavingThrows,
         xp?: number,
         image?: string,
@@ -72,9 +66,6 @@ class CreatureModel implements ModelInterface{
         this._baseAtk = baseAtk;
         this._size = size;
         this._stats = stats;
-        this._kmv = kmv;
-        this._kmb = kmb;
-        this._sizemod = sizemod;
         this._saveThrows = saveThrows;
         this._xp = xp;
         this._image = image;
@@ -89,7 +80,7 @@ class CreatureModel implements ModelInterface{
         return this._name;
     }
 
-    get type(): CreatureType {
+    get type(): CreatureTypeEnum {
         return this._type;
     }
 
@@ -131,18 +122,6 @@ class CreatureModel implements ModelInterface{
 
     get stats(): CreatureStats {
         return this._stats;
-    }
-
-    get kmv(): number {
-        return this._kmv;
-    }
-
-    get kmb(): number {
-        return this._kmb;
-    }
-
-    get sizemod(): number {
-        return this._sizemod;
     }
 
     get saveThrows(): SavingThrows {

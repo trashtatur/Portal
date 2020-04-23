@@ -2,11 +2,11 @@ import {DataToModelMapperInterface} from "../ModelToEntityMapperInterface";
 import {ActionModel} from "../../model/ActionModel";
 import {Damage} from "../../model/dataModel/Damage";
 import {DamageType} from "../../model/dataModel/DamageType";
-import {RangeType} from "../../model/dataModel/RangeType";
-import {DamageTypesEnum} from "../../model/dataModel/DamageTypesEnum";
+import {RangeTypeEnum} from "../../model/enumeration/RangeTypeEnum";
+import {DamageTypesEnum} from "../../model/enumeration/DamageTypesEnum";
 import {MappingException} from "../exception/MappingException";
 
-export class ActionModelMapper implements DataToModelMapperInterface {
+export class ActionDataToModelMapper implements DataToModelMapperInterface {
 
     map(data): ActionModel {
         return new ActionModel(
@@ -73,12 +73,12 @@ export class ActionModelMapper implements DataToModelMapperInterface {
         }
     }
 
-    private createRangeType(rangeTypeDataString: string): RangeType {
+    private createRangeType(rangeTypeDataString: string): RangeTypeEnum {
         switch (rangeTypeDataString) {
             case 'Melee':
-                return RangeType.MELEE;
+                return RangeTypeEnum.MELEE;
             case 'Ranged':
-                return RangeType.RANGED;
+                return RangeTypeEnum.RANGED;
             default:
                 throw new MappingException(`${rangeTypeDataString} is not a valid range type`)
         }
