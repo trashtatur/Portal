@@ -1,5 +1,5 @@
 import {sceneData} from "../components/componentTypes";
-import {SceneViewModel} from "../model/scene/SceneViewModel";
+import {SceneViewModel} from "../model/SceneViewModel";
 
 export class SceneDataToViewModelMapper {
 

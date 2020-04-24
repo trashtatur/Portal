@@ -1,4 +1,4 @@
-export enum Alignment {
+export enum AlignmentEnum {
     CHAOTIC_EVIL = 'chaotic evil',
     NEUTRAL_EVIL = 'neutral evil',
     LAWFUL_EVIL = 'lawful evil',

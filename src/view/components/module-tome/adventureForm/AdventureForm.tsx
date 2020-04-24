@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {AdventureViewModel} from "../../../model/adventure/AdventureViewModel";
+import {AdventureViewModel} from "../../../model/AdventureViewModel";
 import axios from 'axios';
 import * as style from './adventureForm.css'
 

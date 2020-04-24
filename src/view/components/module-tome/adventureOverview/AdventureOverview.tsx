@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {CSSProperties, ReactNode} from 'react';
 import axios from "axios";
-import {AdventureViewModel} from "../../../model/adventure/AdventureViewModel";
+import {AdventureViewModel} from "../../../model/AdventureViewModel";
 import {AdventureDataToViewModelMapper} from "../../../mapping/AdventureDataToViewModelMapper";
 import {AdventureForm} from "../adventureForm/AdventureForm";
 import {AdventureCard} from "../adventureCard/AdventureCard";

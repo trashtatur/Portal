@@ -3,7 +3,7 @@ import {ReactNode} from 'react';
 import Select from 'react-select';
 import {selectable} from "../../componentTypes";
 import Dropzone from 'react-dropzone-uploader';
-import {BaseEntities} from "../../../model/enumeration/BaseEntities";
+import {BaseEntitiesEnum} from "../../../model/enumeration/BaseEntitiesEnum";
 import axios from 'axios';
 import * as style from "./csvImporter.css";
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -14,30 +14,30 @@ export interface CSVImporterProps {
 }
 
 export interface CSVImporterState {
-    selectedType: BaseEntities;
+    selectedType: BaseEntitiesEnum;
     importedData: File;
 }
 
 const SELECTABLE_IMPORTS: selectable[] = [
     {
-        label: BaseEntities.TALENT,
-        value: BaseEntities.TALENT
+        label: BaseEntitiesEnum.TALENT,
+        value: BaseEntitiesEnum.TALENT
     },
     {
         label: 'action - NOT WORKING YET',
-        value: BaseEntities.ACTION
+        value: BaseEntitiesEnum.ACTION
     },
     {
         label: 'skill - NOT WORKING YET',
-        value: BaseEntities.SKILL,
+        value: BaseEntitiesEnum.SKILL,
     },
     {
         label: 'language - NOT WORKING YET',
-        value: BaseEntities.LANGUAGE
+        value: BaseEntitiesEnum.LANGUAGE
     },
     {
         label: 'creature - NOT WORKING YET',
-        value: BaseEntities.CREATURE
+        value: BaseEntitiesEnum.CREATURE
     }
 ];
 
@@ -47,7 +47,7 @@ export class CSVImporter extends React.Component<CSVImporterProps, CSVImporterSt
         super(props);
         this.state = {
             importedData: null,
-            selectedType: BaseEntities.NONE
+            selectedType: BaseEntitiesEnum.NONE
         }
     }
 

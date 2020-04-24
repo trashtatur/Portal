@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {SceneViewModel} from "../../../model/scene/SceneViewModel";
+import {SceneViewModel} from "../../../model/SceneViewModel";
 import {Graph} from "react-d3-graph";
 import {sceneGraphData} from "../../componentTypes";
 import * as style from './sceneGraph.css';
@@ -18,10 +18,10 @@ const graphConfig = {
     "height": 200,
     "highlightDegree": 1,
     "highlightOpacity": 1,
-    "linkHighlightBehavior": false,
+    "linkHighlightBehavior": true,
     "maxZoom": 8,
     "minZoom": 0.1,
-    "nodeHighlightBehavior": false,
+    "nodeHighlightBehavior": true,
     "panAndZoom": false,
     "staticGraph": false,
     "staticGraphWithDragAndDrop": false,
@@ -38,10 +38,10 @@ const graphConfig = {
         "fontColor": "black",
         "fontSize": 8,
         "fontWeight": "normal",
-        "highlightColor": "#6c6b6b",
+        "highlightColor": "SAME",
         "highlightFontSize": 8,
         "highlightFontWeight": "normal",
-        "highlightStrokeColor": "SAME",
+        "highlightStrokeColor": "#222",
         "highlightStrokeWidth": "SAME",
         "labelProperty": "id",
         "mouseCursor": "pointer",
@@ -58,7 +58,7 @@ const graphConfig = {
         "fontColor": "black",
         "fontSize": 8,
         "fontWeight": "normal",
-        "highlightColor": "SAME",
+        "highlightColor": "#222",
         "highlightFontSize": 8,
         "highlightFontWeight": "normal",
         "labelProperty": "label",
@@ -68,7 +68,8 @@ const graphConfig = {
         "semanticStrokeWidth": false,
         "strokeWidth": 1.5,
         "markerHeight": 6,
-        "markerWidth": 6
+        "markerWidth": 6,
+        "type": "CURVE_SMOOTH"
     }
 }
 

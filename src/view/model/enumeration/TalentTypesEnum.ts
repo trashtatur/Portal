@@ -1,4 +1,4 @@
-export enum TalentTypes {
+export enum TalentTypesEnum {
     GENERAL = 'General',
     MONSTER = 'Monster',
     STORY = 'Story',

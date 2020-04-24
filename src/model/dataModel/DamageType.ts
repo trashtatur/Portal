@@ -25,9 +25,12 @@ export class DamageType {
     getDamageTypesString(): string {
         let damageTypesString = '';
         if (this._isHybrid) {
-            damageTypesString = '(hybrid) '
+            damageTypesString = '(hybrid) ';
         }
-        damageTypesString += this._damageTypes.toString();
+        if (this._isMagic) {
+            damageTypesString += '(magic) ';
+        }
+        damageTypesString += this._damageTypes.join(', ');
         return damageTypesString;
     }
 }

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {SceneViewModel} from "../../../model/scene/SceneViewModel";
+import {SceneViewModel} from "../../../model/SceneViewModel";
 import Select from 'react-select';
 import axios from 'axios';
 import {selectable} from "../../componentTypes";
-import {SelectEventTypes} from "../../../model/enumeration/SelectEventTypes";
+import {SelectEventTypesEnum} from "../../../model/enumeration/SelectEventTypesEnum";
 import * as style from './singleSceneForm.css';
 
 interface SingleSceneFormProps {
@@ -100,7 +100,7 @@ export class SingleSceneForm extends React.Component<SingleSceneFormProps, Singl
 
     handleParentSceneSelect = (value: Array<selectable>, option): void => {
         const scene = this.state.scene;
-        if (option.action == SelectEventTypes.SELECT_OPTION) {
+        if (option.action == SelectEventTypesEnum.SELECT_OPTION) {
             const parentScenes: Array<SceneViewModel> =
                 this.props.scenesToChoseFrom.filter(scene => {
                     const valueFilter = value.find(elem => {
@@ -113,7 +113,7 @@ export class SingleSceneForm extends React.Component<SingleSceneFormProps, Singl
                     }
                 });
             scene.parentScenes = parentScenes;
-        } else if (option.action == SelectEventTypes.REMOVE_OPTION) {
+        } else if (option.action == SelectEventTypesEnum.REMOVE_OPTION) {
             scene.parentScenes = scene.parentScenes.filter(elem => {
                 return elem.name !== option.removedValue.value
             })

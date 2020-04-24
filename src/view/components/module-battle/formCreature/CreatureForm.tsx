@@ -17,7 +17,7 @@ import {
 import {CreatureCard} from "../creaturecard/CreatureCard";
 import {RedFadeLine} from "../../uiBasic/redFadeLine/RedFadeLine";
 import {ReactElement} from "react";
-import {SelectEventTypes} from "../../../model/enumeration/SelectEventTypes";
+import {SelectEventTypesEnum} from "../../../model/enumeration/SelectEventTypesEnum";
 import * as style from "./creatureForm.css";
 
 interface CreatureFormProps {
@@ -277,11 +277,11 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
 
     handleLanguagesChange = (value, option): void => {
         const creature = this.state.creature;
-        if (option.action == SelectEventTypes.SELECT_OPTION || option.action == SelectEventTypes.CREATE_OPTION) {
+        if (option.action == SelectEventTypesEnum.SELECT_OPTION || option.action == SelectEventTypesEnum.CREATE_OPTION) {
             creature.languages = value.map(elem => {
                 return elem.value
             });
-        } else if (option.action == SelectEventTypes.REMOVE_OPTION) {
+        } else if (option.action == SelectEventTypesEnum.REMOVE_OPTION) {
             creature.languages = creature.languages.filter(elem => {
                 return elem != option.removedValue.value
             })
@@ -315,11 +315,11 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
 
     handleTalentsChange = (value, option): void => {
         const creature = this.state.creature;
-        if (option.action == SelectEventTypes.SELECT_OPTION || option.action == SelectEventTypes.CREATE_OPTION) {
+        if (option.action == SelectEventTypesEnum.SELECT_OPTION || option.action == SelectEventTypesEnum.CREATE_OPTION) {
             creature.talents = value.map(elem => {
                 return elem.value
             });
-        } else if (option.action == SelectEventTypes.REMOVE_OPTION) {
+        } else if (option.action == SelectEventTypesEnum.REMOVE_OPTION) {
             creature.talents = creature.talents.filter(elem => {
                 return elem != option.removedValue.value;
             })
@@ -329,7 +329,7 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
 
     handleActionsChange = (value, option): void => {
         const creature = this.state.creature;
-        if (option.action == SelectEventTypes.SELECT_OPTION) {
+        if (option.action == SelectEventTypesEnum.SELECT_OPTION) {
             const actions = [];
             value.forEach(selectedValue => {
                 const action = this.state.actionData.filter(elem => {
@@ -358,7 +358,7 @@ export class CreatureForm extends React.Component<CreatureFormProps, CreatureFor
                 if (filter.length == 0) creatureActionsSet.push(elem)
             });
             creature.actions = creatureActionsSet;
-        } else if (option.action == SelectEventTypes.REMOVE_OPTION) {
+        } else if (option.action == SelectEventTypesEnum.REMOVE_OPTION) {
             creature.actions = creature.actions.filter(elem => {
                 return `${elem.name} ${elem.damage}` != option.removedValue.value
             })

@@ -1,4 +1,4 @@
-import {SceneViewModel} from "../scene/SceneViewModel";
+import {SceneViewModel} from "./SceneViewModel";
 
 export class AdventureViewModel {
     private _id = '';

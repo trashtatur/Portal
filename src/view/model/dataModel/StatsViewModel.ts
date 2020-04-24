@@ -1,6 +1,6 @@
 import {statblock} from "../../components/componentTypes";
-import {getSizeModFromSizeEnum} from "../dataModel/CreatureSizeModifierEnum";
-import {CreatureSizesEnum} from "../dataModel/CreatureSizesEnum";
+import {getSizeModFromSizeEnum} from "./CreatureSizeModifierEnum";
+import {CreatureSizesEnum} from "./CreatureSizesEnum";
 
 export class StatsViewModel {
 

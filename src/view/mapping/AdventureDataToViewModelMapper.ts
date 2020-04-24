@@ -1,4 +1,4 @@
-import {AdventureViewModel} from "../model/adventure/AdventureViewModel";
+import {AdventureViewModel} from "../model/AdventureViewModel";
 import {adventureData} from "../components/componentTypes";
 import {SceneDataToViewModelMapper} from "./SceneDataToViewModelMapper";
 

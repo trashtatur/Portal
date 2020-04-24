@@ -5,6 +5,10 @@
     max-height: 90% !important;
 }
 
+html {
+    width: 100vw;
+}
+
 body {
     overflow-x: hidden;
 }

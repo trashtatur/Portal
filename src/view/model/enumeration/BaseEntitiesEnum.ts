@@ -1,4 +1,4 @@
-export enum BaseEntities {
+export enum BaseEntitiesEnum {
     CREATURE = 'creature',
     TALENT = 'talent',
     SKILL = 'skill',

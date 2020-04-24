@@ -8,6 +8,8 @@ import {CreatureSelectLabel} from "../../uiBasic/creatureSelectLabel/CreatureSel
 import {AddSummon} from "../formAddSummon/AddSummon";
 import {BattleDiceRoller} from "../battleDiceRoller/BattleDiceRoller";
 import {MultiSelectNoCreate} from "../../uiBasic/multiSelectNoCreate/MultiSelectNoCreate";
+import {CreatureViewModel} from "../../../model/CreatureViewModel";
+import {CreatureTypeEnum} from "../../../model/enumeration/CreatureTypesEnum";
 import * as style from './encounterCreatureList.css';
 
 
@@ -21,16 +23,16 @@ export interface EncounterProps {
 }
 
 export interface EncounterState {
-    creatureMap: creature[];
-    creatureDataMap;
+    creaturesInBattle: creature[];
+    creatureViewModels: CreatureViewModel[];
 }
 
 export class EncounterCreatureList extends React.Component<EncounterProps, EncounterState> {
     constructor(props) {
         super(props);
         this.state = {
-            creatureMap: [],
-            creatureDataMap: []
+            creaturesInBattle: [],
+            creatureViewModels: []
         }
     }
 
@@ -42,16 +44,16 @@ export class EncounterCreatureList extends React.Component<EncounterProps, Encou
      * @param id
      */
     sortByIni = (event, id): void => {
-        const creatureMap = this.state.creatureMap;
+        const creatureMap = this.state.creaturesInBattle;
         creatureMap.filter(creature => {
             return creature.id == id
         })[0].currentIni = parseInt(event.target.value);
         const creatureMapSorted = this.sortCreatureMap(creatureMap);
-        this.setState({creatureMap: creatureMapSorted}, () => this.setToSessionStorage())
+        this.setState({creaturesInBattle: creatureMapSorted}, () => this.setToSessionStorage())
     };
 
     setToSessionStorage = (): void => {
-        sessionStorage.setItem('encounterCreatureDataMap', JSON.stringify(this.state.creatureMap))
+        sessionStorage.setItem('encounterCreatureDataMap', JSON.stringify(this.state.creaturesInBattle))
     };
 
     getFromSessionStorage = (): creature[] => {
@@ -61,39 +63,39 @@ export class EncounterCreatureList extends React.Component<EncounterProps, Encou
 
     handleRemoveFromEncounter = (id: string): void => {
         this.setState({
-            creatureMap:
-                this.state.creatureMap.filter(elem => {
+            creaturesInBattle:
+                this.state.creaturesInBattle.filter(elem => {
                     return elem.id != id;
                 })
         }, () => this.setToSessionStorage())
     };
 
     handleCurrentHPChange = (event, id): void => {
-        const creatureMap = this.state.creatureMap;
+        const creatureMap = this.state.creaturesInBattle;
         creatureMap.filter(creature => {
             return creature.id == id
         })[0].currentHP = parseInt(event.target.value);
-        this.setState({creatureMap: creatureMap}, () => this.setToSessionStorage())
+        this.setState({creaturesInBattle: creatureMap}, () => this.setToSessionStorage())
     };
 
     handleCurrentACChange = (event, id): void => {
-        const creatureMap = this.state.creatureMap;
+        const creatureMap = this.state.creaturesInBattle;
         creatureMap.filter(creature => {
             return creature.id == id
         })[0].currentAC = parseInt(event.target.value);
-        this.setState({creatureMap: creatureMap}, () => this.setToSessionStorage())
+        this.setState({creaturesInBattle: creatureMap}, () => this.setToSessionStorage())
     };
 
     handleCurrentTypeChange = (event, id): void => {
-        const creatureMap = this.state.creatureMap;
+        const creatureMap = this.state.creaturesInBattle;
         creatureMap.filter(creature => {
             return creature.id == id
         })[0].type = event.target.value;
-        this.setState({creatureMap: creatureMap}, () => this.setToSessionStorage())
+        this.setState({creaturesInBattle: creatureMap}, () => this.setToSessionStorage())
     };
 
     determineLabel = (creatureName: string): number => {
-        const sameCreature = this.state.creatureMap.filter(elem => {
+        const sameCreature = this.state.creaturesInBattle.filter(elem => {
             return elem.name == creatureName
         }).sort(function (cr1, cr2) {
             if (cr1.label > cr2.label) return 1;
@@ -107,10 +109,10 @@ export class EncounterCreatureList extends React.Component<EncounterProps, Encou
     componentDidMount = (): void => {
         const potentialEncounter = this.getFromSessionStorage();
         if (potentialEncounter) {
-            this.setState({creatureMap: potentialEncounter});
+            this.setState({creaturesInBattle: potentialEncounter});
         }
         this.getAllCreatures().then(result => {
-            this.setState({creatureDataMap: result.data})
+            this.setState({creatureViewModels: result.data})
         });
     };
 
@@ -140,29 +142,29 @@ export class EncounterCreatureList extends React.Component<EncounterProps, Encou
             }
         ];
 
-        this.state.creatureDataMap.forEach(entry => {
-            if (entry.type == "monster") {
+        this.state.creatureViewModels.forEach(entry => {
+            if (entry.type === CreatureTypeEnum.MONSTER) {
                 selectables[0].options.push({
                     value: entry.name,
                     label: <CreatureSelectLabel image={'monster-icon.png'}
                                                 creature={entry}
                                                 labelText={`${entry.name} CR: ${entry.challenge}`}/>
                 })
-            } else if (entry.type == "player") {
+            } else if (entry.type === CreatureTypeEnum.PLAYER) {
                 selectables[1].options.push({
                     value: entry.name,
                     label: <CreatureSelectLabel image={'player-icon.png'}
                                                 creature={entry}
                                                 labelText={`${entry.name}`}/>
                 })
-            } else if (entry.type == "ally") {
+            } else if (entry.type === CreatureTypeEnum.ALLY) {
                 selectables[2].options.push({
                     value: entry.name,
                     label: <CreatureSelectLabel image={'ally-icon.png'}
                                                 creature={entry}
                                                 labelText={`${entry.name} CR: ${entry.challenge}`}/>
                 })
-            } else if (entry.type == "summon") {
+            } else if (entry.type == CreatureTypeEnum.SUMMON) {
                 selectables[3].options.push({
                     value: entry.name,
                     label: <CreatureSelectLabel image={'summon-icon.png'}
@@ -205,11 +207,11 @@ export class EncounterCreatureList extends React.Component<EncounterProps, Encou
         summon.currentAC = summon.armorclass;
         summon.currentHP = summon.hitpoints;
 
-        const creatureMap = this.state.creatureMap;
+        const creatureMap = this.state.creaturesInBattle;
         creatureMap.push(summon);
         this.props.addCreatureToRound(summon);
         this.setState(
-            {creatureMap: this.sortCreatureMap(creatureMap)}, () => this.setToSessionStorage()
+            {creaturesInBattle: this.sortCreatureMap(creatureMap)}, () => this.setToSessionStorage()
         )
     };
 
@@ -217,14 +219,14 @@ export class EncounterCreatureList extends React.Component<EncounterProps, Encou
         const toAdd = this.creaturesToAdd.map(elem => {
             return this.cloneEntry(elem)
         });
-        let creatureMap = this.state.creatureMap;
+        let creatureMap = this.state.creaturesInBattle;
         creatureMap = creatureMap.concat(toAdd);
         const creatureMapSorted = this.sortCreatureMap(creatureMap);
         toAdd.forEach(elem => {
             this.props.addCreatureToRound(elem);
         });
         this.setState({
-            creatureMap: creatureMapSorted
+            creaturesInBattle: creatureMapSorted
         }, () => this.setToSessionStorage());
     };
 
@@ -233,7 +235,7 @@ export class EncounterCreatureList extends React.Component<EncounterProps, Encou
             const creaturesToAdd: creature[] = [];
             let filtered = [];
             selected.forEach(name => {
-                filtered = this.state.creatureDataMap.filter(elem => {
+                filtered = this.state.creatureViewModels.filter(elem => {
                     return elem.name == name.value
                 });
                 creaturesToAdd.push(
@@ -313,7 +315,7 @@ export class EncounterCreatureList extends React.Component<EncounterProps, Encou
         return (
             <>
                 <BattleDiceRoller
-                    allCreatures={this.state.creatureMap}
+                    allCreatures={this.state.creaturesInBattle}
                     changeCurrentACOfCreature={this.props.changeCurrentACOfCreature}
                     changeCurrentHPOfCreature={this.props.changeCurrentHPOfCreature}
                     changeCurrentIniOfCreature={this.props.changeCurrentIniOfCreature}
@@ -329,7 +331,7 @@ export class EncounterCreatureList extends React.Component<EncounterProps, Encou
                         </button>
                     </div>
                     <AddSummon addToEncounter={this.addSummonedCreature}/>
-                    {this.state.creatureMap.map(creature => {
+                    {this.state.creaturesInBattle.map(creature => {
                         return (
                             <BattleCreature
                                 id={creature.id}

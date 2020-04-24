@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import {StatsViewModel} from "../../../model/creature/StatsViewModel";
+import {StatsViewModel} from "../../../model/dataModel/StatsViewModel";
 import * as style from './creaturecardStats.css'
 
 export interface CreatureStatsProps {

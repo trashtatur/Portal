@@ -1,8 +1,8 @@
 import {ModelInterface} from "./ModelInterface";
 import {AttackProperty} from "./dataModel/AttackProperty";
-import {Alignment} from "./dataModel/Alignment";
+import {AlignmentEnum} from "./enumeration/AlignmentEnum";
 import {CreatureTypeEnum} from "./enumeration/CreatureTypeEnum";
-import {CreatureSize} from "./dataModel/CreatureSize";
+import {CreatureSizeEnum} from "./enumeration/CreatureSizeEnum";
 import {CreatureStats} from "./dataModel/CreatureStats";
 import {SavingThrows} from "./dataModel/SavingThrows";
 import {ActionModel} from "./ActionModel";
@@ -15,13 +15,13 @@ export class CreatureModel implements ModelInterface{
     private readonly _type: CreatureTypeEnum;
     private readonly _armorclass: number;
     private readonly _hitpoints: number;
-    private readonly _alignment: Alignment;
+    private readonly _alignment: AlignmentEnum;
     private readonly _creatureClass: string;
     private readonly _challenge: number;
     private readonly _movement: number;
     private readonly _ini: number;
     private readonly _baseAtk: number;
-    private readonly _size: CreatureSize;
+    private readonly _size: CreatureSizeEnum;
     private readonly _stats: CreatureStats;
     private readonly _saveThrows: SavingThrows;
     private readonly _xp?: number;
@@ -33,17 +33,18 @@ export class CreatureModel implements ModelInterface{
     private readonly _attackProperties?: AttackProperty[];
 
     constructor(
+        id: string,
         name: string,
         type: CreatureTypeEnum,
         armorclass: number,
         hitpoints: number,
-        alignment: Alignment,
+        alignment: AlignmentEnum,
         creatureClass: string,
         challenge: number,
         movement: number,
         ini: number,
         baseAtk: number,
-        size: CreatureSize,
+        size: CreatureSizeEnum,
         stats: CreatureStats,
         saveThrows: SavingThrows,
         xp?: number,
@@ -92,7 +93,7 @@ export class CreatureModel implements ModelInterface{
         return this._hitpoints;
     }
 
-    get alignment(): Alignment {
+    get alignment(): AlignmentEnum {
         return this._alignment;
     }
 
@@ -116,7 +117,7 @@ export class CreatureModel implements ModelInterface{
         return this._baseAtk;
     }
 
-    get size(): CreatureSize {
+    get size(): CreatureSizeEnum {
         return this._size;
     }
 

@@ -10,7 +10,7 @@ import {CreaturecardAttackProperties} from "../creaturecardAttackProperties/Crea
 import {CreaturecardActions} from "../creaturecardActions/CreaturecardActions";
 import {action, attackProperty, saveThrowsType, statblock, talent} from "../../componentTypes";
 import {ReactElement} from "react";
-import {StatsViewModel} from "../../../model/creature/StatsViewModel";
+import {StatsViewModel} from "../../../model/dataModel/StatsViewModel";
 import {CreatureSizesEnum} from "../../../model/dataModel/CreatureSizesEnum";
 import * as style from "./creatureCard.css";
 

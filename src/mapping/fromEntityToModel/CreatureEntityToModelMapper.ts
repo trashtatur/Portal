@@ -11,8 +11,8 @@ import {TalentModel} from "../../model/TalentModel";
 import {SkillModel} from "../../model/SkillModel";
 import {ActionModel} from "../../model/ActionModel";
 import {CreatureTypeEnum} from "../../model/enumeration/CreatureTypeEnum";
-import {Alignment} from "../../model/dataModel/Alignment";
-import {CreatureSize} from "../../model/dataModel/CreatureSize";
+import {AlignmentEnum} from "../../model/enumeration/AlignmentEnum";
+import {CreatureSizeEnum} from "../../model/enumeration/CreatureSizeEnum";
 import {CreatureStats} from "../../model/dataModel/CreatureStats";
 import {SavingThrows} from "../../model/dataModel/SavingThrows";
 import {AttackProperty} from "../../model/dataModel/AttackProperty";
@@ -44,17 +44,18 @@ export class CreatureEntityToModelMapper implements EntityToModelMapperInterface
         const actionModels = this.mapActions(entity);
 
         return new CreatureModel(
+            entity.uuid,
             entity.name,
             CreatureTypeEnum[entity.type],
             entity.armorclass,
             entity.hitpoints,
-            Alignment[entity.alignment],
+            AlignmentEnum[entity.alignment],
             entity.creatureClass,
             entity.challenge,
             entity.movement,
             entity.ini,
             entity.baseAtk,
-            CreatureSize[entity.size],
+            CreatureSizeEnum[entity.size],
             this.mapStatsStringToStatsDataModel(entity.stats),
             this.mapSaveThrowsStringToSaveThrowsDataModel(entity.saveThrows),
             entity.xp,

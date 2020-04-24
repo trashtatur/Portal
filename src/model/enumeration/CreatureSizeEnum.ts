@@ -1,4 +1,4 @@
-export enum CreatureSize {
+export enum CreatureSizeEnum {
     COLOSSAL = 'colossal',
     GARGANTUAN = 'gargantuan',
     HUGE = 'huge',

@@ -1,7 +1,7 @@
 import * as React from "react";
 import axios from "axios";
 import {ReactElement} from "react";
-import {ActionViewModel} from "../../../model/action/ActionViewModel";
+import {ActionViewModel} from "../../../model/ActionViewModel";
 import {MultiSelectNoCreate} from "../../uiBasic/multiSelectNoCreate/MultiSelectNoCreate";
 import * as style from './actionForm.css';
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {CSSProperties, ReactNode} from 'react';
 import {talent} from "../../componentTypes";
-import {TalentTypes} from "../../../model/enumeration/TalentTypes";
+import {TalentTypesEnum} from "../../../model/enumeration/TalentTypesEnum";
 import * as style from './talentTooltip.css';
 
 export interface TalentToolTipProps {
@@ -15,33 +15,33 @@ export class TalentToolTip extends React.Component<TalentToolTipProps> {
         let talentName = this.props.talent.name.trim();
         talentName = talentName.replace(/ /g, '-').toLowerCase();
         switch (this.props.talent.type) {
-            case TalentTypes.GENERAL:
+            case TalentTypesEnum.GENERAL:
                 url +='general-feats/';
                 break;
-            case TalentTypes.COMBAT:
+            case TalentTypesEnum.COMBAT:
                 url +='combat-feats/';
                 talentName+='-combat';
                 break;
-            case TalentTypes.MONSTER:
+            case TalentTypesEnum.MONSTER:
                 url+='monster-feats/';
                 break;
-            case TalentTypes.ACHIEVEMENT:
+            case TalentTypesEnum.ACHIEVEMENT:
                 url+='achievement-feats/';
                 talentName+='-achievement';
                 break;
-            case TalentTypes.ITEMCREATION:
+            case TalentTypesEnum.ITEMCREATION:
                 url+='item-creation-feats/';
                 talentName+='-item-creation';
                 break;
-            case TalentTypes.METAMAGIC:
+            case TalentTypesEnum.METAMAGIC:
                 url+='metamagic-feats/';
                 talentName+='-metamagic';
                 break;
-            case TalentTypes.STORY:
+            case TalentTypesEnum.STORY:
                 url+='story-feats/';
                 talentName+='-story';
                 break;
-            case TalentTypes.MYTHIC:
+            case TalentTypesEnum.MYTHIC:
                 url='https://www.d20pfsrd.com/alternative-rule-systems/mythic/mythic-feats/';
                 talentName+='-mythic';
                 break;
@@ -55,28 +55,28 @@ export class TalentToolTip extends React.Component<TalentToolTipProps> {
     determineTalentTypeBackground = (): CSSProperties => {
       const styleProperties: CSSProperties = {};
       switch (this.props.talent.type) {
-          case TalentTypes.GENERAL:
+          case TalentTypesEnum.GENERAL:
               styleProperties.backgroundImage = 'url(images/talentTypeIcons/general-icon.png)';
               break;
-          case TalentTypes.COMBAT:
+          case TalentTypesEnum.COMBAT:
               styleProperties.backgroundImage = 'url(images/talentTypeIcons/combat-icon.png)';
               break;
-          case TalentTypes.MONSTER:
+          case TalentTypesEnum.MONSTER:
               styleProperties.backgroundImage = 'url(images/talentTypeIcons/monster-icon.png)';
               break;
-          case TalentTypes.ACHIEVEMENT:
+          case TalentTypesEnum.ACHIEVEMENT:
               styleProperties.backgroundImage = 'url(images/talentTypeIcons/achievement-icon.png)';
               break;
-          case TalentTypes.ITEMCREATION:
+          case TalentTypesEnum.ITEMCREATION:
               styleProperties.backgroundImage = 'url(images/talentTypeIcons/itemCreation-icon.png)';
               break;
-          case TalentTypes.METAMAGIC:
+          case TalentTypesEnum.METAMAGIC:
               styleProperties.backgroundImage = 'url(images/talentTypeIcons/metamagic-icon.png)';
               break;
-          case TalentTypes.STORY:
+          case TalentTypesEnum.STORY:
               styleProperties.backgroundImage = 'url(images/talentTypeIcons/story-icon.png)';
               break;
-          case TalentTypes.MYTHIC:
+          case TalentTypesEnum.MYTHIC:
               styleProperties.backgroundImage = 'url(images/talentTypeIcons/mythic-icon.png)';
               break;
           default:

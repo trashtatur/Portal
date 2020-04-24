@@ -5,7 +5,7 @@ import {SceneGraph} from "../sceneGraph/SceneGraph";
 import { RouteComponentProps } from 'react-router';
 import axios from 'axios';
 import {AdventureDataToViewModelMapper} from "../../../mapping/AdventureDataToViewModelMapper";
-import {AdventureViewModel} from "../../../model/adventure/AdventureViewModel";
+import {AdventureViewModel} from "../../../model/AdventureViewModel";
 import {SingleAdventureTopBar} from "../singleAdventureTopbar/SingleAdventureTopBar";
 import {FlyUpContainer} from "../../uiBasic/flyUpContainer/FlyUpContainer";
 import * as style from './singleAdventure.css';

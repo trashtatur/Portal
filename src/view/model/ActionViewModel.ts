@@ -1,6 +1,6 @@
-import {RangeType} from "../dataModel/RangeType";
-import {DamageViewModel} from "../dataModel/DamageViewModel";
-import {DamageType} from "../dataModel/DamageType";
+import {RangeType} from "./dataModel/RangeType";
+import {DamageViewModel} from "./dataModel/DamageViewModel";
+import {DamageType} from "./dataModel/DamageType";
 
 export class ActionViewModel {
     private _name: string;
