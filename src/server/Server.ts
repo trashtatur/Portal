@@ -6,7 +6,7 @@ import {join} from "path";
     rootDir: Path.resolve(__dirname),
     httpPort: 4004,
     httpsPort: false,
-    viewsDir: "${rootDir}/../view",
+    viewsDir: "${rootDir}/../public/view",
     logger: {
         debug: true,
         logRequest: true,
@@ -21,7 +21,7 @@ import {join} from "path";
         "${rootDir}/repositories/**/*Repository.ts",
     ],
     statics: {
-        "/": join(__dirname, "..", "view/static"),
+        "/": join(__dirname, "..", "public/view/static"),
         "/build":join(__dirname,"..","..","build"),
         "/images":join(__dirname,"..","images")
     }

@@ -20,7 +20,7 @@
   },
   "include": [
     "src/global.d.ts",
-    "src/view/components/componentTypes.d.ts",
+    "src/public/frontendTypes.d.ts",
     "build/cssTypes/**/*.d.ts",
     "src/**/*"
   ],

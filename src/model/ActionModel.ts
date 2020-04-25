@@ -4,6 +4,7 @@ import {RangeTypeEnum} from "./enumeration/RangeTypeEnum";
 import {DamageType} from "./dataModel/DamageType";
 
 export class ActionModel implements ModelInterface {
+    private readonly _id: string;
     private readonly _name: string;
     private readonly _rangeType: RangeTypeEnum;
     private readonly _attackBonus: number;
@@ -14,6 +15,7 @@ export class ActionModel implements ModelInterface {
     private readonly _additionalInfo: string;
 
     constructor(
+        id: string,
         name: string,
         rangeType: RangeTypeEnum,
         attackBonus: number,
@@ -23,6 +25,7 @@ export class ActionModel implements ModelInterface {
         damageType: DamageType,
         additionalInfo?: string
     ) {
+        this._id = id;
         this._name = name;
         this._rangeType = rangeType;
         this._attackBonus = attackBonus;
@@ -31,6 +34,10 @@ export class ActionModel implements ModelInterface {
         this._critMod = critMod;
         this._damageTypes = damageType;
         this._additionalInfo = additionalInfo;
+    }
+
+    get id(): string {
+        return this._id;
     }
 
     get name(): string {

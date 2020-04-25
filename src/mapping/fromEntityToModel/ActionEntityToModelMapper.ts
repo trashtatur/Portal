@@ -10,8 +10,8 @@ import {getEnumKeyForValue} from "../../helper/HelperFunctions";
 export class ActionEntityToModelMapper implements EntityToModelMapperInterface {
     map(entity: Action): ActionModel {
         return new ActionModel(
+            entity.uuid,
             entity.name,
-            // @ts-ignore
             getEnumKeyForValue(entity.rangeType, RangeTypeEnum),
             entity.attackBonus,
             entity.range,
@@ -47,7 +47,6 @@ export class ActionEntityToModelMapper implements EntityToModelMapperInterface {
         const damageTypesArray = damageTypeString.split(',').map(damageType => {
             return getEnumKeyForValue(damageType, DamageTypesEnum)
         })
-        // @ts-ignore
         return new DamageType(damageTypesArray, isMagic, isHybrid);
     }
 }

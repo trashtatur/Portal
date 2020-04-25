@@ -10,6 +10,7 @@ export class ActionDataToModelMapper implements DataToModelMapperInterface {
 
     map(data): ActionModel {
         return new ActionModel(
+            data._id,
             data._name,
             this.createRangeType(data._rangeType),
             data._attackBonus,

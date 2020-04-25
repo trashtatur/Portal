@@ -4,6 +4,6 @@ import {LanguageModel} from "../../model/LanguageModel";
 
 export class LanguageEntityToModelMapper implements EntityToModelMapperInterface{
     map(entity: Language): LanguageModel {
-        return new LanguageModel(entity.name)
+        return new LanguageModel(entity.uuid, entity.name)
     }
 }

@@ -4,6 +4,7 @@ import {SkillModel} from "../../model/SkillModel";
 
 export class SkillEntityToModelMapper implements EntityToModelMapperInterface{
     map(entity: Skill): SkillModel {
-        return null;
+        const skillLevel = entity['CreatureSkill'].skillLevel;
+        return new SkillModel(entity.uuid, entity.name, skillLevel);
     }
 }

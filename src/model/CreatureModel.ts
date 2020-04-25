@@ -11,6 +11,7 @@ import {SkillModel} from "./SkillModel";
 import {TalentModel} from "./TalentModel";
 
 export class CreatureModel implements ModelInterface{
+    private readonly _id: string;
     private readonly _name: string;
     private readonly _type: CreatureTypeEnum;
     private readonly _armorclass: number;
@@ -55,6 +56,7 @@ export class CreatureModel implements ModelInterface{
         talents?: TalentModel[],
         attackProperties?: AttackProperty[],
     ) {
+        this._id = id;
         this._name = name;
         this._type = type;
         this._armorclass = armorclass;
@@ -75,6 +77,10 @@ export class CreatureModel implements ModelInterface{
         this._skills = skills;
         this._talents = talents;
         this._attackProperties = attackProperties;
+    }
+
+    get id(): string {
+        return this._id;
     }
 
     get name(): string {

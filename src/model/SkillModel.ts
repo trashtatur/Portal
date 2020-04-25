@@ -5,6 +5,7 @@ export class SkillModel implements ModelInterface {
     private readonly _level: number;
 
     constructor(
+        id: string,
         name: string,
         level: number
     ) {

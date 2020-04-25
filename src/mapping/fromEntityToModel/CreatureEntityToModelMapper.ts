@@ -17,6 +17,7 @@ import {CreatureStats} from "../../model/dataModel/CreatureStats";
 import {SavingThrows} from "../../model/dataModel/SavingThrows";
 import {AttackProperty} from "../../model/dataModel/AttackProperty";
 import {attackProperty, pathFinderSaveThrows, stats} from "../../types/backendTypes";
+import {getEnumKeyForValue} from "../../helper/HelperFunctions";
 
 @Service()
 export class CreatureEntityToModelMapper implements EntityToModelMapperInterface {
@@ -46,16 +47,16 @@ export class CreatureEntityToModelMapper implements EntityToModelMapperInterface
         return new CreatureModel(
             entity.uuid,
             entity.name,
-            CreatureTypeEnum[entity.type],
+            getEnumKeyForValue(entity.type, CreatureTypeEnum),
             entity.armorclass,
             entity.hitpoints,
-            AlignmentEnum[entity.alignment],
+            getEnumKeyForValue(entity.alignment, AlignmentEnum),
             entity.creatureClass,
             entity.challenge,
             entity.movement,
             entity.ini,
             entity.baseAtk,
-            CreatureSizeEnum[entity.size],
+            getEnumKeyForValue(entity.size, CreatureSizeEnum),
             this.mapStatsStringToStatsDataModel(entity.stats),
             this.mapSaveThrowsStringToSaveThrowsDataModel(entity.saveThrows),
             entity.xp,
