@@ -1,4 +1,4 @@
-import {TalentViewModel} from "../model/TalentViewModel";
+import {TalentViewModel} from "../model/pathfinder/TalentViewModel";
 import {talentData} from "../frontendTypes";
 
 export class TalentDataToViewModelMapper {

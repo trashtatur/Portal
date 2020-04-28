@@ -1,20 +1,20 @@
 import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
-import {Action} from "../db/schemas/Action";
+import {PathfinderAction} from "../db/schemas/pathfinder/PathfinderAction";
 import {ActionForm} from "../validation/ActionForm";
 import {ActionDataToModelMapper} from "../mapping/fromDataToModel/ActionDataToModelMapper";
-import {ActionRepository} from "../repositories/ActionRepository";
-import {ActionModel} from "../model/ActionModel";
+import {PathfinderActionRepository} from "../repositories/pathfinder/PathfinderActionRepository";
+import {PathfinderActionModel} from "../model/pathfinder/PathfinderActionModel";
 
 @Service()
 export class ActionService {
-    private _actionRepository: ActionRepository;
+    private _actionRepository: PathfinderActionRepository;
 
     constructor() {
-        this._actionRepository = new ActionRepository();
+        this._actionRepository = new PathfinderActionRepository();
     }
 
-    async create(data, include?: Includeable[]): Promise<ActionModel> {
+    async create(data, include?: Includeable[]): Promise<PathfinderActionModel> {
         const actionFormValidator = new ActionForm();
         const validatedData = actionFormValidator.validate(data.action);
         if (validatedData) {
@@ -33,13 +33,13 @@ export class ActionService {
 
     }
 
-    async findBy(key, value, include?: Includeable[]): Promise<Action[]> {
+    async findBy(key, value, include?: Includeable[]): Promise<PathfinderAction[]> {
         const condition = {};
         const valueNew = value.map(elem => {
             return elem.name
         });
         condition[key] = valueNew;
-        return Action.findAll(
+        return PathfinderAction.findAll(
             {where: condition, include: include});
     }
 
@@ -48,6 +48,6 @@ export class ActionService {
     }
 
     async findAll(include?: Includeable[]) {
-        return Action.findAll({include: include})
+        return PathfinderAction.findAll({include: include})
     }
 }

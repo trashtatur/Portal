@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import {ActionViewModel} from "../../../../model/ActionViewModel";
+import {ActionViewModel} from "../../../../model/pathfinder/ActionViewModel";
 import * as style from './creaturecardAction.css';
 
 export interface SingleActionProps {

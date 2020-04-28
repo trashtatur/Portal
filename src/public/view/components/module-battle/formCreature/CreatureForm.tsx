@@ -13,10 +13,10 @@ import {ReactElement} from "react";
 import {SelectEventTypesEnum} from "../../../../model/enumeration/SelectEventTypesEnum";
 import {CreatureViewModel} from "../../../../model/CreatureViewModel";
 import {CreatureViewModelFactory} from "../../../../factory/CreatureViewModelFactory";
-import {LanguageViewModel} from "../../../../model/LanguageViewModel";
-import {TalentViewModel} from "../../../../model/TalentViewModel";
-import {SkillViewModel} from "../../../../model/SkillViewModel";
-import {ActionViewModel} from "../../../../model/ActionViewModel";
+import {LanguageViewModel} from "../../../../model/pathfinder/LanguageViewModel";
+import {TalentViewModel} from "../../../../model/pathfinder/TalentViewModel";
+import {SkillViewModel} from "../../../../model/pathfinder/SkillViewModel";
+import {ActionViewModel} from "../../../../model/pathfinder/ActionViewModel";
 import {AttackPropertyViewModel} from "../../../../model/dataModel/AttackPropertyViewModel";
 import * as style from "./creatureForm.css";
 

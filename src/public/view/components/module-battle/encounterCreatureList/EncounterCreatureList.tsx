@@ -125,7 +125,7 @@ export class EncounterCreatureList extends React.Component<EncounterCreatureList
 
     getAllCreatures = async (): Promise<AxiosResponse> => {
         return await axios.get(
-            '/V1/creature'
+            '/V1/creature/pathfinder'
         );
     };
 

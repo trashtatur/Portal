@@ -1,16 +1,16 @@
 import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
-import {Talent} from "../db/schemas/Talent";
+import {PathfinderTalent} from "../db/schemas/pathfinder/PathfinderTalent";
 
 @Service()
 export class TalentService {
 
-    async create(data: any[], include?: Includeable[]): Promise<Talent[]> {
+    async create(data: any[], include?: Includeable[]): Promise<PathfinderTalent[]> {
         const talentData = data.map(elem=>{return {name: elem.value}});
-        return Talent.bulkCreate(talentData,{include:include})
+        return PathfinderTalent.bulkCreate(talentData,{include:include})
     }
 
-    async bulkCreateFromCSV(data: Array<Array<string>>): Promise<Talent[]> {
+    async bulkCreateFromCSV(data: Array<Array<string>>): Promise<PathfinderTalent[]> {
 
         const resultJSONArray = [];
         data.forEach(dataArray => {
@@ -23,7 +23,7 @@ export class TalentService {
             talent['note'] = null;
             resultJSONArray.push(talent);
         });
-        return Talent.bulkCreate(resultJSONArray,
+        return PathfinderTalent.bulkCreate(resultJSONArray,
             {updateOnDuplicate:
                     [
                         'conditions',
@@ -43,20 +43,20 @@ export class TalentService {
 
     }
 
-    async findBy(key,value,include?: Includeable[]): Promise<Talent[]> {
+    async findBy(key,value,include?: Includeable[]): Promise<PathfinderTalent[]> {
         const condition = {};
         condition[key]=value;
-        const talents: Talent[] = [];
+        const talents: PathfinderTalent[] = [];
         for (const singleVal of value) {
             condition[key]=singleVal;
-            const result = await Talent.findOrCreate({where:condition, defaults:{name:singleVal}});
+            const result = await PathfinderTalent.findOrCreate({where:condition, defaults:{name:singleVal}});
             talents.push(result[0])
         }
         return talents;
     }
 
     async findAll(include?: Includeable[]) {
-        return Talent.findAll({include:include})
+        return PathfinderTalent.findAll({include:include})
     }
 
     formatTalentConditions(statPrerequisites?: string, talentPrerequisites?: string, skillPreRequisites?: string): string|null {

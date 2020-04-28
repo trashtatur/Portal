@@ -1,5 +1,5 @@
 import {languageData} from "../frontendTypes";
-import {LanguageViewModel} from "../model/LanguageViewModel";
+import {LanguageViewModel} from "../model/pathfinder/LanguageViewModel";
 
 export class LanguageDataToViewModelMapper {
     mapSingle = (data: languageData): LanguageViewModel => {

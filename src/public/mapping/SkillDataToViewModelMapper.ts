@@ -1,5 +1,5 @@
 import {skillData} from "../frontendTypes";
-import {SkillViewModel} from "../model/SkillViewModel";
+import {SkillViewModel} from "../model/pathfinder/SkillViewModel";
 
 export class SkillDataToViewModelMapper {
 

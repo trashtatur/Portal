@@ -1,5 +1,5 @@
 import {actionData} from "../frontendTypes";
-import {ActionViewModel} from "../model/ActionViewModel";
+import {ActionViewModel} from "../model/pathfinder/ActionViewModel";
 import {DamageViewModel} from "../model/dataModel/DamageViewModel";
 import {DamageType} from "../model/dataModel/DamageType";
 

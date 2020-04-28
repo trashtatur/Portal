@@ -1,14 +1,14 @@
 import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
-import {Skill} from "../db/schemas/Skill";
-import {Language} from "../db/schemas/Language";
+import {PathfinderSkill} from "../db/schemas/pathfinder/PathfinderSkill";
+import {PathfinderLanguage} from "../db/schemas/pathfinder/PathfinderLanguage";
 
 @Service()
 export class SkillService {
 
-    async create(data:any[], include?:Includeable[]):Promise<Skill[]> {
+    async create(data:any[], include?:Includeable[]):Promise<PathfinderSkill[]> {
         let skillData = data.map(elem=>{return {name: elem.value}});
-        return Skill.bulkCreate(skillData,{include:include});
+        return PathfinderSkill.bulkCreate(skillData,{include:include});
     }
 
     async delete(data:object) {
@@ -19,13 +19,13 @@ export class SkillService {
 
     }
 
-    async findBy(key,value,include?:Includeable[]): Promise<Skill[]> {
+    async findBy(key,value,include?:Includeable[]): Promise<PathfinderSkill[]> {
         let condition = {};
         condition[key]=value;
-        let skills:Skill[] = [];
+        let skills:PathfinderSkill[] = [];
         for (let singleVal of value) {
            condition[key]=singleVal;
-           let result = await Skill.findOrCreate({where:condition, defaults:{name:singleVal}});
+           let result = await PathfinderSkill.findOrCreate({where:condition, defaults:{name:singleVal}});
            skills.push(result[0])
         }
         return skills;
@@ -36,6 +36,6 @@ export class SkillService {
     }
 
     async findAll(include?:Includeable[]) {
-        return Skill.findAll({include: include})
+        return PathfinderSkill.findAll({include: include})
     }
 }

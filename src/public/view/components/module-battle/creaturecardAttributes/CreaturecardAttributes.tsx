@@ -4,9 +4,9 @@ import {ToolTip} from "../../uiBasic/tooltip/ToolTip";
 import {uuidv4} from "../../../../service/helperFunctions";
 import {TalentToolTip} from "../toolTipTalent/TalentToolTip";
 import {SavingThrowsViewModel} from "../../../../model/dataModel/SavingThrowsViewModel";
-import {LanguageViewModel} from "../../../../model/LanguageViewModel";
-import {TalentViewModel} from "../../../../model/TalentViewModel";
-import {SkillViewModel} from "../../../../model/SkillViewModel";
+import {LanguageViewModel} from "../../../../model/pathfinder/LanguageViewModel";
+import {TalentViewModel} from "../../../../model/pathfinder/TalentViewModel";
+import {SkillViewModel} from "../../../../model/pathfinder/SkillViewModel";
 import * as style from './creaturecardAttributes.css';
 
 export interface CreatureAttributesProps {

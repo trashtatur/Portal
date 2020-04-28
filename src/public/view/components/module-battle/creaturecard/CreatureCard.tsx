@@ -13,10 +13,10 @@ import {StatsViewModel} from "../../../../model/dataModel/StatsViewModel";
 import {CreatureSizesEnum} from "../../../../model/enumeration/CreatureSizesEnum";
 import {AttackPropertyViewModel} from "../../../../model/dataModel/AttackPropertyViewModel";
 import {SavingThrowsViewModel} from "../../../../model/dataModel/SavingThrowsViewModel";
-import {TalentViewModel} from "../../../../model/TalentViewModel";
-import {ActionViewModel} from "../../../../model/ActionViewModel";
-import {SkillViewModel} from "../../../../model/SkillViewModel";
-import {LanguageViewModel} from "../../../../model/LanguageViewModel";
+import {TalentViewModel} from "../../../../model/pathfinder/TalentViewModel";
+import {ActionViewModel} from "../../../../model/pathfinder/ActionViewModel";
+import {SkillViewModel} from "../../../../model/pathfinder/SkillViewModel";
+import {LanguageViewModel} from "../../../../model/pathfinder/LanguageViewModel";
 import {AlignmentEnum} from "../../../../model/enumeration/AlignmentEnum";
 import * as style from "./creatureCard.css";
 

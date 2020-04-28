@@ -1,4 +1,4 @@
-import {ActionViewModel} from "../model/ActionViewModel";
+import {ActionViewModel} from "../model/pathfinder/ActionViewModel";
 import {RangeTypeEnum} from "../model/enumeration/RangeTypeEnum";
 import {DamageViewModel} from "../model/dataModel/DamageViewModel";
 import {DamageType} from "../model/dataModel/DamageType";

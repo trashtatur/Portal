@@ -1,7 +1,7 @@
 import {Creature} from "./schemas/Creature";
-import {Language} from "./schemas/Language";
-import {Talent} from "./schemas/Talent";
-import {Action} from "./schemas/Action";
+import {PathfinderLanguage} from "./schemas/pathfinder/PathfinderLanguage";
+import {PathfinderTalent} from "./schemas/pathfinder/PathfinderTalent";
+import {PathfinderAction} from "./schemas/pathfinder/PathfinderAction";
 import {dataSupplier} from "./connector";
 
 const connector = require('./connector');

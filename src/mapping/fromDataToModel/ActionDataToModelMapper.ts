@@ -1,5 +1,5 @@
 import {DataToModelMapperInterface} from "../ModelToEntityMapperInterface";
-import {ActionModel} from "../../model/ActionModel";
+import {PathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
 import {Damage} from "../../model/dataModel/Damage";
 import {DamageType} from "../../model/dataModel/DamageType";
 import {RangeTypeEnum} from "../../model/enumeration/RangeTypeEnum";
@@ -8,8 +8,8 @@ import {MappingException} from "../exception/MappingException";
 
 export class ActionDataToModelMapper implements DataToModelMapperInterface {
 
-    map(data): ActionModel {
-        return new ActionModel(
+    map(data): PathfinderActionModel {
+        return new PathfinderActionModel(
             data._id,
             data._name,
             this.createRangeType(data._rangeType),

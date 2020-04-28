@@ -2,18 +2,15 @@ import {Service} from "@tsed/di";
 import {Creature} from "../db/schemas/Creature";
 import {Includeable} from "sequelize";
 import {LanguageService} from "./LanguageService";
-import {Language} from "../db/schemas/Language";
 import {SkillService} from "./SkillService";
 import {TalentService} from "./TalentService";
 import {ActionService} from "./ActionService";
-import {Skill} from "../db/schemas/Skill";
-import {Talent} from "../db/schemas/Talent";
-import {Action} from "../db/schemas/Action";
 import * as fs from "fs";
 import {join} from "path";
 import {creatureData} from "../types/backendTypes";
 import {CreatureRepository} from "../repositories/CreatureRepository";
 import {CreatureModel} from "../model/CreatureModel";
+import {PropertyModel} from "../model/PropertyModel";
 const mkdirp = require('mkdirp');
 
 @Service()
@@ -64,8 +61,6 @@ export class CreatureService {
                 saveThrows: data['saveThrows']
             }
         );
-        const creature_built = await this.checkAssociatedTables(include, data, creature);
-        creature_built.save();
         return creature
     }
 
@@ -86,7 +81,7 @@ export class CreatureService {
      * @param include?
      */
     async update(changeCreature: object, creatureName, creatureChallenge, include?: Includeable[]): Promise<Creature> {
-        const creature = await Creature.findOne({where:
+       /** const creature = await Creature.findOne({where:
                 {
                     name: creatureName,
                     challenge: creatureChallenge
@@ -107,6 +102,8 @@ export class CreatureService {
         creature.saveThrows = changeCreature['saveThrows'];
         const creature_updated = await this.checkAssociatedTables(include, changeCreature, creature);
         return creature_updated.save();
+        **/
+       return null
     }
 
     /**
@@ -136,22 +133,19 @@ export class CreatureService {
             {where: condition, include: include});
     }
 
-    /**
-     * Returns all creatures. Includes associated tables as provided
-     * @param include
-     */
-    async findAll(): Promise<CreatureModel[]> {
-        return this.creatureRepository.findAll();
+
+    async findAll<T extends PropertyModel>(includedProperty: Includeable, propertyModelToInclude: { new(...args: any[]): T }): Promise<CreatureModel<T>[]> {
+        return this.creatureRepository.findAll<T>(includedProperty, propertyModelToInclude);
     }
 
     async moveCreatureImage(currentLocation: string, newFileName: string) {
-        const filename_wo_ext = newFileName.substring(0, newFileName.lastIndexOf("."));
-        const intended_dir = join(process.cwd(),"src", "images", "creatureImages", `${filename_wo_ext}`);
-        mkdirp(intended_dir, function (err) {
+        const filenameWithoutExtension = newFileName.substring(0, newFileName.lastIndexOf("."));
+        const intendedDir = join(process.cwd(),"src", "images", "creatureImages", `${filenameWithoutExtension}`);
+        mkdirp(intendedDir, function (err) {
             if (err) {
                 console.log("Folder could not be made", err)
             } else {
-                fs.rename(currentLocation, join(intended_dir, newFileName), function (err) {
+                fs.rename(currentLocation, join(intendedDir, newFileName), function (err) {
                     if (err) {
                         console.log("File could not be moved", err)
                     }
@@ -159,47 +153,4 @@ export class CreatureService {
             }
         });
     }
-
-    private async checkAssociatedTables(include: Includeable[], data: object, creature: Creature): Promise<Creature> {
-        if (include.includes(Language)) creature = await this.addLanguages(creature, data['languages']);
-        if (include.includes(Skill)) creature = await this.addSkills(creature, data['skills']);
-        if (include.includes(Talent)) creature = await this.addTalents(creature, data['talents']);
-        if (include.includes(Action)) creature = await this.addActions(creature, data['actions']);
-        return creature
-    }
-
-    private async addLanguages(creature: Creature, languagesList: string[]): Promise<Creature> {
-        const languages = await this.languageService.findBy("name", languagesList);
-        languages.forEach(async language => {
-            creature.$add('language', await language)
-        });
-        return creature
-    }
-
-    private async addTalents(creature: Creature, talentList: string[]): Promise<Creature> {
-        const talents = await this.talentService.findBy("name", talentList);
-        talents.forEach(talent => {
-            creature.$add('talent', talent)
-        });
-        return creature
-    }
-
-    private async addSkills(creature: Creature, skillList: any[]): Promise<Creature> {
-        const skillList_formatted = skillList.map(elem => {return elem.name});
-        const skills = await this.skillService.findBy("name", skillList_formatted);
-        skills.forEach(skill => {
-            const skillLevel = skillList.filter(elem=>{return elem.name==skill.name})[0].level;
-            creature.$add('skill',skill ,{through:{skillLevel:skillLevel}})
-        });
-        return creature
-    }
-
-    private async addActions(creature: Creature, actionList: string[]): Promise<Creature> {
-        const actions = await this.actionService.findBy("name", actionList);
-        actions.forEach(action => {
-            creature.$add('action', action);
-        });
-        return creature
-    }
-
 }

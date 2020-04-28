@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {CSSProperties, ReactNode} from 'react';
 import {TalentTypesEnum} from "../../../../model/enumeration/TalentTypesEnum";
-import {TalentViewModel} from "../../../../model/TalentViewModel";
+import {TalentViewModel} from "../../../../model/pathfinder/TalentViewModel";
 import * as style from './talentTooltip.css';
 
 export interface TalentToolTipProps {

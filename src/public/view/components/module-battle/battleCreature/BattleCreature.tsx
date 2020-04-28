@@ -4,14 +4,14 @@ import {ReactElement} from "react";
 import {CreatureSizesEnum} from "../../../../model/enumeration/CreatureSizesEnum";
 import {ProgressBar} from "../../uiBasic/progressBar/ProgressBar";
 import {SavingThrowsViewModel} from "../../../../model/dataModel/SavingThrowsViewModel";
-import {TalentViewModel} from "../../../../model/TalentViewModel";
-import {ActionViewModel} from "../../../../model/ActionViewModel";
+import {TalentViewModel} from "../../../../model/pathfinder/TalentViewModel";
+import {ActionViewModel} from "../../../../model/pathfinder/ActionViewModel";
 import {AttackPropertyViewModel} from "../../../../model/dataModel/AttackPropertyViewModel";
 import {StatsViewModel} from "../../../../model/dataModel/StatsViewModel";
 import {CreatureTypeEnum} from "../../../../model/enumeration/CreatureTypesEnum";
 import {AlignmentEnum} from "../../../../model/enumeration/AlignmentEnum";
-import {LanguageViewModel} from "../../../../model/LanguageViewModel";
-import {SkillViewModel} from "../../../../model/SkillViewModel";
+import {LanguageViewModel} from "../../../../model/pathfinder/LanguageViewModel";
+import {SkillViewModel} from "../../../../model/pathfinder/SkillViewModel";
 import * as style from './battleCreature.css';
 
 
