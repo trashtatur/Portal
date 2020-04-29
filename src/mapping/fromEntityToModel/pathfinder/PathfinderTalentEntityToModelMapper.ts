@@ -2,7 +2,7 @@ import {EntityToModelMapperInterface} from "../../EntityToModelMapperInterface";
 import {PathfinderTalent} from "../../../db/schemas/pathfinder/PathfinderTalent";
 import {PathfinderTalentModel} from "../../../model/pathfinder/PathfinderTalentModel";
 
-export class TalentEntityToModelMapper implements EntityToModelMapperInterface{
+export class PathfinderTalentEntityToModelMapper implements EntityToModelMapperInterface{
     map(entity: PathfinderTalent): PathfinderTalentModel {
         return new PathfinderTalentModel(
             entity.uuid,

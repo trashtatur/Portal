@@ -1,13 +1,13 @@
 import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
-import {PathfinderAction} from "../db/schemas/pathfinder/PathfinderAction";
-import {ActionForm} from "../validation/ActionForm";
-import {ActionDataToModelMapper} from "../mapping/fromDataToModel/ActionDataToModelMapper";
-import {PathfinderActionRepository} from "../repositories/pathfinder/PathfinderActionRepository";
-import {PathfinderActionModel} from "../model/pathfinder/PathfinderActionModel";
+import {PathfinderAction} from "../../db/schemas/pathfinder/PathfinderAction";
+import {ActionForm} from "../../validation/ActionForm";
+import {ActionDataToModelMapper} from "../../mapping/fromDataToModel/ActionDataToModelMapper";
+import {PathfinderActionRepository} from "../../repositories/pathfinder/PathfinderActionRepository";
+import {PathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
 
 @Service()
-export class ActionService {
+export class PathfinderActionService {
     private _actionRepository: PathfinderActionRepository;
 
     constructor() {

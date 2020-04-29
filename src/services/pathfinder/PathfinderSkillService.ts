@@ -1,7 +1,7 @@
 import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
-import {PathfinderSkill} from "../db/schemas/pathfinder/PathfinderSkill";
-import {PathfinderLanguage} from "../db/schemas/pathfinder/PathfinderLanguage";
+import {PathfinderSkill} from "../../db/schemas/pathfinder/PathfinderSkill";
+import {PathfinderLanguage} from "../../db/schemas/pathfinder/PathfinderLanguage";
 
 @Service()
 export class SkillService {

@@ -1,7 +1,7 @@
-import {RangeTypeEnum} from "../model/enumeration/RangeTypeEnum";
-import {FormValidatorInterface} from "./FormValidatorInterface";
+import {RangeTypeEnum} from "../../model/enumeration/RangeTypeEnum";
+import {FormValidatorInterface} from "../FormValidatorInterface";
 import {Optional, Options, Type, validate} from 'validate-typescript';
-import {DamageTypesEnum} from "../model/enumeration/DamageTypesEnum";
+import {DamageTypesEnum} from "../../model/enumeration/DamageTypesEnum";
 import {ValidatorError} from "validate-typescript/lib/errors";
 
 export class ActionForm implements FormValidatorInterface{

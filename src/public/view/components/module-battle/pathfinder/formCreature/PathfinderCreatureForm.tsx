@@ -35,7 +35,7 @@ interface CreatureFormState {
     actionData: ActionViewModel[];
 }
 
-export class CreatureForm extends React.Component<CreatureFormProps, CreatureFormState> {
+export class PathfinderCreatureForm extends React.Component<CreatureFormProps, CreatureFormState> {
 
     constructor(props) {
         super(props);

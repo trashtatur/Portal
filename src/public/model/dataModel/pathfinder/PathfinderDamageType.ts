@@ -1,4 +1,4 @@
-import {DamageTypesEnum} from "../enumeration/DamageTypesEnum";
+import {DamageTypesEnum} from "../../enumeration/DamageTypesEnum";
 
 export class DamageType {
     private _damageType: DamageTypesEnum[];

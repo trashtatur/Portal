@@ -1,7 +1,7 @@
 import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
-import {PathfinderLanguage} from "../db/schemas/pathfinder/PathfinderLanguage";
-import {LanguageForm} from "../validation/LanguageForm";
+import {PathfinderLanguage} from "../../db/schemas/pathfinder/PathfinderLanguage";
+import {LanguageForm} from "../../validation/LanguageForm";
 
 @Service()
 export class LanguageService {
@@ -36,7 +36,7 @@ export class LanguageService {
 
     }
 
-    async findAll(include?:Includeable[]) {
+    async findAll() {
         return PathfinderLanguage.findAll({include:include});
     }
 

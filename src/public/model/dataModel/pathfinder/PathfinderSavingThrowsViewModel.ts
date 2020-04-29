@@ -1,4 +1,4 @@
-export class SavingThrowsViewModel {
+export class PathfinderSavingThrowsViewModel {
     private _reflex: number;
     private _wisdom: number;
     private _fortitude: number;

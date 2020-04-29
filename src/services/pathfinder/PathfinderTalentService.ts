@@ -1,9 +1,9 @@
 import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
-import {PathfinderTalent} from "../db/schemas/pathfinder/PathfinderTalent";
+import {PathfinderTalent} from "../../db/schemas/pathfinder/PathfinderTalent";
 
 @Service()
-export class TalentService {
+export class PathfinderTalentService {
 
     async create(data: any[], include?: Includeable[]): Promise<PathfinderTalent[]> {
         const talentData = data.map(elem=>{return {name: elem.value}});

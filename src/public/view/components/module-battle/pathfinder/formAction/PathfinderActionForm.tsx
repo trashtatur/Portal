@@ -14,7 +14,7 @@ export interface ActionFormState {
     action: ActionViewModel;
 }
 
-export class ActionForm extends React.Component<ActionFormProps, ActionFormState> {
+export class PathfinderActionForm extends React.Component<ActionFormProps, ActionFormState> {
 
     constructor(props) {
         super(props);

@@ -1,4 +1,4 @@
-import {FormValidatorInterface} from "./FormValidatorInterface";
+import {FormValidatorInterface} from "../FormValidatorInterface";
 import {Type, validate} from 'validate-typescript'
 
 

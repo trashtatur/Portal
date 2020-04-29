@@ -1,8 +1,7 @@
-import {statblock} from "../../types/frontendTypes";
-import {getSizeModFromSizeEnum} from "./CreatureSizeModifierEnum";
-import {CreatureSizesEnum} from "../enumeration/CreatureSizesEnum";
+import {getSizeModFromSizeEnum} from "../CreatureSizeModifierEnum";
+import {CreatureSizesEnum} from "../../enumeration/CreatureSizesEnum";
 
-export class StatsViewModel {
+export class PathfinderStatsViewModel {
 
     BASE_CMD_BONUS = 10;
 
@@ -134,16 +133,7 @@ export class StatsViewModel {
             + getSizeModFromSizeEnum(this._creatureSize)
     };
 
-    /**
-     * @private
-     */
-    getModForStat = (attr): number => {
+    getModForStat = (attr: number): number => {
         return (Math.floor(attr / 2)) - 5
-    };
-
-    returnStatMod = (statValue: number): string => {
-        const mod = (Math.floor(statValue / 2)) - 5;
-        if (mod >= 0) return `+${mod}`;
-        return `${mod}`
     };
 }
