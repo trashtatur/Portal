@@ -1,9 +1,9 @@
-import {AllowNull, BelongsToMany, Column, DataType, Model, PrimaryKey, Table, Unique} from "sequelize-typescript";
-import {PathfinderCreatureAction} from "../assocSchemas/Pathfinder/PathfinderCreatureAction";
-import {PathfinderCreatureProperties} from "./PathfinderCreatureProperties";
+import {AllowNull, BelongsToMany, Column, DataType, Model, PrimaryKey, Table} from "sequelize-typescript";
+import {DND5CreatureProperties} from "./DND5CreatureProperties";
+import {DND5CreatureAction} from "../assocSchemas/DND5/DND5CreatureAction";
 
 @Table
-export class PathfinderAction extends Model<PathfinderAction> {
+export class DND5Action extends Model<DND5Action>{
 
     @PrimaryKey
     @Column({
@@ -43,18 +43,12 @@ export class PathfinderAction extends Model<PathfinderAction> {
 
     @AllowNull(false)
     @Column
-    critMod: number;
-
-    @AllowNull(false)
-    @Column
     damageType: string;
 
     @AllowNull(true)
     @Column
     additionalInfo: string;
 
-    @BelongsToMany(() => PathfinderCreatureProperties, () => PathfinderCreatureAction)
-    creatures: PathfinderCreatureProperties[]
+    @BelongsToMany(()=>DND5CreatureProperties, ()=>DND5CreatureAction)
+    dnd5CreatureProperties: DND5CreatureProperties[]
 }
-
-

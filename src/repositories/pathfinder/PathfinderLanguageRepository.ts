@@ -4,7 +4,7 @@ import {Service} from "@tsed/di";
 import {PathfinderLanguageEntityToModelMapper} from "../../mapping/fromEntityToModel/pathfinder/PathfinderLanguageEntityToModelMapper";
 
 @Service()
-class PathfinderLanguageRepository {
+export class PathfinderLanguageRepository {
     private pathfinderLanguageEntityToModelMapper: PathfinderLanguageEntityToModelMapper;
 
     constructor(
@@ -14,7 +14,7 @@ class PathfinderLanguageRepository {
     }
 
     create = async(pathfinderLanguageModel: PathfinderLanguageModel): Promise <PathfinderLanguageModel> => {
-
+        return null;
     }
 
     findAll = async(): Promise<PathfinderLanguageModel[]> => {

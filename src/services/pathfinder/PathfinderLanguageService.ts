@@ -3,15 +3,16 @@ import {Includeable} from "sequelize";
 import {PathfinderLanguage} from "../../db/schemas/pathfinder/PathfinderLanguage";
 import {PathfinderLanguageForm} from "../../validation/pathfinder/PathfinderLanguageForm";
 import {PathfinderLanguageModel} from "../../model/pathfinder/PathfinderLanguageModel";
+import {PathfinderLanguageRepository} from "../../repositories/pathfinder/PathfinderLanguageRepository";
 
 @Service()
 export class PathfinderLanguageService {
-    private pathfinderLanguageService: PathfinderLanguageService;
+    private pathfinderLanguageRepository: PathfinderLanguageRepository;
 
     constructor(
-        pathfinderLanguageService: PathfinderLanguageService
+        pathfinderLanguageRepository: PathfinderLanguageRepository
     ) {
-        this.pathfinderLanguageService = pathfinderLanguageService;
+        this.pathfinderLanguageRepository = pathfinderLanguageRepository;
     }
 
     async create(data, include?: Includeable[]): Promise<PathfinderLanguage[]> {
@@ -45,6 +46,6 @@ export class PathfinderLanguageService {
     }
 
     async findAll(): Promise<PathfinderLanguageModel[]> {
-        return this.pathfinderLanguageService.findAll();
+        return this.pathfinderLanguageRepository.findAll();
     }
 }

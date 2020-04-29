@@ -13,7 +13,7 @@ export interface EncounterState {
     currentRound: round;
 }
 
-export class Encounter extends React.Component<{}, EncounterState> {
+export class PathfinderEncounter extends React.Component<{}, EncounterState> {
 
     constructor(props) {
         super(props);
