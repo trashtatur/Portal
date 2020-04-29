@@ -32,8 +32,17 @@ export class CreatureRepository {
         return null;
     }
 
-    findAll = async <T extends PropertyModel>(includedProperty: Includeable, propertyModelToInclude: { new(...args: any[]): T }): Promise<CreatureModel<T>[]> => {
-        const creatures = await Creature.findAll({include: [includedProperty]});
+    findAll = async <T extends PropertyModel>(includedProperty, propertyModelToInclude: { new(...args: any[]): T }): Promise<CreatureModel<T>[]> => {
+        const creatures = await Creature.findAll(
+            {
+                include: [
+                    {
+                        model: includedProperty,
+                        include: [{all: true, nested: true} as any]
+                    }
+                ],
+            }
+        );
         return creatures.map(creatureEntity => {
             return this.creatureEntityToModelMapper.map<T>(creatureEntity, propertyModelToInclude);
         })

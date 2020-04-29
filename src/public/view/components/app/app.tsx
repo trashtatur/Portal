@@ -1,6 +1,6 @@
 import * as React from "react";
 import {TopBar} from "../common/topbar/TopBar";
-import {Encounter} from "../module-battle/encounter/Encounter";
+import {Encounter} from "../module-battle/pathfinder/encounter/Encounter";
 import {MediaBar} from "../common/media menu/MediaBar";
 import {Route, Switch} from "react-router-dom";
 import {ReactElement} from "react";

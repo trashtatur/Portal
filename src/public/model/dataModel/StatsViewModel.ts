@@ -1,4 +1,4 @@
-import {statblock} from "../../frontendTypes";
+import {statblock} from "../../types/frontendTypes";
 import {getSizeModFromSizeEnum} from "./CreatureSizeModifierEnum";
 import {CreatureSizesEnum} from "../enumeration/CreatureSizesEnum";
 

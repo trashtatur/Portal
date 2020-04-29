@@ -1,6 +1,6 @@
 import {AdventureViewModel} from "../model/AdventureViewModel";
-import {adventureData} from "../frontendTypes";
 import {SceneDataToViewModelMapper} from "./SceneDataToViewModelMapper";
+import {adventureData} from "../types/commonDataTypes";
 
 export class AdventureDataToViewModelMapper {
     private readonly sceneDataToViewModelMapper: SceneDataToViewModelMapper;

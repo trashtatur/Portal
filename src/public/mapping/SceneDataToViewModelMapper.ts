@@ -1,5 +1,5 @@
-import {sceneData} from "../frontendTypes";
 import {SceneViewModel} from "../model/SceneViewModel";
+import {sceneData} from "../types/commonDataTypes";
 
 export class SceneDataToViewModelMapper {
 

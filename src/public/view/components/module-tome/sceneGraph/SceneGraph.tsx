@@ -2,7 +2,7 @@ import * as React from 'react';
 import {ReactNode} from 'react';
 import {SceneViewModel} from "../../../../model/SceneViewModel";
 import {Graph} from "react-d3-graph";
-import {sceneGraphData} from "../../../../frontendTypes";
+import {sceneGraphData} from "../../../../types/frontendTypes";
 import * as style from './sceneGraph.css';
 
 interface SceneGraphProps {

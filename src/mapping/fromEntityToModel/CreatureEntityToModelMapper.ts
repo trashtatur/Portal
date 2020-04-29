@@ -5,6 +5,7 @@ import {PropertyModel} from "../../model/PropertyModel";
 import {PathfinderCreaturePropertyEntityToModelMapper} from "./pathfinder/PathfinderCreaturePropertyEntityToModelMapper";
 import {DND5CreaturePropertiesModel} from "../../model/dnd5/DND5CreaturePropertiesModel";
 import {PathfinderCreaturePropertiesModel} from "../../model/pathfinder/PathfinderCreaturePropertiesModel";
+import {GetParamToSystemEnum} from "../../enumeration/GetParamToSystemEnum";
 
 @Service()
 export class CreatureEntityToModelMapper  {
@@ -18,15 +19,19 @@ export class CreatureEntityToModelMapper  {
 
     map<T extends PropertyModel>(entity: Creature, property: { new(...args: any[]): T }): CreatureModel<T> {
         let propertyModel = null;
+        const creatureModel = new CreatureModel(entity.uuid, entity.name, propertyModel)
         switch (property.name) {
             case DND5CreaturePropertiesModel.name:
+                creatureModel.propertyType = GetParamToSystemEnum.DND5
                 break;
             case PathfinderCreaturePropertiesModel.name:
+                creatureModel.propertyType = GetParamToSystemEnum.PATHFINDER
                 propertyModel = this.pathfinderCreaturePropertiesEntityToModelMapper.map(
                     entity['pathfinderCreatureProperties'] ?? null
                 )
+                creatureModel.creatureProperties = propertyModel
                 break;
         }
-        return new CreatureModel(entity.uuid, entity.name, propertyModel)
+        return creatureModel
     }
 }
