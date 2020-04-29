@@ -1,11 +1,11 @@
 import {BodyParams, Controller, Get, PathParams, Post} from "@tsed/common";
-import {ActionService} from "../../services/ActionService";
+import {PathfinderActionService} from "../../../services/pathfinder/PathfinderActionService";
 
-@Controller('/Action')
+@Controller('/Pathfinder/Action')
 export class ActionResourceController {
-    private readonly actionService: ActionService;
+    private readonly actionService: PathfinderActionService;
 
-    constructor(actionService: ActionService) {
+    constructor(actionService: PathfinderActionService) {
         this.actionService = actionService;
     }
 

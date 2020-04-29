@@ -1,6 +1,6 @@
 import {RangeTypeEnum} from "../enumeration/RangeTypeEnum";
 import {DamageViewModel} from "../dataModel/DamageViewModel";
-import {DamageType} from "../dataModel/DamageType";
+import {PathfinderDamageType} from "../dataModel/pathfinder/PathfinderDamageType";
 
 export class ActionViewModel {
     private _name: string;
@@ -11,7 +11,7 @@ export class ActionViewModel {
     private _range: number;
     private _damage: DamageViewModel;
     private _critMod: number;
-    private _damageType: DamageType;
+    private _damageType: PathfinderDamageType;
     private _additionalInfo?: string;
 
     constructor(
@@ -22,7 +22,7 @@ export class ActionViewModel {
         range: number,
         damage: DamageViewModel,
         critMod: number,
-        damageType: DamageType,
+        damageType: PathfinderDamageType,
         additionalInfo: string,
     ) {
         this._id = id;
@@ -92,11 +92,11 @@ export class ActionViewModel {
         this._critMod = value;
     }
 
-    get damageType(): DamageType {
+    get damageType(): PathfinderDamageType {
         return this._damageType;
     }
 
-    set damageType(value: DamageType) {
+    set damageType(value: PathfinderDamageType) {
         this._damageType = value;
     }
 

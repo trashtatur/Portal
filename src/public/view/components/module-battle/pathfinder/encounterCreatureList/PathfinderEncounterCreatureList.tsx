@@ -5,7 +5,7 @@ import axios, {AxiosResponse} from 'axios';
 import {uuidv4} from "../../../../../service/helperFunctions";
 import {selectableCreatures} from "../../../../../types/frontendTypes";
 import {CreatureSelectLabel} from "../../../uiBasic/creatureSelectLabel/CreatureSelectLabel";
-import {AddSummon} from "../formAddSummon/AddSummon";
+import {PathfinderAddSummon} from "../formAddSummon/PathfinderAddSummon";
 import {BattleDiceRoller} from "../battleDiceRoller/BattleDiceRoller";
 import {MultiSelectNoCreate} from "../../../uiBasic/multiSelectNoCreate/MultiSelectNoCreate";
 import {CreatureViewModel} from "../../../../../model/CreatureViewModel";
@@ -13,7 +13,7 @@ import {CreatureTypeEnum} from "../../../../../model/enumeration/CreatureTypesEn
 import {CreatureDataToViewModelMapper} from "../../../../../mapping/CreatureDataToViewModelMapper";
 import {CreatureViewModelFactory} from "../../../../../factory/CreatureViewModelFactory";
 import {PathfinderCreaturePropertiesViewModel} from "../../../../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
-import * as style from './encounterCreatureList.css';
+import * as style from './pathfinderEncounterCreatureList.css';
 
 export interface EncounterCreatureListProps {
     addCreatureToRound: Function;
@@ -29,7 +29,7 @@ export interface EncounterCreatureListState {
     creatureViewModels: CreatureViewModel<PathfinderCreaturePropertiesViewModel>[];
 }
 
-export class EncounterCreatureList extends React.Component<EncounterCreatureListProps, EncounterCreatureListState> {
+export class PathfinderEncounterCreatureList extends React.Component<EncounterCreatureListProps, EncounterCreatureListState> {
     constructor(props) {
         super(props);
         this.state = {
@@ -276,7 +276,7 @@ export class EncounterCreatureList extends React.Component<EncounterCreatureList
                         <button className={style.creatureAddButton} type="button" onClick={this.addCreatures}>Add
                         </button>
                     </div>
-                    <AddSummon addToEncounter={this.addSummonedCreature}/>
+                    <PathfinderAddSummon addToEncounter={this.addSummonedCreature}/>
                     {this.state.creaturesInBattle.map(creature => {
                         return (
                             <BattleCreature

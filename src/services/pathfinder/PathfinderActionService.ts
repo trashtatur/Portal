@@ -1,26 +1,28 @@
 import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
 import {PathfinderAction} from "../../db/schemas/pathfinder/PathfinderAction";
-import {ActionForm} from "../../validation/ActionForm";
-import {ActionDataToModelMapper} from "../../mapping/fromDataToModel/ActionDataToModelMapper";
+import {PathfinderActionForm} from "../../validation/pathfinder/PathfinderActionForm";
+import {PathfinderActionDataToModelMapper} from "../../mapping/fromDataToModel/pathfinder/PathfinderActionDataToModelMapper";
 import {PathfinderActionRepository} from "../../repositories/pathfinder/PathfinderActionRepository";
 import {PathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
 
 @Service()
 export class PathfinderActionService {
-    private _actionRepository: PathfinderActionRepository;
+    private readonly pathfinderActionRepository: PathfinderActionRepository;
 
-    constructor() {
-        this._actionRepository = new PathfinderActionRepository();
+    constructor(
+        pathfinderActionRepository: PathfinderActionRepository
+    ) {
+        this.pathfinderActionRepository = pathfinderActionRepository;
     }
 
     async create(data, include?: Includeable[]): Promise<PathfinderActionModel> {
-        const actionFormValidator = new ActionForm();
+        const actionFormValidator = new PathfinderActionForm();
         const validatedData = actionFormValidator.validate(data.action);
         if (validatedData) {
-            const mapper = new ActionDataToModelMapper();
+            const mapper = new PathfinderActionDataToModelMapper();
             const actionModel = mapper.map(validatedData);
-            return this._actionRepository.create(actionModel);
+            return this.pathfinderActionRepository.create(actionModel);
         }
         return null;
     }
@@ -47,7 +49,7 @@ export class PathfinderActionService {
 
     }
 
-    async findAll(include?: Includeable[]) {
-        return PathfinderAction.findAll({include: include})
+    async findAll(): Promise<PathfinderActionModel[]> {
+        return this.pathfinderActionRepository.findAll();
     }
 }

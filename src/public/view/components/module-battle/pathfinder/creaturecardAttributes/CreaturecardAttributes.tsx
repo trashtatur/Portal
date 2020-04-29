@@ -3,7 +3,7 @@ import {ReactElement} from "react";
 import {ToolTip} from "../../../uiBasic/tooltip/ToolTip";
 import {uuidv4} from "../../../../../service/helperFunctions";
 import {TalentToolTip} from "../toolTipTalent/TalentToolTip";
-import {SavingThrowsViewModel} from "../../../../../model/dataModel/SavingThrowsViewModel";
+import {PathfinderSavingThrowsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
 import {LanguageViewModel} from "../../../../../model/pathfinder/LanguageViewModel";
 import {TalentViewModel} from "../../../../../model/pathfinder/TalentViewModel";
 import {SkillViewModel} from "../../../../../model/pathfinder/SkillViewModel";
@@ -13,7 +13,7 @@ export interface CreatureAttributesProps {
     skills: SkillViewModel[];
     talents: TalentViewModel[];
     languages: LanguageViewModel[];
-    saveThrows: SavingThrowsViewModel;
+    saveThrows: PathfinderSavingThrowsViewModel;
     preview?: boolean;
 }
 

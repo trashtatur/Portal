@@ -4,7 +4,7 @@ import {Service} from "@tsed/di";
 import {CreatureEntityToModelMapper} from "../mapping/fromEntityToModel/CreatureEntityToModelMapper";
 import {PathfinderCreaturePropertiesRepository} from "./pathfinder/PathfinderCreaturePropertiesRepository";
 import {Includeable} from "sequelize";
-import {PropertyModel} from "../model/PropertyModel";
+import {AbstractCreaturePropertyModel} from "../model/AbstractCreaturePropertyModel";
 
 @Service()
 export class CreatureRepository {
@@ -19,7 +19,7 @@ export class CreatureRepository {
         this.creatureEntityToModelMapper = creatureEntityToModelMapper;
     }
 
-    create = async <T extends PropertyModel>(creatureModel: CreatureModel<T>): Promise<CreatureModel<T>> => {
+    create = async <T extends AbstractCreaturePropertyModel>(creatureModel: CreatureModel<T>): Promise<CreatureModel<T>> => {
         const creature = await Creature.create(
             {
                 name: creatureModel.name
@@ -28,11 +28,11 @@ export class CreatureRepository {
         return null;
     }
 
-    findOneBy = async <T extends PropertyModel>(key, value): Promise<CreatureModel<T>> => {
+    findOneBy = async <T extends AbstractCreaturePropertyModel>(key, value): Promise<CreatureModel<T>> => {
         return null;
     }
 
-    findAll = async <T extends PropertyModel>(includedProperty, propertyModelToInclude: { new(...args: any[]): T }): Promise<CreatureModel<T>[]> => {
+    findAll = async <T extends AbstractCreaturePropertyModel>(includedProperty, propertyModelToInclude: { new(...args: any[]): T }): Promise<CreatureModel<T>[]> => {
         const creatures = await Creature.findAll(
             {
                 include: [

@@ -1,7 +1,7 @@
 import * as React from "react";
-import {CreatureForm} from "../formCreature/CreatureForm";
-import {OneEntryForm} from "../formOneEntry/OneEntryForm";
-import {ActionForm} from "../formAction/ActionForm";
+import {PathfinderCreatureForm} from "../formCreature/PathfinderCreatureForm";
+import {OneEntryForm} from "../../../uiBasic/formOneEntry/OneEntryForm";
+import {PathfinderActionForm} from "../formAction/PathfinderActionForm";
 import {CreatureEditWrapper} from "../formCreature/edit wrapper/CreatureEditWrapper";
 import {ReactElement} from "react";
 import * as style from './formBattleModal.css'
@@ -39,9 +39,9 @@ export class FormBattleModal extends React.Component<FormProps, FormState> {
             switch (this.state.formType) {
                 case "creature":
                     if (this.props.type == "edit") return <CreatureEditWrapper/>;
-                    return <CreatureForm type={this.props.type}/>;
+                    return <PathfinderCreatureForm type={this.props.type}/>;
                 case "action":
-                    return <ActionForm type={this.props.type}/>;
+                    return <PathfinderActionForm type={this.props.type}/>;
                 case "talent":
                     return <OneEntryForm formValue={this.state.formType} type={this.props.type}/>;
                 case "skill":

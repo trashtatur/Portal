@@ -1,10 +1,10 @@
-import {DataToModelMapperInterface} from "../ModelToEntityMapperInterface";
-import {PathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
-import {Damage} from "../../model/dataModel/Damage";
-import {DamageType} from "../../model/dataModel/DamageType";
-import {RangeTypeEnum} from "../../model/enumeration/RangeTypeEnum";
-import {DamageTypesEnum} from "../../model/enumeration/DamageTypesEnum";
-import {MappingException} from "../exception/MappingException";
+import {DataToModelMapperInterface} from "../../ModelToEntityMapperInterface";
+import {PathfinderActionModel} from "../../../model/pathfinder/PathfinderActionModel";
+import {Damage} from "../../../model/dataModel/Damage";
+import {DamageType} from "../../../model/dataModel/DamageType";
+import {RangeTypeEnum} from "../../../model/enumeration/RangeTypeEnum";
+import {DamageTypesEnum} from "../../../model/enumeration/DamageTypesEnum";
+import {MappingException} from "../../exception/MappingException";
 
 export class PathfinderActionDataToModelMapper implements DataToModelMapperInterface {
 

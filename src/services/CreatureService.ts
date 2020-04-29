@@ -1,31 +1,31 @@
 import {Service} from "@tsed/di";
 import {Creature} from "../db/schemas/Creature";
 import {Includeable} from "sequelize";
-import {LanguageService} from "./LanguageService";
-import {SkillService} from "./SkillService";
-import {TalentService} from "./TalentService";
-import {ActionService} from "./ActionService";
+import {PathfinderLanguageService} from "./pathfinder/PathfinderLanguageService";
+import {PathfinderSkillService} from "./pathfinder/PathfinderSkillService";
+import {PathfinderTalentService} from "./pathfinder/PathfinderTalentService";
+import {PathfinderActionService} from "./pathfinder/PathfinderActionService";
 import * as fs from "fs";
 import {join} from "path";
 import {creatureData} from "../types/backendTypes";
 import {CreatureRepository} from "../repositories/CreatureRepository";
 import {CreatureModel} from "../model/CreatureModel";
-import {PropertyModel} from "../model/PropertyModel";
+import {AbstractCreaturePropertyModel} from "../model/AbstractCreaturePropertyModel";
 const mkdirp = require('mkdirp');
 
 @Service()
 export class CreatureService {
-    private languageService: LanguageService;
-    private skillService: SkillService;
-    private talentService: TalentService;
-    private actionService: ActionService;
+    private languageService: PathfinderLanguageService;
+    private skillService: PathfinderSkillService;
+    private talentService: PathfinderTalentService;
+    private actionService: PathfinderActionService;
     private creatureRepository: CreatureRepository;
 
     constructor(
-        languageService: LanguageService,
-        skillService: SkillService,
-        talentService: TalentService,
-        actionService: ActionService,
+        languageService: PathfinderLanguageService,
+        skillService: PathfinderSkillService,
+        talentService: PathfinderTalentService,
+        actionService: PathfinderActionService,
         creatureRepository: CreatureRepository
     ) {
         this.languageService = languageService;
@@ -134,7 +134,7 @@ export class CreatureService {
     }
 
 
-    async findAll<T extends PropertyModel>(includedProperty: Includeable, propertyModelToInclude: { new(...args: any[]): T }): Promise<CreatureModel<T>[]> {
+    async findAll<T extends AbstractCreaturePropertyModel>(includedProperty: Includeable, propertyModelToInclude: { new(...args: any[]): T }): Promise<CreatureModel<T>[]> {
         return this.creatureRepository.findAll<T>(includedProperty, propertyModelToInclude);
     }
 

@@ -1,7 +1,7 @@
-import {ActionEntityToModelMapper} from "./ActionEntityToModelMapper";
-import {TalentEntityToModelMapper} from "./TalentEntityToModelMapper";
-import {SkillEntityToModelMapper} from "./SkillEntityToModelMapper";
-import {LanguageEntityToModelMapper} from "./LanguageEntityToModelMapper";
+import {PathfinderActionEntityToModelMapper} from "./PathfinderActionEntityToModelMapper";
+import {PathfinderTalentEntityToModelMapper} from "./PathfinderTalentEntityToModelMapper";
+import {PathfinderSkillEntityToModelMapper} from "./PathfinderSkillEntityToModelMapper";
+import {PathfinderLanguageEntityToModelMapper} from "./PathfinderLanguageEntityToModelMapper";
 import {PathfinderCreatureProperties} from "../../../db/schemas/pathfinder/PathfinderCreatureProperties";
 import {PathfinderCreaturePropertiesModel} from "../../../model/pathfinder/PathfinderCreaturePropertiesModel";
 import {PathfinderLanguageModel} from "../../../model/pathfinder/PathfinderLanguageModel";
@@ -20,16 +20,16 @@ import {Service} from "@tsed/di";
 
 @Service()
 export class PathfinderCreaturePropertyEntityToModelMapper {
-    private actionEntityToModelMapper: ActionEntityToModelMapper;
-    private talentEntityToModelMapper: TalentEntityToModelMapper;
-    private skillEntityToModelMapper: SkillEntityToModelMapper;
-    private languageEntityToModelMapper: LanguageEntityToModelMapper;
+    private actionEntityToModelMapper: PathfinderActionEntityToModelMapper;
+    private talentEntityToModelMapper: PathfinderTalentEntityToModelMapper;
+    private skillEntityToModelMapper: PathfinderSkillEntityToModelMapper;
+    private languageEntityToModelMapper: PathfinderLanguageEntityToModelMapper;
 
     constructor(
-        actionEntityToModelMapper: ActionEntityToModelMapper,
-        talentEntityToModelMapper: TalentEntityToModelMapper,
-        skillEntityToModelMapper: SkillEntityToModelMapper,
-        languageEntityToModelMapper: LanguageEntityToModelMapper
+        actionEntityToModelMapper: PathfinderActionEntityToModelMapper,
+        talentEntityToModelMapper: PathfinderTalentEntityToModelMapper,
+        skillEntityToModelMapper: PathfinderSkillEntityToModelMapper,
+        languageEntityToModelMapper: PathfinderLanguageEntityToModelMapper
     ) {
         this.actionEntityToModelMapper = actionEntityToModelMapper;
         this.talentEntityToModelMapper = talentEntityToModelMapper;

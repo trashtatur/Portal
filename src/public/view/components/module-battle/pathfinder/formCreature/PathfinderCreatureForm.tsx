@@ -19,7 +19,11 @@ import {SkillViewModel} from "../../../../../model/pathfinder/SkillViewModel";
 import {ActionViewModel} from "../../../../../model/pathfinder/ActionViewModel";
 import {AttackPropertyViewModel} from "../../../../../model/dataModel/AttackPropertyViewModel";
 import {PathfinderCreaturePropertiesViewModel} from "../../../../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
-import * as style from "./creatureForm.css";
+import {PathfinderTalentDataToViewModelMapper} from "../../../../../mapping/pathfinder/PathfinderTalentDataToViewModelMapper";
+import {PathfinderLanguageDataToViewModelMapper} from "../../../../../mapping/pathfinder/PathfinderLanguageDataToViewModelMapper";
+import {PathfinderSkillDataToViewModelMapper} from "../../../../../mapping/pathfinder/PathfinderSkillDataToViewModelMapper";
+import {PathfinderActionDataToViewModelMapper} from "../../../../../mapping/pathfinder/PathfinderActionDataToViewModelMapper";
+import * as style from "./pathfinderCreatureForm.css";
 
 interface CreatureFormProps {
     creature?: CreatureViewModel<PathfinderCreaturePropertiesViewModel>;
@@ -91,32 +95,48 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
 
     getAll = async(whatToGet: "Creature" | "Talent" | "Sense" | "Skill" | "Action" | "Language"): Promise<AxiosResponse> => {
         return await axios.get(
-            `/V1/${whatToGet}`
+            `/V1/Pathfinder/${whatToGet}`
         )
     };
 
     componentDidMount = (): void => {
 
         this.getAll("Talent").then(result => {
-            if (Array.isArray(result.data)) this.setState({talentData: result.data})
+            if (Array.isArray(result.data)) {
+                const talentDataMappper = new PathfinderTalentDataToViewModelMapper()
+                const talentViewModels = talentDataMappper.mapMultiple(result.data)
+                this.setState({talentData: talentViewModels})
+            }
         }).catch(function (error) {
             console.log(error)
         });
 
         this.getAll("Language").then(result => {
-            if (Array.isArray(result.data)) this.setState({languageData: result.data})
+            if (Array.isArray(result.data)) {
+                const languageDataMapper = new PathfinderLanguageDataToViewModelMapper();
+                const languageViewModels = languageDataMapper.mapMultiple(result.data)
+                this.setState({languageData: languageViewModels})
+            }
         }).catch(function (error) {
             console.log(error)
         });
 
         this.getAll('Skill').then(result => {
-            if (Array.isArray(result.data)) this.setState({skillData: result.data})
+            if (Array.isArray(result.data)) {
+                const skillDataMapper = new PathfinderSkillDataToViewModelMapper();
+                const skillViewModels = skillDataMapper.mapMultiple(result.data)
+                this.setState({skillData: skillViewModels})
+            }
         }).catch(function (error) {
             console.log(error)
         });
 
         this.getAll("Action").then(result => {
-            if (Array.isArray(result.data)) this.setState({actionData: result.data})
+            if (Array.isArray(result.data)) {
+                const actionDataMapper = new PathfinderActionDataToViewModelMapper();
+                const actionViewModels = actionDataMapper.mapMultiple(result.data)
+                this.setState({actionData: actionViewModels})
+            }
         }).catch(function (error) {
             console.log(error)
         });
@@ -142,7 +162,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                 creature.properties.image =
                     setCreatureImageName(creature.name, creature.properties.challenge, creature.properties.image);
             }
-            await axios.post('/V1/Creature', creature);
+            await axios.post('/V1/Creature/pathfinder', creature);
             alert('Created entry in database');
             this.resetForm();
         } catch (error) {

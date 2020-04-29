@@ -1,5 +1,5 @@
 import * as React from "react";
-import {EncounterCreatureList} from "../encounterCreatureList/EncounterCreatureList";
+import {PathfinderEncounterCreatureList} from "../encounterCreatureList/PathfinderEncounterCreatureList";
 import {RoundOverview} from "../../common/round overview/RoundOverview";
 import {round, roundCreature} from "../../../../../types/frontendTypes";
 import {ReactElement} from "react";
@@ -224,7 +224,7 @@ export class Encounter extends React.Component<{}, EncounterState> {
                         addRound={this.addRound}
                         resetRounds={this.resetRounds}
                     />
-                    <EncounterCreatureList
+                    <PathfinderEncounterCreatureList
                         addCreatureToRound={this.addCreatureToRound}
                         changeCurrentACOfCreature={this.changeCurrentACOfCreature}
                         changeCurrentHPOfCreature={this.changeCurrentHPOfCreature}

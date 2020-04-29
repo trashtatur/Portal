@@ -1,8 +1,8 @@
 import {ModelInterface} from "./ModelInterface";
-import {PropertyModel} from "./PropertyModel";
+import {AbstractCreaturePropertyModel} from "./AbstractCreaturePropertyModel";
 import {GetParamToSystemEnum} from "../enumeration/GetParamToSystemEnum";
 
-export class CreatureModel<T extends PropertyModel> implements ModelInterface{
+export class CreatureModel<T extends AbstractCreaturePropertyModel> implements ModelInterface{
     private readonly _id: string;
     private readonly _name: string;
     private _creatureProperties: T;

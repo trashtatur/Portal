@@ -1,7 +1,7 @@
 import {ActionViewModel} from "../model/pathfinder/ActionViewModel";
 import {RangeTypeEnum} from "../model/enumeration/RangeTypeEnum";
 import {DamageViewModel} from "../model/dataModel/DamageViewModel";
-import {DamageType} from "../model/dataModel/DamageType";
+import {PathfinderDamageType} from "../model/dataModel/pathfinder/PathfinderDamageType";
 
 export class ActionViewModelFactory {
     public static createEmpty = (): ActionViewModel => {
@@ -13,7 +13,7 @@ export class ActionViewModelFactory {
             null,
             new DamageViewModel(null, null, null),
             null,
-            new DamageType([], false, false),
+            new PathfinderDamageType([], false, false),
             ''
         )
     }

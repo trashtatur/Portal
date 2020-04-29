@@ -1,22 +1,22 @@
 import {BodyParams, Controller, Get, Post} from "@tsed/common";
-import {SkillService} from "../../services/SkillService";
+import {PathfinderSkillService} from "../../../services/pathfinder/PathfinderSkillService";
 
-@Controller('/skill')
+@Controller('/Pathfinder/skill')
 export class SkillResourceController {
 
-    constructor(private readonly skillService:SkillService) {
+    constructor(private readonly skillService: PathfinderSkillService) {
 
     }
 
     @Get()
     async allSkills(): Promise<string> {
-        let skills = await this.skillService.findAll();
+        const skills = await this.skillService.findAll();
         return JSON.stringify(skills);
     }
 
     @Post()
-    async createSkill(@BodyParams() skillData:any[]): Promise<string> {
-        let skill = await this.skillService.create(skillData);
+    async createSkill(@BodyParams() skillData: any[]): Promise<string> {
+        const skill = await this.skillService.create(skillData);
         return JSON.stringify(skill);
     }
 

@@ -1,10 +1,12 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import {StatsViewModel} from "../../../../../model/dataModel/StatsViewModel";
+import {PathfinderStatsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderStatsViewModel";
+import {CreaturecardBaseStatsHeaderVisual} from "../../common/creaturecardBaseStatsVisual/CreaturecardBaseStatsHeaderVisual";
+import {CreaturecardBaseStatsValuesVisual} from "../../common/creaturecardBaseStatsVisual/CreaturecardBaseStatsValuesVisual";
 import * as style from './creaturecardStats.css'
 
 export interface CreatureStatsProps {
-    statsVM: StatsViewModel;
+    statsVM: PathfinderStatsViewModel;
 }
 
 export class CreaturecardStats extends React.Component<CreatureStatsProps> {
@@ -14,22 +16,27 @@ export class CreaturecardStats extends React.Component<CreatureStatsProps> {
             <table className={style.statTable}>
                 <tbody>
                 <tr>
-                    <td className={style.statTableCell}>{this.props.statsVM.LABELS.STR}</td>
-                    <td className={style.statTableCell}>{this.props.statsVM.LABELS.DEX}</td>
-                    <td className={style.statTableCell}>{this.props.statsVM.LABELS.CON}</td>
-                    <td className={style.statTableCell}>{this.props.statsVM.LABELS.INT}</td>
-                    <td className={style.statTableCell}>{this.props.statsVM.LABELS.WIS}</td>
-                    <td className={style.statTableCell}>{this.props.statsVM.LABELS.CHA}</td>
+                    <CreaturecardBaseStatsHeaderVisual
+                        str={this.props.statsVM.LABELS.STR}
+                        dex={this.props.statsVM.LABELS.DEX}
+                        con={this.props.statsVM.LABELS.CON}
+                        int={this.props.statsVM.LABELS.INT}
+                        wis={this.props.statsVM.LABELS.WIS}
+                        cha={this.props.statsVM.LABELS.CHA}
+                    />
                     <td className={style.statTableCell}>{this.props.statsVM.LABELS.CMB}</td>
                     <td className={style.statTableCell}>{this.props.statsVM.LABELS.CMD}</td>
                 </tr>
                 <tr>
-                    <td className={style.statTableCell}>{this.props.statsVM.strength} ({this.props.statsVM.returnStatMod(this.props.statsVM.strength)})</td>
-                    <td className={style.statTableCell}>{this.props.statsVM.dexterity} ({this.props.statsVM.returnStatMod(this.props.statsVM.dexterity)})</td>
-                    <td className={style.statTableCell}>{this.props.statsVM.constitution} ({this.props.statsVM.returnStatMod(this.props.statsVM.constitution)})</td>
-                    <td className={style.statTableCell}>{this.props.statsVM.intelligence} ({this.props.statsVM.returnStatMod(this.props.statsVM.intelligence)})</td>
-                    <td className={style.statTableCell}>{this.props.statsVM.wisdom} ({this.props.statsVM.returnStatMod(this.props.statsVM.wisdom)})</td>
-                    <td className={style.statTableCell}>{this.props.statsVM.charisma} ({this.props.statsVM.returnStatMod(this.props.statsVM.charisma)})</td>
+                    <CreaturecardBaseStatsValuesVisual
+                        str={this.props.statsVM.strength} strMod={this.props.statsVM.getModForStat(this.props.statsVM.strength)}
+                        dex={this.props.statsVM.dexterity} dexMod={this.props.statsVM.getModForStat(this.props.statsVM.dexterity)}
+                        con={this.props.statsVM.constitution} conMod={this.props.statsVM.getModForStat(this.props.statsVM.constitution)}
+                        int={this.props.statsVM.intelligence} intMod={this.props.statsVM.getModForStat(this.props.statsVM.intelligence)}
+                        wis={this.props.statsVM.wisdom} wisMod={this.props.statsVM.getModForStat(this.props.statsVM.wisdom)}
+                        cha={this.props.statsVM.charisma} chaMod={this.props.statsVM.getModForStat(this.props.statsVM.charisma)}
+                        classNameForCells={style.statTableCell}
+                    />
                     <td className={style.statTableCell}>+{this.props.statsVM.getCMB()} </td>
                     <td className={style.statTableCell}>{this.props.statsVM.getCMD()} </td>
                 </tr>

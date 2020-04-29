@@ -22,13 +22,13 @@ export class CreatureResourceController {
         this.creatureService = creatureService;
     }
 
-    @Post()
+    @Post('/:system')
     async createCreature(@BodyParams() creatureData: creatureData): Promise<string> {
         const creature = await this.creatureService.create(creatureData, []);
         return JSON.stringify(creature)
     }
 
-    @Put('/image')
+    @Put('/:system/image')
     @Status(201)
     @MulterOptions({dest: `${process.cwd()}/.tmp`})
     async uploadCreatureImage(@MultipartFile("file") file: Express.Multer.File): Promise<boolean> {
@@ -38,7 +38,7 @@ export class CreatureResourceController {
         return true
     }
 
-    @Put('/update/:creatureName/:creatureChallenge')
+    @Put('/:system/update/:creatureName/:creatureChallenge')
     async updateOneCreature(
         @BodyParams('creatureData') creatureData: creatureData,
         @PathParams('creatureName') creatureName: string,
@@ -67,13 +67,13 @@ export class CreatureResourceController {
         return JSON.stringify(creatures)
     }
 
-    @Get('/name/:creatureName')
+    @Get('/:system/name/:creatureName')
     async creatureByName(@PathParams("creatureName") creatureName: string): Promise<string> {
         const creature = await this.creatureService.findOneBy('name', creatureName, []);
         return JSON.stringify(creature)
     }
 
-    @Get('/id/:creatureId')
+    @Get('/:system/id/:creatureId')
     async creatureById(@PathParams("creatureId") creatureId: string): Promise<string> {
         const creature = await this.creatureService.findOneBy('uuid', creatureId, []);
         return JSON.stringify(creature)

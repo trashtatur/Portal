@@ -4,7 +4,7 @@ import {ReactElement} from "react";
 import {ActionViewModel} from "../../../../../model/pathfinder/ActionViewModel";
 import {MultiSelectNoCreate} from "../../../uiBasic/multiSelectNoCreate/MultiSelectNoCreate";
 import {ActionViewModelFactory} from "../../../../../factory/ActionViewModelFactory";
-import * as style from './actionForm.css';
+import * as style from './pathfinderActionForm.css';
 
 export interface ActionFormProps {
     type: "edit" | "create";
@@ -23,7 +23,7 @@ export class PathfinderActionForm extends React.Component<ActionFormProps, Actio
         };
     }
 
-    ROUTE = '/V1/Action';
+    ROUTE = '/V1/Pathfinder/Action';
 
     postData = async (data): Promise<void> => {
         try {

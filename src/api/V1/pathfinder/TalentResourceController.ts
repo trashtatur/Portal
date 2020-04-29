@@ -1,13 +1,13 @@
 import {BodyParams, Controller, Get, Post} from "@tsed/common";
-import {TalentService} from "../../services/TalentService";
+import {PathfinderTalentService} from "../../../services/pathfinder/PathfinderTalentService";
 import * as CSV from 'csv-string';
 import {MulterOptions} from "@tsed/multipartfiles";
 
 
-@Controller('/talent')
+@Controller('/Pathfinder/talent')
 export class TalentResourceController {
 
-    constructor(private readonly talentService:TalentService) {
+    constructor(private readonly talentService:PathfinderTalentService) {
 
     }
 

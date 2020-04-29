@@ -1,8 +1,8 @@
 import {CreatureTypeEnum} from "../enumeration/CreatureTypesEnum";
 import {AlignmentEnum} from "../enumeration/AlignmentEnum";
 import {CreatureSizesEnum} from "../enumeration/CreatureSizesEnum";
-import {StatsViewModel} from "../dataModel/StatsViewModel";
-import {SavingThrowsViewModel} from "../dataModel/SavingThrowsViewModel";
+import {PathfinderStatsViewModel} from "../dataModel/pathfinder/PathfinderStatsViewModel";
+import {PathfinderSavingThrowsViewModel} from "../dataModel/pathfinder/PathfinderSavingThrowsViewModel";
 import {ActionViewModel} from "./ActionViewModel";
 import {LanguageViewModel} from "./LanguageViewModel";
 import {SkillViewModel} from "./SkillViewModel";
@@ -23,8 +23,8 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
     private _ini: number;
     private _baseAtk: number;
     private _size: CreatureSizesEnum;
-    private _stats: StatsViewModel;
-    private _saveThrows: SavingThrowsViewModel;
+    private _stats: PathfinderStatsViewModel;
+    private _saveThrows: PathfinderSavingThrowsViewModel;
     private _xp?: number;
     private _image?: string;
     private _actions?: ActionViewModel[];
@@ -49,8 +49,8 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         ini: number,
         baseAtk: number,
         size: CreatureSizesEnum,
-        stats: StatsViewModel,
-        saveThrows: SavingThrowsViewModel,
+        stats: PathfinderStatsViewModel,
+        saveThrows: PathfinderSavingThrowsViewModel,
         xp?: number,
         image?: string,
         actions?: ActionViewModel[],
@@ -174,19 +174,19 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         this._size = value;
     }
 
-    get stats(): StatsViewModel {
+    get stats(): PathfinderStatsViewModel {
         return this._stats;
     }
 
-    set stats(value: StatsViewModel) {
+    set stats(value: PathfinderStatsViewModel) {
         this._stats = value;
     }
 
-    get saveThrows(): SavingThrowsViewModel {
+    get saveThrows(): PathfinderSavingThrowsViewModel {
         return this._saveThrows;
     }
 
-    set saveThrows(value: SavingThrowsViewModel) {
+    set saveThrows(value: PathfinderSavingThrowsViewModel) {
         this._saveThrows = value;
     }
 

@@ -9,10 +9,10 @@ import {CreaturecardAttributes} from "../creaturecardAttributes/CreaturecardAttr
 import {CreaturecardAttackProperties} from "../../common/creaturecardAttackProperties/CreaturecardAttackProperties";
 import {CreaturecardActions} from "../creaturecardActions/CreaturecardActions";
 import {ReactElement} from "react";
-import {StatsViewModel} from "../../../../../model/dataModel/StatsViewModel";
+import {PathfinderStatsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderStatsViewModel";
 import {CreatureSizesEnum} from "../../../../../model/enumeration/CreatureSizesEnum";
 import {AttackPropertyViewModel} from "../../../../../model/dataModel/AttackPropertyViewModel";
-import {SavingThrowsViewModel} from "../../../../../model/dataModel/SavingThrowsViewModel";
+import {PathfinderSavingThrowsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
 import {TalentViewModel} from "../../../../../model/pathfinder/TalentViewModel";
 import {ActionViewModel} from "../../../../../model/pathfinder/ActionViewModel";
 import {SkillViewModel} from "../../../../../model/pathfinder/SkillViewModel";
@@ -36,8 +36,8 @@ export interface CreatureCardProps {
     baseAtk: number;
     xp?: number;
     size: CreatureSizesEnum;
-    stats: StatsViewModel;
-    saveThrows: SavingThrowsViewModel;
+    stats: PathfinderStatsViewModel;
+    saveThrows: PathfinderSavingThrowsViewModel;
     foldable?: boolean;
     languages?: LanguageViewModel[];
     skills?: SkillViewModel[];

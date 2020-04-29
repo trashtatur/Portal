@@ -2,7 +2,7 @@ import * as React from "react";
 import {ReactElement} from "react";
 import Select from 'react-select';
 import {CreatureSizesEnum} from "../../../../../../model/enumeration/CreatureSizesEnum";
-import * as style from "../creatureForm.css";
+import * as style from "../pathfinderCreatureForm.css";
 
 export interface SizeSelectProps {
     handleSizeChange: Function;

@@ -7,7 +7,7 @@ import axios from "axios";
 import {CreatureViewModel} from "../../../../../model/CreatureViewModel";
 import {CreatureViewModelFactory} from "../../../../../factory/CreatureViewModelFactory";
 import {PathfinderCreaturePropertiesViewModel} from "../../../../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
-import * as style from './addSummon.css';
+import * as style from './pathfinderAddSummon.css';
 
 interface AddSummonProps {
     addToEncounter: Function;
@@ -23,7 +23,7 @@ interface AddSummonState {
 const IS_DISPLAYED: CSSProperties = {visibility: "visible", opacity: 1, maxHeight: "500px", marginTop: "20px"};
 const IS_NOT_DISPLAYED: CSSProperties = {visibility: "hidden", opacity: 0, maxHeight: "0px", marginTop: "-200px"};
 
-export class AddSummon extends React.Component<AddSummonProps, AddSummonState> {
+export class PathfinderAddSummon extends React.Component<AddSummonProps, AddSummonState> {
 
     constructor(props) {
         super(props);

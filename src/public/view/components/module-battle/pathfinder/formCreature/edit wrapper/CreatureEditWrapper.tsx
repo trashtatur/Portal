@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {CreatureForm} from "../CreatureForm";
+import {PathfinderCreatureForm} from "../PathfinderCreatureForm";
 import Select from 'react-select';
 import axios from "axios";
 import {selectableCreatures} from "../../../../../../types/frontendTypes";
@@ -32,7 +32,7 @@ export class CreatureEditWrapper extends React.Component<{}, CreatureEditWrapper
         this.getAllCreatures = this.getAllCreatures.bind(this);
     }
     creatureViewModelFactory = new CreatureViewModelFactory();
-    formRef: CreatureForm = null;
+    formRef: PathfinderCreatureForm = null;
 
     composeSelectableCreatureOptions(): selectableCreatures[] {
         const selectables = [
@@ -129,8 +129,8 @@ export class CreatureEditWrapper extends React.Component<{}, CreatureEditWrapper
                     maxMenuHeight={200}
                 />
                 {this.state.creature &&
-                <CreatureForm ref={ref => this.formRef = ref} type={"edit"} creature={this.state.creature}
-                              handleUpdate={this.handleUpdate}/>
+                <PathfinderCreatureForm ref={ref => this.formRef = ref} type={"edit"} creature={this.state.creature}
+                                        handleUpdate={this.handleUpdate}/>
                 }
             </div>
         )

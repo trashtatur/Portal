@@ -2,7 +2,7 @@ import * as React from "react";
 import Select from 'react-select';
 import {ReactElement} from "react";
 import {selectableAlignment} from "../../../../../../types/frontendTypes";
-import * as style from "../creatureForm.css";
+import * as style from "../pathfinderCreatureForm.css";
 
 export interface AlignmentSelectProps {
     handleAlignmentChange: Function;

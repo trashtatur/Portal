@@ -1,0 +1,48 @@
+.preSeparator{
+    float: left;
+    font-size: 9.5pt;
+    font-family: "Trajan Pro", serif;
+    width: 58%;
+    margin-bottom: 0;
+}
+
+.actionContainer {
+    float: left;
+    font-size: 8.5pt;
+    font-family: "Trajan Pro", serif;
+    margin-left: 1em;
+    width: 58%;
+}
+
+.actionTitle {
+    padding: 2px;
+    margin-bottom: 5px;
+    display: block;
+    font-size: 10pt;
+    font-weight: bold;
+    border-bottom: 1px solid grey;
+}
+.actionLabelContainer {
+    min-height: 30px;
+    margin-bottom: 3px;
+}
+
+.actionLabel {
+    margin-right: 2px;
+    margin-top: 4px;
+    display: inline-block;
+    border: 5px solid;
+    line-height: 10px;
+    padding: 0 5px;
+    border-radius: 20px;
+}
+
+.additionalInfo {
+    border-top: 1px dashed grey;
+    padding-top: 2px;
+    margin-bottom: 2px;
+}
+
+.action {
+    font-weight: normal;
+}

@@ -1,7 +1,7 @@
 import {PathfinderCreaturePropertiesViewModel} from "../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import {AttackPropertyViewModel} from "../../model/dataModel/AttackPropertyViewModel";
-import {SavingThrowsViewModel} from "../../model/dataModel/SavingThrowsViewModel";
-import {StatsViewModel} from "../../model/dataModel/StatsViewModel";
+import {PathfinderSavingThrowsViewModel} from "../../model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
+import {PathfinderStatsViewModel} from "../../model/dataModel/pathfinder/PathfinderStatsViewModel";
 import {PathfinderActionDataToViewModelMapper} from "./PathfinderActionDataToViewModelMapper";
 import {PathfinderLanguageDataToViewModelMapper} from "./PathfinderLanguageDataToViewModelMapper";
 import {PathfinderSkillDataToViewModelMapper} from "./PathfinderSkillDataToViewModelMapper";
@@ -35,7 +35,7 @@ export class PathfinderCreaturePropertiesDataToViewModelMapper {
             data._ini,
             data._baseAtk,
             data._size,
-            new StatsViewModel(
+            new PathfinderStatsViewModel(
                 data._stats._strength,
                 data._stats._constitution,
                 data._stats._wisdom,
@@ -45,7 +45,7 @@ export class PathfinderCreaturePropertiesDataToViewModelMapper {
                 data._size,
                 data._baseAtk
             ),
-            new SavingThrowsViewModel(data._saveThrows._reflex, data._saveThrows._wisdom, data._saveThrows._fortitude),
+            new PathfinderSavingThrowsViewModel(data._saveThrows._reflex, data._saveThrows._wisdom, data._saveThrows._fortitude),
             data._xp,
             data._image,
             this.actionDataToViewModelMapper.mapMultiple(data._actions),

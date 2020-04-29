@@ -4,7 +4,7 @@ import {Optional, Options, Type, validate} from 'validate-typescript';
 import {DamageTypesEnum} from "../../model/enumeration/DamageTypesEnum";
 import {ValidatorError} from "validate-typescript/lib/errors";
 
-export class ActionForm implements FormValidatorInterface{
+export class PathfinderActionForm implements FormValidatorInterface{
 
     schema = {
         _name: Type(String),

@@ -1,4 +1,4 @@
-import {PropertyModel} from "../PropertyModel";
+import {AbstractCreaturePropertyModel} from "../AbstractCreaturePropertyModel";
 import {CreatureTypeEnum} from "../enumeration/CreatureTypeEnum";
 import {AlignmentEnum} from "../enumeration/AlignmentEnum";
 import {CreatureSizeEnum} from "../enumeration/CreatureSizeEnum";
@@ -10,7 +10,7 @@ import {PathfinderSkillModel} from "./PathfinderSkillModel";
 import {PathfinderTalentModel} from "./PathfinderTalentModel";
 import {AttackProperty} from "../dataModel/AttackProperty";
 
-export class PathfinderCreaturePropertiesModel extends PropertyModel{
+export class PathfinderCreaturePropertiesModel extends AbstractCreaturePropertyModel{
 
     private readonly _id: string;
     private readonly _type: CreatureTypeEnum;

@@ -1,22 +1,25 @@
 import {BodyParams, Controller, Get, Post} from "@tsed/common";
-import {LanguageService} from "../../services/LanguageService";
+import {PathfinderLanguageService} from "../../../services/pathfinder/PathfinderLanguageService";
 
-@Controller('/language')
+@Controller('/Pathfinder/language')
 export class LanguageResourceController {
+    private pathfinderLanguageService: PathfinderLanguageService;
 
-    constructor(private readonly languageService: LanguageService) {
-
+    constructor(
+        pathfinderLanguageService: PathfinderLanguageService
+    ) {
+        this.pathfinderLanguageService = pathfinderLanguageService;
     }
 
     @Get()
     async allLanguages(): Promise<string> {
-        let languages = await this.languageService.findAll([]);
+        const languages = await this.pathfinderLanguageService.findAll();
         return JSON.stringify(languages)
     }
 
     @Post()
     async createLanguage(@BodyParams() languageData): Promise<string> {
-        let language = await this.languageService.create(languageData);
+        const language = await this.pathfinderLanguageService.create(languageData);
         return JSON.stringify(language)
     }
 

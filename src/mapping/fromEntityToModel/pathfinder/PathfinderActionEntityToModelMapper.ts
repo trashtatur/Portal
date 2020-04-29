@@ -7,7 +7,7 @@ import {Damage} from "../../../model/dataModel/Damage";
 import {DamageTypesEnum} from "../../../model/enumeration/DamageTypesEnum";
 import {getEnumKeyForValue} from "../../../helper/HelperFunctions";
 
-export class ActionEntityToModelMapper implements EntityToModelMapperInterface {
+export class PathfinderActionEntityToModelMapper implements EntityToModelMapperInterface {
     map(entity: PathfinderAction): PathfinderActionModel {
         return new PathfinderActionModel(
             entity.uuid,

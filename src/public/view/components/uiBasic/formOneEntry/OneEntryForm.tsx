@@ -1,7 +1,7 @@
 import * as React from "react";
 import axios from 'axios'
-import {uuidv4} from "../../../../../service/helperFunctions";
-import {oneEntryFormEntry} from "../../../../../types/frontendTypes";
+import {uuidv4} from "../../../../service/helperFunctions";
+import {oneEntryFormEntry} from "../../../../types/frontendTypes";
 import {ReactElement} from "react";
 import * as style from './oneEntryForm.css';
 
