@@ -1,4 +1,4 @@
-import {CreatureSizesEnum} from "../enumeration/CreatureSizesEnum";
+import {CreatureSizeEnum} from "../enumeration/CreatureSizeEnum";
 
 export enum CreatureSizeModifierEnum {
     FINE = -8,
@@ -12,25 +12,25 @@ export enum CreatureSizeModifierEnum {
     COLOSSAL = 8
 }
 
-export const getSizeModFromSizeEnum = (size: CreatureSizesEnum): CreatureSizeModifierEnum => {
+export const getSizeModFromSizeEnum = (size: CreatureSizeEnum): CreatureSizeModifierEnum => {
     switch (size) {
-        case CreatureSizesEnum.FINE:
+        case CreatureSizeEnum.FINE:
             return CreatureSizeModifierEnum.FINE;
-        case CreatureSizesEnum.DIMINUTIVE:
+        case CreatureSizeEnum.DIMINUTIVE:
             return CreatureSizeModifierEnum.DIMINUTIVE;
-        case CreatureSizesEnum.TINY:
+        case CreatureSizeEnum.TINY:
             return CreatureSizeModifierEnum.TINY;
-        case CreatureSizesEnum.SMALL:
+        case CreatureSizeEnum.SMALL:
             return CreatureSizeModifierEnum.SMALL;
-        case CreatureSizesEnum.MEDIUM:
+        case CreatureSizeEnum.MEDIUM:
             return CreatureSizeModifierEnum.MEDIUM;
-        case CreatureSizesEnum.LARGE:
+        case CreatureSizeEnum.LARGE:
             return CreatureSizeModifierEnum.LARGE;
-        case CreatureSizesEnum.HUGE:
+        case CreatureSizeEnum.HUGE:
             return CreatureSizeModifierEnum.HUGE;
-        case CreatureSizesEnum.GARGANTUAN:
+        case CreatureSizeEnum.GARGANTUAN:
             return CreatureSizeModifierEnum.GARGANTUAN;
-        case CreatureSizesEnum.COLOSSAL:
+        case CreatureSizeEnum.COLOSSAL:
             return CreatureSizeModifierEnum.COLOSSAL;
     }
 };

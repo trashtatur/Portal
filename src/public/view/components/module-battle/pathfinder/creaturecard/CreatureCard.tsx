@@ -10,7 +10,7 @@ import {CreaturecardAttackProperties} from "../../common/creaturecardAttackPrope
 import {CreaturecardActions} from "../creaturecardActions/CreaturecardActions";
 import {ReactElement} from "react";
 import {PathfinderStatsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderStatsViewModel";
-import {CreatureSizesEnum} from "../../../../../model/enumeration/CreatureSizesEnum";
+import {CreatureSizeEnum} from "../../../../../model/enumeration/CreatureSizeEnum";
 import {AttackPropertyViewModel} from "../../../../../model/dataModel/AttackPropertyViewModel";
 import {PathfinderSavingThrowsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
 import {TalentViewModel} from "../../../../../model/pathfinder/TalentViewModel";
@@ -35,7 +35,7 @@ export interface CreatureCardProps {
     image?: string;
     baseAtk: number;
     xp?: number;
-    size: CreatureSizesEnum;
+    size: CreatureSizeEnum;
     stats: PathfinderStatsViewModel;
     saveThrows: PathfinderSavingThrowsViewModel;
     foldable?: boolean;

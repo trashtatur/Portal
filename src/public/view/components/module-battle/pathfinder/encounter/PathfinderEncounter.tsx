@@ -4,7 +4,7 @@ import {RoundOverview} from "../../common/round overview/RoundOverview";
 import {round, roundCreature} from "../../../../../types/frontendTypes";
 import {ReactElement} from "react";
 import {CreatureViewModel} from "../../../../../model/CreatureViewModel";
-import {CreatureTypeEnum} from "../../../../../model/enumeration/CreatureTypesEnum";
+import {TypeEnum} from "../../../../../model/enumeration/CreatureTypesEnum";
 import {PathfinderCreaturePropertiesViewModel} from "../../../../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import * as style from './encounter.css';
 
@@ -195,7 +195,7 @@ export class PathfinderEncounter extends React.Component<{}, EncounterState> {
             () => this.setCurrentRoundToSessionStorage())
     };
 
-    changeTypeOfRoundCreature = (newType: CreatureTypeEnum, creatureId: string): void => {
+    changeTypeOfRoundCreature = (newType: TypeEnum, creatureId: string): void => {
         const round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId

@@ -1,4 +1,4 @@
-export class AttackProperty {
+export class NamedCreatureProperty {
     private readonly _name: string;
     private readonly _property: string;
 

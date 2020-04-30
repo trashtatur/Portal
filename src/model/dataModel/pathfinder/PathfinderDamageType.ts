@@ -1,6 +1,6 @@
 import {PathfinderDamageTypesEnum} from "../../enumeration/pathfinder/PathfinderDamageTypesEnum";
 
-export class DamageType {
+export class PathfinderDamageType {
     private readonly _damageTypes: PathfinderDamageTypesEnum[];
     private readonly _isMagic: boolean;
     private readonly _isHybrid: boolean;

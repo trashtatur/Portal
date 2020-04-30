@@ -1,9 +1,9 @@
 import {DataToModelMapperInterface} from "../../ModelToEntityMapperInterface";
 import {PathfinderActionModel} from "../../../model/pathfinder/PathfinderActionModel";
-import {Damage} from "../../../model/dataModel/Damage";
-import {DamageType} from "../../../model/dataModel/DamageType";
+import {DiceRollSpecification} from "../../../model/dataModel/DiceRollSpecification";
+import {PathfinderDamageType} from "../../../model/dataModel/pathfinder/PathfinderDamageType";
 import {RangeTypeEnum} from "../../../model/enumeration/RangeTypeEnum";
-import {DamageTypesEnum} from "../../../model/enumeration/DamageTypesEnum";
+import {PathfinderDamageTypesEnum} from "../../../model/enumeration/pathfinder/PathfinderDamageTypesEnum";
 import {MappingException} from "../../exception/MappingException";
 
 export class PathfinderActionDataToModelMapper implements DataToModelMapperInterface {
@@ -22,53 +22,53 @@ export class PathfinderActionDataToModelMapper implements DataToModelMapperInter
         );
     }
 
-    private createDamage(damageData): Damage {
-        return new Damage(damageData._diceCount, damageData._diceType);
+    private createDamage(damageData): DiceRollSpecification {
+        return new DiceRollSpecification(damageData._diceCount, damageData._diceType);
     }
 
-    private createDamageType(damageTypeData): DamageType {
+    private createDamageType(damageTypeData): PathfinderDamageType {
         const isMagic = damageTypeData._isMagic;
         let isHybrid = false;
         if (damageTypeData._damageType.length > 1) {
             isHybrid = true;
         }
-        const damageTypeEnums: DamageTypesEnum[] =
+        const damageTypeEnums: PathfinderDamageTypesEnum[] =
             damageTypeData._damageType.map(damageType => {
                     return this.mapDamageTypeString(damageType);
                 }
             );
-        return new DamageType(damageTypeEnums, isMagic, isHybrid)
+        return new PathfinderDamageType(damageTypeEnums, isMagic, isHybrid)
     }
 
-    private mapDamageTypeString(damageTypeString): DamageTypesEnum {
+    private mapDamageTypeString(damageTypeString): PathfinderDamageTypesEnum {
 
         switch (damageTypeString) {
             case 'physical / bludgeoning':
-                return DamageTypesEnum.PHYSICAL_BLUDGEONING;
+                return PathfinderDamageTypesEnum.PHYSICAL_BLUDGEONING;
             case 'physical / slashing':
-                return DamageTypesEnum.PHYSICAL_SLASHING;
+                return PathfinderDamageTypesEnum.PHYSICAL_SLASHING;
             case 'physical / piercing':
-                return DamageTypesEnum.PHYSICAL_PIERCING;
+                return PathfinderDamageTypesEnum.PHYSICAL_PIERCING;
             case 'energy / acid':
-                return DamageTypesEnum.ENERGY_ACID;
+                return PathfinderDamageTypesEnum.ENERGY_ACID;
             case 'energy / cold':
-                return DamageTypesEnum.ENERGY_COLD;
+                return PathfinderDamageTypesEnum.ENERGY_COLD;
             case 'energy / fire':
-                return DamageTypesEnum.ENERGY_FIRE;
+                return PathfinderDamageTypesEnum.ENERGY_FIRE;
             case 'energy / electric':
-                return DamageTypesEnum.ENERGY_ELECTRIC;
+                return PathfinderDamageTypesEnum.ENERGY_ELECTRIC;
             case 'positive energy':
-                return DamageTypesEnum.POSITIVE_ENERGY;
+                return PathfinderDamageTypesEnum.POSITIVE_ENERGY;
             case 'negative energy':
-                return DamageTypesEnum.NEGATIVE_ENERGY;
+                return PathfinderDamageTypesEnum.NEGATIVE_ENERGY;
             case 'aligned energy':
-                return DamageTypesEnum.ALIGNED_ENERGY;
+                return PathfinderDamageTypesEnum.ALIGNED_ENERGY;
             case 'force':
-                return DamageTypesEnum.FORCE;
+                return PathfinderDamageTypesEnum.FORCE;
             case 'sonic':
-                return DamageTypesEnum.SONIC;
+                return PathfinderDamageTypesEnum.SONIC;
             case 'untyped damage':
-                return DamageTypesEnum.UNTYPED_DAMAGE;
+                return PathfinderDamageTypesEnum.UNTYPED_DAMAGE;
             default:
                 throw new MappingException(`${damageTypeString} is not a valid damage type`)
         }

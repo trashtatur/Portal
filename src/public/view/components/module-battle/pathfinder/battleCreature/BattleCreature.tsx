@@ -1,14 +1,14 @@
 import * as React from "react";
 import {CreatureCard} from "../creaturecard/CreatureCard";
 import {ReactElement} from "react";
-import {CreatureSizesEnum} from "../../../../../model/enumeration/CreatureSizesEnum";
+import {CreatureSizeEnum} from "../../../../../model/enumeration/CreatureSizeEnum";
 import {ProgressBar} from "../../../uiBasic/progressBar/ProgressBar";
 import {PathfinderSavingThrowsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
 import {TalentViewModel} from "../../../../../model/pathfinder/TalentViewModel";
 import {ActionViewModel} from "../../../../../model/pathfinder/ActionViewModel";
 import {AttackPropertyViewModel} from "../../../../../model/dataModel/AttackPropertyViewModel";
 import {PathfinderStatsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderStatsViewModel";
-import {CreatureTypeEnum} from "../../../../../model/enumeration/CreatureTypesEnum";
+import {TypeEnum} from "../../../../../model/enumeration/CreatureTypesEnum";
 import {AlignmentEnum} from "../../../../../model/enumeration/AlignmentEnum";
 import {LanguageViewModel} from "../../../../../model/pathfinder/LanguageViewModel";
 import {SkillViewModel} from "../../../../../model/pathfinder/SkillViewModel";
@@ -18,7 +18,7 @@ import * as style from './battleCreature.css';
 export interface CreatureProps {
     id: string;
     name: string;
-    type: CreatureTypeEnum;
+    type: TypeEnum;
     hitpoints: number;
     armorclass: number;
     label?: number;
@@ -34,7 +34,7 @@ export interface CreatureProps {
     currentHP: number;
     baseAtk: number;
     xp?: number;
-    size: CreatureSizesEnum;
+    size: CreatureSizeEnum;
     stats: PathfinderStatsViewModel;
     sortByIni: Function;
     handleCurrentHPChange: Function;
@@ -60,7 +60,7 @@ export interface CreatureState {
     currentIni: number;
     currentAC: number;
     currentHP: number;
-    type: CreatureTypeEnum;
+    type: TypeEnum;
 }
 
 export class BattleCreature extends React.Component<CreatureProps, CreatureState> {

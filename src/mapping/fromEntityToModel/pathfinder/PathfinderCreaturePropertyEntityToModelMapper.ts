@@ -10,12 +10,12 @@ import {PathfinderSkillModel} from "../../../model/pathfinder/PathfinderSkillMod
 import {PathfinderActionModel} from "../../../model/pathfinder/PathfinderActionModel";
 import {CreatureStats} from "../../../model/dataModel/CreatureStats";
 import {attackProperty, pathFinderSaveThrows, stats} from "../../../types/backendTypes";
-import {SavingThrows} from "../../../model/dataModel/SavingThrows";
-import {AttackProperty} from "../../../model/dataModel/AttackProperty";
+import {PathfinderSavingThrowsModel} from "../../../model/dataModel/pathfinder/PathfinderSavingThrowsModel";
+import {NamedCreatureProperty} from "../../../model/dataModel/NamedCreatureProperty";
 import {getEnumKeyForValue} from "../../../helper/HelperFunctions";
-import {CreatureTypeEnum} from "../../../model/enumeration/CreatureTypeEnum";
+import {TypeEnum} from "../../../model/enumeration/TypeEnum";
 import {AlignmentEnum} from "../../../model/enumeration/AlignmentEnum";
-import {CreatureSizeEnum} from "../../../model/enumeration/CreatureSizeEnum";
+import {PathfinderCreatureSizeEnum} from "../../../model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
 import {Service} from "@tsed/di";
 
 @Service()
@@ -48,7 +48,7 @@ export class PathfinderCreaturePropertyEntityToModelMapper {
 
         return new PathfinderCreaturePropertiesModel(
             pathfinderCreaturePropertyEntity.uuid,
-            getEnumKeyForValue(pathfinderCreaturePropertyEntity.type, CreatureTypeEnum),
+            getEnumKeyForValue(pathfinderCreaturePropertyEntity.type, TypeEnum),
             pathfinderCreaturePropertyEntity.armorclass,
             pathfinderCreaturePropertyEntity.hitpoints,
             getEnumKeyForValue(pathfinderCreaturePropertyEntity.alignment, AlignmentEnum),
@@ -57,7 +57,7 @@ export class PathfinderCreaturePropertyEntityToModelMapper {
             pathfinderCreaturePropertyEntity.movement,
             pathfinderCreaturePropertyEntity.ini,
             pathfinderCreaturePropertyEntity.baseAtk,
-            getEnumKeyForValue(pathfinderCreaturePropertyEntity.size, CreatureSizeEnum),
+            getEnumKeyForValue(pathfinderCreaturePropertyEntity.size, PathfinderCreatureSizeEnum),
             this.mapStatsStringToStatsDataModel(pathfinderCreaturePropertyEntity.stats),
             this.mapSaveThrowsStringToSaveThrowsDataModel(pathfinderCreaturePropertyEntity.saveThrows),
             pathfinderCreaturePropertyEntity.xp,
@@ -122,21 +122,21 @@ export class PathfinderCreaturePropertyEntityToModelMapper {
         }
     }
 
-    private mapSaveThrowsStringToSaveThrowsDataModel = (saveThrowsString: string): SavingThrows | null => {
+    private mapSaveThrowsStringToSaveThrowsDataModel = (saveThrowsString: string): PathfinderSavingThrowsModel | null => {
         try {
             const saveThrowsData: pathFinderSaveThrows = JSON.parse(saveThrowsString);
-            return new SavingThrows(saveThrowsData.ref, saveThrowsData.will, saveThrowsData.fort)
+            return new PathfinderSavingThrowsModel(saveThrowsData.ref, saveThrowsData.will, saveThrowsData.fort)
         } catch (e) {
 
         }
     }
 
     private mapAttackPropertiesStringToAttackPropertiesDataModel =
-        (attackPropertiesString: string): AttackProperty[] | null => {
+        (attackPropertiesString: string): NamedCreatureProperty[] | null => {
             try {
                 const attackPropertiesData: attackProperty[] = JSON.parse(attackPropertiesString)
                 return attackPropertiesData.map(data => {
-                    return new AttackProperty(data.name, data.property)
+                    return new NamedCreatureProperty(data.name, data.property)
                 });
             } catch (e) {
 

@@ -1,12 +1,12 @@
 import {ModelInterface} from "./ModelInterface";
 import {AbstractCreaturePropertyModel} from "./AbstractCreaturePropertyModel";
-import {GetParamToSystemEnum} from "../enumeration/GetParamToSystemEnum";
+import {SystemEnum} from "../enumeration/SystemEnum";
 
 export class CreatureModel<T extends AbstractCreaturePropertyModel> implements ModelInterface{
     private readonly _id: string;
     private readonly _name: string;
     private _creatureProperties: T;
-    private _propertyType: GetParamToSystemEnum
+    private _propertyType: SystemEnum
 
     constructor(
         id: string,
@@ -34,11 +34,11 @@ export class CreatureModel<T extends AbstractCreaturePropertyModel> implements M
         this._creatureProperties = value;
     }
 
-    get propertyType(): GetParamToSystemEnum {
+    get propertyType(): SystemEnum {
         return this._propertyType;
     }
 
-    set propertyType(value: GetParamToSystemEnum) {
+    set propertyType(value: SystemEnum) {
         this._propertyType = value;
     }
 }

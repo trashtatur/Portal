@@ -77,6 +77,10 @@ export class DND5CreatureProperties extends Model<DND5CreatureProperties>{
     speed: string;
 
     @AllowNull(true)
+    @Column({type: DataType.TEXT({length: 'medium'})})
+    classesAndLevels
+
+    @AllowNull(true)
     @Column
     damageVulnerabilities: string;
 
@@ -116,11 +120,11 @@ export class DND5CreatureProperties extends Model<DND5CreatureProperties>{
     actions: DND5Action[];
 
     @BelongsToMany(()=> DND5Talent, ()=> DND5CreatureTalent)
-    talents: DND5Action[];
+    talents: DND5Talent[];
 
     @BelongsToMany(()=> DND5Skill, ()=> DND5CreatureSkill)
-    skills: DND5Action[];
+    skills: DND5Skill[];
 
     @BelongsToMany(()=> DND5Language, ()=> DND5CreatureLanguage)
-    languages: DND5Action[];
+    languages: DND5Language[];
 }

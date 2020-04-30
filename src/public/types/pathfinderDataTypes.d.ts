@@ -1,13 +1,13 @@
 import {RangeTypeEnum} from "../model/enumeration/RangeTypeEnum";
-import {CreatureTypeEnum} from "../model/enumeration/CreatureTypesEnum";
+import {TypeEnum} from "../model/enumeration/CreatureTypesEnum";
 import {AlignmentEnum} from "../model/enumeration/AlignmentEnum";
-import {CreatureSizesEnum} from "../model/enumeration/CreatureSizesEnum";
+import {CreatureSizeEnum} from "../model/enumeration/CreatureSizeEnum";
 import {DamageTypesEnum} from "../model/enumeration/DamageTypesEnum";
 import {attackPropertyData, creatureStatsData, damageData, languageData, skillData} from "./commonDataTypes";
 
 type pathfinderCreaturePropertiesData = {
     _id: string;
-    _type: CreatureTypeEnum;
+    _type: TypeEnum;
     _armorclass: number;
     _hitpoints: number;
     _alignment: AlignmentEnum;
@@ -16,7 +16,7 @@ type pathfinderCreaturePropertiesData = {
     _movement: number;
     _ini: number;
     _baseAtk: number;
-    _size: CreatureSizesEnum;
+    _size: CreatureSizeEnum;
     _stats: creatureStatsData;
     _saveThrows: pathfinderSavingThrowsData;
     _xp?: number;
