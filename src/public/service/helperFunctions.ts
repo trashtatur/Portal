@@ -39,13 +39,6 @@ export const uploadImage = (data: File | string, creatureName: string, creatureC
     }
 };
 
-export const setCreatureImageName = (creature: CreatureViewModel): CreatureViewModel => {
-    if (creature != null) {
-        if (typeof creature.image !== "string") {
-            creature.image =
-                // @ts-ignore
-                `images/creatureImages/${creature.name}-${creature.challenge}/${creature.name}-${creature.challenge}${creature.image.name.substring(creature.image.name.lastIndexOf('.'))}`;
-        }
-    }
-    return creature
+export const setCreatureImageName = (creatureName: string, creatureChallenge: number, image: File): string => {
+   return `images/creatureImages/${creatureName}-${creatureChallenge}/${creatureName}-${creatureChallenge}${image.name.substring(image.name.lastIndexOf('.'))}`;
 };

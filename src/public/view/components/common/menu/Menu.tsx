@@ -1,5 +1,5 @@
 import * as React from "react";
-import {FormBattleModal} from "../../module-battle/formBattleModal/FormBattleModal";
+import {FormBattleModal} from "../../module-battle/pathfinder/formBattleModal/FormBattleModal";
 import {ReactElement} from "react";
 import {CSVImporter} from "../importer/CSVImporter";
 import {Link} from 'react-router-dom'

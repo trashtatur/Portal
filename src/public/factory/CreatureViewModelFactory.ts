@@ -1,99 +1,38 @@
 import {CreatureViewModel} from "../model/CreatureViewModel";
-import {CreatureSizesEnum} from "../model/enumeration/CreatureSizesEnum";
-import {AlignmentEnum} from "../model/enumeration/AlignmentEnum";
-import {StatsViewModel} from "../model/dataModel/StatsViewModel";
-import {SavingThrowsViewModel} from "../model/dataModel/SavingThrowsViewModel";
+import {PathfinderCreaturePropertiesDataToViewModelMapper} from "../mapping/pathfinder/PathfinderCreaturePropertiesDataToViewModelMapper";
+import {PropertyFactory} from "./PropertyFactory";
 
 export class CreatureViewModelFactory {
+    private pathfinderPropertiesToViewModelMapper: PathfinderCreaturePropertiesDataToViewModelMapper;
+    private propertiesFactory: PropertyFactory;
 
-    public static createFromExisting = (creatureViewModel: CreatureViewModel): CreatureViewModel => {
+    constructor(
+    ) {
+        this.pathfinderPropertiesToViewModelMapper = new PathfinderCreaturePropertiesDataToViewModelMapper()
+        this.propertiesFactory = new PropertyFactory()
+    }
 
-        return new CreatureViewModel(
+    public createFromExisting = <T>(creatureViewModel: CreatureViewModel<T>): CreatureViewModel<T> => {
+        return new CreatureViewModel<T>(
             creatureViewModel.id,
             creatureViewModel.name,
-            creatureViewModel.type,
-            creatureViewModel.armorclass,
-            creatureViewModel.hitpoints,
-            creatureViewModel.alignment,
-            creatureViewModel.creatureClass,
-            creatureViewModel.challenge,
-            creatureViewModel.movement,
-            creatureViewModel.ini,
-            creatureViewModel.baseAtk,
-            creatureViewModel.size,
-            creatureViewModel.stats,
-            creatureViewModel.saveThrows,
-            creatureViewModel.xp,
-            creatureViewModel.image,
-            creatureViewModel.actions,
-            creatureViewModel.languages,
-            creatureViewModel.skills,
-            creatureViewModel.talents,
-            creatureViewModel.attackProperties
+            creatureViewModel.properties
         )
     }
 
-    public static createEmpty = (): CreatureViewModel => {
-        return new CreatureViewModel(
+    public createEmpty = <T>(property: { new(...args: any[]): T }): CreatureViewModel<T> => {
+        return new CreatureViewModel<T>(
             '',
             '',
-            null,
-            null,
-            null,
-            AlignmentEnum.NONE,
-            '',
-            null,
-            null,
-            null,
-            null,
-            CreatureSizesEnum.EMPTY,
-            new StatsViewModel(
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                CreatureSizesEnum.EMPTY,
-                null),
-            new SavingThrowsViewModel(
-                null,
-                null,
-                null
-            ),
-            0,
-            '',
-            [],
-            [],
-            [],
-            [],
-            []
+            this.propertiesFactory.createEmpty(property)
         )
     }
 
-    public static createSummonedCreature = (): CreatureViewModel => {
-        return new CreatureViewModel(
+    public createSummonedCreature = <T>(property: { new(...args: any[]): T }): CreatureViewModel<T> => {
+        return new CreatureViewModel<T>(
             '',
             '',
-            null,
-            null,
-            null,
-            AlignmentEnum.NONE,
-            'summoned Entity',
-            1,
-            9,
-            null,
-            0,
-            CreatureSizesEnum.MEDIUM,
-            new StatsViewModel(10, 10, 10, 10, 10, 10, CreatureSizesEnum.MEDIUM, 0),
-            new SavingThrowsViewModel(0, 0, 0),
-            0,
-            '',
-            null,
-            null,
-            null,
-            null,
-            null
+            this.propertiesFactory.createSummon(property)
         )
     }
 }

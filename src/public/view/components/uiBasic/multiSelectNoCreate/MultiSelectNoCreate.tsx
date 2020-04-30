@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Select from 'react-select';
-import {selectable, selectableAlignment, selectableCreatures} from "../../../../frontendTypes";
+import {selectable, selectableAlignment, selectableCreatures} from "../../../../types/frontendTypes";
 import {ReactElement} from "react";
 
 export interface DamageTypeSelectProps {

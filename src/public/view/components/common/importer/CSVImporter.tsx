@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
 import Select from 'react-select';
-import {selectable} from "../../../../frontendTypes";
+import {selectable} from "../../../../types/frontendTypes";
 import Dropzone from 'react-dropzone-uploader';
 import {BaseEntitiesEnum} from "../../../../model/enumeration/BaseEntitiesEnum";
 import axios from 'axios';
