@@ -1,11 +1,11 @@
-import {DamageTypesEnum} from "../enumeration/DamageTypesEnum";
+import {PathfinderDamageTypesEnum} from "../../enumeration/pathfinder/PathfinderDamageTypesEnum";
 
 export class DamageType {
-    private readonly _damageTypes: DamageTypesEnum[];
+    private readonly _damageTypes: PathfinderDamageTypesEnum[];
     private readonly _isMagic: boolean;
     private readonly _isHybrid: boolean;
     constructor(
-        damageTypes: DamageTypesEnum[],
+        damageTypes: PathfinderDamageTypesEnum[],
         isMagic: boolean,
         isHybrid: boolean
     ) {
@@ -14,7 +14,7 @@ export class DamageType {
         this._isHybrid = isHybrid;
     }
 
-    get damageTypes(): DamageTypesEnum[] {
+    get damageTypes(): PathfinderDamageTypesEnum[] {
         return this._damageTypes;
     }
 

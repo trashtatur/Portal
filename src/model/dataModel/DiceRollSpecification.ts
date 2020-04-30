@@ -1,4 +1,4 @@
-export class Damage {
+export class DiceRollSpecification {
     private readonly _diceCount: number;
     private readonly _diceType: number;
     private readonly _bonus: number;

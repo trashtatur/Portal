@@ -1,4 +1,4 @@
-export enum CreatureSizesEnum {
+export enum CreatureSizeEnum {
     FINE = 'fine',
     DIMINUTIVE = 'diminutive',
     TINY = 'tiny',
