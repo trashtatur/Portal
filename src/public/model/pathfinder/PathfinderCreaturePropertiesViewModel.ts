@@ -1,6 +1,6 @@
-import {CreatureTypeEnum} from "../enumeration/CreatureTypesEnum";
+import {TypeEnum} from "../enumeration/CreatureTypesEnum";
 import {AlignmentEnum} from "../enumeration/AlignmentEnum";
-import {CreatureSizesEnum} from "../enumeration/CreatureSizesEnum";
+import {CreatureSizeEnum} from "../enumeration/CreatureSizeEnum";
 import {PathfinderStatsViewModel} from "../dataModel/pathfinder/PathfinderStatsViewModel";
 import {PathfinderSavingThrowsViewModel} from "../dataModel/pathfinder/PathfinderSavingThrowsViewModel";
 import {ActionViewModel} from "./ActionViewModel";
@@ -13,7 +13,7 @@ import {AbstractPropertyViewModel} from "../AbstractPropertyViewModel";
 export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewModel{
 
     private _id: string;
-    private _type: CreatureTypeEnum;
+    private _type: TypeEnum;
     private _armorclass: number;
     private _hitpoints: number;
     private _alignment: AlignmentEnum;
@@ -22,7 +22,7 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
     private _movement: number;
     private _ini: number;
     private _baseAtk: number;
-    private _size: CreatureSizesEnum;
+    private _size: CreatureSizeEnum;
     private _stats: PathfinderStatsViewModel;
     private _saveThrows: PathfinderSavingThrowsViewModel;
     private _xp?: number;
@@ -39,7 +39,7 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
 
     constructor(
         id: string,
-        type: CreatureTypeEnum,
+        type: TypeEnum,
         armorclass: number,
         hitpoints: number,
         alignment: AlignmentEnum,
@@ -48,7 +48,7 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         movement: number,
         ini: number,
         baseAtk: number,
-        size: CreatureSizesEnum,
+        size: CreatureSizeEnum,
         stats: PathfinderStatsViewModel,
         saveThrows: PathfinderSavingThrowsViewModel,
         xp?: number,
@@ -94,11 +94,11 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         this._id = value;
     }
 
-    get type(): CreatureTypeEnum {
+    get type(): TypeEnum {
         return this._type;
     }
 
-    set type(value: CreatureTypeEnum) {
+    set type(value: TypeEnum) {
         this._type = value;
     }
 
@@ -166,11 +166,11 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         this._baseAtk = value;
     }
 
-    get size(): CreatureSizesEnum {
+    get size(): CreatureSizeEnum {
         return this._size;
     }
 
-    set size(value: CreatureSizesEnum) {
+    set size(value: CreatureSizeEnum) {
         this._size = value;
     }
 

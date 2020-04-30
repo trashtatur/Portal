@@ -1,7 +1,7 @@
 import {ModelInterface} from "../ModelInterface";
-import {Damage} from "../dataModel/Damage";
+import {DiceRollSpecification} from "../dataModel/DiceRollSpecification";
 import {RangeTypeEnum} from "../enumeration/RangeTypeEnum";
-import {DamageType} from "../dataModel/DamageType";
+import {PathfinderDamageType} from "../dataModel/pathfinder/PathfinderDamageType";
 
 export class PathfinderActionModel implements ModelInterface {
     private readonly _id: string;
@@ -9,9 +9,9 @@ export class PathfinderActionModel implements ModelInterface {
     private readonly _rangeType: RangeTypeEnum;
     private readonly _attackBonus: number;
     private readonly _range: number;
-    private readonly _damage: Damage;
+    private readonly _damage: DiceRollSpecification;
     private readonly _critMod: number;
-    private readonly _damageTypes: DamageType;
+    private readonly _damageTypes: PathfinderDamageType;
     private readonly _additionalInfo: string;
 
     constructor(
@@ -20,9 +20,9 @@ export class PathfinderActionModel implements ModelInterface {
         rangeType: RangeTypeEnum,
         attackBonus: number,
         range: number,
-        damage: Damage,
+        damage: DiceRollSpecification,
         critMod: number,
-        damageType: DamageType,
+        damageType: PathfinderDamageType,
         additionalInfo?: string
     ) {
         this._id = id;
@@ -56,7 +56,7 @@ export class PathfinderActionModel implements ModelInterface {
         return this._range;
     }
 
-    get damage(): Damage {
+    get damage(): DiceRollSpecification {
         return this._damage;
     }
 
@@ -64,7 +64,7 @@ export class PathfinderActionModel implements ModelInterface {
         return this._critMod;
     }
 
-    get damageTypes(): DamageType {
+    get damageTypes(): PathfinderDamageType {
         return this._damageTypes;
     }
 

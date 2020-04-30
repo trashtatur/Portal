@@ -1,4 +1,4 @@
-import {CreatureTypeEnum} from "../model/enumeration/CreatureTypesEnum";
+import {TypeEnum} from "../model/enumeration/CreatureTypesEnum";
 
 export type selectableCreatures = {
     label: string;
@@ -43,8 +43,8 @@ export type roundCreature = {
     currentAC: number;
     readonly entryIni: number;
     currentIni: number;
-    readonly entryType: CreatureTypeEnum;
-    currentType: CreatureTypeEnum;
+    readonly entryType: TypeEnum;
+    currentType: TypeEnum;
 }
 
 export type oneEntryFormEntry = {

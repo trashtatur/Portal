@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {ReactElement} from "react";
-import {CreatureTypeEnum} from "../../../../../model/enumeration/CreatureTypesEnum";
+import {TypeEnum} from "../../../../../model/enumeration/CreatureTypesEnum";
 import * as style from './roundCreature.css';
 
 const PLAYER_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(2,35,47,0.6727065826330532) 57%, rgba(0,232,255,1) 100%)";
@@ -17,8 +17,8 @@ interface RoundCreaturePropsInterface {
     currentAC: number;
     entryIni: number;
     currentIni: number;
-    entryType: CreatureTypeEnum;
-    currentType: CreatureTypeEnum;
+    entryType: TypeEnum;
+    currentType: TypeEnum;
 }
 
 export class RoundCreature extends React.Component<RoundCreaturePropsInterface> {

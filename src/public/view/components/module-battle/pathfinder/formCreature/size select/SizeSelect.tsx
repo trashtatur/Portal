@@ -1,7 +1,7 @@
 import * as React from "react";
 import {ReactElement} from "react";
 import Select from 'react-select';
-import {CreatureSizesEnum} from "../../../../../../model/enumeration/CreatureSizesEnum";
+import {CreatureSizeEnum} from "../../../../../../model/enumeration/CreatureSizeEnum";
 import * as style from "../pathfinderCreatureForm.css";
 
 export interface SizeSelectProps {
@@ -15,15 +15,15 @@ export class SizeSelect extends React.Component<SizeSelectProps> {
         return (
             <Select
                 options={[
-                    {value: CreatureSizesEnum.FINE, label: CreatureSizesEnum.FINE},
-                    {value: CreatureSizesEnum.DIMINUTIVE, label: CreatureSizesEnum.DIMINUTIVE},
-                    {value: CreatureSizesEnum.TINY, label: CreatureSizesEnum.TINY},
-                    {value: CreatureSizesEnum.SMALL, label: CreatureSizesEnum.SMALL},
-                    {value: CreatureSizesEnum.MEDIUM, label: CreatureSizesEnum.MEDIUM},
-                    {value: CreatureSizesEnum.LARGE, label: CreatureSizesEnum.LARGE},
-                    {value: CreatureSizesEnum.HUGE, label: CreatureSizesEnum.HUGE},
-                    {value: CreatureSizesEnum.GARGANTUAN, label: CreatureSizesEnum.GARGANTUAN},
-                    {value: CreatureSizesEnum.COLOSSAL, label: CreatureSizesEnum.COLOSSAL}
+                    {value: CreatureSizeEnum.FINE, label: CreatureSizeEnum.FINE},
+                    {value: CreatureSizeEnum.DIMINUTIVE, label: CreatureSizeEnum.DIMINUTIVE},
+                    {value: CreatureSizeEnum.TINY, label: CreatureSizeEnum.TINY},
+                    {value: CreatureSizeEnum.SMALL, label: CreatureSizeEnum.SMALL},
+                    {value: CreatureSizeEnum.MEDIUM, label: CreatureSizeEnum.MEDIUM},
+                    {value: CreatureSizeEnum.LARGE, label: CreatureSizeEnum.LARGE},
+                    {value: CreatureSizeEnum.HUGE, label: CreatureSizeEnum.HUGE},
+                    {value: CreatureSizeEnum.GARGANTUAN, label: CreatureSizeEnum.GARGANTUAN},
+                    {value: CreatureSizeEnum.COLOSSAL, label: CreatureSizeEnum.COLOSSAL}
                 ]}
                 isClearable
                 value={this.props.value}

@@ -2,9 +2,9 @@ import {EntityToModelMapperInterface} from "../../EntityToModelMapperInterface";
 import {PathfinderAction} from "../../../db/schemas/pathfinder/PathfinderAction";
 import {PathfinderActionModel} from "../../../model/pathfinder/PathfinderActionModel";
 import {RangeTypeEnum} from "../../../model/enumeration/RangeTypeEnum";
-import {DamageType} from "../../../model/dataModel/DamageType";
-import {Damage} from "../../../model/dataModel/Damage";
-import {DamageTypesEnum} from "../../../model/enumeration/DamageTypesEnum";
+import {PathfinderDamageType} from "../../../model/dataModel/pathfinder/PathfinderDamageType";
+import {DiceRollSpecification} from "../../../model/dataModel/DiceRollSpecification";
+import {PathfinderDamageTypesEnum} from "../../../model/enumeration/pathfinder/PathfinderDamageTypesEnum";
 import {getEnumKeyForValue} from "../../../helper/HelperFunctions";
 
 export class PathfinderActionEntityToModelMapper implements EntityToModelMapperInterface {
@@ -22,7 +22,7 @@ export class PathfinderActionEntityToModelMapper implements EntityToModelMapperI
         )
     }
 
-    private mapDamageStringToDamageDataModel = (damageString: string): Damage => {
+    private mapDamageStringToDamageDataModel = (damageString: string): DiceRollSpecification => {
         //https://regex101.com/r/kmn2VW/2 for testing of regex
         const splitDamageString =
             damageString.match(/(?<diceCount>\d+)(?:d)(?<diceType>\d+)(?<bonus>[+\-]\d+)?/)
@@ -30,12 +30,12 @@ export class PathfinderActionEntityToModelMapper implements EntityToModelMapperI
         const diceType = splitDamageString.groups.diceType;
         const bonus = splitDamageString.groups.bonus ?? null;
         if (bonus) {
-            return new Damage(parseInt(diceCount), parseInt(diceType), parseInt(bonus))
+            return new DiceRollSpecification(parseInt(diceCount), parseInt(diceType), parseInt(bonus))
         }
-        return new Damage(parseInt(diceCount), parseInt(diceType), null)
+        return new DiceRollSpecification(parseInt(diceCount), parseInt(diceType), null)
     }
 
-    private mapDamageTypeStringToDamageTypeDataModel = (damageTypeString: string): DamageType => {
+    private mapDamageTypeStringToDamageTypeDataModel = (damageTypeString: string): PathfinderDamageType => {
         const isHybrid = damageTypeString.includes('(hybrid)')
         const isMagic = damageTypeString.includes('(magic)')
         if (isHybrid) {
@@ -45,8 +45,8 @@ export class PathfinderActionEntityToModelMapper implements EntityToModelMapperI
             damageTypeString = damageTypeString.replace('(magic)', '').trim();
         }
         const damageTypesArray = damageTypeString.split(',').map(damageType => {
-            return getEnumKeyForValue(damageType, DamageTypesEnum)
+            return getEnumKeyForValue(damageType, PathfinderDamageTypesEnum)
         })
-        return new DamageType(damageTypesArray, isMagic, isHybrid);
+        return new PathfinderDamageType(damageTypesArray, isMagic, isHybrid);
     }
 }

@@ -1,5 +1,5 @@
 import {getSizeModFromSizeEnum} from "../CreatureSizeModifierEnum";
-import {CreatureSizesEnum} from "../../enumeration/CreatureSizesEnum";
+import {CreatureSizeEnum} from "../../enumeration/CreatureSizeEnum";
 
 export class PathfinderStatsViewModel {
 
@@ -21,7 +21,7 @@ export class PathfinderStatsViewModel {
     private _wisdom: number;
     private _intelligence: number;
     private _charisma: number;
-    private readonly _creatureSize: CreatureSizesEnum;
+    private readonly _creatureSize: CreatureSizeEnum;
     private readonly _baseAttack: number;
 
     constructor(
@@ -31,7 +31,7 @@ export class PathfinderStatsViewModel {
         int: number,
         cha: number,
         dex: number,
-        creatureSize: CreatureSizesEnum,
+        creatureSize: CreatureSizeEnum,
         baseAttack: number
     ) {
         this._baseAttack = baseAttack;
@@ -122,10 +122,10 @@ export class PathfinderStatsViewModel {
         ) {
             return 0;
         }
-        if (this._creatureSize === CreatureSizesEnum.SMALL
-            || this._creatureSize === CreatureSizesEnum.TINY
-            || this._creatureSize === CreatureSizesEnum.DIMINUTIVE
-            || this._creatureSize === CreatureSizesEnum.FINE) {
+        if (this._creatureSize === CreatureSizeEnum.SMALL
+            || this._creatureSize === CreatureSizeEnum.TINY
+            || this._creatureSize === CreatureSizeEnum.DIMINUTIVE
+            || this._creatureSize === CreatureSizeEnum.FINE) {
             return this._baseAttack + this.getModForStat(this._dexterity) + getSizeModFromSizeEnum(this._creatureSize)
         }
         return this._baseAttack

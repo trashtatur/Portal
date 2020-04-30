@@ -1,4 +1,4 @@
-export class PathfinderSavingThrows {
+export class PathfinderSavingThrowsModel {
     private readonly _reflex: number;
     private readonly _wisdom: number;
     private readonly _fortitude: number;

@@ -1,7 +1,7 @@
 import {RangeTypeEnum} from "../../model/enumeration/RangeTypeEnum";
 import {FormValidatorInterface} from "../FormValidatorInterface";
 import {Optional, Options, Type, validate} from 'validate-typescript';
-import {DamageTypesEnum} from "../../model/enumeration/DamageTypesEnum";
+import {PathfinderDamageTypesEnum} from "../../model/enumeration/pathfinder/PathfinderDamageTypesEnum";
 import {ValidatorError} from "validate-typescript/lib/errors";
 
 export class PathfinderActionForm implements FormValidatorInterface{
@@ -33,9 +33,9 @@ export class PathfinderActionForm implements FormValidatorInterface{
         }
     }
 
-    private validateDamageType(damageTypes: Array<DamageTypesEnum>): boolean {
+    private validateDamageType(damageTypes: Array<PathfinderDamageTypesEnum>): boolean {
         damageTypes.forEach(damageType => {
-            if (!(Object.values(DamageTypesEnum).includes(damageType))) {
+            if (!(Object.values(PathfinderDamageTypesEnum).includes(damageType))) {
                 throw new ValidatorError(
                     'ActionFormValidator',
                     'damageTypes',

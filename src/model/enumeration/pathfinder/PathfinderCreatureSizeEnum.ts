@@ -1,4 +1,4 @@
-export enum CreatureSizeEnum {
+export enum PathfinderCreatureSizeEnum{
     COLOSSAL = 'colossal',
     GARGANTUAN = 'gargantuan',
     HUGE = 'huge',

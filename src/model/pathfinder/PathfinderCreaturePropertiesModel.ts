@@ -1,19 +1,19 @@
 import {AbstractCreaturePropertyModel} from "../AbstractCreaturePropertyModel";
-import {CreatureTypeEnum} from "../enumeration/CreatureTypeEnum";
+import {TypeEnum} from "../enumeration/TypeEnum";
 import {AlignmentEnum} from "../enumeration/AlignmentEnum";
-import {CreatureSizeEnum} from "../enumeration/CreatureSizeEnum";
+import {PathfinderCreatureSizeEnum} from "../enumeration/pathfinder/PathfinderCreatureSizeEnum";
 import {CreatureStats} from "../dataModel/CreatureStats";
-import {SavingThrows} from "../dataModel/SavingThrows";
+import {PathfinderSavingThrowsModel} from "../dataModel/pathfinder/PathfinderSavingThrowsModel";
 import {PathfinderActionModel} from "./PathfinderActionModel";
 import {PathfinderLanguageModel} from "./PathfinderLanguageModel";
 import {PathfinderSkillModel} from "./PathfinderSkillModel";
 import {PathfinderTalentModel} from "./PathfinderTalentModel";
-import {AttackProperty} from "../dataModel/AttackProperty";
+import {NamedCreatureProperty} from "../dataModel/NamedCreatureProperty";
 
 export class PathfinderCreaturePropertiesModel extends AbstractCreaturePropertyModel{
 
     private readonly _id: string;
-    private readonly _type: CreatureTypeEnum;
+    private readonly _type: TypeEnum;
     private readonly _armorclass: number;
     private readonly _hitpoints: number;
     private readonly _alignment: AlignmentEnum;
@@ -22,21 +22,21 @@ export class PathfinderCreaturePropertiesModel extends AbstractCreaturePropertyM
     private readonly _movement: number;
     private readonly _ini: number;
     private readonly _baseAtk: number;
-    private readonly _size: CreatureSizeEnum;
+    private readonly _size: PathfinderCreatureSizeEnum;
     private readonly _stats: CreatureStats;
-    private readonly _saveThrows: SavingThrows;
+    private readonly _saveThrows: PathfinderSavingThrowsModel;
     private readonly _xp?: number;
     private readonly _image?: string;
     private readonly _actions?: PathfinderActionModel[];
     private readonly _languages?: PathfinderLanguageModel[];
     private readonly _skills?: PathfinderSkillModel[];
     private readonly _talents?: PathfinderTalentModel[];
-    private readonly _attackProperties?: AttackProperty[];
+    private readonly _attackProperties?: NamedCreatureProperty[];
 
 
     constructor(
         id: string,
-        type: CreatureTypeEnum,
+        type: TypeEnum,
         armorclass: number,
         hitpoints: number,
         alignment: AlignmentEnum,
@@ -45,16 +45,16 @@ export class PathfinderCreaturePropertiesModel extends AbstractCreaturePropertyM
         movement: number,
         ini: number,
         baseAtk: number,
-        size: CreatureSizeEnum,
+        size: PathfinderCreatureSizeEnum,
         stats: CreatureStats,
-        saveThrows: SavingThrows,
+        saveThrows: PathfinderSavingThrowsModel,
         xp?: number,
         image?: string,
         actions?: PathfinderActionModel[],
         languages?: PathfinderLanguageModel[],
         skills?: PathfinderSkillModel[],
         talents?: PathfinderTalentModel[],
-        attackProperties?: AttackProperty[],
+        attackProperties?: NamedCreatureProperty[],
     ) {
         super();
         this._id = id;
@@ -83,7 +83,7 @@ export class PathfinderCreaturePropertiesModel extends AbstractCreaturePropertyM
         return this._id;
     }
 
-    get type(): CreatureTypeEnum {
+    get type(): TypeEnum {
         return this._type;
     }
 
@@ -119,7 +119,7 @@ export class PathfinderCreaturePropertiesModel extends AbstractCreaturePropertyM
         return this._baseAtk;
     }
 
-    get size(): CreatureSizeEnum {
+    get size(): PathfinderCreatureSizeEnum {
         return this._size;
     }
 
@@ -127,7 +127,7 @@ export class PathfinderCreaturePropertiesModel extends AbstractCreaturePropertyM
         return this._stats;
     }
 
-    get saveThrows(): SavingThrows {
+    get saveThrows(): PathfinderSavingThrowsModel {
         return this._saveThrows;
     }
 
@@ -155,7 +155,7 @@ export class PathfinderCreaturePropertiesModel extends AbstractCreaturePropertyM
         return this._talents;
     }
 
-    get attackProperties(): AttackProperty[] {
+    get attackProperties(): NamedCreatureProperty[] {
         return this._attackProperties;
     }
 }

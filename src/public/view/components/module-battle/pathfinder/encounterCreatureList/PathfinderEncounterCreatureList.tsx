@@ -9,7 +9,7 @@ import {PathfinderAddSummon} from "../formAddSummon/PathfinderAddSummon";
 import {BattleDiceRoller} from "../battleDiceRoller/BattleDiceRoller";
 import {MultiSelectNoCreate} from "../../../uiBasic/multiSelectNoCreate/MultiSelectNoCreate";
 import {CreatureViewModel} from "../../../../../model/CreatureViewModel";
-import {CreatureTypeEnum} from "../../../../../model/enumeration/CreatureTypesEnum";
+import {TypeEnum} from "../../../../../model/enumeration/CreatureTypesEnum";
 import {CreatureDataToViewModelMapper} from "../../../../../mapping/CreatureDataToViewModelMapper";
 import {CreatureViewModelFactory} from "../../../../../factory/CreatureViewModelFactory";
 import {PathfinderCreaturePropertiesViewModel} from "../../../../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
@@ -151,28 +151,28 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
         ];
 
         this.state.creatureViewModels.forEach(entry => {
-            if (entry.properties.type === CreatureTypeEnum.MONSTER) {
+            if (entry.properties.type === TypeEnum.MONSTER) {
                 selectables[0].options.push({
                     value: entry.name,
                     label: <CreatureSelectLabel image={'monster-icon.png'}
                                                 creature={entry}
                                                 labelText={`${entry.name} CR: ${entry.properties.challenge}`}/>
                 })
-            } else if (entry.properties.type === CreatureTypeEnum.PLAYER) {
+            } else if (entry.properties.type === TypeEnum.PLAYER) {
                 selectables[1].options.push({
                     value: entry.name,
                     label: <CreatureSelectLabel image={'player-icon.png'}
                                                 creature={entry}
                                                 labelText={`${entry.name}`}/>
                 })
-            } else if (entry.properties.type === CreatureTypeEnum.ALLY) {
+            } else if (entry.properties.type === TypeEnum.ALLY) {
                 selectables[2].options.push({
                     value: entry.name,
                     label: <CreatureSelectLabel image={'ally-icon.png'}
                                                 creature={entry}
                                                 labelText={`${entry.name} CR: ${entry.properties.challenge}`}/>
                 })
-            } else if (entry.properties.type == CreatureTypeEnum.SUMMON) {
+            } else if (entry.properties.type == TypeEnum.SUMMON) {
                 selectables[3].options.push({
                     value: entry.name,
                     label: <CreatureSelectLabel image={'summon-icon.png'}
