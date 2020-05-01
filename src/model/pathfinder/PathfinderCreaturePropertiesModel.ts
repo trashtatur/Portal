@@ -2,7 +2,7 @@ import {AbstractCreaturePropertyModel} from "../AbstractCreaturePropertyModel";
 import {TypeEnum} from "../enumeration/TypeEnum";
 import {AlignmentEnum} from "../enumeration/AlignmentEnum";
 import {PathfinderCreatureSizeEnum} from "../enumeration/pathfinder/PathfinderCreatureSizeEnum";
-import {CreatureStats} from "../dataModel/CreatureStats";
+import {CreatureStatsModel} from "../dataModel/CreatureStatsModel";
 import {PathfinderSavingThrowsModel} from "../dataModel/pathfinder/PathfinderSavingThrowsModel";
 import {PathfinderActionModel} from "./PathfinderActionModel";
 import {PathfinderLanguageModel} from "./PathfinderLanguageModel";
@@ -23,7 +23,7 @@ export class PathfinderCreaturePropertiesModel extends AbstractCreaturePropertyM
     private readonly _ini: number;
     private readonly _baseAtk: number;
     private readonly _size: PathfinderCreatureSizeEnum;
-    private readonly _stats: CreatureStats;
+    private readonly _stats: CreatureStatsModel;
     private readonly _saveThrows: PathfinderSavingThrowsModel;
     private readonly _xp?: number;
     private readonly _image?: string;
@@ -46,7 +46,7 @@ export class PathfinderCreaturePropertiesModel extends AbstractCreaturePropertyM
         ini: number,
         baseAtk: number,
         size: PathfinderCreatureSizeEnum,
-        stats: CreatureStats,
+        stats: CreatureStatsModel,
         saveThrows: PathfinderSavingThrowsModel,
         xp?: number,
         image?: string,
@@ -123,7 +123,7 @@ export class PathfinderCreaturePropertiesModel extends AbstractCreaturePropertyM
         return this._size;
     }
 
-    get stats(): CreatureStats {
+    get stats(): CreatureStatsModel {
         return this._stats;
     }
 

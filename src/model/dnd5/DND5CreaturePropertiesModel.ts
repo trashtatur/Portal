@@ -9,10 +9,11 @@ import {NamedCreatureProperty} from "../dataModel/NamedCreatureProperty";
 import {CreatureSizeEnum} from "../enumeration/CreatureSizeEnum";
 import {TypeEnum} from "../enumeration/TypeEnum";
 import {CreatureTypeEnum} from "../enumeration/dnd5/CreatureTypeEnum";
-import {CreatureStats} from "../dataModel/CreatureStats";
+import {CreatureStatsModel} from "../dataModel/CreatureStatsModel";
 import {SenseModel} from "../dataModel/dnd5/SenseModel";
 import {DND5SavingThrowsModel} from "../dataModel/dnd5/DND5SavingThrowsModel";
 import {ClassAndLevelModel} from "../dataModel/ClassAndLevelModel";
+import {DND5SpellModel} from "./DND5SpellModel";
 
 export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
     private readonly _id: string;
@@ -27,7 +28,7 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
     private readonly _creatureType: CreatureTypeEnum;
     private readonly _challenge: number;
     private readonly _xp: number;
-    private readonly _stats: CreatureStats;
+    private readonly _stats: CreatureStatsModel;
     private readonly _size: CreatureSizeEnum;
     private readonly _speed: string;
     private readonly _classesAndLevels?: Array<ClassAndLevelModel>;
@@ -44,6 +45,8 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
     private readonly _talents?: DND5TalentModel[];
     private readonly _skills?: DND5SkillModel[];
     private readonly _languages?: DND5LanguageModel[];
+    private readonly _spells?: DND5SpellModel[];
+
 
     constructor(
         id: string,
@@ -58,7 +61,7 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
         creatureType: CreatureTypeEnum,
         challenge: number,
         xp: number,
-        stats: CreatureStats,
+        stats: CreatureStatsModel,
         size: CreatureSizeEnum,
         speed: string,
         classesAndLevels?: Array<ClassAndLevelModel>,
@@ -74,9 +77,11 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
         actions?: DND5ActionModel[],
         talents?: DND5TalentModel[],
         skills?: DND5SkillModel[],
-        languages?: DND5LanguageModel[]
+        languages?: DND5LanguageModel[],
+        spells?: DND5SpellModel[]
     ) {
         super();
+        this._spells = spells;
         this._name = name;
         this._type = type;
         this._armorclass = armorclass;
@@ -155,7 +160,7 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
         return this._xp;
     }
 
-    get stats(): CreatureStats {
+    get stats(): CreatureStatsModel {
         return this._stats;
     }
 
@@ -221,5 +226,9 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
 
     get languages(): DND5LanguageModel[] {
         return this._languages;
+    }
+
+    get spells(): DND5SpellModel[] {
+        return this._spells;
     }
 }

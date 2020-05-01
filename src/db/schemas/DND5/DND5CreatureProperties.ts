@@ -8,6 +8,8 @@ import {DND5Language} from "./DND5Language";
 import {DND5CreatureLanguage} from "../assocSchemas/DND5/DND5CreatureLanguage";
 import {DND5CreatureSkill} from "../assocSchemas/DND5/DND5CreatureSkill";
 import {DND5CreatureTalent} from "../assocSchemas/DND5/DND5CreatureTalent";
+import {DND5Spell} from "./DND5Spell";
+import {DND5CreatureSpell} from "../assocSchemas/DND5/DND5CreatureSpell";
 
 @Table({tableName: 'DND5CreatureProperties'})
 export class DND5CreatureProperties extends Model<DND5CreatureProperties>{
@@ -127,4 +129,7 @@ export class DND5CreatureProperties extends Model<DND5CreatureProperties>{
 
     @BelongsToMany(()=> DND5Language, ()=> DND5CreatureLanguage)
     languages: DND5Language[];
+
+    @BelongsToMany(()=> DND5Spell, ()=>DND5CreatureSpell)
+    spells: DND5Spell[];
 }

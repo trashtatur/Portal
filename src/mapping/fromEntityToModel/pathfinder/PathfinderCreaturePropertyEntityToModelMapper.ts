@@ -8,7 +8,7 @@ import {PathfinderLanguageModel} from "../../../model/pathfinder/PathfinderLangu
 import {PathfinderTalentModel} from "../../../model/pathfinder/PathfinderTalentModel";
 import {PathfinderSkillModel} from "../../../model/pathfinder/PathfinderSkillModel";
 import {PathfinderActionModel} from "../../../model/pathfinder/PathfinderActionModel";
-import {CreatureStats} from "../../../model/dataModel/CreatureStats";
+import {CreatureStatsModel} from "../../../model/dataModel/CreatureStatsModel";
 import {attackProperty, pathFinderSaveThrows, stats} from "../../../types/backendTypes";
 import {PathfinderSavingThrowsModel} from "../../../model/dataModel/pathfinder/PathfinderSavingThrowsModel";
 import {NamedCreatureProperty} from "../../../model/dataModel/NamedCreatureProperty";
@@ -106,10 +106,10 @@ export class PathfinderCreaturePropertyEntityToModelMapper {
         return null
     }
 
-    private mapStatsStringToStatsDataModel = (statsString: string): CreatureStats => {
+    private mapStatsStringToStatsDataModel = (statsString: string): CreatureStatsModel => {
         try {
             const statsData: stats = JSON.parse(statsString);
-            return new CreatureStats(
+            return new CreatureStatsModel(
                 statsData.str,
                 statsData.dex,
                 statsData.con,
