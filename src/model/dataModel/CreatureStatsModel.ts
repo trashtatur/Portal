@@ -1,4 +1,4 @@
-export class CreatureStats {
+export class CreatureStatsModel {
     private readonly _strength: number;
     private readonly _dexterity: number;
     private readonly _constitution: number;
