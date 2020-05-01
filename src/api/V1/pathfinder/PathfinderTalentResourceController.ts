@@ -5,7 +5,7 @@ import {MulterOptions} from "@tsed/multipartfiles";
 
 
 @Controller('/Pathfinder/talent')
-export class TalentResourceController {
+export class PathfinderTalentResourceController {
 
     constructor(private readonly talentService:PathfinderTalentService) {
 

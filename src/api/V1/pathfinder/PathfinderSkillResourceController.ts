@@ -2,7 +2,7 @@ import {BodyParams, Controller, Get, Post} from "@tsed/common";
 import {PathfinderSkillService} from "../../../services/pathfinder/PathfinderSkillService";
 
 @Controller('/Pathfinder/skill')
-export class SkillResourceController {
+export class PathfinderSkillResourceController {
 
     constructor(private readonly skillService: PathfinderSkillService) {
 
