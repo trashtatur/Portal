@@ -1,4 +1,4 @@
-import {Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
+import {AllowNull, Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
 import {DND5CreatureProperties} from "../../DND5/DND5CreatureProperties";
 import {DND5Skill} from "../../DND5/DND5Skill";
 
@@ -12,4 +12,8 @@ export class DND5CreatureSkill extends Model<DND5CreatureSkill> {
     @ForeignKey(()=> DND5Skill)
     @Column({type:DataType.UUID})
     skillId;
+
+    @AllowNull(true)
+    @Column
+    skillLevel: number;
 }

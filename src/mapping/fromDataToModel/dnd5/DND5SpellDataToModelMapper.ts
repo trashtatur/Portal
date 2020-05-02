@@ -5,5 +5,4 @@ export class DND5SpellDataToModelMapper implements DataToModelMapperInterface{
     map(data): DND5SpellModel {
 
     }
-
 }

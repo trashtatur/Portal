@@ -15,5 +15,5 @@ export class PathfinderCreatureSkill extends Model<PathfinderCreatureSkill> {
 
     @AllowNull(true)
     @Column
-    skillLevel:number;
+    skillLevel: number;
 }
