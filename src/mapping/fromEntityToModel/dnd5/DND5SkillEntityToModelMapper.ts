@@ -4,6 +4,7 @@ import {DND5SkillModel} from "../../../model/dnd5/DND5SkillModel";
 
 export class DND5SkillEntityToModelMapper implements EntityToModelMapperInterface {
     map(entity: DND5Skill): DND5SkillModel {
-        return undefined;
+        const skillLevel = entity['DND5CreatureSkill'] ?? null;
+        return new DND5SkillModel(entity.uuid, entity.name, skillLevel)
     }
 }

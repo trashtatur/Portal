@@ -1,5 +1,5 @@
 import {SpellComponentEnum} from "../dataModel/SpellComponentEnum";
-import {MagicSchoolEnum} from "../dataModel/dnd5/MagicSchoolEnum";
+import {MagicSchoolEnum} from "../enumeration/dnd5/MagicSchoolEnum";
 
 export class DND5SpellModel {
     private readonly _id: string;
