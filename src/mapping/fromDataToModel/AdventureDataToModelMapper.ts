@@ -1,4 +1,4 @@
-import {DataToModelMapperInterface} from "../ModelToEntityMapperInterface";
+import {DataToModelMapperInterface} from "../DataToModelMapperInterface";
 import {AdventureModel} from "../../model/AdventureModel";
 
 export class AdventureDataToModelMapper implements DataToModelMapperInterface{

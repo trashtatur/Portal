@@ -2,7 +2,7 @@ import {BodyParams, Controller, Get, PathParams, Post} from "@tsed/common";
 import {PathfinderActionService} from "../../../services/pathfinder/PathfinderActionService";
 
 @Controller('/Pathfinder/Action')
-export class ActionResourceController {
+export class PathfinderActionResourceController {
     private readonly actionService: PathfinderActionService;
 
     constructor(actionService: PathfinderActionService) {

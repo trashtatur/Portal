@@ -1,4 +1,14 @@
-import {AllowNull, BelongsToMany, Column, DataType, ForeignKey, Model, PrimaryKey, Table} from "sequelize-typescript";
+import {
+    AllowNull,
+    BelongsToMany,
+    Column,
+    DataType,
+    Default,
+    ForeignKey,
+    Model,
+    PrimaryKey,
+    Table
+} from "sequelize-typescript";
 import {Creature} from "../Creature";
 import {DND5Action} from "./DND5Action";
 import {DND5CreatureAction} from "../assocSchemas/DND5/DND5CreatureAction";
@@ -23,8 +33,9 @@ export class DND5CreatureProperties extends Model<DND5CreatureProperties>{
     creatureId: string;
 
     @AllowNull(false)
+    @Default(false)
     @Column
-    name: string;
+    isOfficialCreature: boolean;
 
     @AllowNull(false)
     @Column

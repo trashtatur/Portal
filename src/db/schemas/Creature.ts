@@ -4,7 +4,7 @@ import {
     DataType, HasMany, HasOne,
     Model,
     PrimaryKey,
-    Table
+    Table, Unique
 } from "sequelize-typescript";
 import {PathfinderCreatureProperties} from "./pathfinder/PathfinderCreatureProperties";
 import {DND5CreatureProperties} from "./DND5/DND5CreatureProperties";
@@ -18,9 +18,8 @@ export class Creature extends Model<Creature> {
     uuid: string;
 
     @AllowNull(false)
-    @Column({
-        unique:'creature_cr'
-    })
+    @Unique
+    @Column
     name: string;
 
     @HasOne(()=> PathfinderCreatureProperties)

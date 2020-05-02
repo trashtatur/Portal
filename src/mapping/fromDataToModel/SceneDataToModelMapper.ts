@@ -1,4 +1,4 @@
-import {DataToModelMapperInterface} from "../ModelToEntityMapperInterface";
+import {DataToModelMapperInterface} from "../DataToModelMapperInterface";
 import {SceneModel} from "../../model/SceneModel";
 import {sceneData} from "../../types/backendTypes";
 import {PersonModel} from "../../model/PersonModel";

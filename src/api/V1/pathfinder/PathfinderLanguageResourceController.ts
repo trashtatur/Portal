@@ -2,7 +2,7 @@ import {BodyParams, Controller, Get, Post} from "@tsed/common";
 import {PathfinderLanguageService} from "../../../services/pathfinder/PathfinderLanguageService";
 
 @Controller('/Pathfinder/language')
-export class LanguageResourceController {
+export class PathfinderLanguageResourceController {
     private pathfinderLanguageService: PathfinderLanguageService;
 
     constructor(
