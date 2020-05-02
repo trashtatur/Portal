@@ -1,4 +1,4 @@
-import {DataToModelMapperInterface} from "../../ModelToEntityMapperInterface";
+import {DataToModelMapperInterface} from "../../DataToModelMapperInterface";
 import {PathfinderActionModel} from "../../../model/pathfinder/PathfinderActionModel";
 import {DiceRollSpecification} from "../../../model/dataModel/DiceRollSpecification";
 import {PathfinderDamageType} from "../../../model/dataModel/pathfinder/PathfinderDamageType";

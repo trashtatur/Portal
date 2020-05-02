@@ -9,7 +9,7 @@ import {DataValidationException} from "../exception/DataValidationException";
 
 @Service()
 export class AdventureService {
-    private readonly adventureRepository: AdventureRepository;
+    private adventureRepository: AdventureRepository;
     private adventureForm: AdventureForm;
     private adventureDataToModelMapper: AdventureDataToModelMapper;
     private adventureEntityToModelMapper: AdventureEntityToModelMapper;
