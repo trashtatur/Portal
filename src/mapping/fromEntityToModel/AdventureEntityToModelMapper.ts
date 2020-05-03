@@ -6,7 +6,7 @@ import {SceneEntityToModelMapper} from "./SceneEntityToModelMapper";
 import {PersonEntityToModelMapper} from "./PersonEntityToModelMapper";
 
 @Service()
-export class AdventureEntityToModelMapper implements EntityToModelMapperInterface{
+export class AdventureEntityToModelMapper implements EntityToModelMapperInterface<Adventure, AdventureModel>{
     private sceneEntityToModelMapper: SceneEntityToModelMapper;
     private personEntityToModelMapper: PersonEntityToModelMapper;
 
@@ -39,5 +39,14 @@ export class AdventureEntityToModelMapper implements EntityToModelMapperInterfac
             sceneModels,
             personModels
         )
+    }
+
+    mapMultiple(entities?: Adventure[]): AdventureModel[] | null {
+        if (!entities) {
+            return null;
+        }
+        return entities.map(entity => {
+            return this.map(entity);
+        });
     }
 }

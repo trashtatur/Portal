@@ -4,7 +4,7 @@ import {Person} from "../../db/schemas/Person";
 import {AdventureModel} from "../../model/AdventureModel";
 import {SceneModel} from "../../model/SceneModel";
 
-export class PersonEntityToModelMapper implements EntityToModelMapperInterface{
+export class PersonEntityToModelMapper implements EntityToModelMapperInterface<Person, PersonModel>{
 
     map(entity: Person): PersonModel {
         let adventures = [];
@@ -57,5 +57,14 @@ export class PersonEntityToModelMapper implements EntityToModelMapperInterface{
         const customFields: Map<string,string> =  new Map();
         return customFields;
     };
+
+    mapMultiple(entities?: Person[]): PersonModel[] | null {
+        if (!entities) {
+            return null;
+        }
+        return entities.map(entity => {
+            return this.map(entity);
+        });
+    }
 
 }
