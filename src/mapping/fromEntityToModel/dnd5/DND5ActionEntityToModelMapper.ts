@@ -6,8 +6,8 @@ import {RangeTypeEnum} from "../../../model/enumeration/RangeTypeEnum";
 import {DND5DamageType} from "../../../model/dataModel/dnd5/DND5DamageType";
 import {DND5DamageTypeEnum} from "../../../model/enumeration/dnd5/DND5DamageTypeEnum";
 
-export class DND5ActionEntityToModelMapper implements EntityToModelMapperInterface{
-    map(entity: DND5Action): DND5ActionModel {
+export class DND5ActionEntityToModelMapper implements EntityToModelMapperInterface<DND5Action, DND5ActionModel>{
+    map = (entity: DND5Action): DND5ActionModel => {
         return new DND5ActionModel(
             entity.uuid,
             entity.name,
@@ -19,6 +19,15 @@ export class DND5ActionEntityToModelMapper implements EntityToModelMapperInterfa
             this.mapDamageTypeStringToDamageTypeDataModel(entity.damageType),
             entity.additionalInfo
         )
+    }
+
+    mapMultiple = (entities?: DND5Action[]): DND5ActionModel[] | null => {
+        if (!entities) {
+            return null;
+        }
+        return entities.map(entity => {
+            return this.map(entity)
+        })
     }
 
     private mapDamageTypeStringToDamageTypeDataModel = (damageTypeString: string): DND5DamageType => {

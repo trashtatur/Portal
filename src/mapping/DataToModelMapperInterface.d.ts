@@ -1,4 +1,4 @@
-export interface DataToModelMapperInterface {
+export interface DataToModelMapperInterface<T> {
 
-    map(data);
+    map(data): T;
 }

@@ -4,22 +4,25 @@ import {PathfinderSkillEntityToModelMapper} from "./PathfinderSkillEntityToModel
 import {PathfinderLanguageEntityToModelMapper} from "./PathfinderLanguageEntityToModelMapper";
 import {PathfinderCreatureProperties} from "../../../db/schemas/pathfinder/PathfinderCreatureProperties";
 import {PathfinderCreaturePropertiesModel} from "../../../model/pathfinder/PathfinderCreaturePropertiesModel";
-import {PathfinderLanguageModel} from "../../../model/pathfinder/PathfinderLanguageModel";
-import {PathfinderTalentModel} from "../../../model/pathfinder/PathfinderTalentModel";
-import {PathfinderSkillModel} from "../../../model/pathfinder/PathfinderSkillModel";
-import {PathfinderActionModel} from "../../../model/pathfinder/PathfinderActionModel";
 import {CreatureStatsModel} from "../../../model/dataModel/CreatureStatsModel";
 import {attackProperty, pathFinderSaveThrows, stats} from "../../../types/backendTypes";
 import {PathfinderSavingThrowsModel} from "../../../model/dataModel/pathfinder/PathfinderSavingThrowsModel";
 import {NamedCreatureProperty} from "../../../model/dataModel/NamedCreatureProperty";
-import {getEnumKeyForValue} from "../../../helper/HelperFunctions";
+import {
+    getEnumKeyForValue,
+    mapNamedPropertiesStringToNamedPropertiesModel,
+    mapStatsStringToStatsDataModel
+} from "../../../helper/HelperFunctions";
 import {TypeEnum} from "../../../model/enumeration/TypeEnum";
 import {AlignmentEnum} from "../../../model/enumeration/AlignmentEnum";
 import {PathfinderCreatureSizeEnum} from "../../../model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
+import {EntityToModelMapperInterface} from "../../EntityToModelMapperInterface";
 import {Service} from "@tsed/di";
 
 @Service()
-export class PathfinderCreaturePropertyEntityToModelMapper {
+export class PathfinderCreaturePropertyEntityToModelMapper
+    implements EntityToModelMapperInterface<PathfinderCreatureProperties, PathfinderCreaturePropertiesModel> {
+
     private actionEntityToModelMapper: PathfinderActionEntityToModelMapper;
     private talentEntityToModelMapper: PathfinderTalentEntityToModelMapper;
     private skillEntityToModelMapper: PathfinderSkillEntityToModelMapper;
@@ -41,11 +44,6 @@ export class PathfinderCreaturePropertyEntityToModelMapper {
         if (!pathfinderCreaturePropertyEntity) {
             return null
         }
-        const languageModels = this.mapLanguages(pathfinderCreaturePropertyEntity);
-        const talentModels = this.mapTalents(pathfinderCreaturePropertyEntity);
-        const skillModels = this.mapSkills(pathfinderCreaturePropertyEntity);
-        const actionModels = this.mapActions(pathfinderCreaturePropertyEntity);
-
         return new PathfinderCreaturePropertiesModel(
             pathfinderCreaturePropertyEntity.uuid,
             getEnumKeyForValue(pathfinderCreaturePropertyEntity.type, TypeEnum),
@@ -58,68 +56,26 @@ export class PathfinderCreaturePropertyEntityToModelMapper {
             pathfinderCreaturePropertyEntity.ini,
             pathfinderCreaturePropertyEntity.baseAtk,
             getEnumKeyForValue(pathfinderCreaturePropertyEntity.size, PathfinderCreatureSizeEnum),
-            this.mapStatsStringToStatsDataModel(pathfinderCreaturePropertyEntity.stats),
+            mapStatsStringToStatsDataModel(pathfinderCreaturePropertyEntity.stats),
             this.mapSaveThrowsStringToSaveThrowsDataModel(pathfinderCreaturePropertyEntity.saveThrows),
             pathfinderCreaturePropertyEntity.xp,
             pathfinderCreaturePropertyEntity.image,
-            actionModels,
-            languageModels,
-            skillModels,
-            talentModels,
-            this.mapAttackPropertiesStringToAttackPropertiesDataModel(pathfinderCreaturePropertyEntity.attackProperties)
+            this.actionEntityToModelMapper.mapMultiple(pathfinderCreaturePropertyEntity.actions),
+            this.languageEntityToModelMapper.mapMultiple(pathfinderCreaturePropertyEntity.languages),
+            this.skillEntityToModelMapper.mapMultiple(pathfinderCreaturePropertyEntity.skills),
+            this.talentEntityToModelMapper.mapMultiple(pathfinderCreaturePropertyEntity.talents),
+            mapNamedPropertiesStringToNamedPropertiesModel(pathfinderCreaturePropertyEntity.attackProperties)
         )
     }
 
-    private mapLanguages = (entity: PathfinderCreatureProperties): Array<PathfinderLanguageModel> | null => {
-         if (entity.languages) {
-            return entity.languages.map(languageEntity => {
-                return this.languageEntityToModelMapper.map(languageEntity);
-            });
-        }
-        return null;
-    }
 
-    private mapTalents = (entity: PathfinderCreatureProperties): Array<PathfinderTalentModel> | null => {
-         if (entity.talents) {
-            return entity.talents.map(talentEntity => {
-                return this.talentEntityToModelMapper.map(talentEntity);
-            });
+    mapMultiple(entities?: PathfinderCreatureProperties[]): PathfinderCreaturePropertiesModel[] | null {
+        if (!entities) {
+            return null;
         }
-        return null;
-    }
-
-    private mapSkills = (entity: PathfinderCreatureProperties): Array<PathfinderSkillModel> | null => {
-         if (entity.skills) {
-            return entity.skills.map(skillEntity => {
-              return this.skillEntityToModelMapper.map(skillEntity);
-            });
-        }
-        return null;
-    }
-
-    private mapActions = (entity: PathfinderCreatureProperties): Array<PathfinderActionModel> | null => {
-         if (entity.actions) {
-            return entity.actions.map(actionEntity => {
-                return this.actionEntityToModelMapper.map(actionEntity);
-            })
-        }
-        return null
-    }
-
-    private mapStatsStringToStatsDataModel = (statsString: string): CreatureStatsModel => {
-        try {
-            const statsData: stats = JSON.parse(statsString);
-            return new CreatureStatsModel(
-                statsData.str,
-                statsData.dex,
-                statsData.con,
-                statsData.int,
-                statsData.wis,
-                statsData.cha
-            )
-        } catch (e) {
-
-        }
+        return entities.map(entity => {
+            return this.map(entity);
+        });
     }
 
     private mapSaveThrowsStringToSaveThrowsDataModel = (saveThrowsString: string): PathfinderSavingThrowsModel | null => {
@@ -130,16 +86,4 @@ export class PathfinderCreaturePropertyEntityToModelMapper {
 
         }
     }
-
-    private mapAttackPropertiesStringToAttackPropertiesDataModel =
-        (attackPropertiesString: string): NamedCreatureProperty[] | null => {
-            try {
-                const attackPropertiesData: attackProperty[] = JSON.parse(attackPropertiesString)
-                return attackPropertiesData.map(data => {
-                    return new NamedCreatureProperty(data.name, data.property)
-                });
-            } catch (e) {
-
-            }
-        }
 }

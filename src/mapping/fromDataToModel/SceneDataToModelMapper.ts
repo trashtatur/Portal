@@ -3,7 +3,7 @@ import {SceneModel} from "../../model/SceneModel";
 import {sceneData} from "../../types/backendTypes";
 import {PersonModel} from "../../model/PersonModel";
 
-export class SceneDataToModelMapper implements DataToModelMapperInterface {
+export class SceneDataToModelMapper implements DataToModelMapperInterface<SceneModel> {
     map(data: sceneData): SceneModel {
         return new SceneModel(
             data._id,

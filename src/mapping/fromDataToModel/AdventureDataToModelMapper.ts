@@ -1,7 +1,7 @@
 import {DataToModelMapperInterface} from "../DataToModelMapperInterface";
 import {AdventureModel} from "../../model/AdventureModel";
 
-export class AdventureDataToModelMapper implements DataToModelMapperInterface{
+export class AdventureDataToModelMapper implements DataToModelMapperInterface<AdventureModel>{
 
     map(data): AdventureModel {
         return new AdventureModel(

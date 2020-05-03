@@ -5,8 +5,8 @@ import {getEnumKeyForValue} from "../../../helper/HelperFunctions";
 import {MagicSchoolEnum} from "../../../model/enumeration/dnd5/MagicSchoolEnum";
 import {SpellComponentEnum} from "../../../model/dataModel/SpellComponentEnum";
 
-export class DND5SpellEntityToModelMapper implements EntityToModelMapperInterface{
-    map(entity: DND5Spell): DND5SpellModel {
+export class DND5SpellEntityToModelMapper implements EntityToModelMapperInterface<DND5Spell, DND5SpellModel>{
+    map = (entity: DND5Spell): DND5SpellModel => {
         return new DND5SpellModel(
             entity.uuid,
             entity.name,
@@ -21,6 +21,15 @@ export class DND5SpellEntityToModelMapper implements EntityToModelMapperInterfac
             entity.materials.split(','),
             entity.higherLevelsDescription
         );
+    }
+
+    mapMultiple = (entities?: DND5Spell[]): DND5SpellModel[] | null => {
+        if (!entities) {
+            return null
+        }
+        return entities.map(entity => {
+            return this.map(entity);
+        })
     }
 
     private mapComponents = (spellComponentsString: string): SpellComponentEnum[] => {
