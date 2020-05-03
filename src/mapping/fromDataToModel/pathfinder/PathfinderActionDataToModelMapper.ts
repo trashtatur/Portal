@@ -6,7 +6,7 @@ import {RangeTypeEnum} from "../../../model/enumeration/RangeTypeEnum";
 import {PathfinderDamageTypesEnum} from "../../../model/enumeration/pathfinder/PathfinderDamageTypesEnum";
 import {MappingException} from "../../exception/MappingException";
 
-export class PathfinderActionDataToModelMapper implements DataToModelMapperInterface {
+export class PathfinderActionDataToModelMapper implements DataToModelMapperInterface<PathfinderActionModel> {
 
     map(data): PathfinderActionModel {
         return new PathfinderActionModel(

@@ -17,7 +17,6 @@ import {DND5SpellModel} from "./DND5SpellModel";
 
 export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
     private readonly _id: string;
-    private readonly _name: string;
     private readonly _type: TypeEnum;
     private readonly _armorclass: number;
     private readonly _armorType: string;
@@ -50,7 +49,6 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
 
     constructor(
         id: string,
-        name: string,
         type: TypeEnum,
         armorclass: number,
         armorType: string,
@@ -82,7 +80,6 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
     ) {
         super();
         this._spells = spells;
-        this._name = name;
         this._type = type;
         this._armorclass = armorclass;
         this._armorType = armorType;
@@ -114,10 +111,6 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
 
     get id(): string {
         return this._id;
-    }
-
-    get name(): string {
-        return this._name;
     }
 
     get type(): TypeEnum {

@@ -1,7 +1,7 @@
-import {Model} from "sequelize-typescript";
-import {ModelInterface} from "../model/ModelInterface";
 
-export interface EntityToModelMapperInterface {
+export interface EntityToModelMapperInterface<T,K> {
 
-    map(entity: Model): ModelInterface;
+    map(entity: T): K;
+
+    mapMultiple(entities?: T[]): K[] | null;
 }

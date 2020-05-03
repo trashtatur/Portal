@@ -5,7 +5,7 @@ import {Service} from "@tsed/di";
 import {PersonEntityToModelMapper} from "./PersonEntityToModelMapper";
 
 @Service()
-export class SceneEntityToModelMapper implements EntityToModelMapperInterface{
+export class SceneEntityToModelMapper implements EntityToModelMapperInterface<Scene, SceneModel>{
     private personEntityToModelMapper: PersonEntityToModelMapper;
 
     constructor(personEntityToModelMapper: PersonEntityToModelMapper) {
@@ -13,13 +13,6 @@ export class SceneEntityToModelMapper implements EntityToModelMapperInterface{
     }
 
     map(entity: Scene): SceneModel {
-
-        let personModels = [];
-        if (entity.persons !== undefined) {
-            personModels = entity.persons.map(person => {
-                return this.personEntityToModelMapper.map(person);
-            })
-        }
         return new SceneModel(
             entity.uuid,
             entity.adventureId,
@@ -33,7 +26,16 @@ export class SceneEntityToModelMapper implements EntityToModelMapperInterface{
             entity.additionalDescription,
             entity.images.split(','),
             entity.treasure,
-            personModels
+            this.personEntityToModelMapper.mapMultiple(entity.persons)
         )
+    }
+
+    mapMultiple(entities?: Scene[]): SceneModel[] | null {
+        if (!entities) {
+            return null;
+        }
+        return entities.map(entity => {
+            return this.map(entity);
+        });
     }
 }

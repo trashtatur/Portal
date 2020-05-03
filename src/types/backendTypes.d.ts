@@ -72,7 +72,14 @@ type pathFinderSaveThrows = {
     fort: number;
 }
 
-type DND5eSaveThrows = {}
+export type dnd5SavingThrows = {
+    str?: number;
+    dex?: number;
+    int?: number;
+    wis?: number;
+    con?: number;
+    cha?: number;
+}
 
 export type action = {
     name: string;
@@ -82,4 +89,9 @@ export type action = {
     critmod: number;
     damageType: string;
     additionalInfo: string;
+}
+
+export type dnd5Sense = {
+    name: string;
+    value: string;
 }

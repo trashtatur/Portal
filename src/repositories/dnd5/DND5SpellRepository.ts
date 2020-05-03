@@ -1,31 +1,30 @@
 import {Service} from "@tsed/di";
 import {DND5SpellModel} from "../../model/dnd5/DND5SpellModel";
-import {DND5SkillModel} from "../../model/dnd5/DND5SkillModel";
 
 @Service()
 export class DND5SpellRepository {
 
-    create = async(dnd5SkillModel: DND5SkillModel): Promise<DND5SpellModel> => {
-
+    create = async(dnd5SkillModel: DND5SpellModel): Promise<DND5SpellModel> => {
+        return null;
     }
 
-    bulkCreate = async(dnd5SkillModels: DND5SkillModel[]): Promise<DND5SpellModel[]> => {
-
+    bulkCreate = async(dnd5SkillModels: DND5SpellModel[]): Promise<DND5SpellModel[]> => {
+        return null;
     }
 
     delete = async(id: string): Promise<boolean> => {
-
+        return null;
     }
 
-    update = async(dnd5SkillModel: DND5SkillModel): Promise<DND5SpellModel> => {
-
+    update = async(dnd5SkillModel: DND5SpellModel): Promise<DND5SpellModel> => {
+        return null;
     }
 
     findOneBy = async(key, value): Promise<DND5SpellModel> => {
-
+        return null;
     }
 
     findAll = async(): Promise<DND5SpellModel[]> => {
-
+        return null;
     }
 }

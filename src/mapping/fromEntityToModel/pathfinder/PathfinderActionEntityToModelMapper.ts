@@ -6,7 +6,7 @@ import {PathfinderDamageType} from "../../../model/dataModel/pathfinder/Pathfind
 import {PathfinderDamageTypesEnum} from "../../../model/enumeration/pathfinder/PathfinderDamageTypesEnum";
 import {getEnumKeyForValue, mapDamageStringToDamageDataModel} from "../../../helper/HelperFunctions";
 
-export class PathfinderActionEntityToModelMapper implements EntityToModelMapperInterface {
+export class PathfinderActionEntityToModelMapper implements EntityToModelMapperInterface<PathfinderAction, PathfinderActionModel> {
     map(entity: PathfinderAction): PathfinderActionModel {
         return new PathfinderActionModel(
             entity.uuid,
@@ -21,6 +21,14 @@ export class PathfinderActionEntityToModelMapper implements EntityToModelMapperI
         )
     }
 
+    mapMultiple = (entities?: PathfinderAction[]): PathfinderActionModel[] | null => {
+        if (!entities) {
+            return null;
+        }
+        return entities.map(entity => {
+            return this.map(entity);
+        });
+    }
     private mapDamageTypeStringToDamageTypeDataModel = (damageTypeString: string): PathfinderDamageType => {
         const isHybrid = damageTypeString.includes('(hybrid)')
         const isMagic = damageTypeString.includes('(magic)')

@@ -1,7 +1,7 @@
 import {DataToModelMapperInterface} from "../DataToModelMapperInterface";
 import {PersonModel} from "../../model/PersonModel";
 
-export class PersonDataToModelMapper implements DataToModelMapperInterface{
+export class PersonDataToModelMapper implements DataToModelMapperInterface<PersonModel>{
 
     map(data): PersonModel {
         return new PersonModel(
