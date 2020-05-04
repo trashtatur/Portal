@@ -35,7 +35,7 @@ const SELECTABLE_IMPORTS: selectable[] = [
     }
 ];
 
-export class CSVImporter extends React.Component<{}, CSVImporterState> {
+export class PathfinderCSVImporter extends React.Component<{}, CSVImporterState> {
 
     constructor(props) {
         super(props);

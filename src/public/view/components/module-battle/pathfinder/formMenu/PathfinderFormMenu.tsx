@@ -16,7 +16,7 @@ export interface FormState {
 }
 
 
-export class FormMenu extends React.Component<FormProps, FormState> {
+export class PathfinderFormMenu extends React.Component<FormProps, FormState> {
 
     constructor(props) {
         super(props);
