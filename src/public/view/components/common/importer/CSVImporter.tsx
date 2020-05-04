@@ -6,12 +6,6 @@ import Dropzone from 'react-dropzone-uploader';
 import {BaseEntitiesEnum} from "../../../../model/enumeration/BaseEntitiesEnum";
 import axios from 'axios';
 import * as style from "./csvImporter.css";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const Popup = require("reactjs-popup");
-
-export interface CSVImporterProps {
-    modalTrigger: ReactNode;
-}
 
 export interface CSVImporterState {
     selectedType: BaseEntitiesEnum;
@@ -41,7 +35,7 @@ const SELECTABLE_IMPORTS: selectable[] = [
     }
 ];
 
-export class CSVImporter extends React.Component<CSVImporterProps, CSVImporterState> {
+export class CSVImporter extends React.Component<{}, CSVImporterState> {
 
     constructor(props) {
         super(props);
@@ -51,7 +45,7 @@ export class CSVImporter extends React.Component<CSVImporterProps, CSVImporterSt
         }
     }
 
-    handleUpload = async(): Promise<void> => {
+    handleUpload = async (): Promise<void> => {
         const route = `/V1/${this.state.selectedType}/csv`;
         const reader = new FileReader();
         let result;
@@ -80,43 +74,35 @@ export class CSVImporter extends React.Component<CSVImporterProps, CSVImporterSt
 
     render(): ReactNode {
         return (
-            <Popup modal trigger={this.props.modalTrigger}
-                   position={"top center"}
-                   closeOnDocumentClick={false}
-            >
-                {close => (
-                    <div className={style.importerContainer}>
-                        <div className={style.modalTopBar}>
-                            <button className={style.modalCloseButton} onClick={() => close()}>X</button>
-                            Import
-                        </div>
-                        <Select
-                            options={SELECTABLE_IMPORTS}
-                            onChange={this.handleImportSelectChange}
-                            className={style.importTypeSelect}
-                            value={{label: this.state.selectedType, value: this.state.selectedType}}
-                        />
-                        <Dropzone
-                            onChangeStatus={this.handleImportChange}
-                            maxFiles={1}
-                            multiple={false}
-                            canCancel={false}
-                            accept="text/csv"
-                            inputContent="Drop a File"
-                            styles={{
-                                dropzone: {
-                                    width: "15em",
-                                    height: "5em",
-                                    color: "lightgrey",
-                                    overflow: "hidden",
-                                },
-                                dropzoneActive: {borderColor: 'lightgrey'}
-                            }}
-                        />
-                        <button onClick={this.handleUpload}> Submit </button>
-                    </div>
-                )}
-            </Popup>
+            <div className={style.importerContainer}>
+                <div className={style.modalTopBar}>
+                    Import
+                </div>
+                <Select
+                    options={SELECTABLE_IMPORTS}
+                    onChange={this.handleImportSelectChange}
+                    className={style.importTypeSelect}
+                    value={{label: this.state.selectedType, value: this.state.selectedType}}
+                />
+                <Dropzone
+                    onChangeStatus={this.handleImportChange}
+                    maxFiles={1}
+                    multiple={false}
+                    canCancel={false}
+                    accept="text/csv"
+                    inputContent="Drop a File"
+                    styles={{
+                        dropzone: {
+                            width: "15em",
+                            height: "5em",
+                            color: "lightgrey",
+                            overflow: "hidden",
+                        },
+                        dropzoneActive: {borderColor: 'lightgrey'}
+                    }}
+                />
+                <button onClick={this.handleUpload}> Submit</button>
+            </div>
         )
     }
 }

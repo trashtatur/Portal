@@ -4,13 +4,10 @@ import {OneEntryForm} from "../../../uiBasic/formOneEntry/OneEntryForm";
 import {PathfinderActionForm} from "../formAction/PathfinderActionForm";
 import {CreatureEditWrapper} from "../formCreature/edit wrapper/CreatureEditWrapper";
 import {ReactElement} from "react";
-import * as style from './formBattleModal.css'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const Popup = require("reactjs-popup");
+import * as style from './formMenu.css'
 
 
 export interface FormProps {
-    modalTrigger;
     type: "edit" | "create";
 }
 
@@ -19,7 +16,7 @@ export interface FormState {
 }
 
 
-export class FormBattleModal extends React.Component<FormProps, FormState> {
+export class FormMenu extends React.Component<FormProps, FormState> {
 
     constructor(props) {
         super(props);
@@ -57,14 +54,8 @@ export class FormBattleModal extends React.Component<FormProps, FormState> {
 
     render(): ReactElement {
         return (
-            <Popup modal trigger={this.props.modalTrigger}
-                   position={"top center"}
-                   closeOnDocumentClick={false}
-            >
-                {close => (
                     <div className={style.formContainer}>
                         <div className={style.formTopBar}>
-                            <button className={style.modalCloseButton} onClick={() => close()}>X</button>
                             {this.props.type}:<br/>
                             <button className={style.formTypeButton}
                                     onClick={() => this.setFormType("creature")}>Creature
@@ -81,8 +72,6 @@ export class FormBattleModal extends React.Component<FormProps, FormState> {
                         </div>
                         {this.renderForm()}
                     </div>
-                )}
-            </Popup>
         );
     }
 }
