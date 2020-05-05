@@ -7,11 +7,7 @@ interface SystemChoiceBarProps {
     setSystem: Function;
 }
 
-interface SystemChoiceBarState {
-
-}
-
-export class SystemChoiceBar extends React.Component<SystemChoiceBarProps, SystemChoiceBarState> {
+export class SystemChoiceBar extends React.Component<SystemChoiceBarProps, {}> {
 
     render(): ReactNode {
         return (

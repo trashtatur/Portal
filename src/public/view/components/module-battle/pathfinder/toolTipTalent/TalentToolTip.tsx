@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {CSSProperties, ReactNode} from 'react';
-import {TalentTypesEnum} from "../../../../../model/enumeration/TalentTypesEnum";
+import {PathfinderTalentTypesEnum} from "../../../../../model/enumeration/pathfinder/PathfinderTalentTypesEnum";
 import {TalentViewModel} from "../../../../../model/pathfinder/TalentViewModel";
 import * as style from './talentTooltip.css';
 
@@ -15,33 +15,33 @@ export class TalentToolTip extends React.Component<TalentToolTipProps> {
         let talentName = this.props.talent.name.trim();
         talentName = talentName.replace(/ /g, '-').toLowerCase();
         switch (this.props.talent.type) {
-            case TalentTypesEnum.GENERAL:
+            case PathfinderTalentTypesEnum.GENERAL:
                 url +='general-feats/';
                 break;
-            case TalentTypesEnum.COMBAT:
+            case PathfinderTalentTypesEnum.COMBAT:
                 url +='combat-feats/';
                 talentName+='-combat';
                 break;
-            case TalentTypesEnum.MONSTER:
+            case PathfinderTalentTypesEnum.MONSTER:
                 url+='monster-feats/';
                 break;
-            case TalentTypesEnum.ACHIEVEMENT:
+            case PathfinderTalentTypesEnum.ACHIEVEMENT:
                 url+='achievement-feats/';
                 talentName+='-achievement';
                 break;
-            case TalentTypesEnum.ITEMCREATION:
+            case PathfinderTalentTypesEnum.ITEMCREATION:
                 url+='item-creation-feats/';
                 talentName+='-item-creation';
                 break;
-            case TalentTypesEnum.METAMAGIC:
+            case PathfinderTalentTypesEnum.METAMAGIC:
                 url+='metamagic-feats/';
                 talentName+='-metamagic';
                 break;
-            case TalentTypesEnum.STORY:
+            case PathfinderTalentTypesEnum.STORY:
                 url+='story-feats/';
                 talentName+='-story';
                 break;
-            case TalentTypesEnum.MYTHIC:
+            case PathfinderTalentTypesEnum.MYTHIC:
                 url='https://www.d20pfsrd.com/alternative-rule-systems/mythic/mythic-feats/';
                 talentName+='-mythic';
                 break;
@@ -55,28 +55,28 @@ export class TalentToolTip extends React.Component<TalentToolTipProps> {
     determineTalentTypeBackground = (): CSSProperties => {
       const styleProperties: CSSProperties = {};
       switch (this.props.talent.type) {
-          case TalentTypesEnum.GENERAL:
+          case PathfinderTalentTypesEnum.GENERAL:
               styleProperties.backgroundImage = 'url(images/talentTypeIcons/general-icon.png)';
               break;
-          case TalentTypesEnum.COMBAT:
+          case PathfinderTalentTypesEnum.COMBAT:
               styleProperties.backgroundImage = 'url(images/talentTypeIcons/combat-icon.png)';
               break;
-          case TalentTypesEnum.MONSTER:
+          case PathfinderTalentTypesEnum.MONSTER:
               styleProperties.backgroundImage = 'url(images/talentTypeIcons/monster-icon.png)';
               break;
-          case TalentTypesEnum.ACHIEVEMENT:
+          case PathfinderTalentTypesEnum.ACHIEVEMENT:
               styleProperties.backgroundImage = 'url(images/talentTypeIcons/achievement-icon.png)';
               break;
-          case TalentTypesEnum.ITEMCREATION:
+          case PathfinderTalentTypesEnum.ITEMCREATION:
               styleProperties.backgroundImage = 'url(images/talentTypeIcons/itemCreation-icon.png)';
               break;
-          case TalentTypesEnum.METAMAGIC:
+          case PathfinderTalentTypesEnum.METAMAGIC:
               styleProperties.backgroundImage = 'url(images/talentTypeIcons/metamagic-icon.png)';
               break;
-          case TalentTypesEnum.STORY:
+          case PathfinderTalentTypesEnum.STORY:
               styleProperties.backgroundImage = 'url(images/talentTypeIcons/story-icon.png)';
               break;
-          case TalentTypesEnum.MYTHIC:
+          case PathfinderTalentTypesEnum.MYTHIC:
               styleProperties.backgroundImage = 'url(images/talentTypeIcons/mythic-icon.png)';
               break;
           default:

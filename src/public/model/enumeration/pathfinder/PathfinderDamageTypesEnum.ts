@@ -1,4 +1,4 @@
-export enum DamageTypesEnum {
+export enum PathfinderDamageTypesEnum {
     PHYSICAL_BLUDGEONING = 'physical / bludgeoning',
     PHYSICAL_PIERCING = 'physical / piercing',
     PHYSICAL_SLASHING = 'physical / slashing',

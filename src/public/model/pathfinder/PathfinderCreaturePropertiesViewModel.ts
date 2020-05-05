@@ -1,13 +1,13 @@
-import {TypeEnum} from "../enumeration/CreatureTypesEnum";
+import {TypeEnum} from "../enumeration/TypesEnum";
 import {AlignmentEnum} from "../enumeration/AlignmentEnum";
-import {CreatureSizeEnum} from "../enumeration/CreatureSizeEnum";
+import {PathfinderCreatureSizeEnum} from "../enumeration/pathfinder/PathfinderCreatureSizeEnum";
 import {PathfinderStatsViewModel} from "../dataModel/pathfinder/PathfinderStatsViewModel";
 import {PathfinderSavingThrowsViewModel} from "../dataModel/pathfinder/PathfinderSavingThrowsViewModel";
 import {ActionViewModel} from "./ActionViewModel";
 import {LanguageViewModel} from "./LanguageViewModel";
 import {SkillViewModel} from "./SkillViewModel";
 import {TalentViewModel} from "./TalentViewModel";
-import {AttackPropertyViewModel} from "../dataModel/AttackPropertyViewModel";
+import {NamedPropertyViewModel} from "../dataModel/NamedPropertyViewModel";
 import {AbstractPropertyViewModel} from "../AbstractPropertyViewModel";
 
 export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewModel{
@@ -22,7 +22,7 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
     private _movement: number;
     private _ini: number;
     private _baseAtk: number;
-    private _size: CreatureSizeEnum;
+    private _size: PathfinderCreatureSizeEnum;
     private _stats: PathfinderStatsViewModel;
     private _saveThrows: PathfinderSavingThrowsViewModel;
     private _xp?: number;
@@ -31,7 +31,7 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
     private _languages?: LanguageViewModel[];
     private _skills?: SkillViewModel[];
     private _talents?: TalentViewModel[];
-    private _attackProperties?: AttackPropertyViewModel[];
+    private _attackProperties?: NamedPropertyViewModel[];
     private _currentHitpoints: number;
     private _currentInitiative: number;
     private _currentArmorclass: number;
@@ -48,7 +48,7 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         movement: number,
         ini: number,
         baseAtk: number,
-        size: CreatureSizeEnum,
+        size: PathfinderCreatureSizeEnum,
         stats: PathfinderStatsViewModel,
         saveThrows: PathfinderSavingThrowsViewModel,
         xp?: number,
@@ -57,7 +57,7 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         languages?: LanguageViewModel[],
         skills?: SkillViewModel[],
         talents?: TalentViewModel[],
-        attackProperties?: AttackPropertyViewModel[],
+        attackProperties?: NamedPropertyViewModel[],
     ) {
         super();
         this._id = id;
@@ -166,11 +166,11 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         this._baseAtk = value;
     }
 
-    get size(): CreatureSizeEnum {
+    get size(): PathfinderCreatureSizeEnum {
         return this._size;
     }
 
-    set size(value: CreatureSizeEnum) {
+    set size(value: PathfinderCreatureSizeEnum) {
         this._size = value;
     }
 
@@ -238,11 +238,11 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         this._talents = value;
     }
 
-    get attackProperties(): AttackPropertyViewModel[] {
+    get attackProperties(): NamedPropertyViewModel[] {
         return this._attackProperties;
     }
 
-    set attackProperties(value: AttackPropertyViewModel[]) {
+    set attackProperties(value: NamedPropertyViewModel[]) {
         this._attackProperties = value;
     }
 

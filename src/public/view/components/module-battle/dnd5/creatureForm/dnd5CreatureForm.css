@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+}
+
+.creatureFormContainer {
+    flex: 1;
+}
+
+.creatureCardContainer {
+    flex: 3;
+}
+
+.formSection {
+
+}

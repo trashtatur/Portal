@@ -17,7 +17,7 @@ import {LanguageViewModel} from "../../../../../model/pathfinder/LanguageViewMod
 import {TalentViewModel} from "../../../../../model/pathfinder/TalentViewModel";
 import {SkillViewModel} from "../../../../../model/pathfinder/SkillViewModel";
 import {ActionViewModel} from "../../../../../model/pathfinder/ActionViewModel";
-import {AttackPropertyViewModel} from "../../../../../model/dataModel/AttackPropertyViewModel";
+import {NamedPropertyViewModel} from "../../../../../model/dataModel/NamedPropertyViewModel";
 import {PathfinderCreaturePropertiesViewModel} from "../../../../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import {PathfinderTalentDataToViewModelMapper} from "../../../../../mapping/pathfinder/PathfinderTalentDataToViewModelMapper";
 import {PathfinderLanguageDataToViewModelMapper} from "../../../../../mapping/pathfinder/PathfinderLanguageDataToViewModelMapper";
@@ -58,7 +58,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
 
     addOneMoreAttackProperty = (): void => {
         const creature = this.state.creature;
-        creature.properties.attackProperties.push(new AttackPropertyViewModel('',''))
+        creature.properties.attackProperties.push(new NamedPropertyViewModel('',''))
         this.setState({creature: creature})
     };
 
