@@ -14,6 +14,7 @@ import {SenseModel} from "../dataModel/dnd5/SenseModel";
 import {DND5SavingThrowsModel} from "../dataModel/dnd5/DND5SavingThrowsModel";
 import {ClassAndLevelModel} from "../dataModel/ClassAndLevelModel";
 import {DND5SpellModel} from "./DND5SpellModel";
+import {DND5SpellSlotsModel} from "../dataModel/dnd5/DND5SpellSlotsModel";
 
 export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
     private readonly _id: string;
@@ -30,6 +31,7 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
     private readonly _stats: CreatureStatsModel;
     private readonly _size: CreatureSizeEnum;
     private readonly _speed: string;
+    private readonly _spellSlots: DND5SpellSlotsModel;
     private readonly _classesAndLevels?: Array<ClassAndLevelModel>;
     private readonly _damageVulnerabilities?: Array<string>;
     private readonly _damageResistances?: Array<string>;
@@ -62,6 +64,7 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
         stats: CreatureStatsModel,
         size: CreatureSizeEnum,
         speed: string,
+        spellSlots: DND5SpellSlotsModel,
         classesAndLevels?: Array<ClassAndLevelModel>,
         damageVulnerabilities?: Array<string>,
         damageResistances?: Array<string>,
@@ -93,6 +96,7 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
         this._stats = stats;
         this._size = size;
         this._speed = speed;
+        this._spellSlots = spellSlots;
         this._classesAndLevels = classesAndLevels;
         this._damageVulnerabilities = damageVulnerabilities;
         this._damageResistances = damageResistances;
@@ -163,6 +167,10 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
 
     get speed(): string {
         return this._speed;
+    }
+
+    get spellSlots(): DND5SpellSlotsModel {
+        return this._spellSlots;
     }
 
     get classesAndLevels(): Array<ClassAndLevelModel> {
