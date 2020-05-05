@@ -89,6 +89,10 @@ export class DND5CreatureProperties extends Model<DND5CreatureProperties>{
     @Column
     speed: string;
 
+    @AllowNull(false)
+    @Default('{0:infinity,1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0}')
+    spellSlots: string
+
     @AllowNull(true)
     @Column({type: DataType.TEXT({length: 'medium'})})
     classesAndLevels
