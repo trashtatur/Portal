@@ -11,6 +11,12 @@
     background-color: black;
 }
 
+.systemMenuContainer {
+    width: 263px;
+    display: flex;
+    justify-content: flex-end;
+}
+
 .appTitle {
     margin-top:0.1em;
     width: 4.5em;

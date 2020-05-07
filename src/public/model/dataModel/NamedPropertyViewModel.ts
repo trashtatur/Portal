@@ -1,4 +1,4 @@
-export class AttackPropertyViewModel {
+export class NamedPropertyViewModel {
     private _name: string;
     private _property: string;
 

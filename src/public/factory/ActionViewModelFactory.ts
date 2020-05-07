@@ -1,6 +1,6 @@
 import {ActionViewModel} from "../model/pathfinder/ActionViewModel";
 import {RangeTypeEnum} from "../model/enumeration/RangeTypeEnum";
-import {DamageViewModel} from "../model/dataModel/DamageViewModel";
+import {DiceRollSpecification} from "../model/dataModel/DiceRollSpecification";
 import {PathfinderDamageType} from "../model/dataModel/pathfinder/PathfinderDamageType";
 
 export class ActionViewModelFactory {
@@ -11,7 +11,7 @@ export class ActionViewModelFactory {
             RangeTypeEnum.NONE,
             null,
             null,
-            new DamageViewModel(null, null, null),
+            new DiceRollSpecification(null, null, null),
             null,
             new PathfinderDamageType([], false, false),
             ''

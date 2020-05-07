@@ -48,7 +48,7 @@ export class App extends React.Component<{}, AppState> {
                         <LandingPage/>
                     </Route>
                     <Route exact path={RoutesEnum.BATTLE}>
-                        <TopBar/>
+                        <TopBar system={this.state.system}/>
                         <SystemChoiceBar setSystem={this.setSystem}/>
                         {
                             this.state.system === SystemsEnum.PATHFINDER &&
@@ -60,12 +60,12 @@ export class App extends React.Component<{}, AppState> {
                         }
                     </Route>
                     <Route exact path={RoutesEnum.TOME}>
-                        <TopBar/>
+                        <TopBar system={this.state.system}/>
                         <SystemChoiceBar setSystem={this.setSystem}/>
                         <AdventureOverview/>
                     </Route>
                     <Route path={RoutesEnum.ADVENTURE}>
-                        <TopBar/>
+                        <TopBar system={this.state.system}/>
                         <SystemChoiceBar setSystem={this.setSystem}/>
                         <Route path={RoutesEnum.SINGLE_ADVENTURE} component={SingleAdventure}/>
                     </Route>

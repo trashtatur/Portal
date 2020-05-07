@@ -1,4 +1,4 @@
-export enum TalentTypesEnum {
+export enum PathfinderTalentTypesEnum {
     GENERAL = 'General',
     MONSTER = 'Monster',
     STORY = 'Story',

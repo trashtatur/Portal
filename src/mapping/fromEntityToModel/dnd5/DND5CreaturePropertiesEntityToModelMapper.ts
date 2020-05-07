@@ -10,7 +10,7 @@ import {
 import {TypeEnum} from "../../../model/enumeration/TypeEnum";
 import {AlignmentEnum} from "../../../model/enumeration/AlignmentEnum";
 import {CreatureTypeEnum} from "../../../model/enumeration/dnd5/CreatureTypeEnum";
-import {CreatureSizeEnum} from "../../../model/enumeration/CreatureSizeEnum";
+import {DND5CreatureSizeEnum} from "../../../model/enumeration/dnd5/DND5CreatureSizeEnum";
 import {DND5ActionEntityToModelMapper} from "./DND5ActionEntityToModelMapper";
 import {DND5LanguageEntityToModelMapper} from "./DND5LanguageEntityToModelMapper";
 import {DND5TalentEntityToModelMapper} from "./DND5TalentEntityToModelMapper";
@@ -52,6 +52,7 @@ export class DND5CreaturePropertiesEntityToModelMapper implements EntityToModelM
         return new DND5CreaturePropertiesModel(
             entity.uuid,
             getEnumKeyForValue(entity.type, TypeEnum),
+            entity.proficiencyBonus,
             entity.armorclass,
             entity.armorType,
             entity.hitpoints,
@@ -62,7 +63,7 @@ export class DND5CreaturePropertiesEntityToModelMapper implements EntityToModelM
             entity.challenge,
             entity.xp,
             mapStatsStringToStatsDataModel(entity.stats),
-            getEnumKeyForValue(entity.size, CreatureSizeEnum),
+            getEnumKeyForValue(entity.size, DND5CreatureSizeEnum),
             entity.speed,
             this.mapSpellSlotStringToSpellSlotsModel(entity.spellSlots),
             entity.classesAndLevels,

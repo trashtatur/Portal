@@ -1,14 +1,14 @@
 import * as React from "react";
 import {CreatureCard} from "../creaturecard/CreatureCard";
 import {ReactElement} from "react";
-import {CreatureSizeEnum} from "../../../../../model/enumeration/CreatureSizeEnum";
+import {PathfinderCreatureSizeEnum} from "../../../../../model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
 import {ProgressBar} from "../../../uiBasic/progressBar/ProgressBar";
 import {PathfinderSavingThrowsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
 import {TalentViewModel} from "../../../../../model/pathfinder/TalentViewModel";
 import {ActionViewModel} from "../../../../../model/pathfinder/ActionViewModel";
-import {AttackPropertyViewModel} from "../../../../../model/dataModel/AttackPropertyViewModel";
+import {NamedPropertyViewModel} from "../../../../../model/dataModel/NamedPropertyViewModel";
 import {PathfinderStatsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderStatsViewModel";
-import {TypeEnum} from "../../../../../model/enumeration/CreatureTypesEnum";
+import {TypeEnum} from "../../../../../model/enumeration/TypesEnum";
 import {AlignmentEnum} from "../../../../../model/enumeration/AlignmentEnum";
 import {LanguageViewModel} from "../../../../../model/pathfinder/LanguageViewModel";
 import {SkillViewModel} from "../../../../../model/pathfinder/SkillViewModel";
@@ -24,7 +24,7 @@ export interface CreatureProps {
     label?: number;
     alignment: AlignmentEnum;
     creatureClass: string;
-    attackProperties?: AttackPropertyViewModel[];
+    attackProperties?: NamedPropertyViewModel[];
     challenge: number;
     movement: number;
     image?;
@@ -34,7 +34,7 @@ export interface CreatureProps {
     currentHP: number;
     baseAtk: number;
     xp?: number;
-    size: CreatureSizeEnum;
+    size: PathfinderCreatureSizeEnum;
     stats: PathfinderStatsViewModel;
     sortByIni: Function;
     handleCurrentHPChange: Function;

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {ReactElement} from "react";
-import {TypeEnum} from "../../../../../model/enumeration/CreatureTypesEnum";
+import {TypeEnum} from "../../../../../model/enumeration/TypesEnum";
 import * as style from './roundCreature.css';
 
 const PLAYER_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(2,35,47,0.6727065826330532) 57%, rgba(0,232,255,1) 100%)";

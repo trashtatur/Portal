@@ -1,5 +1,5 @@
 import {PathfinderCreaturePropertiesViewModel} from "../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
-import {AttackPropertyViewModel} from "../../model/dataModel/AttackPropertyViewModel";
+import {NamedPropertyViewModel} from "../../model/dataModel/NamedPropertyViewModel";
 import {PathfinderSavingThrowsViewModel} from "../../model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
 import {PathfinderStatsViewModel} from "../../model/dataModel/pathfinder/PathfinderStatsViewModel";
 import {PathfinderActionDataToViewModelMapper} from "./PathfinderActionDataToViewModelMapper";
@@ -56,13 +56,13 @@ export class PathfinderCreaturePropertiesDataToViewModelMapper {
         )
     }
 
-    private mapAttackProperties = (data: attackPropertyData[]): AttackPropertyViewModel[] => {
+    private mapAttackProperties = (data: attackPropertyData[]): NamedPropertyViewModel[] => {
         if (!data) {
             return null;
         }
-        const viewModels: AttackPropertyViewModel[] = [];
+        const viewModels: NamedPropertyViewModel[] = [];
         data.forEach(attackProperty => {
-            viewModels.push(new AttackPropertyViewModel(attackProperty._name, attackProperty._property))
+            viewModels.push(new NamedPropertyViewModel(attackProperty._name, attackProperty._property))
         })
         return viewModels;
     }
