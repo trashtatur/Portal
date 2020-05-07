@@ -69,4 +69,8 @@ export class DND5CreatureStatsModel {
     set charisma(value: number) {
         this._charisma = value;
     }
+
+    getStatModifierForStatValue = (statValue: number): number => {
+        return Math.floor((statValue - 10) / 2);
+    }
 }

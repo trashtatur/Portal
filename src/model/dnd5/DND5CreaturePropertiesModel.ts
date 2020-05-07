@@ -6,7 +6,7 @@ import {DND5LanguageModel} from "./DND5LanguageModel";
 import {DiceRollSpecification} from "../dataModel/DiceRollSpecification";
 import {AlignmentEnum} from "../enumeration/AlignmentEnum";
 import {NamedCreatureProperty} from "../dataModel/NamedCreatureProperty";
-import {CreatureSizeEnum} from "../enumeration/CreatureSizeEnum";
+import {DND5CreatureSizeEnum} from "../enumeration/dnd5/DND5CreatureSizeEnum";
 import {TypeEnum} from "../enumeration/TypeEnum";
 import {CreatureTypeEnum} from "../enumeration/dnd5/CreatureTypeEnum";
 import {CreatureStatsModel} from "../dataModel/CreatureStatsModel";
@@ -30,7 +30,7 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
     private readonly _challenge: number;
     private readonly _xp: number;
     private readonly _stats: CreatureStatsModel;
-    private readonly _size: CreatureSizeEnum;
+    private readonly _size: DND5CreatureSizeEnum;
     private readonly _speed: string;
     private readonly _spellSlots: DND5SpellSlotsModel;
     private readonly _classesAndLevels?: Array<ClassAndLevelModel>;
@@ -64,7 +64,7 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
         challenge: number,
         xp: number,
         stats: CreatureStatsModel,
-        size: CreatureSizeEnum,
+        size: DND5CreatureSizeEnum,
         speed: string,
         spellSlots: DND5SpellSlotsModel,
         classesAndLevels?: Array<ClassAndLevelModel>,
@@ -168,7 +168,7 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
         return this._stats;
     }
 
-    get size(): CreatureSizeEnum {
+    get size(): DND5CreatureSizeEnum {
         return this._size;
     }
 

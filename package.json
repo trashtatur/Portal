@@ -2,7 +2,7 @@
   "scripts": {
     "tsc": "tsc --project tsconfig.json",
     "test": "mocha --require ts-node/register tests/**/*Test.ts",
-    "build": "gulp",
+    "build": "webpack --mode development",
     "watch": "gulp watch",
     "start": "nodemon --watch 'src/**/*.ts' --ignore 'node_modules/**/*' --exec ts-node src/index.ts"
   },
@@ -18,11 +18,9 @@
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.4",
     "css-module-types": "^0.2.2",
-    "css-modulesify": "^0.28.0",
     "csv-string": "^3.2.0",
     "d3": "^5.16.0",
     "express": "4",
-    "gulp-typed-css-modules": "^2.0.1",
     "lodash": "^4.17.15",
     "method-override": "^3.0.0",
     "multer": "^1.4.2",
@@ -54,7 +52,8 @@
     "@types/validator": "^10.11.3",
     "@typescript-eslint/eslint-plugin": "^2.22.0",
     "@typescript-eslint/parser": "^2.22.0",
-    "browserify": "^16.5.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "css-loader": "^3.5.3",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.10.0",
@@ -64,16 +63,16 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
-    "gulp": "^4.0.2",
     "nodemon": "^1.19.4",
     "prettier": "^1.19.1",
     "reactify": "^1.1.1",
     "sequelize-cli": "^5.5.1",
     "source-map-support": "^0.5.16",
+    "style-loader": "^1.2.1",
     "ts-lint": "^4.5.1",
     "ts-node": "^8.4.1",
-    "tsify": "^4.0.1",
     "typescript": "^3.7.2",
-    "vinyl-source-stream": "^2.0.0"
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   }
 }

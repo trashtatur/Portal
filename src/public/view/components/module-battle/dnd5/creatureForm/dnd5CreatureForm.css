@@ -11,5 +11,22 @@
 }
 
 .formSection {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+}
 
+.formSectionHeader {
+    color: grey;
+    font-size: 11pt;
+}
+
+.formSectionToBeDone {
+    color: grey;
+    font-size: 12pt;
+}
+
+.formSectionCompletion {
+    color: darkgreen;
+    font-size: 12pt;
 }

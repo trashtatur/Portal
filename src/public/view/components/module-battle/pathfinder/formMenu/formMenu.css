@@ -1,7 +1,3 @@
-@font-face { font-family: 'Trajan Pro';
-    src: url('../../../../build/fonts/Trajan_Pro_Bold.ttf')  format('ttf'),
-    url('build/fonts/Trajan_Pro.ttf')  format('ttf'); }
-
 .formTypeButton {
     font-family: inherit;
     font-size: 8pt;
