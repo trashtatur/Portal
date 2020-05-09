@@ -3,7 +3,10 @@ const path = require('path');
 module.exports = {
     entry: './src/public/view/main.tsx',
     resolve: {
-        extensions: ['.ts', '.tsx', '.js']
+        extensions: ['.ts', '.tsx', '.js'],
+        alias: {
+            "@": path.resolve(__dirname, "src")
+        }
     },
     output: {
         path: path.join(__dirname, '/build'),

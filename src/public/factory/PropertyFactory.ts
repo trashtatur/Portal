@@ -23,6 +23,17 @@ export class PropertyFactory{
         }
     }
 
+    createFromExisting = <T extends AbstractPropertyViewModel>(viewModel: T): T => {
+        switch (viewModel instanceof DND5CreaturePropertiesViewModel) {
+            case true:
+                return this.dnd5CreaturePropertiesViewModelFactory
+                    .createFromExisting(viewModel as unknown as DND5CreaturePropertiesViewModel) as unknown as T
+            case false:
+                return this.pathfinderCreaturePropertiesViewModelFactory
+                    .createFromExisting(viewModel as unknown as PathfinderCreaturePropertiesViewModel) as unknown as T
+        }
+    }
+
     createSummon = <T extends AbstractPropertyViewModel>(property: { new(...args: any[]): T }): T => {
         switch (property.name) {
             case DND5CreaturePropertiesViewModel.name:

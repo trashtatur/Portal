@@ -1,4 +1,5 @@
 import * as React from "react";
+import {ReactElement} from "react";
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import axios, {AxiosResponse} from "axios";
@@ -6,23 +7,22 @@ import {setCreatureImageName, uploadImage} from "../../../../../service/helperFu
 import {AlignmentSelect} from "./alignment select/AlignmentSelect";
 import {SizeSelect} from "./size select/SizeSelect";
 import Dropzone from 'react-dropzone-uploader'
-import {selectable} from "../../../../../types/frontendTypes";
+import {selectable} from "@/public/types/frontendTypes";
 import {CreatureCard} from "../creaturecard/CreatureCard";
 import {RedFadeLine} from "../../../uiBasic/redFadeLine/RedFadeLine";
-import {ReactElement} from "react";
-import {SelectEventTypesEnum} from "../../../../../model/enumeration/SelectEventTypesEnum";
-import {CreatureViewModel} from "../../../../../model/CreatureViewModel";
-import {CreatureViewModelFactory} from "../../../../../factory/CreatureViewModelFactory";
-import {LanguageViewModel} from "../../../../../model/pathfinder/LanguageViewModel";
-import {TalentViewModel} from "../../../../../model/pathfinder/TalentViewModel";
-import {SkillViewModel} from "../../../../../model/pathfinder/SkillViewModel";
-import {ActionViewModel} from "../../../../../model/pathfinder/ActionViewModel";
-import {NamedPropertyViewModel} from "../../../../../model/dataModel/NamedPropertyViewModel";
-import {PathfinderCreaturePropertiesViewModel} from "../../../../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
-import {PathfinderTalentDataToViewModelMapper} from "../../../../../mapping/pathfinder/PathfinderTalentDataToViewModelMapper";
-import {PathfinderLanguageDataToViewModelMapper} from "../../../../../mapping/pathfinder/PathfinderLanguageDataToViewModelMapper";
-import {PathfinderSkillDataToViewModelMapper} from "../../../../../mapping/pathfinder/PathfinderSkillDataToViewModelMapper";
-import {PathfinderActionDataToViewModelMapper} from "../../../../../mapping/pathfinder/PathfinderActionDataToViewModelMapper";
+import {SelectEventTypesEnum} from "@/public/model/enumeration/SelectEventTypesEnum";
+import {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
+import {LanguageViewModel} from "@/public/model/pathfinder/LanguageViewModel";
+import {TalentViewModel} from "@/public/model/pathfinder/TalentViewModel";
+import {SkillViewModel} from "@/public/model/pathfinder/SkillViewModel";
+import {ActionViewModel} from "@/public/model/pathfinder/ActionViewModel";
+import {NamedPropertyViewModel} from "@/public/model/dataModel/NamedPropertyViewModel";
+import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {PathfinderTalentDataToViewModelMapper} from "@/public/mapping/pathfinder/PathfinderTalentDataToViewModelMapper";
+import {PathfinderLanguageDataToViewModelMapper} from "@/public/mapping/pathfinder/PathfinderLanguageDataToViewModelMapper";
+import {PathfinderSkillDataToViewModelMapper} from "@/public/mapping/pathfinder/PathfinderSkillDataToViewModelMapper";
+import {PathfinderActionDataToViewModelMapper} from "@/public/mapping/pathfinder/PathfinderActionDataToViewModelMapper";
 import * as style from "./pathfinderCreatureForm.css";
 
 interface CreatureFormProps {

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {TypeEnum} from "../../../../../model/enumeration/TypesEnum";
+import {TypeEnum} from "../../../../../../model/enumeration/TypesEnum";
 import Select from 'react-select';
-import {selectable} from "../../../../../types/frontendTypes";
-import {DND5CreatureSizesEnum} from "../../../../../model/enumeration/dnd5/DND5CreatureSizesEnum";
-import * as style from "./formSectionGeneralStyles.css";
+import {selectable} from "../../../../../../types/frontendTypes";
+import {DND5CreatureSizesEnum} from "../../../../../../model/enumeration/dnd5/DND5CreatureSizesEnum";
+import * as style from "../formSectionGeneralStyles.css";
 
 interface SizeAndChallengeFormSectionProps {
     size: DND5CreatureSizesEnum;

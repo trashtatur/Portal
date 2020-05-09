@@ -1,25 +1,25 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {DND5CreaturePropertiesViewModel} from "../../../../../model/dnd5/DND5CreaturePropertiesViewModel";
-import {CreatureViewModel} from "../../../../../model/CreatureViewModel";
-import {DND5LanguageViewModel} from "../../../../../model/dnd5/DND5LanguageViewModel";
-import {DND5SpellViewModel} from "../../../../../model/dnd5/DND5SpellViewModel";
-import {DND5TalentViewModel} from "../../../../../model/dnd5/DND5TalentViewModel";
-import {DND5ActionViewModel} from "../../../../../model/dnd5/DND5ActionViewModel";
-import {DND5SkillViewModel} from "../../../../../model/dnd5/DND5SkillViewModel";
-import {CreatureViewModelFactory} from "../../../../../factory/CreatureViewModelFactory";
-import {CRToExperiencePointsConverterService} from "../../../../../service/dnd5/CRToExperiencePointsConverterService";
-import {CRToProficiencyConverterService} from "../../../../../service/dnd5/CRToProficiencyConverterService";
-import {InitialDND5CreatureFormFormSection} from "./InitialDND5CreatureFormFormSection";
-import {StatBlockFormSection} from "./StatBlockFormSection";
+import {DND5CreaturePropertiesViewModel} from "@/public/model/dnd5/DND5CreaturePropertiesViewModel";
+import {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import {DND5LanguageViewModel} from "@/public/model/dnd5/DND5LanguageViewModel";
+import {DND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
+import {DND5TalentViewModel} from "@/public/model/dnd5/DND5TalentViewModel";
+import {DND5ActionViewModel} from "@/public/model/dnd5/DND5ActionViewModel";
+import {DND5SkillViewModel} from "@/public/model/dnd5/DND5SkillViewModel";
+import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
+import {CRToExperiencePointsConverterService} from "@/public/service/dnd5/CRToExperiencePointsConverterService";
+import {CRToProficiencyConverterService} from "@/public/service/dnd5/CRToProficiencyConverterService";
+import {NameAndTypeFormSection} from "./nameAndTypeFormSection/NameAndTypeFormSection";
+import {StatBlockFormSection} from "./statBlockFormSection/StatBlockFormSection";
 import {InitialDND5CreatureFormSectionHeader} from "./headers/InitialDND5CreatureFormSectionHeader";
 import {StatBlockFormSectionHeader} from "./headers/StatBlockFormSectionHeader";
-import {SizeAndChallengeFormSection} from "./SizeAndChallengeFormSection";
+import {SizeAndChallengeFormSection} from "./sizeAndChallengeFormSection/SizeAndChallengeFormSection";
 import {SizeAndChallengeFormSectionHeader} from "./headers/SizeAndChallengeFormSectionHeader";
-import {TypeEnum} from "../../../../../model/enumeration/TypesEnum";
-import {SelectEventTypesEnum} from "../../../../../model/enumeration/SelectEventTypesEnum";
-import {DND5CreatureSizesEnum} from "../../../../../model/enumeration/dnd5/DND5CreatureSizesEnum";
+import {SelectEventTypesEnum} from "@/public/model/enumeration/SelectEventTypesEnum";
+import {DND5CreatureSizesEnum} from "@/public/model/enumeration/dnd5/DND5CreatureSizesEnum";
 import {DND5CreatureCard} from "../creatureCard/DND5CreatureCard";
+import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
 import * as style from './dnd5CreatureForm.css';
 
 interface CreatureFormState {
@@ -150,7 +150,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                             name={this.state.creature.name}
                             type={this.state.creature.properties.type}
                         />
-                        <InitialDND5CreatureFormFormSection
+                        <NameAndTypeFormSection
                             name={this.state.creature.name}
                             type={
                                 this.state.creature.properties.getPrimitiveAttributeAsString(

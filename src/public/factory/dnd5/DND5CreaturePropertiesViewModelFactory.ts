@@ -62,6 +62,10 @@ export class DND5CreaturePropertiesViewModelFactory {
         )
     }
 
+    createFromExisting = (creatureProperties: DND5CreaturePropertiesViewModel): DND5CreaturePropertiesViewModel => {
+        return null;
+    }
+
     createSummon = (): DND5CreaturePropertiesViewModel => {
         return null;
     }

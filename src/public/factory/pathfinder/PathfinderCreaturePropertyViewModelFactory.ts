@@ -67,4 +67,31 @@ export class PathfinderCreaturePropertiesViewModelFactory {
             null
         )
     }
+
+    createFromExisting = (creatureProperties: PathfinderCreaturePropertiesViewModel): PathfinderCreaturePropertiesViewModel => {
+        const model = new  PathfinderCreaturePropertiesViewModel(
+            creatureProperties.id,
+            creatureProperties.type,
+            creatureProperties.armorclass,
+            creatureProperties.hitpoints,
+            creatureProperties.alignment,
+            creatureProperties.creatureClass,
+            creatureProperties.challenge,
+            creatureProperties.movement,
+            creatureProperties.ini,
+            creatureProperties.baseAtk,
+            creatureProperties.size,
+            creatureProperties.stats,
+            creatureProperties.saveThrows,
+            creatureProperties.xp,
+            creatureProperties.image,
+            creatureProperties.actions,
+            creatureProperties.languages,
+            creatureProperties.skills,
+            creatureProperties.talents,
+            creatureProperties.attackProperties
+        )
+        model.label = creatureProperties.label;
+        return model;
+    }
 }

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
 import Select from 'react-select';
-import {selectable} from "../../../../../types/frontendTypes";
-import {TypeEnum} from "../../../../../model/enumeration/TypesEnum";
-import * as style from './formSectionGeneralStyles.css'
+import {selectable} from "../../../../../../types/frontendTypes";
+import {TypeEnum} from "../../../../../../model/enumeration/TypesEnum";
+import * as style from '../formSectionGeneralStyles.css'
 
 interface InitialDND5CreatureFormFormSectionProps {
     name: string;
@@ -31,7 +31,7 @@ const selectables: selectable[] = [
         value: TypeEnum.SUMMON
     }
 ]
-export class InitialDND5CreatureFormFormSection extends React.Component<InitialDND5CreatureFormFormSectionProps, {}> {
+export class NameAndTypeFormSection extends React.Component<InitialDND5CreatureFormFormSectionProps, {}> {
 
 
     render(): ReactNode {

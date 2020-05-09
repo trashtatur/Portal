@@ -38,7 +38,7 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
         }
     }
     creatureViewModelFactory = new CreatureViewModelFactory();
-    creaturesToAdd = [];
+    creaturesToAdd: CreatureViewModel<PathfinderCreaturePropertiesViewModel>[] = [];
 
     /**
      * Sorts creature list by initiative
@@ -96,9 +96,9 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
         this.setState({creaturesInBattle: creatureMap}, () => this.setToSessionStorage())
     };
 
-    determineLabel = (creatureName: string): number => {
+    determineLabel = (creatureViewModel: CreatureViewModel<PathfinderCreaturePropertiesViewModel>): number => {
         const sameCreature = this.state.creaturesInBattle.filter(elem => {
-            return elem.name == creatureName
+            return elem.name == creatureViewModel.name
         }).sort(function (cr1, cr2) {
             if (cr1.properties.label > cr2.properties.label) return 1;
             if (cr1.properties.label < cr2.properties.label) return -1;
@@ -192,7 +192,7 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
         clonedCreatureViewModel.properties.currentInitiative = Math.floor(Math.random() * (20 - 1) + 1) + creatureViewModel.properties.ini;
         clonedCreatureViewModel.properties.label =
             creatureViewModel.properties.label == null
-            ? this.determineLabel(creatureViewModel.name) : creatureViewModel.properties.label
+            ? this.determineLabel(creatureViewModel) : creatureViewModel.properties.label
         return clonedCreatureViewModel;
     };
 
@@ -217,13 +217,13 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
     };
 
     addCreatures = (): void => {
-        const toAdd = this.creaturesToAdd.map(elem => {
-            return this.cloneEntry(elem)
-        });
         let creatureMap = this.state.creaturesInBattle;
+        const toAdd = this.creaturesToAdd.map(creatureToAdd => {
+            return this.cloneEntry(creatureToAdd)
+        })
         creatureMap = creatureMap.concat(this.creaturesToAdd);
         const creatureMapSorted = this.sortCreatureMap(creatureMap);
-        this.creaturesToAdd.forEach(elem => {
+        toAdd.forEach(elem => {
             this.props.addCreatureToRound(elem);
         });
         this.setState({
@@ -273,7 +273,7 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
                             handleSelectChange={this.onSelect}
                             className={style.creatureSelect}
                         />
-                        <button className={style.creatureAddButton} type="button" onClick={this.addCreatures}>Add
+                        <button className={style.creatureAddButton} type="button" onClick={() => this.addCreatures()}>Add
                         </button>
                     </div>
                     <PathfinderAddSummon addToEncounter={this.addSummonedCreature}/>
