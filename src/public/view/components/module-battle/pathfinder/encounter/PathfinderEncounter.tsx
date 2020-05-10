@@ -1,11 +1,11 @@
 import * as React from "react";
 import {PathfinderEncounterCreatureList} from "../encounterCreatureList/PathfinderEncounterCreatureList";
-import {RoundOverview} from "../../common/round overview/RoundOverview";
-import {round, roundCreature} from "../../../../../types/frontendTypes";
+import {RoundOverview} from "@/public/view/components/module-battle/common/round overview/RoundOverview";
+import {round, roundCreature} from "@/public/types/frontendTypes";
 import {ReactElement} from "react";
-import {CreatureViewModel} from "../../../../../model/CreatureViewModel";
-import {TypeEnum} from "../../../../../model/enumeration/TypesEnum";
-import {PathfinderCreaturePropertiesViewModel} from "../../../../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
+import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import * as style from './encounter.css';
 
 export interface EncounterState {

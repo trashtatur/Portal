@@ -81,8 +81,21 @@ export class PathfinderCreaturePropertiesViewModelFactory {
             creatureProperties.ini,
             creatureProperties.baseAtk,
             creatureProperties.size,
-            creatureProperties.stats,
-            creatureProperties.saveThrows,
+            new PathfinderStatsViewModel(
+                creatureProperties.stats.strength,
+                creatureProperties.stats.constitution,
+                creatureProperties.stats.wisdom,
+                creatureProperties.stats.intelligence,
+                creatureProperties.stats.charisma,
+                creatureProperties.stats.dexterity,
+                creatureProperties.size,
+                creatureProperties.baseAtk
+            ),
+            new PathfinderSavingThrowsViewModel(
+                creatureProperties.saveThrows.reflex,
+                creatureProperties.saveThrows.wisdom,
+                creatureProperties.saveThrows.fortitude
+            ),
             creatureProperties.xp,
             creatureProperties.image,
             creatureProperties.actions,

@@ -170,7 +170,7 @@ export class BattleCreature extends React.Component<CreatureProps, CreatureState
                                                                                 defaultValue={this.state.currentHP}
                                                                                 onBlur={e => {
                                                                                     this.handleHPChange(e);
-                                                                                    this.props.handleCurrentHPChange(e, this.props.id);
+                                                                                    this.props.handleCurrentHPChange(e, this.props.id, this.props.label);
                                                                                     this.props.changeCurrentHPOfRoundCreature(e.target.value, this.props.id);
                                                                                 }}/></p>
                                     <p className={style.statDisplay}>AC: <input type="number"
@@ -178,7 +178,7 @@ export class BattleCreature extends React.Component<CreatureProps, CreatureState
                                                                                 defaultValue={this.state.currentAC}
                                                                                 onBlur={e => {
                                                                                     this.handleACChange(e);
-                                                                                    this.props.handleCurrentACChange(e, this.props.id);
+                                                                                    this.props.handleCurrentACChange(e, this.props.id, this.props.label);
                                                                                     this.props.changeCurrentACOfRoundCreature(e.target.value, this.props.id);
                                                                                 }}/></p>
                                     <p className={style.statDisplay}>INI:<input type="number"
@@ -187,32 +187,32 @@ export class BattleCreature extends React.Component<CreatureProps, CreatureState
                                                                                 onBlur={e => {
                                                                                     this.handleIniChange(e);
                                                                                     this.props.changeCurrentIniOfRoundCreature(e.target.value, this.props.id);
-                                                                                    this.props.sortByIni(e, this.props.id);
+                                                                                    this.props.sortByIni(e, this.props.id, this.props.label);
                                                                                 }}/></p>
                                     <p className={style.statDisplay}>Type:
                                         <input name={this.props.id + "type"} type="radio" value={"ally"}
                                                checked={this.typeChecked('ally')} onChange={e => {
                                             this.handleTypeChange(e);
                                             this.props.changeTypeOfRoundCreature(e.target.value, this.props.id);
-                                            this.props.handleCurrentTypeChange(e, this.props.id);
+                                            this.props.handleCurrentTypeChange(e, this.props.id, this.props.label);
                                         }}/>Ally
                                         <input name={this.props.id + "type"} type="radio" value={"monster"}
                                                checked={this.typeChecked('monster')} onChange={e => {
                                             this.handleTypeChange(e);
                                             this.props.changeTypeOfRoundCreature(e.target.value, this.props.id);
-                                            this.props.handleCurrentTypeChange(e, this.props.id);
+                                            this.props.handleCurrentTypeChange(e, this.props.id, this.props.label);
                                         }}/>Monster
                                         <input name={this.props.id + "type"} type="radio" value={"player"}
                                                checked={this.typeChecked('player')} onChange={e => {
                                             this.handleTypeChange(e);
                                             this.props.changeTypeOfRoundCreature(e.target.value, this.props.id);
-                                            this.props.handleCurrentTypeChange(e, this.props.id);
+                                            this.props.handleCurrentTypeChange(e, this.props.id, this.props.label);
                                         }}/>Player
                                         <input name={this.props.id + "type"} type="radio" value={"summon"}
                                                checked={this.typeChecked('summon')} onChange={e => {
                                             this.handleTypeChange(e);
                                             this.props.changeTypeOfRoundCreature(e.target.value, this.props.id);
-                                            this.props.handleCurrentTypeChange(e, this.props.id);
+                                            this.props.handleCurrentTypeChange(e, this.props.id, this.props.label);
                                         }}/>Summon
                                     </p>
                                 </div>
