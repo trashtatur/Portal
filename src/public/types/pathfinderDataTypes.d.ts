@@ -1,8 +1,8 @@
 import {RangeTypeEnum} from "../model/enumeration/RangeTypeEnum";
-import {TypeEnum} from "../model/enumeration/CreatureTypesEnum";
+import {TypeEnum} from "../model/enumeration/TypesEnum";
 import {AlignmentEnum} from "../model/enumeration/AlignmentEnum";
-import {CreatureSizeEnum} from "../model/enumeration/CreatureSizeEnum";
-import {DamageTypesEnum} from "../model/enumeration/DamageTypesEnum";
+import {PathfinderCreatureSizeEnum} from "../model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
+import {PathfinderDamageTypesEnum} from "../model/enumeration/pathfinder/PathfinderDamageTypesEnum";
 import {attackPropertyData, creatureStatsData, damageData, languageData, skillData} from "./commonDataTypes";
 
 type pathfinderCreaturePropertiesData = {
@@ -16,7 +16,7 @@ type pathfinderCreaturePropertiesData = {
     _movement: number;
     _ini: number;
     _baseAtk: number;
-    _size: CreatureSizeEnum;
+    _size: PathfinderCreatureSizeEnum;
     _stats: creatureStatsData;
     _saveThrows: pathfinderSavingThrowsData;
     _xp?: number;
@@ -44,7 +44,7 @@ export type pathfinderActionData = {
     _additionalInfo?: string;
 }
 type pathfinderDamageTypesData = {
-    _damageTypes: Array<DamageTypesEnum>;
+    _damageTypes: Array<PathfinderDamageTypesEnum>;
     _isMagic: boolean;
     _isHybrid: boolean;
 }

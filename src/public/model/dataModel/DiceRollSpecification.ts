@@ -1,4 +1,4 @@
-export class DamageViewModel {
+export class DiceRollSpecification {
     private _diceCount: number;
     private _bonus?: number;
     private _diceType: number;
@@ -58,7 +58,7 @@ export class DamageViewModel {
         return String(this._bonus)
     }
 
-    getFullDamageString(): string {
+    getFullDiceRollString(): string {
         if (!this.bonus) {
             return `${this.diceCount}d${this.diceType}`
         }

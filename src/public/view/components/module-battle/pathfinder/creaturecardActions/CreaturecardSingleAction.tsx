@@ -18,7 +18,7 @@ export class CreaturecardSingleAction extends React.Component<SingleActionProps>
                     rangeType={this.props.action.rangeType}
                     attackBonus={this.props.action.attackBonus}
                     range={this.props.action.range}
-                    fullDamageString={this.props.action.damage.getFullDamageString()}
+                    fullDamageString={this.props.action.damage.getFullDiceRollString()}
                     fullDamageTypeString={this.props.action.damageType.getFullDamageTypeString()}
                     critMod={this.props.action.critMod}
                     additionalInfo={this.props.action.additionalInfo}

@@ -43,6 +43,10 @@ export class DND5CreatureProperties extends Model<DND5CreatureProperties>{
 
     @AllowNull(false)
     @Column
+    proficiencyBonus: number;
+
+    @AllowNull(false)
+    @Column
     armorclass: number;
 
     @AllowNull(false)
@@ -88,6 +92,11 @@ export class DND5CreatureProperties extends Model<DND5CreatureProperties>{
     @AllowNull(false)
     @Column
     speed: string;
+
+    @AllowNull(false)
+    @Default('{0:infinity,1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0}')
+    @Column
+    spellSlots: string
 
     @AllowNull(true)
     @Column({type: DataType.TEXT({length: 'medium'})})

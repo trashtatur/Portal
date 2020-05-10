@@ -1,0 +1,23 @@
+.statInputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.statInputRow {
+    display: flex;
+    justify-content: space-evenly;
+    width: 260px;
+}
+
+.statInputSection {
+    margin: 3px;
+    font-size: 10pt;
+    display: flex;
+    width: 85px;
+    justify-content: space-between;
+}
+
+.statInputField {
+    width: 40px;
+}

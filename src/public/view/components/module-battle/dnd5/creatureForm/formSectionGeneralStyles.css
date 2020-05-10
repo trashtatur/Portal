@@ -1,0 +1,15 @@
+.formInputSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.selectableTypes {
+
+}
+
+.selectMenu {
+    min-width: 155px;
+    margin-left: 30px;
+    font-size: 9pt;
+}

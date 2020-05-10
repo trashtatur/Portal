@@ -9,7 +9,7 @@ import {PathfinderAddSummon} from "../formAddSummon/PathfinderAddSummon";
 import {BattleDiceRoller} from "../battleDiceRoller/BattleDiceRoller";
 import {MultiSelectNoCreate} from "../../../uiBasic/multiSelectNoCreate/MultiSelectNoCreate";
 import {CreatureViewModel} from "../../../../../model/CreatureViewModel";
-import {TypeEnum} from "../../../../../model/enumeration/CreatureTypesEnum";
+import {TypeEnum} from "../../../../../model/enumeration/TypesEnum";
 import {CreatureDataToViewModelMapper} from "../../../../../mapping/CreatureDataToViewModelMapper";
 import {CreatureViewModelFactory} from "../../../../../factory/CreatureViewModelFactory";
 import {PathfinderCreaturePropertiesViewModel} from "../../../../../model/pathfinder/PathfinderCreaturePropertiesViewModel";

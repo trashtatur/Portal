@@ -1,11 +1,11 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import {getSizeModFromSizeEnum} from "../../../../../model/dataModel/CreatureSizeModifierEnum";
-import {CreatureSizeEnum} from "../../../../../model/enumeration/CreatureSizeEnum";
+import {getSizeModFromSizeEnum} from "../../../../../model/enumeration/pathfinder/PathfinderCreatureSizeModifierEnum";
+import {PathfinderCreatureSizeEnum} from "../../../../../model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
 import * as style from "./creaturecardProperties.css"
 
 export interface CreatureCardTopInfoProps {
-    size: CreatureSizeEnum;
+    size: PathfinderCreatureSizeEnum;
     creatureClass: string;
     movement: number;
     ini: number;

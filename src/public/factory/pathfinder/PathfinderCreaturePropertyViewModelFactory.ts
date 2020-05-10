@@ -1,6 +1,6 @@
 import {PathfinderCreaturePropertiesViewModel} from "../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import {AlignmentEnum} from "../../model/enumeration/AlignmentEnum";
-import {CreatureSizeEnum} from "../../model/enumeration/CreatureSizeEnum";
+import {PathfinderCreatureSizeEnum} from "../../model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
 import {PathfinderStatsViewModel} from "../../model/dataModel/pathfinder/PathfinderStatsViewModel";
 import {PathfinderSavingThrowsViewModel} from "../../model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
 
@@ -18,7 +18,7 @@ export class PathfinderCreaturePropertiesViewModelFactory {
             null,
             null,
             null,
-            CreatureSizeEnum.EMPTY,
+            PathfinderCreatureSizeEnum.EMPTY,
             new PathfinderStatsViewModel(
                 null,
                 null,
@@ -26,7 +26,7 @@ export class PathfinderCreaturePropertiesViewModelFactory {
                 null,
                 null,
                 null,
-                CreatureSizeEnum.EMPTY,
+                PathfinderCreatureSizeEnum.EMPTY,
                 null),
             new PathfinderSavingThrowsViewModel(
                 null,
@@ -55,8 +55,8 @@ export class PathfinderCreaturePropertiesViewModelFactory {
             9,
             null,
             0,
-            CreatureSizeEnum.MEDIUM,
-            new PathfinderStatsViewModel(10, 10, 10, 10, 10, 10, CreatureSizeEnum.MEDIUM, 0),
+            PathfinderCreatureSizeEnum.MEDIUM,
+            new PathfinderStatsViewModel(10, 10, 10, 10, 10, 10, PathfinderCreatureSizeEnum.MEDIUM, 0),
             new PathfinderSavingThrowsViewModel(0, 0, 0),
             0,
             '',

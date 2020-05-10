@@ -10,7 +10,7 @@ import {
 import {TypeEnum} from "../../../model/enumeration/TypeEnum";
 import {AlignmentEnum} from "../../../model/enumeration/AlignmentEnum";
 import {CreatureTypeEnum} from "../../../model/enumeration/dnd5/CreatureTypeEnum";
-import {CreatureSizeEnum} from "../../../model/enumeration/CreatureSizeEnum";
+import {DND5CreatureSizeEnum} from "../../../model/enumeration/dnd5/DND5CreatureSizeEnum";
 import {DND5ActionEntityToModelMapper} from "./DND5ActionEntityToModelMapper";
 import {DND5LanguageEntityToModelMapper} from "./DND5LanguageEntityToModelMapper";
 import {DND5TalentEntityToModelMapper} from "./DND5TalentEntityToModelMapper";
@@ -18,8 +18,13 @@ import {DND5SkillEntityToModelMapper} from "./DND5SkillEntityToModelMapper";
 import {DND5SpellEntityToModelMapper} from "./DND5SpellEntityToModelMapper";
 import {Service} from "@tsed/di";
 import {DND5SavingThrowsModel} from "../../../model/dataModel/dnd5/DND5SavingThrowsModel";
-import {dnd5SavingThrows, dnd5Sense, pathFinderSaveThrows} from "../../../types/backendTypes";
+import {
+    dnd5SavingThrows,
+    dnd5Sense,
+    dnd5SpellSlots,
+} from "../../../types/backendTypes";
 import {SenseModel} from "../../../model/dataModel/dnd5/SenseModel";
+import {DND5SpellSlotsModel} from "../../../model/dataModel/dnd5/DND5SpellSlotsModel";
 
 @Service()
 export class DND5CreaturePropertiesEntityToModelMapper implements EntityToModelMapperInterface<DND5CreatureProperties, DND5CreaturePropertiesModel> {
@@ -47,6 +52,7 @@ export class DND5CreaturePropertiesEntityToModelMapper implements EntityToModelM
         return new DND5CreaturePropertiesModel(
             entity.uuid,
             getEnumKeyForValue(entity.type, TypeEnum),
+            entity.proficiencyBonus,
             entity.armorclass,
             entity.armorType,
             entity.hitpoints,
@@ -57,8 +63,9 @@ export class DND5CreaturePropertiesEntityToModelMapper implements EntityToModelM
             entity.challenge,
             entity.xp,
             mapStatsStringToStatsDataModel(entity.stats),
-            getEnumKeyForValue(entity.size, CreatureSizeEnum),
+            getEnumKeyForValue(entity.size, DND5CreatureSizeEnum),
             entity.speed,
+            this.mapSpellSlotStringToSpellSlotsModel(entity.spellSlots),
             entity.classesAndLevels,
             entity.damageVulnerabilities.split(','),
             entity.damageResistances.split(','),
@@ -103,6 +110,21 @@ export class DND5CreaturePropertiesEntityToModelMapper implements EntityToModelM
         return senseData.map(sense => {
             return new SenseModel(sense.name, sense.value)
         })
+    }
 
+    private mapSpellSlotStringToSpellSlotsModel = (spellSlotsString: string): DND5SpellSlotsModel => {
+        const spellSlotsData: dnd5SpellSlots = JSON.parse(spellSlotsString);
+        return new DND5SpellSlotsModel(
+            spellSlotsData["1"],
+            spellSlotsData["2"],
+            spellSlotsData["3"],
+            spellSlotsData["4"],
+            spellSlotsData["5"],
+            spellSlotsData["6"],
+            spellSlotsData["7"],
+            spellSlotsData["8"],
+            spellSlotsData["9"],
+            spellSlotsData["0"]
+        )
     }
 }

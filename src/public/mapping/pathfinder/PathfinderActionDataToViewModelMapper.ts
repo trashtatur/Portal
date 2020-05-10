@@ -1,5 +1,5 @@
 import {ActionViewModel} from "../../model/pathfinder/ActionViewModel";
-import {DamageViewModel} from "../../model/dataModel/DamageViewModel";
+import {DiceRollSpecification} from "../../model/dataModel/DiceRollSpecification";
 import {PathfinderDamageType} from "../../model/dataModel/pathfinder/PathfinderDamageType";
 import {pathfinderActionData} from "../../types/pathfinderDataTypes";
 
@@ -12,7 +12,7 @@ export class PathfinderActionDataToViewModelMapper {
             data._rangeType,
             data._attackBonus,
             data._range,
-            new DamageViewModel(data._damage._diceCount, data._damage._diceType, data._damage._bonus),
+            new DiceRollSpecification(data._damage._diceCount, data._damage._diceType, data._damage._bonus),
             data._critMod,
             new PathfinderDamageType(data._damageTypes._damageTypes, data._damageTypes._isMagic, data._damageTypes._isHybrid),
             data._additionalInfo

@@ -1,5 +1,5 @@
 import {RangeTypeEnum} from "../enumeration/RangeTypeEnum";
-import {DamageViewModel} from "../dataModel/DamageViewModel";
+import {DiceRollSpecification} from "../dataModel/DiceRollSpecification";
 import {PathfinderDamageType} from "../dataModel/pathfinder/PathfinderDamageType";
 
 export class ActionViewModel {
@@ -9,7 +9,7 @@ export class ActionViewModel {
     private _id: string;
     private _additionalinfo: string;
     private _range: number;
-    private _damage: DamageViewModel;
+    private _damage: DiceRollSpecification;
     private _critMod: number;
     private _damageType: PathfinderDamageType;
     private _additionalInfo?: string;
@@ -20,7 +20,7 @@ export class ActionViewModel {
         rangeType: RangeTypeEnum,
         attackBonus: number,
         range: number,
-        damage: DamageViewModel,
+        damage: DiceRollSpecification,
         critMod: number,
         damageType: PathfinderDamageType,
         additionalInfo: string,
@@ -76,11 +76,11 @@ export class ActionViewModel {
         this._range = value;
     }
 
-    get damage(): DamageViewModel {
+    get damage(): DiceRollSpecification {
         return this._damage;
     }
 
-    set damage(value: DamageViewModel) {
+    set damage(value: DiceRollSpecification) {
         this._damage = value;
     }
 

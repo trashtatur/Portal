@@ -1,4 +1,4 @@
-import {TypeEnum} from "../model/enumeration/CreatureTypesEnum";
+import {TypeEnum} from "../model/enumeration/TypesEnum";
 
 export type selectableCreatures = {
     label: string;
