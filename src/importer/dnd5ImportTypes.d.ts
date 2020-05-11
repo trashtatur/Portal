@@ -50,20 +50,22 @@ export type monsterImport = {
 	actions: damageImport[];
 }
 
-export type spell = {
+export type multiSpellImport = {
+	count: number;
+	results: spellImport[];
+}
+
+export type spellImport = {
 	name: string;
-	desc: string[],
+	desc: string[], // description
 	higher_level: string[]; // higherLevelDescription
 	range: string;
 	components: string[];
-	material: string;
-	material: string;
 	ritual: boolean;
 	duration: string;
 	concentration: boolean;
 	casting_time: string; // castingTime
-	level: number;
 	school: {name: string;};
-	classes: {name: string;}[];
-	subclasses: {name: string;}[];
+	material: string; // materials
+	level: number; 
 }
