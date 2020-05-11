@@ -1,11 +1,11 @@
 import { spellImport, multiSpellImport } from "./dnd5ImportTypes";
 import Axios from "axios";
 import { DND5Spell } from "../db/schemas/DND5/DND5Spell";
+import { uuidv4 } from "../public/service/helperFunctions";
 
 export class DND5Importer {
 
     private spellKeys = [
-        'name',
         'description',
         'higherLevelsDescription',
         'range',
@@ -20,8 +20,8 @@ export class DND5Importer {
     ];
 
     public async importSpellByUrl(url: string) {
-        const spell: spellImport = await Axios.get(url);
-        this.importSpellByData(spell);
+        const response = await Axios.get(url);
+        this.importSpellByData(response.data);
         // axios für den get
         // get all - map to db format - bulk create
         // sequelize doku
@@ -38,22 +38,27 @@ export class DND5Importer {
 
     public importSpellsByData(spells: spellImport[]) {
         console.log('SPELLS IMPORTED', spells);
-        const dnd5Spells = spells.map(spell => this.mapToDND5Spell(spell));
+        const dnd5Spells = spells.map(spell => {
+            console.log('MAPPING SPELL IMPORT:', spell);
+            
+            return this.mapToDND5Spell(spell)});
+        console.log('MAPPED SPELLS', dnd5Spells);
+        
         DND5Spell.bulkCreate(dnd5Spells, {updateOnDuplicate: this.spellKeys});
     }
 
     private mapToDND5Spell(spell: spellImport) {
         return {
             name: spell.name,
-            description: spell.desc,
-            higherLevelsDescription: spell.higher_level,
+            description: spell.desc?.join(),
+            higherLevelsDescription: spell.higher_level?.join(),
             range: spell.range,
-            components: spell.components,
+            components: spell.components?.join(),
             ritual: spell.ritual,
             duration: spell.duration,
             concentration: spell.concentration,
             castingTime: spell.casting_time,
-            school: spell.school,
+            school: spell.school?.name,
             materials: spell.material,
             level: spell.level
         }
