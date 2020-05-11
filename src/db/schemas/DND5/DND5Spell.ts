@@ -1,4 +1,4 @@
-import {AllowNull, BelongsToMany, Column, DataType, Default, Model, PrimaryKey, Table} from "sequelize-typescript";
+import {AllowNull, BelongsToMany, Column, DataType, Default, Model, PrimaryKey, Table, Unique} from "sequelize-typescript";
 import {DND5CreatureProperties} from "./DND5CreatureProperties";
 import {DND5CreatureSpell} from "../assocSchemas/DND5/DND5CreatureSpell";
 
@@ -12,6 +12,7 @@ export class DND5Spell extends Model<DND5Spell> {
     uuid: string;
 
     @AllowNull(false)
+    @Unique
     @Column
     name: string;
 
@@ -56,6 +57,10 @@ export class DND5Spell extends Model<DND5Spell> {
     @AllowNull(true)
     @Column({type: DataType.TEXT({length: 'medium'})})
     materials: string;
+
+    @AllowNull(true)
+    @Column
+    level: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
     @BelongsToMany(()=> DND5CreatureProperties, ()=> DND5CreatureSpell)
     dnd5CreatureProperties: DND5CreatureProperties[];
