@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {CSSProperties, ReactNode} from 'react';
 import axios from "axios";
-import {AdventureViewModel} from "../../../../model/AdventureViewModel";
-import {AdventureDataToViewModelMapper} from "../../../../mapping/AdventureDataToViewModelMapper";
+import {AdventureViewModel} from "@/public/model/AdventureViewModel";
+import {AdventureDataToViewModelMapper} from "@/public/mapping/AdventureDataToViewModelMapper";
 import {AdventureForm} from "../adventureForm/AdventureForm";
 import {AdventureCard} from "../adventureCard/AdventureCard";
 import * as style from './adventureOverview.css'

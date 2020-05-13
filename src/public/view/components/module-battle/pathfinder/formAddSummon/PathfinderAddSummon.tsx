@@ -2,11 +2,11 @@ import * as React from 'react';
 import {CSSProperties, ReactNode} from 'react';
 import Dropzone from "react-dropzone-uploader";
 import Switch from "react-switch";
-import {setCreatureImageName, uploadImage} from "../../../../../service/helperFunctions";
+import {setCreatureImageName, uploadImage} from "@/public/service/helperFunctions";
 import axios from "axios";
-import {CreatureViewModel} from "../../../../../model/CreatureViewModel";
-import {CreatureViewModelFactory} from "../../../../../factory/CreatureViewModelFactory";
-import {PathfinderCreaturePropertiesViewModel} from "../../../../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
+import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import * as style from './pathfinderAddSummon.css';
 
 interface AddSummonProps {
@@ -59,7 +59,10 @@ export class PathfinderAddSummon extends React.Component<AddSummonProps, AddSumm
         }
         this.addSummonsToEncounter();
         this.setState(
-            {summonedCreature: this.creatureViewModelFactory.createSummonedCreature(PathfinderCreaturePropertiesViewModel)
+            {summonedCreature:
+                    this.creatureViewModelFactory.createSummonedCreature(
+                        PathfinderCreaturePropertiesViewModel
+                    )
             })
     };
 

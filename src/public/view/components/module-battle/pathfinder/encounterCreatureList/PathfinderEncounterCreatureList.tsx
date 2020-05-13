@@ -60,11 +60,11 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
         return JSON.parse(stringCreatureData);
     };
 
-    handleRemoveFromEncounter = (id: string): void => {
+    handleRemoveFromEncounter = (id: string, label: number): void => {
         this.setState({
             creaturesInBattle:
                 this.state.creaturesInBattle.filter(elem => {
-                    return elem.id != id;
+                    return elem.id !==  id && elem.properties.label !== label;
                 })
         }, () => this.setToSessionStorage())
     };
@@ -192,13 +192,11 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
         })
     }
 
-    cloneEntry = (
+    cloneCreatureViewModel = (
         creatureViewModel: CreatureViewModel<PathfinderCreaturePropertiesViewModel>
     ): CreatureViewModel<PathfinderCreaturePropertiesViewModel> => {
         const clonedCreatureViewModel: CreatureViewModel<PathfinderCreaturePropertiesViewModel> =
             this.creatureViewModelFactory.createFromExisting(creatureViewModel)
-        clonedCreatureViewModel.properties.currentInitiative =
-            Math.floor(Math.random() * (20 - 1) + 1) + clonedCreatureViewModel.properties.ini;
         clonedCreatureViewModel.properties.label =
             clonedCreatureViewModel.properties.label == null
             ? this.determineLabel(clonedCreatureViewModel) : clonedCreatureViewModel.properties.label
@@ -216,7 +214,7 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
     };
 
     addSummonedCreature = (creature: CreatureViewModel<PathfinderCreaturePropertiesViewModel>): void => {
-        const summon = this.cloneEntry(creature);
+        const summon = this.cloneCreatureViewModel(creature);
         const creatureMap = this.state.creaturesInBattle;
         creatureMap.push(summon);
         this.props.addCreatureToRound(summon);
@@ -227,9 +225,11 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
 
     addCreatures = (): void => {
         let creatureMap = this.state.creaturesInBattle;
+
         const toAdd = this.state.creaturesToAdd.map(creatureToAdd => {
-            return this.cloneEntry(creatureToAdd)
+            return this.cloneCreatureViewModel(creatureToAdd)
         })
+
         creatureMap = creatureMap.concat(toAdd);
         const creatureMapSorted = this.sortCreatureMap(creatureMap);
         toAdd.forEach(elem => {

@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import {ActionViewModel} from "../../../../../model/pathfinder/ActionViewModel";
+import {ActionViewModel} from "@/public/model/pathfinder/ActionViewModel";
 import {CreaturecardSingleActionVisual} from "../../common/creaturecardSingleActionVisual/CreaturecardSingleActionVisual";
 import * as style from './creaturecardAction.css';
 

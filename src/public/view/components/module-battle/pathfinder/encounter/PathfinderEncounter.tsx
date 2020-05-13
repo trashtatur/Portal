@@ -168,7 +168,7 @@ export class PathfinderEncounter extends React.Component<{}, EncounterState> {
             () => this.setCurrentRoundToSessionStorage())
     };
 
-    changeCurrentHPOfCreature = (newHPValue: number, creatureId: string): void => {
+    changeCurrentHPOfCreature = (newHPValue: number, creatureId: string, label: number): void => {
         const round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
@@ -177,7 +177,7 @@ export class PathfinderEncounter extends React.Component<{}, EncounterState> {
             () => this.setCurrentRoundToSessionStorage())
     };
 
-    changeCurrentACOfCreature = (newACValue: number, creatureId: string): void => {
+    changeCurrentACOfCreature = (newACValue: number, creatureId: string, label: number): void => {
         const round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
@@ -186,7 +186,7 @@ export class PathfinderEncounter extends React.Component<{}, EncounterState> {
             () => this.setCurrentRoundToSessionStorage())
     };
 
-    changeCurrentIniOfCreature = (newIniValue: number, creatureId: string): void => {
+    changeCurrentIniOfCreature = (newIniValue: number, creatureId: string, label: number): void => {
         const round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
@@ -195,7 +195,7 @@ export class PathfinderEncounter extends React.Component<{}, EncounterState> {
             () => this.setCurrentRoundToSessionStorage())
     };
 
-    changeTypeOfRoundCreature = (newType: TypeEnum, creatureId: string): void => {
+    changeTypeOfRoundCreature = (newType: TypeEnum, creatureId: string, label: number): void => {
         const round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
@@ -204,10 +204,10 @@ export class PathfinderEncounter extends React.Component<{}, EncounterState> {
             () => this.setCurrentRoundToSessionStorage())
     };
 
-    removeCreatureFromRound = (creatureId: string): void => {
+    removeCreatureFromRound = (creatureId: string, label: number): void => {
         const round = this.state.currentRound;
         round.creatureEvents = round.creatureEvents.filter(elem => {
-            return elem.id != creatureId
+            return elem.id !== creatureId
         });
         this.setState({currentRound: round},
             () => this.setCurrentRoundToSessionStorage())

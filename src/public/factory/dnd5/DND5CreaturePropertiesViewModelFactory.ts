@@ -3,7 +3,7 @@ import {DiceRollSpecification} from "../../model/dataModel/DiceRollSpecification
 import {AlignmentEnum} from "../../model/enumeration/AlignmentEnum";
 import {DND5CreatureTypeEnum} from "../../model/enumeration/dnd5/DND5CreatureTypeEnum";
 import {DND5CreatureStatsModel} from "../../model/dataModel/dnd5/DND5CreatureStatsModel";
-import {DND5CreatureSizesEnum} from "../../model/enumeration/dnd5/DND5CreatureSizesEnum";
+import {DND5CreatureSizeEnum} from "../../model/enumeration/dnd5/DND5CreatureSizeEnum";
 import {DND5SpellSlotsViewModel} from "../../model/dataModel/dnd5/DND5SpellSlotsViewModel";
 import {DND5SavingThrowsModel} from "../../../model/dataModel/dnd5/DND5SavingThrowsModel";
 import {TypeEnum} from "../../model/enumeration/TypesEnum";
@@ -31,7 +31,7 @@ export class DND5CreaturePropertiesViewModelFactory {
                 null,
                 null
             ),
-            DND5CreatureSizesEnum.NONE,
+            DND5CreatureSizeEnum.NONE,
             '',
             new DND5SpellSlotsViewModel(
                 0,

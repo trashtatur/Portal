@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {CSSProperties, ReactNode} from 'react';
-import {CreatureViewModel} from "../../../../../model/CreatureViewModel";
-import {PathfinderCreaturePropertiesViewModel} from "../../../../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import * as style from './battleDiceRoller.css'
 
 interface CombatDiceBarProps {

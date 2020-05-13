@@ -16,8 +16,8 @@
     "removeComments": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
+      "@/public/*": [
+        "src/public/*"
       ]
     },
     "typeRoots": [

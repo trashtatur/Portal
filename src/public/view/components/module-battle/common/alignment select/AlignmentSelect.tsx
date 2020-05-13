@@ -1,12 +1,13 @@
 import * as React from "react";
 import Select from 'react-select';
 import {ReactElement} from "react";
-import {selectableAlignment} from "../../../../../../types/frontendTypes";
-import * as style from "../pathfinderCreatureForm.css";
+import {selectableAlignment} from "@/public/types/frontendTypes";
 
 export interface AlignmentSelectProps {
     handleAlignmentChange: Function;
+    className: string;
     value;
+    id?: string;
 }
 
 export class AlignmentSelect extends React.Component<AlignmentSelectProps> {
@@ -88,7 +89,8 @@ export class AlignmentSelect extends React.Component<AlignmentSelectProps> {
             isClearable
             value={this.determineCurrentValue()}
             onChange={this.props.handleAlignmentChange}
-            className={style.creatureFormSelect}
+            className={this.props.className}
+            id={this.props.id}
         />)
     }
 

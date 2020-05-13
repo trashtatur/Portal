@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {RoutesEnum} from "../../../../service/RoutesEnum";
+import {RoutesEnum} from "@/public/service/RoutesEnum";
 import {Link} from 'react-router-dom'
 import * as style from './adventureCard.css';
 

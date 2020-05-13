@@ -4,7 +4,7 @@ import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import axios, {AxiosResponse} from "axios";
 import {setCreatureImageName, uploadImage} from "../../../../../service/helperFunctions";
-import {AlignmentSelect} from "./alignment select/AlignmentSelect";
+import {AlignmentSelect} from "../../common/alignment select/AlignmentSelect";
 import {SizeSelect} from "./size select/SizeSelect";
 import Dropzone from 'react-dropzone-uploader'
 import {selectable} from "@/public/types/frontendTypes";
@@ -443,6 +443,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                                 <strong>alignment:</strong>
                                 <AlignmentSelect handleAlignmentChange={this.handleAlignmentChange}
                                                  value={this.state.creature.properties.alignment}
+                                                 className={style.creatureFormSelect}
                                 />
                             </label>
                             <RedFadeLine/>

@@ -5,7 +5,7 @@ import {AlignmentEnum} from "../enumeration/AlignmentEnum";
 import {NamedPropertyViewModel} from "../dataModel/NamedPropertyViewModel";
 import {DND5CreatureTypeEnum} from "../enumeration/dnd5/DND5CreatureTypeEnum";
 import {DND5CreatureStatsModel} from "../dataModel/dnd5/DND5CreatureStatsModel";
-import {DND5CreatureSizesEnum} from "../enumeration/dnd5/DND5CreatureSizesEnum";
+import {DND5CreatureSizeEnum} from "../enumeration/dnd5/DND5CreatureSizeEnum";
 import {DND5ActionViewModel} from "./DND5ActionViewModel";
 import {DND5TalentViewModel} from "./DND5TalentViewModel";
 import {DND5SkillViewModel} from "./DND5SkillViewModel";
@@ -31,7 +31,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
     private _challenge: number;
     private _xp: number;
     private _stats: DND5CreatureStatsModel;
-    private _size: DND5CreatureSizesEnum;
+    private _size: DND5CreatureSizeEnum;
     private _speed: string;
     private _spellSlots: DND5SpellSlotsViewModel;
     private _classesAndLevels?: Array<ClassAndLevelViewModel>;
@@ -64,7 +64,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         challenge: number,
         xp: number,
         stats: DND5CreatureStatsModel,
-        size: DND5CreatureSizesEnum,
+        size: DND5CreatureSizeEnum,
         speed: string,
         spellSlots: DND5SpellSlotsViewModel,
         classesAndLevels?: Array<ClassAndLevelViewModel>,
@@ -223,11 +223,11 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._stats = value;
     }
 
-    get size(): DND5CreatureSizesEnum {
+    get size(): DND5CreatureSizeEnum {
         return this._size;
     }
 
-    set size(value: DND5CreatureSizesEnum) {
+    set size(value: DND5CreatureSizeEnum) {
         this._size = value;
     }
 

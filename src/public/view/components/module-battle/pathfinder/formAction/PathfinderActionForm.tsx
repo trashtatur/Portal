@@ -1,9 +1,9 @@
 import * as React from "react";
 import axios from "axios";
 import {ReactElement} from "react";
-import {ActionViewModel} from "../../../../../model/pathfinder/ActionViewModel";
+import {ActionViewModel} from "@/public/model/pathfinder/ActionViewModel";
 import {MultiSelectNoCreate} from "../../../uiBasic/multiSelectNoCreate/MultiSelectNoCreate";
-import {ActionViewModelFactory} from "../../../../../factory/ActionViewModelFactory";
+import {ActionViewModelFactory} from "@/public/factory/ActionViewModelFactory";
 import * as style from './pathfinderActionForm.css';
 
 export interface ActionFormProps {

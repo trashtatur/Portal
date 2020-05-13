@@ -9,15 +9,15 @@ import {CreaturecardAttributes} from "../creaturecardAttributes/CreaturecardAttr
 import {CreaturecardAttackProperties} from "../../common/creaturecardAttackProperties/CreaturecardAttackProperties";
 import {CreaturecardActions} from "../creaturecardActions/CreaturecardActions";
 import {ReactElement} from "react";
-import {PathfinderStatsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderStatsViewModel";
-import {PathfinderCreatureSizeEnum} from "../../../../../model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
-import {NamedPropertyViewModel} from "../../../../../model/dataModel/NamedPropertyViewModel";
-import {PathfinderSavingThrowsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
-import {TalentViewModel} from "../../../../../model/pathfinder/TalentViewModel";
-import {ActionViewModel} from "../../../../../model/pathfinder/ActionViewModel";
-import {SkillViewModel} from "../../../../../model/pathfinder/SkillViewModel";
-import {LanguageViewModel} from "../../../../../model/pathfinder/LanguageViewModel";
-import {AlignmentEnum} from "../../../../../model/enumeration/AlignmentEnum";
+import {PathfinderStatsViewModel} from "@/public/model/dataModel/pathfinder/PathfinderStatsViewModel";
+import {PathfinderCreatureSizeEnum} from "@/public/model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
+import {NamedPropertyViewModel} from "@/public/model/dataModel/NamedPropertyViewModel";
+import {PathfinderSavingThrowsViewModel} from "@/public/model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
+import {TalentViewModel} from "@/public/model/pathfinder/TalentViewModel";
+import {ActionViewModel} from "@/public/model/pathfinder/ActionViewModel";
+import {SkillViewModel} from "@/public/model/pathfinder/SkillViewModel";
+import {LanguageViewModel} from "@/public/model/pathfinder/LanguageViewModel";
+import {AlignmentEnum} from "@/public/model/enumeration/AlignmentEnum";
 import * as style from "./creatureCard.css";
 
 
