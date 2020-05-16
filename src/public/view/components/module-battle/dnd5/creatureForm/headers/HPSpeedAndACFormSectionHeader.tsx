@@ -2,14 +2,16 @@ import * as React from 'react';
 import {ReactNode} from 'react';
 import {DiceRollSpecification} from "@/public/model/dataModel/DiceRollSpecification";
 import * as style from "@/public/view/components/module-battle/dnd5/creatureForm/dnd5CreatureForm.css";
+import {SpeedModel} from "@/public/model/dataModel/SpeedModel";
 
 interface HPAndACMonsterFormSectionHeaderProps {
     hp: number;
     ac: number;
+    speed: SpeedModel;
     hitDice: DiceRollSpecification;
 }
 
-export class HPAndACFormSectionHeader extends React.Component<HPAndACMonsterFormSectionHeaderProps, {}> {
+export class HPSpeedAndACFormSectionHeader extends React.Component<HPAndACMonsterFormSectionHeaderProps, {}> {
 
     render(): ReactNode {
         return (

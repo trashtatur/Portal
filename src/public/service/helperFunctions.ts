@@ -1,5 +1,13 @@
 import axios, {AxiosResponse} from "axios";
-import {CreatureViewModel} from "../model/CreatureViewModel";
+
+export const getEnumKeyForValue = <T> (value: string, enumToSearch: T): T[keyof T] => {
+    for (const key of Object.keys(enumToSearch)) {
+        if (enumToSearch[key] === value.trim()) {
+            return enumToSearch[key]
+        }
+    }
+    return null;
+}
 
 export const uuidv4 = function (): string {
     let d = new Date().getTime();//Timestamp

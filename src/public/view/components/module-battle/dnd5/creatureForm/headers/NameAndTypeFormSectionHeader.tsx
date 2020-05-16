@@ -8,7 +8,7 @@ interface InitialDND5CreatureFormSectionHeaderProps {
     type: string | null;
 }
 
-export class InitialDND5CreatureFormSectionHeader extends React.Component<InitialDND5CreatureFormSectionHeaderProps, {}> {
+export class NameAndTypeFormSectionHeader extends React.Component<InitialDND5CreatureFormSectionHeaderProps, {}> {
     render(): ReactNode {
         return (
             <>

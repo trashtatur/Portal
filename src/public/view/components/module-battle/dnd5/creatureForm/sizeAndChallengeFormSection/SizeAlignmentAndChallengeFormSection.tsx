@@ -58,7 +58,9 @@ export class SizeAlignmentAndChallengeFormSection extends React.Component<SizeAn
                         <label htmlFor={'creatureFormNameInput'}>Challenge</label>
                         <input
                             id={'creatureFormNameInput'}
-                            type={'text'}
+                            max={30}
+                            min={0}
+                            type={'number'}
                             value={this.props.challenge}
                             onChange={e => this.props.changeChallenge(e)}
                         />

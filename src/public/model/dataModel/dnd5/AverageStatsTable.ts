@@ -104,6 +104,11 @@ export class AverageStatsTable {
     }
 
     getMatchingEntriesByChallengeRating = (challengeRating: number): AverageStatsTableEntry => {
+        if (!challengeRating) {
+            return new AverageStatsTableEntry(
+                0, 0, 0, [0, 0],0, [0, 0], 0
+            )
+        }
         return this._tableEntries.find(entry => {
             return entry.challenge === challengeRating;
         })

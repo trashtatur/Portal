@@ -15,6 +15,7 @@ import {ClassAndLevelViewModel} from "../dataModel/ClassAndLevelViewModel";
 import {DND5SpellSlotsViewModel} from "../dataModel/dnd5/DND5SpellSlotsViewModel";
 import {SenseViewModel} from "../dataModel/dnd5/SenseViewModel";
 import {DND5SavingThrowsModel} from "../../../model/dataModel/dnd5/DND5SavingThrowsModel";
+import {SpeedModel} from "@/public/model/dataModel/SpeedModel";
 
 export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
 {
@@ -32,7 +33,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
     private _xp: number;
     private _stats: DND5CreatureStatsModel;
     private _size: DND5CreatureSizeEnum;
-    private _speed: string;
+    private _speed: SpeedModel;
     private _spellSlots: DND5SpellSlotsViewModel;
     private _classesAndLevels?: Array<ClassAndLevelViewModel>;
     private _damageVulnerabilities?: Array<string>;
@@ -65,7 +66,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         xp: number,
         stats: DND5CreatureStatsModel,
         size: DND5CreatureSizeEnum,
-        speed: string,
+        speed: SpeedModel,
         spellSlots: DND5SpellSlotsViewModel,
         classesAndLevels?: Array<ClassAndLevelViewModel>,
         damageVulnerabilities?: Array<string>,
@@ -231,11 +232,11 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._size = value;
     }
 
-    get speed(): string {
+    get speed(): SpeedModel {
         return this._speed;
     }
 
-    set speed(value: string) {
+    set speed(value: SpeedModel) {
         this._speed = value;
     }
 

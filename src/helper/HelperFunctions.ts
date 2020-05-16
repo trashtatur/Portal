@@ -1,8 +1,7 @@
 import {DiceRollSpecification} from "../model/dataModel/DiceRollSpecification";
 import {CreatureStatsModel} from "../model/dataModel/CreatureStatsModel";
-import {attackProperty, pathFinderSaveThrows, stats} from "../types/backendTypes";
+import {attackProperty, stats} from "../types/backendTypes";
 import {NamedCreatureProperty} from "../model/dataModel/NamedCreatureProperty";
-import {PathfinderSavingThrowsModel} from "../model/dataModel/pathfinder/PathfinderSavingThrowsModel";
 
 export const getEnumKeyForValue = <T> (value: string, enumToSearch: T): T[keyof T] => {
     for (const key of Object.keys(enumToSearch)) {
