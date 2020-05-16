@@ -152,7 +152,7 @@ export class HPSpeedAndACMonsterFormSection extends React.Component<HPAndACMonst
                             <label htmlFor={'dnd5CreatureForm--speed--land'}>🚹</label>
                             <input
                                 id={'dnd5CreatureForm--speed--land'}
-                                onChange={e => this.props.changeWaterSpeed(e)}
+                                onChange={e => this.props.changeLandSpeed(e)}
                                 type={'number'}
                                 style={{maxWidth: '45px'}}
                                 max={99}

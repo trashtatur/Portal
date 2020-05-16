@@ -9,10 +9,9 @@ import {DND5ActionViewModel} from "@/public/model/dnd5/DND5ActionViewModel";
 import {DND5SkillViewModel} from "@/public/model/dnd5/DND5SkillViewModel";
 import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
 import {CRToExperiencePointsConverterService} from "@/public/service/dnd5/CRToExperiencePointsConverterService";
-import {CRToProficiencyConverterService} from "@/public/service/dnd5/CRToProficiencyConverterService";
-import {NameAndTypeFormSection} from "./nameAndTypeFormSection/NameAndTypeFormSection";
+import {NameCreatureTypeAndTypeFormSection} from "./nameAndTypeFormSection/NameCreatureTypeAndTypeFormSection";
 import {StatBlockFormSection} from "./statBlockFormSection/StatBlockFormSection";
-import {NameAndTypeFormSectionHeader} from "./headers/NameAndTypeFormSectionHeader";
+import {NameCreatureTypeAndTypeFormSectionHeader} from "./headers/NameCreatureTypeAndTypeFormSectionHeader";
 import {StatBlockFormSectionHeader} from "./headers/StatBlockFormSectionHeader";
 import {SizeAlignmentAndChallengeFormSection} from "./sizeAndChallengeFormSection/SizeAlignmentAndChallengeFormSection";
 import {SizeAlignmentAndChallengeFormSectionHeader} from "./headers/SizeAlignmentAndChallengeFormSectionHeader";
@@ -28,7 +27,6 @@ import {AverageStatsTable} from "@/public/model/dataModel/dnd5/AverageStatsTable
 import {HPSpeedAndACPlayerFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/hpAndAcPlayerFormSection/HPSpeedAndACPlayerFormSection";
 import {HPSpeedAndACMonsterFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/hpAndAcMonsterFormSection/HPSpeedAndACMonsterFormSection";
 import {HPSpeedAndACFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/headers/HPSpeedAndACFormSectionHeader";
-import {SpeedModel} from "@/public/model/dataModel/SpeedModel";
 import * as style from './dnd5CreatureForm.css';
 
 interface CreatureFormState {
@@ -44,13 +42,11 @@ interface CreatureFormState {
 export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
     private crToXPService: CRToExperiencePointsConverterService;
     private creatureViewModelFactory: CreatureViewModelFactory;
-    private crToProficiencyService: CRToProficiencyConverterService;
     private averageStatsTable: AverageStatsTable;
 
     constructor(props) {
         super(props);
         this.crToXPService = new CRToExperiencePointsConverterService();
-        this.crToProficiencyService = new CRToProficiencyConverterService();
         this.creatureViewModelFactory = new CreatureViewModelFactory();
         this.averageStatsTable = AverageStatsTable.create();
         this.state = {
@@ -74,6 +70,14 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
         if (option.action === SelectEventTypesEnum.SELECT_OPTION) {
             const creature = this.state.creature;
             creature.properties.type = value.value;
+            this.setState({creature: creature})
+        }
+    }
+
+    handleCreatureTypeChange = (value, option): void => {
+        if (option.action === SelectEventTypesEnum.SELECT_OPTION) {
+            const creature = this.state.creature;
+            creature.properties.creatureType = value.value;
             this.setState({creature: creature})
         }
     }
@@ -133,7 +137,8 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
             }
             creature.properties.challenge = valueAsNumber;
             creature.properties.xp = this.crToXPService.getExperiencePointsByCRValue(valueAsNumber);
-            creature.properties.proficiencyBonus = this.crToProficiencyService.getProficiencyByCRValue(valueAsNumber);
+            creature.properties.proficiencyBonus =
+                this.averageStatsTable.getMatchingEntriesByChallengeRating(valueAsNumber).proficiencyBonus;
         }
         this.setState({creature: creature})
     }
@@ -260,17 +265,36 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
         this.setState({creature: creature});
     }
 
+    /**
+     * //TODO Attack Properties
+     * //TODO Languages
+     * //TODO Actions
+     * //TODO Legendary Actions
+     * //TODO Feats
+     * //TODO Skills
+     * //TODO Armor Type
+     * //TODO Spells / Spellslots / Innate Spellcasting
+     * //TODO Reactions
+     * //TODO Damage Immunities
+     * //TODO Damage Vulnerabilities
+     * //TODO Damage Resistances
+     * //TODO Condition Immunities
+     * //TODO Classes and levels
+     * //TODO Senses
+     */
     render(): ReactNode {
         return (
             <div className={style.container}>
                 <div className={style.creatureFormContainer}>
                     <div className={style.formSection}>
-                        <NameAndTypeFormSectionHeader
+                        <NameCreatureTypeAndTypeFormSectionHeader
                             name={this.state.creature.name}
                             type={this.state.creature.properties.type}
                         />
-                        <NameAndTypeFormSection
+                        <NameCreatureTypeAndTypeFormSection
                             name={this.state.creature.name}
+                            creatureType={this.state.creature.properties.creatureType}
+                            changeCreatureType={this.handleCreatureTypeChange}
                             type={
                                 this.state.creature.properties.getPrimitiveAttributeAsString(
                                     this.state.creature.properties.type

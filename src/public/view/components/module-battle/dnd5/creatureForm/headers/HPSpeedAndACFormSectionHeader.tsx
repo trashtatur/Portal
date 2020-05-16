@@ -24,7 +24,6 @@ export class HPSpeedAndACFormSectionHeader extends React.Component<HPAndACMonste
                     <span className={style.formSectionCompletion}>
                         ☐<span className={style.formSectionHeader}>Hitpoints, Speed & Armorclass</span>
                     </span>
-
                 }
                 {
                     this.props.hp !== null
