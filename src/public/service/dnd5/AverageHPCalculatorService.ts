@@ -5,7 +5,7 @@ export class AverageHPCalculatorService {
         const constitutionBonusToHP = hitDice.diceCount * constitutionModifier;
         const diceRollAverage = Math.floor(((hitDice.diceType + 1) / 2) * hitDice.diceCount);
 
-        return diceRollAverage + constitutionBonusToHP;
+        return diceRollAverage + constitutionBonusToHP + (hitDice.bonus ?? 0);
     }
 
     /**
