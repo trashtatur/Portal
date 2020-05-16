@@ -13,7 +13,9 @@ interface HPAndACMonsterFormSectionProps {
     changeAC: Function;
     constitutionMod: number;
     speed: SpeedModel;
-    changeSpeed: Function;
+    changeLandSpeed: Function;
+    changeAirSpeed: Function;
+    changeWaterSpeed: Function;
     size: DND5CreatureSizeEnum;
     hitDice: DiceRollSpecification;
     changeHitDiceCount: Function;
@@ -22,7 +24,7 @@ interface HPAndACMonsterFormSectionProps {
     averageHP: [number, number];
 }
 
-export class HPAndACMonsterFormSection extends React.Component<HPAndACMonsterFormSectionProps, {}> {
+export class HPSpeedAndACMonsterFormSection extends React.Component<HPAndACMonsterFormSectionProps, {}> {
     private averageHPCalculatorService: AverageHPCalculatorService;
 
     constructor(props) {
@@ -150,6 +152,7 @@ export class HPAndACMonsterFormSection extends React.Component<HPAndACMonsterFor
                             <label htmlFor={'dnd5CreatureForm--speed--land'}>🚹</label>
                             <input
                                 id={'dnd5CreatureForm--speed--land'}
+                                onChange={e => this.props.changeWaterSpeed(e)}
                                 type={'number'}
                                 style={{maxWidth: '45px'}}
                                 max={99}
@@ -160,6 +163,7 @@ export class HPAndACMonsterFormSection extends React.Component<HPAndACMonsterFor
                             <label htmlFor={'dnd5CreatureForm--speed--air'}>🐦</label>
                             <input
                                 id={'dnd5CreatureForm--speed--air'}
+                                onChange={e => this.props.changeAirSpeed(e)}
                                 type={'number'}
                                 style={{maxWidth: '45px'}}
                                 max={99}
@@ -170,6 +174,7 @@ export class HPAndACMonsterFormSection extends React.Component<HPAndACMonsterFor
                             <label htmlFor={'dnd5CreatureForm--speed--water'}>🐟</label>
                             <input
                                 id={'dnd5CreatureForm--speed--water'}
+                                onChange={e => this.props.changeWaterSpeed(e)}
                                 type={'number'}
                                 style={{maxWidth: '45px'}}
                                 max={99}

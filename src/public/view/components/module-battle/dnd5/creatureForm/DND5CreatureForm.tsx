@@ -26,7 +26,7 @@ import {ClassesAndLevelsFormSection} from "@/public/view/components/module-battl
 import {ClassAndLevelViewModel} from "@/public/model/dataModel/ClassAndLevelViewModel";
 import {AverageStatsTable} from "@/public/model/dataModel/dnd5/AverageStatsTable";
 import {HPSpeedAndACPlayerFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/hpAndAcPlayerFormSection/HPSpeedAndACPlayerFormSection";
-import {HPAndACMonsterFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/hpAndAcMonsterFormSection/HPAndACMonsterFormSection";
+import {HPSpeedAndACMonsterFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/hpAndAcMonsterFormSection/HPSpeedAndACMonsterFormSection";
 import {HPSpeedAndACFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/headers/HPSpeedAndACFormSectionHeader";
 import {SpeedModel} from "@/public/model/dataModel/SpeedModel";
 import * as style from './dnd5CreatureForm.css';
@@ -220,8 +220,28 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
         this.setState({creature: creature})
     }
 
-    handleSpeedChange = (speedModel: SpeedModel): void => {
+    handleLandSpeedChange = (event): void => {
+        const creature = this.state.creature;
+        if (!isNaN(parseInt(event.target.value))) {
+            creature.properties.speed.land = parseInt(event.target.value);
+        }
+        this.setState({creature: creature});
+    };
 
+    handleAirSpeedChange = (event): void => {
+        const creature = this.state.creature;
+        if (!isNaN(parseInt(event.target.value))) {
+            creature.properties.speed.air = parseInt(event.target.value);
+        }
+        this.setState({creature: creature});
+    };
+
+    handleWaterSpeedChange = (event): void => {
+        const creature = this.state.creature;
+        if (!isNaN(parseInt(event.target.value))) {
+            creature.properties.speed.water = parseInt(event.target.value);
+        }
+        this.setState({creature: creature});
     };
 
     handleHitDiceCountChange = (event): void => {
@@ -363,7 +383,9 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                                 )}
                                 changeAC={this.handleArmorClassChange}
                                 speed={this.state.creature.properties.speed}
-                                changeSpeed={this.handleSpeedChange}
+                                changeLandSpeed={this.handleLandSpeedChange}
+                                changeAirSpeed={this.handleAirSpeedChange}
+                                changeWaterSpeed={this.handleWaterSpeedChange}
                                 classesAndLevels={this.state.creature.properties.classesAndLevels}
                                 changeHitDice={this.handleHitDiceCountChange}
                             />
@@ -377,7 +399,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                             && this.state.creature.properties.stats.intelligence !== null
                             && this.state.creature.properties.stats.charisma !== null
                             &&
-                            <HPAndACMonsterFormSection
+                            <HPSpeedAndACMonsterFormSection
                                 hp={this.state.creature.properties.getPrimitiveAttributeAsString(
                                     this.state.creature.properties.hitpoints
                                 )}
@@ -390,7 +412,9 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                                     this.state.creature.properties.stats.constitution
                                 )}
                                 speed={this.state.creature.properties.speed}
-                                changeSpeed={this.handleSpeedChange}
+                                changeLandSpeed={this.handleLandSpeedChange}
+                                changeAirSpeed={this.handleAirSpeedChange}
+                                changeWaterSpeed={this.handleWaterSpeedChange}
                                 size={this.state.creature.properties.size}
                                 hitDice={this.state.creature.properties.hitDice}
                                 changeHitDiceCount={this.handleHitDiceCountChange}

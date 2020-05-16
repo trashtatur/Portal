@@ -22,7 +22,7 @@ export class HPSpeedAndACFormSectionHeader extends React.Component<HPAndACMonste
                     || this.props.hitDice === null)
                     &&
                     <span className={style.formSectionCompletion}>
-                        ☐<span className={style.formSectionHeader}>Hitpoints & Armorclass</span>
+                        ☐<span className={style.formSectionHeader}>Hitpoints, Speed & Armorclass</span>
                     </span>
 
                 }
@@ -32,7 +32,7 @@ export class HPSpeedAndACFormSectionHeader extends React.Component<HPAndACMonste
                     && this.props.hitDice !== null
                     &&
                     <span className={style.formSectionCompletion}>
-                        ☑<span className={style.formSectionHeader}>Hitpoints & Armorclass</span>
+                        ☑<span className={style.formSectionHeader}>Hitpoints, Speed & Armorclass</span>
                     </span>
                 }
             </>

@@ -9,7 +9,9 @@ interface HPSpeedAndACPlayerFormSectionProps {
     ac: string;
     changeAC: Function;
     speed: SpeedModel;
-    changeSpeed: Function;
+    changeLandSpeed: Function;
+    changeAirSpeed: Function;
+    changeWaterSpeed: Function;
     classesAndLevels: ClassAndLevelViewModel[];
     changeHitDice: Function;
 }
