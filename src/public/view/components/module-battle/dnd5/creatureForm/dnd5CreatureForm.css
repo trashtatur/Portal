@@ -1,8 +1,11 @@
 .container {
     display: flex;
+    height: 82vh;
 }
 
 .creatureFormContainer {
+    overflow-y: auto;
+    min-width: 377px;
     flex: 1;
 }
 

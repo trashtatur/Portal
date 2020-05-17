@@ -35,7 +35,7 @@ export class ClassesAndLevelsFormSection extends React.Component<ClassesAndLevel
     }
 
 
-    addOneMore = (): void => {
+    addOne = (): void => {
         this.setState({
             classesAndLevelsToAdd: this.state.classesAndLevelsToAdd.concat(
                 [{classAndLevel: new ClassAndLevelViewModel('', 1), id: uuidv4()}]
@@ -81,11 +81,11 @@ export class ClassesAndLevelsFormSection extends React.Component<ClassesAndLevel
     render(): ReactNode {
         return (
             <>
-                <div style={{display: 'flex'}}>
+                <div style={{display: 'flex', justifyContent:'space-evenly', alignItems: 'center', minHeight: '40px'}}>
                     Add a class...
                     <button
                         className={style.formSubSectionAddButton}
-                        onClick={() => this.addOneMore()}
+                        onClick={() => this.addOne()}
                     >+</button>
                 </div>
                 {
