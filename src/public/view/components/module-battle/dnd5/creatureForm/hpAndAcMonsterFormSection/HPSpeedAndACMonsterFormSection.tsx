@@ -32,7 +32,6 @@ export class HPSpeedAndACMonsterFormSection extends React.Component<HPAndACMonst
         this.averageHPCalculatorService = new AverageHPCalculatorService();
     }
 
-
     setToAverageAC = (): void => {
         this.props.changeAC({target: {value: this.props.averageAC}})
     }

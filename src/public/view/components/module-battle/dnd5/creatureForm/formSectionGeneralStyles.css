@@ -29,3 +29,27 @@
 .hitDiceFieldContainer {
     display: flex;
 }
+
+.formSubSectionAddButton {
+    border-radius: 30%;
+    border-color: transparent;
+    background-color: darkgreen;
+    color: white;
+    box-shadow: 0 3px 5px #ccc;
+}
+
+.formSubSectionRemoveButton:hover {
+    background-color: green;
+}
+
+.formSubSectionRemoveButton {
+    border-radius: 30%;
+    border-color: transparent;
+    background-color: darkred;
+    color: white;
+    box-shadow: 0 3px 5px #ccc;
+}
+
+.formSubSectionRemoveButton:hover {
+    background-color: red;
+}
