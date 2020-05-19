@@ -401,18 +401,6 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
         this.setState({creature})
     };
 
-    /**
-     * //TODO Attack Properties
-     * //TODO Actions
-     * //TODO Legendary Actions
-     * //TODO Armor Type
-     * //TODO Spells / Spellslots / Innate Spellcasting
-     * //TODO Reactions
-     * //TODO Damage Immunities
-     * //TODO Damage Vulnerabilities
-     * //TODO Damage Resistances
-     * //TODO Condition Immunities
-     */
     render(): ReactNode {
         return (
             <div className={style.container}>
@@ -605,6 +593,18 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                                 changeSkills={this.handleSkillsChange}
                             />
                         }
+                    </div>
+                    <div className={style.formSection}>
+                        {/*Actions And Spells*/}
+                    </div>
+                    <div className={style.formSection}>
+                        {/*Attack Properties, Innate Spell casting And Reactions*/}
+                    </div>
+                    <div className={style.formSection}>
+                        {/*Damage Vuln/Res/immununities and Condition immunities*/}
+                    </div>
+                    <div className={style.formSection}>
+                        {/*Legendary Actions*/}
                     </div>
                 </div>
                 <div className={style.creatureCardContainer}>

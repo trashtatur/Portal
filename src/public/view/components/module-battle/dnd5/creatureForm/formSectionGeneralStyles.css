@@ -60,7 +60,7 @@
 }
 
 .formSubSelectMenu {
-    max-width: 150px;
+    min-width: 150px;
     margin-left: 5px;
     font-size: 9pt;
 }

@@ -21,7 +21,6 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
     private readonly _type: TypeEnum;
     private readonly _proficiencyBonus: number;
     private readonly _armorclass: number;
-    private readonly _armorType: string;
     private readonly _hitpoints: number;
     private readonly _hitDice: DiceRollSpecification;
     private readonly _alignment: AlignmentEnum;
@@ -49,13 +48,11 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
     private readonly _languages?: DND5LanguageModel[];
     private readonly _spells?: DND5SpellModel[];
 
-
     constructor(
         id: string,
         type: TypeEnum,
         proficiencyBonus: number,
         armorclass: number,
-        armorType: string,
         hitpoints: number,
         hitDice: DiceRollSpecification,
         alignment: AlignmentEnum,
@@ -88,7 +85,6 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
         this._type = type;
         this._proficiencyBonus = proficiencyBonus;
         this._armorclass = armorclass;
-        this._armorType = armorType;
         this._hitpoints = hitpoints;
         this._hitDice = hitDice;
         this._alignment = alignment;
@@ -130,10 +126,6 @@ export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
 
     get armorclass(): number {
         return this._armorclass;
-    }
-
-    get armorType(): string {
-        return this._armorType;
     }
 
     get hitpoints(): number {

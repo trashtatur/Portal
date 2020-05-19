@@ -196,6 +196,7 @@ export class LanguagesFeatsSensesAndSkillsFormSection extends React.Component<La
                                         id={`${elem.id}--dnd5CreatureForm--senses--level`}
                                         value={elem.sense.value}
                                         type={'number'}
+                                        style={{width: '45px'}}
                                         onChange={e => this.handleSenseValueChange(elem.id, e)}
                                         min={0}
                                         max={999}

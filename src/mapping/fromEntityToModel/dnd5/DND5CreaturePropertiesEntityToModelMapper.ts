@@ -54,7 +54,6 @@ export class DND5CreaturePropertiesEntityToModelMapper implements EntityToModelM
             getEnumKeyForValue(entity.type, TypeEnum),
             entity.proficiencyBonus,
             entity.armorclass,
-            entity.armorType,
             entity.hitpoints,
             mapDamageStringToDamageDataModel(entity.hitDice),
             getEnumKeyForValue(entity.alignment, AlignmentEnum),

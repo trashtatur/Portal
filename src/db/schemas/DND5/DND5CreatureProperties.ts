@@ -51,10 +51,6 @@ export class DND5CreatureProperties extends Model<DND5CreatureProperties>{
 
     @AllowNull(false)
     @Column
-    armorType: string;
-
-    @AllowNull(false)
-    @Column
     hitpoints: number;
 
     @AllowNull(false)
