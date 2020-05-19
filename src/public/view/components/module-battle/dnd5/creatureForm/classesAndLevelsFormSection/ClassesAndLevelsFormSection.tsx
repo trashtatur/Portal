@@ -64,7 +64,7 @@ export class ClassesAndLevelsFormSection extends React.Component<ClassesAndLevel
         });
     }
 
-    handleClassLevelChange = (id, event) => {
+    handleClassLevelChange = (id, event): void => {
         this.setState({
             classesAndLevelsToAdd: this.state.classesAndLevelsToAdd.map(elem => {
                 if (elem.id === id) {
@@ -81,7 +81,7 @@ export class ClassesAndLevelsFormSection extends React.Component<ClassesAndLevel
     render(): ReactNode {
         return (
             <>
-                <div style={{display: 'flex', justifyContent:'space-evenly', alignItems: 'center', minHeight: '40px'}}>
+                <div className={style.formSubSectionHeader}>
                     Add a class...
                     <button
                         className={style.formSubSectionAddButton}

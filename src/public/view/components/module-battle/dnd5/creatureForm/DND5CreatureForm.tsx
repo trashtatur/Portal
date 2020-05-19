@@ -27,6 +27,9 @@ import {AverageStatsTable} from "@/public/model/dataModel/dnd5/AverageStatsTable
 import {HPSpeedAndACPlayerFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/hpAndAcPlayerFormSection/HPSpeedAndACPlayerFormSection";
 import {HPSpeedAndACMonsterFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/hpAndAcMonsterFormSection/HPSpeedAndACMonsterFormSection";
 import {HPSpeedAndACFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/headers/HPSpeedAndACFormSectionHeader";
+import {LanguagesFeatsSensesAndSkillsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/languagesFeatsSensesAndSkills/LanguagesFeatsSensesAndSkillsFormSection";
+import {LanguagesFeatsSensesAndSkillsFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/headers/LanguagesFeatsSensesAndSkillsFormSectionHeader";
+import {SenseViewModel} from "@/public/model/dataModel/dnd5/SenseViewModel";
 import * as style from './dnd5CreatureForm.css';
 
 interface CreatureFormState {
@@ -87,31 +90,36 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
             const creature = this.state.creature;
             creature.properties.size = value.value;
             this.setState({creature: creature}, () => {
-                let hitDiceType = null;
-                switch (this.state.creature.properties.size) {
-                    case DND5CreatureSizeEnum.GARGANTUAN:
-                        hitDiceType = 20;
-                        break;
-                    case DND5CreatureSizeEnum.HUGE:
-                        hitDiceType = 12;
-                        break;
-                    case DND5CreatureSizeEnum.LARGE:
-                        hitDiceType = 10;
-                        break;
-                    case DND5CreatureSizeEnum.MEDIUM:
-                        hitDiceType = 8;
-                        break;
-                    case DND5CreatureSizeEnum.SMALL:
-                        hitDiceType = 6;
-                        break;
-                    case DND5CreatureSizeEnum.TINY:
-                        hitDiceType = 4;
-                        break;
-                    default:
-                        break;
+                if (
+                    this.state.creature.properties.type === TypeEnum.SUMMON
+                    || this.state.creature.properties.type === TypeEnum.MONSTER
+                ) {
+                    let hitDiceType = null;
+                    switch (this.state.creature.properties.size) {
+                        case DND5CreatureSizeEnum.GARGANTUAN:
+                            hitDiceType = 20;
+                            break;
+                        case DND5CreatureSizeEnum.HUGE:
+                            hitDiceType = 12;
+                            break;
+                        case DND5CreatureSizeEnum.LARGE:
+                            hitDiceType = 10;
+                            break;
+                        case DND5CreatureSizeEnum.MEDIUM:
+                            hitDiceType = 8;
+                            break;
+                        case DND5CreatureSizeEnum.SMALL:
+                            hitDiceType = 6;
+                            break;
+                        case DND5CreatureSizeEnum.TINY:
+                            hitDiceType = 4;
+                            break;
+                        default:
+                            break;
+                    }
+                    creature.properties.hitDice.diceType = hitDiceType;
+                    this.setState({creature: creature});
                 }
-                creature.properties.hitDice.diceType = hitDiceType;
-                this.setState({creature: creature});
             });
         }
     }
@@ -249,7 +257,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
         this.setState({creature: creature});
     };
 
-    handleHitDiceCountChange = (event): void => {
+    handleHitDiceCountChange = (event, id): void => {
         const creature = this.state.creature;
         if (!isNaN(parseInt(event.target.value))) {
             creature.properties.hitDice.diceCount = parseInt(event.target.value);
@@ -265,13 +273,138 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
         this.setState({creature: creature});
     }
 
+    handleLanguagesChange = (value, option): void => {
+        const creature = this.state.creature;
+        if (
+            option.action === SelectEventTypesEnum.CREATE_OPTION
+            || option.action === SelectEventTypesEnum.SELECT_OPTION
+        ) {
+            creature.properties.languages = value.map(elem => {
+                const alreadyKnownLanguage = this.state.creature.properties.languages.find(language => {
+                    if (language.name === elem.value) {
+                        return language;
+                    }
+                })
+                if (alreadyKnownLanguage) {
+                    return alreadyKnownLanguage;
+                }
+                const alreadyExistingLanguage = this.state.languagesToSelectFrom.find(language => {
+                    if (language.name === elem.value) {
+                        return language;
+                    }
+                })
+                if (alreadyExistingLanguage) {
+                    return new DND5LanguageViewModel(alreadyExistingLanguage.id, alreadyExistingLanguage.name)
+                }
+                return new DND5LanguageViewModel(null, elem.value)
+            });
+            this.setState({creature: creature})
+        } else if (option.action === SelectEventTypesEnum.REMOVE_OPTION) {
+            creature.properties.languages = creature.properties.languages.filter(language => {
+                const possibleRemovalMatch = value.find(elem => {
+                    if (elem.value === language.name) {
+                        return elem;
+                    }
+                });
+                if (!possibleRemovalMatch) {
+                    return language;
+                }
+            })
+        }
+    };
+
+    handleFeatsChange = (value, option): void => {
+        const creature = this.state.creature;
+        if (
+            option.action === SelectEventTypesEnum.CREATE_OPTION
+            || option.action === SelectEventTypesEnum.SELECT_OPTION
+        ) {
+            creature.properties.languages = value.map(elem => {
+                const alreadyKnown = this.state.creature.properties.talents.find(talent => {
+                    if (talent.name === elem.value) {
+                        return talent;
+                    }
+                })
+                if (alreadyKnown) {
+                    return alreadyKnown;
+                }
+                const alreadyExisting = this.state.talentsToSelectFrom.find(talent => {
+                    if (talent.name === elem.value) {
+                        return talent;
+                    }
+                })
+                return new DND5TalentViewModel(
+                    alreadyExisting.id,
+                    alreadyExisting.name,
+                    alreadyExisting.condition,
+                    alreadyExisting.benefit
+                );
+            });
+            this.setState({creature: creature})
+        } else if (option.action === SelectEventTypesEnum.REMOVE_OPTION) {
+            creature.properties.talents = creature.properties.talents.filter(talent => {
+                const possibleRemovalMatch = value.find(elem => {
+                    if (elem.value === talent.name) {
+                        return elem;
+                    }
+                });
+                if (!possibleRemovalMatch) {
+                    return talent;
+                }
+            });
+        }
+    };
+
+    handleSkillsChange = (value, option): void => {
+        const creature = this.state.creature;
+        if (
+            option.action === SelectEventTypesEnum.CREATE_OPTION
+            || option.action === SelectEventTypesEnum.SELECT_OPTION
+        ) {
+            creature.properties.skills = value.map(elem => {
+                const alreadyKnown = this.state.creature.properties.skills.find(skill => {
+                    if (skill.name === elem.value) {
+                        return skill;
+                    }
+                })
+                if (alreadyKnown) {
+                    return alreadyKnown;
+                }
+                const alreadyExisting = this.state.skillsToSelectFrom.find(skill => {
+                    if (skill.name === elem.value) {
+                        return skill;
+                    }
+                })
+                return new DND5SkillViewModel(
+                    alreadyExisting.id,
+                    alreadyExisting.name,
+                );
+            });
+            this.setState({creature: creature})
+        } else if (option.action === SelectEventTypesEnum.REMOVE_OPTION) {
+            creature.properties.skills = creature.properties.skills.filter(skill => {
+                const possibleRemovalMatch = value.find(elem => {
+                    if (elem.value === skill.name) {
+                        return elem;
+                    }
+                });
+                if (!possibleRemovalMatch) {
+                    return skill;
+                }
+            });
+        }
+    };
+
+    handleSensesChange = (senses: SenseViewModel[]): void => {
+        const creature = this.state.creature;
+        creature.properties.senses = senses;
+        this.setState({creature})
+    };
+
     /**
      * //TODO Attack Properties
-     * //TODO Languages
      * //TODO Actions
      * //TODO Legendary Actions
-     * //TODO Feats
-     * //TODO Skills
      * //TODO Armor Type
      * //TODO Spells / Spellslots / Innate Spellcasting
      * //TODO Reactions
@@ -279,8 +412,6 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
      * //TODO Damage Vulnerabilities
      * //TODO Damage Resistances
      * //TODO Condition Immunities
-     * //TODO Classes and levels
-     * //TODO Senses
      */
     render(): ReactNode {
         return (
@@ -449,6 +580,29 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                                 averageHP={this.averageStatsTable.getMatchingEntriesByChallengeRating(
                                     this.state.creature.properties.challenge
                                 ).hitPointsRange}
+                            />
+                        }
+                    </div>
+                    <div className={style.formSection}>
+                        <LanguagesFeatsSensesAndSkillsFormSectionHeader/>
+                        {
+                            this.state.creature.properties.hitpoints !== null
+                            && this.state.creature.properties.armorclass !== null
+                            && this.state.creature.properties.speed.land !== null
+                            && this.state.creature.properties.hitDice.diceCount !== null
+                            &&
+                            <LanguagesFeatsSensesAndSkillsFormSection
+                                languages={this.state.creature.properties.languages}
+                                selectableLanguages={this.state.languagesToSelectFrom}
+                                changeLanguages={this.handleLanguagesChange}
+                                feats={this.state.creature.properties.talents}
+                                selectableFeats={this.state.talentsToSelectFrom}
+                                changeFeats={this.handleFeatsChange}
+                                senses={this.state.creature.properties.senses}
+                                changeSenses={this.handleSensesChange}
+                                skills={this.state.creature.properties.skills}
+                                selectableSkills={this.state.skillsToSelectFrom}
+                                changeSkills={this.handleSkillsChange}
                             />
                         }
                     </div>

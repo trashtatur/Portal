@@ -29,6 +29,12 @@
     font-size: 12pt;
 }
 
+.optionalFormSectionCompletion {
+    margin-top: 10px;
+    color: dodgerblue;
+    font-size: 12pt;
+}
+
 .formSectionCompletion {
     margin-top: 10px;
     color: darkgreen;

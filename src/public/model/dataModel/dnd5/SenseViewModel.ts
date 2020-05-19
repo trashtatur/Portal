@@ -1,9 +1,9 @@
 export class SenseViewModel {
     private _name: string;
-    private _value: string;
+    private _value: number;
     constructor(
         name: string,
-        value: string
+        value: number
     ) {
         this._name = name;
         this._value = value;
@@ -17,11 +17,11 @@ export class SenseViewModel {
         this._name = value;
     }
 
-    get value(): string {
+    get value(): number {
         return this._value;
     }
 
-    set value(value: string) {
+    set value(value: number) {
         this._value = value;
     }
 }
