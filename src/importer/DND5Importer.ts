@@ -1,10 +1,14 @@
 import { spellImport, multiSpellImport } from "./dnd5ImportTypes";
-import Axios from "axios";
+import axios from "axios";
 import { DND5Spell } from "../db/schemas/DND5/DND5Spell";
-import { uuidv4 } from "../public/service/helperFunctions";
+import { try } from "bluebird";
 
 export class DND5Importer {
 
+    /**
+     * Fields from the {@link DND5Spell} that should be updated in the database.
+     * So far these are just al data related columns.
+     */
     private spellKeys = [
         'description',
         'higherLevelsDescription',
@@ -19,34 +23,63 @@ export class DND5Importer {
         'level'
     ];
 
+    /**
+     * Import a single DND5 spell into the database by url.
+     * Optimized for {@link http://dnd5eapi.co/api/spells/acid-arrow}. 
+     * Other urls might not have the needed fields.
+     * async funciton using {@link axios} for the get.
+     * 
+     * @param url the url where the spell is located, 
+     * @example http://dnd5eapi.co/api/spells/acid-arrow
+     */
     public async importSpellByUrl(url: string) {
-        const response = await Axios.get(url);
-        this.importSpellByData(response.data);
-        // axios für den get
-        // get all - map to db format - bulk create
-        // sequelize doku
+        try {
+            const response = await axios.get(url);
+            this.importSpellByData(response.data);
+        } catch(error) {
+            console.error('While importing a spell form url', url, 'an error occured.\n', error);
+        }
     }
 
+    /**
+     * Import a single spell by {@link spellImport} into the database.
+     * 
+     * @param spell the spell that should be imported.
+     */
     public importSpellByData(spell: spellImport) {
         this.importSpellsByData([spell]);
     }
 
+
+    /**
+     * Import all DND5 spells behind a given url into the database. 
+     * Optimized for {@link http://dnd5eapi.co/api/spells}. 
+     * @param url the url that returns a {@link multiSpellImport} that contains a collection of DND5 spells.
+     */
     public async importSpellsByUrl(url: string) {
-        const response: multiSpellImport = await Axios.get(url);
-        this.importSpellsByData(response.results);
+        try {
+            const response: multiSpellImport = await axios.get(url);
+            this.importSpellsByData(response.results);
+        } catch (error) {
+            console.error('While importing spells form url', url, 'an error occured.\n', error);
+        }
     }
 
+    /**
+     * Import a collection of DND5 spells as {@link spellImport} into the database.
+     * @param spells the collection of spells that should be imported.
+     */
     public importSpellsByData(spells: spellImport[]) {
-        console.log('SPELLS IMPORTED', spells);
         const dnd5Spells = spells.map(spell => {
-            console.log('MAPPING SPELL IMPORT:', spell);
-            
-            return this.mapToDND5Spell(spell)});
-        console.log('MAPPED SPELLS', dnd5Spells);
-        
-        DND5Spell.bulkCreate(dnd5Spells, {updateOnDuplicate: this.spellKeys});
+            return this.mapToDND5Spell(spell)
+        });
+        DND5Spell.bulkCreate(dnd5Spells, { updateOnDuplicate: this.spellKeys });
     }
 
+    /**
+     * Mapper form {@link spellImport} to {@link DND5Spell}.
+     * @param spell the spell values.
+     */
     private mapToDND5Spell(spell: spellImport) {
         return {
             name: spell.name,
@@ -63,7 +96,5 @@ export class DND5Importer {
             level: spell.level
         }
     }
-
-
 
 }
