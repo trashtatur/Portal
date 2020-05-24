@@ -351,12 +351,27 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
     handleTalentsChange = (value, option): void => {
         const creature = this.state.creature;
         if (option.action == SelectEventTypesEnum.SELECT_OPTION || option.action == SelectEventTypesEnum.CREATE_OPTION) {
-            creature.properties.talents = value.map(elem => {
-                return elem.value
-            });
+            creature.properties.talents = this.state.talentData.filter(talent => {
+                const possibleMatch = value.find(singleValue => {
+                    if (singleValue.value === talent.name) {
+                        return singleValue;
+                    }
+                })
+                if (possibleMatch) {
+                    return new TalentViewModel(
+                        talent.id,
+                        talent.name,
+                        talent.type,
+                        talent.description,
+                        talent.benefits,
+                        talent.conditions,
+                        talent.note
+                    )
+                }
+            })
         } else if (option.action == SelectEventTypesEnum.REMOVE_OPTION) {
             creature.properties.talents = creature.properties.talents.filter(elem => {
-                return elem != option.removedValue.value;
+                return elem.name != option.removedValue.value;
             })
         }
         this.setState({creature: creature})

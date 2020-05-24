@@ -35,37 +35,17 @@ export class CreatureService {
         this.creatureRepository = creatureRepository;
     }
 
-    /**
-     * Creates a creature instance. Associates other table entries based on include list
-     * @param data
-     * @param include
-     */
-    async create(data: creatureData, include?: Includeable[]) {
+    async create<T extends AbstractCreaturePropertyModel>(data: creatureData, system: { new(...args: any[]): T }) {
         const creature = await Creature.create(
             {
-                name: data['name'],
-                hitpoints: data['hitpoints'],
-                alignment: data['alignment'],
-                armorclass: data['armorclass'],
-                image: data['image'],
-                type: data['type'],
-                attackProperties: data['attackProperties'],
-                creatureClass: data['creatureClass'],
-                challenge: data['challenge'],
-                movement: data['movement'],
-                ini: data['ini'],
-                baseAtk: data['baseAtk'],
-                xp: data['xp'] != null ? data['xp'] : null,
-                size: data['size'],
-                stats: data['stats'],
-                saveThrows: data['saveThrows']
+                name: data._name
             }
         );
+
         return creature
     }
 
     /**
-     * Deletes creature. Finds that creature by name first
      * @param data
      */
     async delete(data: object): Promise<boolean> {
@@ -74,7 +54,6 @@ export class CreatureService {
     }
 
     /**
-     * Updates a single creature instance. Expects the original name in the data package to find it
      * @param changeCreature
      * @param creatureName
      * @param creatureChallenge

@@ -49,11 +49,11 @@ type pathfinderDamageTypesData = {
     _isHybrid: boolean;
 }
 export type pathfinderTalentData = {
-    _id: string;
-    _name: string;
-    _type: string;
-    _description: string;
-    _benefits: string;
-    _conditions?: string;
-    _note?: string;
+    uuid: string;
+    name: string;
+    type: string;
+    description: string;
+    benefits: string;
+    conditions?: string;
+    note?: string;
 }
