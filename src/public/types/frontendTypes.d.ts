@@ -8,20 +8,12 @@ export type selectableCreatures = {
 type selectable = {
     label;
     value;
+    additionalInfoProperty?;
 }
 
 export type selectableAlignment = {
     value: string;
     label: JSX.Element;
-}
-
-export type statblock = {
-    str;
-    con;
-    wis;
-    int;
-    cha;
-    dex;
 }
 
 export type round = {
