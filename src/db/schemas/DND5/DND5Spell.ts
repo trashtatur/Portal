@@ -60,7 +60,7 @@ export class DND5Spell extends Model<DND5Spell> {
 
     @AllowNull(true)
     @Column
-    level: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+    level: number;
 
     @BelongsToMany(()=> DND5CreatureProperties, ()=> DND5CreatureSpell)
     dnd5CreatureProperties: DND5CreatureProperties[];

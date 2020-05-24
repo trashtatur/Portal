@@ -23,6 +23,23 @@ export type proficiencyImport = {
 	value: string;
 }
 
+export type speed = {
+	walk?: string;
+	fly?: string;
+	swim?: string;
+	burrow?: string;
+	climb?: string;
+	hover?: string;
+}
+
+export type senses = {
+	blindsight?: string;
+	darkvision?: string;
+	passive_perception?: string;
+	tremorsense?: string;
+	truesight?: string;
+}
+
 export type monsterImport = {
 	name: string;
 	size: string;
@@ -32,7 +49,7 @@ export type monsterImport = {
 	armor_class: number;
 	hit_points: number;
 	hit_dice: string;
-	speed: object;
+	speed: speed;
 	strength: number;
 	dexterity: number;
 	constitution: number;
@@ -44,7 +61,7 @@ export type monsterImport = {
 	damage_resistances: string[];
 	damage_immunities: string[];
 	condition_immunities: string[];
-	senses: object;
+	senses: senses;
 	languages: string;
 	challenge_rating: string;
 	actions: damageImport[];
@@ -68,19 +85,4 @@ export type spellImport = {
 	school: {name: string};
 	material: string; // materials
 	level: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9; 
-}
-
-export type spellData = {
-	name: string;
-	description: string;
-	higherLevelsDescription: string;
-	range: string;
-	components: string;
-	ritual: boolean;
-	duration: string;
-	concentration: boolean;
-	castingTime: string;
-	school: string;
-	materials: spell.material;
-	level: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 }
