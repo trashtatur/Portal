@@ -22,15 +22,6 @@ export class DND5SpellImporter {
         'level'
     ];
 
-    // public async importSpellByUrl(url: string) {
-    //     try {
-    //         const response = await axios.get(url);
-    //         this.importSpellByData(response.data);
-    //     } catch (error) {
-    //         console.error('While importing a spell form url', url, 'an error occured.\n', error);
-    //     }
-    // }
-
     public importSpellByUrl = async (url: string): Promise<void> => {
         try {
             const response = await axios.get(url)
