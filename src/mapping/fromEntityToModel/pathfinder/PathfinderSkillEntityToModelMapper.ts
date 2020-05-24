@@ -4,7 +4,7 @@ import {PathfinderSkillModel} from "../../../model/pathfinder/PathfinderSkillMod
 
 export class PathfinderSkillEntityToModelMapper implements EntityToModelMapperInterface<PathfinderSkill, PathfinderSkillModel>{
     map(entity: PathfinderSkill): PathfinderSkillModel {
-        const skillLevel = entity['PathfinderCreatureSkill'].skillLevel;
+        const skillLevel = entity['PathfinderCreatureSkill']?.skillLevel;
         return new PathfinderSkillModel(entity.uuid, entity.name, skillLevel);
     }
 

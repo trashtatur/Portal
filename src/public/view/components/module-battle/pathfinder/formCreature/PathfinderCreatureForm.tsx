@@ -3,7 +3,7 @@ import {ReactElement} from "react";
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import axios, {AxiosResponse} from "axios";
-import {setCreatureImageName, uploadImage} from "../../../../../service/helperFunctions";
+import {setCreatureImageName, uploadImage} from "@/public/service/helperFunctions";
 import {AlignmentSelect} from "../../common/alignment select/AlignmentSelect";
 import {SizeSelect} from "./size select/SizeSelect";
 import Dropzone from 'react-dropzone-uploader'
@@ -289,7 +289,11 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
     handleBaseAtkChange = (event): void => {
         const creature = this.state.creature;
         creature.properties.baseAtk = null;
-        if (!isNaN(parseInt(event.target.value))) creature.properties.baseAtk = parseInt(event.target.value);
+        creature.properties.stats.baseAttack = null;
+        if (!isNaN(parseInt(event.target.value))) {
+            creature.properties.baseAtk = parseInt(event.target.value);
+            creature.properties.stats.baseAttack = parseInt(event.target.value);
+        }
         this.setState({creature: creature})
     };
 
@@ -303,20 +307,60 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
     handleSizeChange = (value): void => {
         const creature = this.state.creature;
         creature.properties.size = value.value;
+        creature.properties.stats.creatureSize = value.value;
         this.setState({creature: creature})
     };
 
     handleStatsChange = (event, stat: "str" | "dex" | "wis" | "int" | "cha" | "con"): void => {
         const creature = this.state.creature;
-        creature.properties.stats[stat] = "";
-        if (!isNaN(parseInt(event.target.value))) creature.properties.stats[stat] = parseInt(event.target.value);
+        let valueAsNumber = null;
+        if (!isNaN(parseInt(event.target.value))) {
+            valueAsNumber = parseInt(event.target.value);
+        }
+        switch (stat) {
+            case "str":
+                creature.properties.stats.strength = valueAsNumber;
+                break;
+            case "cha":
+                creature.properties.stats.charisma = valueAsNumber;
+                break;
+            case "con":
+                creature.properties.stats.charisma = valueAsNumber;
+                break;
+            case "dex":
+                creature.properties.stats.dexterity = valueAsNumber;
+                break;
+            case "int":
+                creature.properties.stats.intelligence = valueAsNumber;
+                break;
+            case "wis":
+                creature.properties.stats.wisdom = valueAsNumber;
+                break;
+            default:
+                break;
+        }
         this.setState({creature: creature})
     };
 
     handleSaveThrowsChange = (event, saveThrow: "ref" | "will" | "fort"): void => {
         const creature = this.state.creature;
-        creature.properties.saveThrows[saveThrow] = null;
-        if (!isNaN(parseInt(event.target.value))) creature.properties.saveThrows[saveThrow] = parseInt(event.target.value);
+        let valueAsNumber = null;
+        if (!isNaN(parseInt(event.target.value))) {
+            valueAsNumber = parseInt(event.target.value)
+        }
+        switch (saveThrow) {
+            case "fort":
+                creature.properties.saveThrows.fortitude = valueAsNumber;
+                break;
+            case "ref":
+                creature.properties.saveThrows.reflex = valueAsNumber;
+                break;
+            case "will":
+                creature.properties.saveThrows.wisdom = valueAsNumber;
+                break;
+            default:
+                break;
+        }
         this.setState({creature: creature})
     };
 

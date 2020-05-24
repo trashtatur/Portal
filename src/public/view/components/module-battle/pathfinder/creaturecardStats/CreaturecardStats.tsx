@@ -37,7 +37,7 @@ export class CreaturecardStats extends React.Component<CreatureStatsProps> {
                         cha={this.props.statsVM.charisma} chaMod={this.props.statsVM.getModForStat(this.props.statsVM.charisma)}
                         classNameForCells={style.statTableCell}
                     />
-                    <td className={style.statTableCell}>+{this.props.statsVM.getCMB()} </td>
+                    <td className={style.statTableCell}>{this.props.statsVM.getCMB()} </td>
                     <td className={style.statTableCell}>{this.props.statsVM.getCMD()} </td>
                 </tr>
                 </tbody>
