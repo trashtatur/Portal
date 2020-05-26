@@ -59,6 +59,7 @@ export class DND5Spell extends Model<DND5Spell> {
     materials: string;
 
     @AllowNull(true)
+    @Default(0)
     @Column
     level: number;
 

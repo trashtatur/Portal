@@ -1,4 +1,4 @@
-export type monsterLocation = {
+export type entityLocation = {
 	index: string;
 	name: string;
 	url: string;
@@ -69,7 +69,7 @@ export type monsterImport = {
 
 export type multiSpellImport = {
 	count: number;
-	results: spellImport[];
+	results: entityLocation[];
 }
 
 export type spellImport = {
@@ -82,7 +82,24 @@ export type spellImport = {
 	duration: string;
 	concentration: boolean;
 	casting_time: string; // castingTime
-	school: {name: string};
+	school: { name: string };
 	material: string; // materials
-	level: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9; 
+	level: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+}
+
+export type spellData = {
+
+	name: string;
+	description: string;
+	higherLevelsDescription: string;
+	range: string;
+	components: string;
+	ritual: boolean;
+	duration: string;
+	concentration: boolean;
+	castingTime: string;
+	school: string;
+	materials: string;
+	level: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
 }
