@@ -1,4 +1,4 @@
-import { spellImport, multiSpellImport, spellData, entityLocation } from "./dnd5ImportTypes";
+import { spellImport, multiSpellImport, spellData } from "./dnd5ImportTypes";
 import axios from "axios";
 import { DND5Spell } from "../db/schemas/DND5/DND5Spell";
 
@@ -48,6 +48,7 @@ export class DND5SpellImporter {
                             if (errorList.length) {
                                 console.warn('Errors during spell import: ',errorList);
                             }
+                            // import all received spells
                             this.importSpellsByData(spells);
                         }
                     });
