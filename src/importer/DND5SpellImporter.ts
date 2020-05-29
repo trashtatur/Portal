@@ -34,27 +34,26 @@ export class DND5SpellImporter {
     public importSpellsByUrl = async (url: string): Promise<void> => {
         try {
             const multiSpellImport: multiSpellImport = (await axios.get(url)).data;
-            const spells = await this.getSpellImportsLocations(multiSpellImport.results);
+            const spells = await this.getSpellImportsByEntityLocations(multiSpellImport.results);
             this.importSpellsByData(spells);
         } catch (error) {
             console.error('While importing spells form url', url, 'an error occured.\n', error);
         }
     };
 
-    private async getSpellImportsLocations(locations: entityLocation[]): Promise<spellImport[]> {
-
+    private async getSpellImportsByEntityLocations(locations: entityLocation[]): Promise<spellImport[]> {
         const spells: Promise<spellImport[]> = Promise.all(locations.map(async (location) => {
             try {
                 return (await axios.get(`http://dnd5eapi.co${location.url}`)).data;
             } catch (error) {
-                console.log('While importing a spell form url', `http://dnd5eapi.co${location.url}`, 'an error occured.\n', error)
+                console.log('While importing a spell form url', `http://dnd5eapi.co${location.url}`, 'an error occured.\n', error);
             }
         }).filter(val => !!val));
         return spells;
     }
 
     public importSpellsByData = (spells: spellImport[]): void => {
-        const dnd5Spells = spells.map(this.mapToDND5Spell);
+        const dnd5Spells: spellData[] = spells.map(this.mapToDND5Spell);
         DND5Spell.bulkCreate(dnd5Spells, { updateOnDuplicate: this.spellKeys });
     };
 
