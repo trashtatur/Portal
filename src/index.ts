@@ -17,4 +17,3 @@ async function bootstrap() {
 
 db.dbSync(true);
 bootstrap();
-

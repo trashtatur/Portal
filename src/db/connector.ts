@@ -15,7 +15,7 @@ export const sequelize = new Sequelize({
     password: dataSupplier.databasePassword,
     host: dataSupplier.databaseHost,
     dialect: 'mysql',
-    models: [__dirname+'/schemas/**/*.ts']
+    models: [__dirname+'/schemas/**/*.ts'],
 });
 
 
