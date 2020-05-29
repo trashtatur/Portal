@@ -1,7 +1,7 @@
 import * as React from "react";
 import {ReactElement} from "react";
 import Select from 'react-select';
-import {PathfinderCreatureSizeEnum} from "../../../../../../model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
+import {PathfinderCreatureSizeEnum} from "@/public/model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
 import * as style from "../pathfinderCreatureForm.css";
 
 export interface SizeSelectProps {

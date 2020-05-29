@@ -2,12 +2,12 @@ import * as React from 'react'
 import {PathfinderCreatureForm} from "../PathfinderCreatureForm";
 import Select from 'react-select';
 import axios from "axios";
-import {selectableCreatures} from "../../../../../../types/frontendTypes";
+import {selectableCreatures} from "@/public/types/frontendTypes";
 import {ReactElement} from "react";
 import {CreatureSelectLabel} from "../../../../uiBasic/creatureSelectLabel/CreatureSelectLabel";
-import {CreatureViewModel} from "../../../../../../model/CreatureViewModel";
-import {CreatureViewModelFactory} from "../../../../../../factory/CreatureViewModelFactory";
-import {PathfinderCreaturePropertiesViewModel} from "../../../../../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
+import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import * as style from './creatureEditWrapper.css';
 
 

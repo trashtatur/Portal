@@ -3,10 +3,11 @@ import {DiceRollSpecification} from "../../model/dataModel/DiceRollSpecification
 import {AlignmentEnum} from "../../model/enumeration/AlignmentEnum";
 import {DND5CreatureTypeEnum} from "../../model/enumeration/dnd5/DND5CreatureTypeEnum";
 import {DND5CreatureStatsModel} from "../../model/dataModel/dnd5/DND5CreatureStatsModel";
-import {DND5CreatureSizesEnum} from "../../model/enumeration/dnd5/DND5CreatureSizesEnum";
+import {DND5CreatureSizeEnum} from "../../model/enumeration/dnd5/DND5CreatureSizeEnum";
 import {DND5SpellSlotsViewModel} from "../../model/dataModel/dnd5/DND5SpellSlotsViewModel";
 import {DND5SavingThrowsModel} from "../../../model/dataModel/dnd5/DND5SavingThrowsModel";
 import {TypeEnum} from "../../model/enumeration/TypesEnum";
+import {SpeedModel} from "@/public/model/dataModel/SpeedModel";
 
 export class DND5CreaturePropertiesViewModelFactory {
     createEmpty = (): DND5CreaturePropertiesViewModel => {
@@ -31,8 +32,12 @@ export class DND5CreaturePropertiesViewModelFactory {
                 null,
                 null
             ),
-            DND5CreatureSizesEnum.NONE,
-            '',
+            DND5CreatureSizeEnum.NONE,
+            new SpeedModel(
+                null,
+                null,
+                null
+            ),
             new DND5SpellSlotsViewModel(
                 0,
                 0,
@@ -60,6 +65,10 @@ export class DND5CreaturePropertiesViewModelFactory {
             [],
             []
         )
+    }
+
+    createFromExisting = (creatureProperties: DND5CreaturePropertiesViewModel): DND5CreaturePropertiesViewModel => {
+        return null;
     }
 
     createSummon = (): DND5CreaturePropertiesViewModel => {

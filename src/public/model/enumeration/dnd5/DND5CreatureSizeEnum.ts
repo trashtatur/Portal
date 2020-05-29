@@ -1,4 +1,4 @@
-export enum DND5CreatureSizesEnum {
+export enum DND5CreatureSizeEnum {
     TINY = 'tiny',
     SMALL = 'small',
     MEDIUM = 'medium',

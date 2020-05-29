@@ -5,7 +5,7 @@ import {PathfinderLanguageEntityToModelMapper} from "./PathfinderLanguageEntityT
 import {PathfinderCreatureProperties} from "../../../db/schemas/pathfinder/PathfinderCreatureProperties";
 import {PathfinderCreaturePropertiesModel} from "../../../model/pathfinder/PathfinderCreaturePropertiesModel";
 import {CreatureStatsModel} from "../../../model/dataModel/CreatureStatsModel";
-import {attackProperty, pathFinderSaveThrows, stats} from "../../../types/backendTypes";
+import {namedProperty, stats} from "../../../types/backendTypes";
 import {PathfinderSavingThrowsModel} from "../../../model/dataModel/pathfinder/PathfinderSavingThrowsModel";
 import {NamedCreatureProperty} from "../../../model/dataModel/NamedCreatureProperty";
 import {
@@ -80,7 +80,7 @@ export class PathfinderCreaturePropertyEntityToModelMapper
 
     private mapSaveThrowsStringToSaveThrowsDataModel = (saveThrowsString: string): PathfinderSavingThrowsModel | null => {
         try {
-            const saveThrowsData: pathFinderSaveThrows = JSON.parse(saveThrowsString);
+            const saveThrowsData = JSON.parse(saveThrowsString);
             return new PathfinderSavingThrowsModel(saveThrowsData.ref, saveThrowsData.will, saveThrowsData.fort)
         } catch (e) {
 

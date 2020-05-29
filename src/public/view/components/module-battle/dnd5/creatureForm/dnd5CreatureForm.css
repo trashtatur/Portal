@@ -1,8 +1,11 @@
 .container {
     display: flex;
+    height: 82vh;
 }
 
 .creatureFormContainer {
+    overflow-y: auto;
+    min-width: 377px;
     flex: 1;
 }
 
@@ -26,7 +29,14 @@
     font-size: 12pt;
 }
 
+.optionalFormSectionCompletion {
+    margin-top: 10px;
+    color: dodgerblue;
+    font-size: 12pt;
+}
+
 .formSectionCompletion {
+    margin-top: 10px;
     color: darkgreen;
     font-size: 12pt;
 }

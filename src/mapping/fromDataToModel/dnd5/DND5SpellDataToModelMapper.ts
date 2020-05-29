@@ -5,4 +5,8 @@ export class DND5SpellDataToModelMapper implements DataToModelMapperInterface<DN
     map = (data): DND5SpellModel => {
         return null;
     }
+
+    mapMultiple = (data): DND5SpellModel[] => {
+        return [];
+    }
 }

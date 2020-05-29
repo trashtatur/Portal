@@ -1,7 +1,6 @@
 import {DataToModelMapperInterface} from "../DataToModelMapperInterface";
 import {SceneModel} from "../../model/SceneModel";
 import {sceneData} from "../../types/backendTypes";
-import {PersonModel} from "../../model/PersonModel";
 
 export class SceneDataToModelMapper implements DataToModelMapperInterface<SceneModel> {
     map(data: sceneData): SceneModel {
@@ -42,5 +41,9 @@ export class SceneDataToModelMapper implements DataToModelMapperInterface<SceneM
             ));
         })
         return sceneModels;
+    }
+
+    mapMultiple(data): SceneModel[] {
+        return [];
     }
 }

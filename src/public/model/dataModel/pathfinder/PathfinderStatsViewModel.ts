@@ -21,8 +21,8 @@ export class PathfinderStatsViewModel {
     private _wisdom: number;
     private _intelligence: number;
     private _charisma: number;
-    private readonly _creatureSize: PathfinderCreatureSizeEnum;
-    private readonly _baseAttack: number;
+    private _creatureSize: PathfinderCreatureSizeEnum;
+    private _baseAttack: number;
 
     constructor(
         str: number,
@@ -92,6 +92,22 @@ export class PathfinderStatsViewModel {
         this._charisma = value;
     }
 
+    get baseAttack(): number {
+        return this._baseAttack;
+    }
+
+    set baseAttack(value: number) {
+        this._baseAttack = value;
+    }
+
+    get creatureSize(): PathfinderCreatureSizeEnum {
+        return this._creatureSize;
+    }
+
+    set creatureSize(value: PathfinderCreatureSizeEnum) {
+        this._creatureSize = value;
+    }
+
     getAsString = (attributeToGet: string): string => {
         switch (attributeToGet) {
             case this.LABELS.STR:
@@ -109,28 +125,32 @@ export class PathfinderStatsViewModel {
         }
     };
 
-    getCMD = (): number => {
-        return this._baseAttack + this.getModForStat(this.strength) +
+    getCMD = (): string => {
+        const cmd = this._baseAttack + this.getModForStat(this.strength) +
             this.getModForStat(this.dexterity) + getSizeModFromSizeEnum(this._creatureSize) + this.BASE_CMD_BONUS;
+        if (cmd > 0) return `${cmd}`
+        return `-${cmd}`
     };
 
-    getCMB = (): number => {
+    getCMB = (): string => {
         if (typeof this._baseAttack === 'string'
             || typeof this._strength === 'string'
             || typeof this._dexterity === 'string'
             || this._creatureSize === ''
         ) {
-            return 0;
+            return `0`;
         }
         if (this._creatureSize === PathfinderCreatureSizeEnum.SMALL
             || this._creatureSize === PathfinderCreatureSizeEnum.TINY
             || this._creatureSize === PathfinderCreatureSizeEnum.DIMINUTIVE
             || this._creatureSize === PathfinderCreatureSizeEnum.FINE) {
-            return this._baseAttack + this.getModForStat(this._dexterity) + getSizeModFromSizeEnum(this._creatureSize)
+            const cmb = this._baseAttack + this.getModForStat(this._dexterity) + getSizeModFromSizeEnum(this._creatureSize)
+            if (cmb > 0) return `${cmb}`
+            return `-${cmb}`
         }
-        return this._baseAttack
-            + this.getModForStat(this.strength)
-            + getSizeModFromSizeEnum(this._creatureSize)
+        const cmb = this._baseAttack + this.getModForStat(this.strength) + getSizeModFromSizeEnum(this._creatureSize)
+        if (cmb > 0) return `${cmb}`
+        return `-${cmb}`
     };
 
     getModForStat = (attr: number): number => {

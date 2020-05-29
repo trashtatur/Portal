@@ -8,7 +8,7 @@ interface InitialDND5CreatureFormSectionHeaderProps {
     type: string | null;
 }
 
-export class InitialDND5CreatureFormSectionHeader extends React.Component<InitialDND5CreatureFormSectionHeaderProps, {}> {
+export class NameCreatureTypeAndTypeFormSectionHeader extends React.Component<InitialDND5CreatureFormSectionHeaderProps, {}> {
     render(): ReactNode {
         return (
             <>
@@ -17,7 +17,10 @@ export class InitialDND5CreatureFormSectionHeader extends React.Component<Initia
                         || this.props.type === TypeEnum.NONE)
                     &&
                     <span className={style.formSectionCompletion}>
-                        ☐<span className={style.formSectionHeader}>Name & Type</span>
+                        ☐<span
+                        className={style.formSectionHeader}>
+                        Name{(this.props.type === TypeEnum.MONSTER || this.props.type === TypeEnum.SUMMON) && ', Creature Type '}& Type
+                    </span>
                     </span>
                 }
                 {
@@ -25,7 +28,9 @@ export class InitialDND5CreatureFormSectionHeader extends React.Component<Initia
                     && this.props.type !== TypeEnum.NONE
                     &&
                     <span className={style.formSectionCompletion}>
-                        ☑<span className={style.formSectionHeader}>Name & Type</span>
+                        ☑<span className={style.formSectionHeader}>
+                        Name{(this.props.type === TypeEnum.MONSTER || this.props.type === TypeEnum.SUMMON) && ', Creature Type '} & Type
+                    </span>
                     </span>
                 }
             </>

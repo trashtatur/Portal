@@ -67,7 +67,6 @@
     "nodemon": "^1.19.4",
     "prettier": "^1.19.1",
     "reactify": "^1.1.1",
-    "sequelize-cli": "^5.5.1",
     "source-map-support": "^0.5.16",
     "style-loader": "^1.2.1",
     "ts-lint": "^4.5.1",

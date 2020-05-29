@@ -8,6 +8,7 @@ export interface DamageTypeSelectProps {
     selectables: Array<selectable> | Array<selectableCreatures> | Array<selectableAlignment>;
     value?: Array<selectable> | Array<selectableCreatures> | Array<selectableAlignment>;
     className: string;
+    id?: string;
 }
 
 export class MultiSelectNoCreate extends React.Component<DamageTypeSelectProps> {

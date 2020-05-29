@@ -58,6 +58,16 @@ export class DiceRollSpecification {
         return String(this._bonus)
     }
 
+    getDiceTypePlusBonusAsString(): string {
+        if (!this.bonus) {
+            return `${this.diceType}`
+        }
+        if (this.bonus && this.bonus > 0) {
+            return `${this.diceType}+${this.bonus}`
+        }
+        return `${this.diceType}${this.bonus}`
+    }
+
     getFullDiceRollString(): string {
         if (!this.bonus) {
             return `${this.diceCount}d${this.diceType}`

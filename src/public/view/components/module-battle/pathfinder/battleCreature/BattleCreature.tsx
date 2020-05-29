@@ -1,17 +1,17 @@
 import * as React from "react";
 import {CreatureCard} from "../creaturecard/CreatureCard";
 import {ReactElement} from "react";
-import {PathfinderCreatureSizeEnum} from "../../../../../model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
-import {ProgressBar} from "../../../uiBasic/progressBar/ProgressBar";
-import {PathfinderSavingThrowsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
-import {TalentViewModel} from "../../../../../model/pathfinder/TalentViewModel";
-import {ActionViewModel} from "../../../../../model/pathfinder/ActionViewModel";
-import {NamedPropertyViewModel} from "../../../../../model/dataModel/NamedPropertyViewModel";
-import {PathfinderStatsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderStatsViewModel";
-import {TypeEnum} from "../../../../../model/enumeration/TypesEnum";
-import {AlignmentEnum} from "../../../../../model/enumeration/AlignmentEnum";
-import {LanguageViewModel} from "../../../../../model/pathfinder/LanguageViewModel";
-import {SkillViewModel} from "../../../../../model/pathfinder/SkillViewModel";
+import {PathfinderCreatureSizeEnum} from "@/public/model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
+import {ProgressBar} from "@/public/view/components/uiBasic/progressBar/ProgressBar";
+import {PathfinderSavingThrowsViewModel} from "@/public/model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
+import {TalentViewModel} from "@/public/model/pathfinder/TalentViewModel";
+import {ActionViewModel} from "@/public/model/pathfinder/ActionViewModel";
+import {NamedPropertyViewModel} from "@/public/model/dataModel/NamedPropertyViewModel";
+import {PathfinderStatsViewModel} from "@/public/model/dataModel/pathfinder/PathfinderStatsViewModel";
+import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
+import {AlignmentEnum} from "@/public/model/enumeration/AlignmentEnum";
+import {LanguageViewModel} from "@/public/model/pathfinder/LanguageViewModel";
+import {SkillViewModel} from "@/public/model/pathfinder/SkillViewModel";
 import * as style from './battleCreature.css';
 
 
@@ -170,49 +170,49 @@ export class BattleCreature extends React.Component<CreatureProps, CreatureState
                                                                                 defaultValue={this.state.currentHP}
                                                                                 onBlur={e => {
                                                                                     this.handleHPChange(e);
-                                                                                    this.props.handleCurrentHPChange(e, this.props.id);
-                                                                                    this.props.changeCurrentHPOfRoundCreature(e.target.value, this.props.id);
+                                                                                    this.props.handleCurrentHPChange(e, this.props.id, this.props.label);
+                                                                                    this.props.changeCurrentHPOfRoundCreature(e.target.value, this.props.id, this.props.label);
                                                                                 }}/></p>
                                     <p className={style.statDisplay}>AC: <input type="number"
                                                                                 className={style.inputField}
                                                                                 defaultValue={this.state.currentAC}
                                                                                 onBlur={e => {
                                                                                     this.handleACChange(e);
-                                                                                    this.props.handleCurrentACChange(e, this.props.id);
-                                                                                    this.props.changeCurrentACOfRoundCreature(e.target.value, this.props.id);
+                                                                                    this.props.handleCurrentACChange(e, this.props.id, this.props.label);
+                                                                                    this.props.changeCurrentACOfRoundCreature(e.target.value, this.props.id, this.props.label);
                                                                                 }}/></p>
                                     <p className={style.statDisplay}>INI:<input type="number"
                                                                                 className={style.inputField}
                                                                                 defaultValue={this.state.currentIni}
                                                                                 onBlur={e => {
                                                                                     this.handleIniChange(e);
-                                                                                    this.props.changeCurrentIniOfRoundCreature(e.target.value, this.props.id);
-                                                                                    this.props.sortByIni(e, this.props.id);
+                                                                                    this.props.changeCurrentIniOfRoundCreature(e.target.value, this.props.id, this.props.label);
+                                                                                    this.props.sortByIni(e, this.props.id, this.props.label);
                                                                                 }}/></p>
                                     <p className={style.statDisplay}>Type:
                                         <input name={this.props.id + "type"} type="radio" value={"ally"}
                                                checked={this.typeChecked('ally')} onChange={e => {
                                             this.handleTypeChange(e);
-                                            this.props.changeTypeOfRoundCreature(e.target.value, this.props.id);
-                                            this.props.handleCurrentTypeChange(e, this.props.id);
+                                            this.props.changeTypeOfRoundCreature(e.target.value, this.props.id, this.props.label);
+                                            this.props.handleCurrentTypeChange(e, this.props.id, this.props.label);
                                         }}/>Ally
                                         <input name={this.props.id + "type"} type="radio" value={"monster"}
                                                checked={this.typeChecked('monster')} onChange={e => {
                                             this.handleTypeChange(e);
-                                            this.props.changeTypeOfRoundCreature(e.target.value, this.props.id);
-                                            this.props.handleCurrentTypeChange(e, this.props.id);
+                                            this.props.changeTypeOfRoundCreature(e.target.value, this.props.id, this.props.label);
+                                            this.props.handleCurrentTypeChange(e, this.props.id, this.props.label);
                                         }}/>Monster
                                         <input name={this.props.id + "type"} type="radio" value={"player"}
                                                checked={this.typeChecked('player')} onChange={e => {
                                             this.handleTypeChange(e);
-                                            this.props.changeTypeOfRoundCreature(e.target.value, this.props.id);
-                                            this.props.handleCurrentTypeChange(e, this.props.id);
+                                            this.props.changeTypeOfRoundCreature(e.target.value, this.props.id, this.props.label);
+                                            this.props.handleCurrentTypeChange(e, this.props.id, this.props.label);
                                         }}/>Player
                                         <input name={this.props.id + "type"} type="radio" value={"summon"}
                                                checked={this.typeChecked('summon')} onChange={e => {
                                             this.handleTypeChange(e);
-                                            this.props.changeTypeOfRoundCreature(e.target.value, this.props.id);
-                                            this.props.handleCurrentTypeChange(e, this.props.id);
+                                            this.props.changeTypeOfRoundCreature(e.target.value, this.props.id, this.props.label);
+                                            this.props.handleCurrentTypeChange(e, this.props.id, this.props.label);
                                         }}/>Summon
                                     </p>
                                 </div>
@@ -228,8 +228,8 @@ export class BattleCreature extends React.Component<CreatureProps, CreatureState
                             className={style.removeCreatureButton}
                             type={"button"}
                             onClick={() => {
-                                this.props.handleRemoveFromEncounter(this.props.id);
-                                this.props.removeCreatureFromRound(this.props.id);
+                                this.props.handleRemoveFromEncounter(this.props.id, this.props.label);
+                                this.props.removeCreatureFromRound(this.props.id, this.props.label);
                             }
                             }> X
                         </button>

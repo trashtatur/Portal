@@ -16,7 +16,7 @@ export class CreatureViewModelFactory {
         return new CreatureViewModel<T>(
             creatureViewModel.id,
             creatureViewModel.name,
-            creatureViewModel.properties
+            this.propertiesFactory.createFromExisting(creatureViewModel.properties)
         )
     }
 

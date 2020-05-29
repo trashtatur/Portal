@@ -11,4 +11,8 @@ export class AdventureDataToModelMapper implements DataToModelMapperInterface<Ad
             null
         )
     }
+
+    mapMultiple(data): AdventureModel[] {
+        return [];
+    }
 }

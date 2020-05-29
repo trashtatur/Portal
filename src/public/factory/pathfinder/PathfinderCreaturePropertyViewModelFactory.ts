@@ -67,4 +67,46 @@ export class PathfinderCreaturePropertiesViewModelFactory {
             null
         )
     }
+
+    createFromExisting = (creatureProperties: PathfinderCreaturePropertiesViewModel): PathfinderCreaturePropertiesViewModel => {
+        const model = new  PathfinderCreaturePropertiesViewModel(
+            creatureProperties.id,
+            creatureProperties.type,
+            creatureProperties.armorclass,
+            creatureProperties.hitpoints,
+            creatureProperties.alignment,
+            creatureProperties.creatureClass,
+            creatureProperties.challenge,
+            creatureProperties.movement,
+            creatureProperties.ini,
+            creatureProperties.baseAtk,
+            creatureProperties.size,
+            new PathfinderStatsViewModel(
+                creatureProperties.stats.strength,
+                creatureProperties.stats.constitution,
+                creatureProperties.stats.wisdom,
+                creatureProperties.stats.intelligence,
+                creatureProperties.stats.charisma,
+                creatureProperties.stats.dexterity,
+                creatureProperties.size,
+                creatureProperties.baseAtk
+            ),
+            new PathfinderSavingThrowsViewModel(
+                creatureProperties.saveThrows.reflex,
+                creatureProperties.saveThrows.wisdom,
+                creatureProperties.saveThrows.fortitude
+            ),
+            creatureProperties.xp,
+            creatureProperties.image,
+            creatureProperties.actions,
+            creatureProperties.languages,
+            creatureProperties.skills,
+            creatureProperties.talents,
+            creatureProperties.attackProperties
+        )
+        creatureProperties.currentInitiative =
+            Math.floor(Math.random() * (20 - 1) + 1) + creatureProperties.ini;
+        model.label = creatureProperties.label;
+        return model;
+    }
 }

@@ -2,17 +2,18 @@ import * as React from "react";
 import {ReactElement} from "react";
 import {BattleCreature} from "../battleCreature/BattleCreature";
 import axios, {AxiosResponse} from 'axios';
-import {uuidv4} from "../../../../../service/helperFunctions";
-import {selectableCreatures} from "../../../../../types/frontendTypes";
-import {CreatureSelectLabel} from "../../../uiBasic/creatureSelectLabel/CreatureSelectLabel";
-import {PathfinderAddSummon} from "../formAddSummon/PathfinderAddSummon";
+import {uuidv4} from "@/public/service/helperFunctions";
+import {selectable, selectableCreatures} from "@/public/types/frontendTypes";
+import {CreatureSelectLabel} from "@/public/view/components/uiBasic/creatureSelectLabel/CreatureSelectLabel";
+import {PathfinderAddSummon} from "@/public/view/components/module-battle/pathfinder/formAddSummon/PathfinderAddSummon";
 import {BattleDiceRoller} from "../battleDiceRoller/BattleDiceRoller";
-import {MultiSelectNoCreate} from "../../../uiBasic/multiSelectNoCreate/MultiSelectNoCreate";
-import {CreatureViewModel} from "../../../../../model/CreatureViewModel";
-import {TypeEnum} from "../../../../../model/enumeration/TypesEnum";
-import {CreatureDataToViewModelMapper} from "../../../../../mapping/CreatureDataToViewModelMapper";
-import {CreatureViewModelFactory} from "../../../../../factory/CreatureViewModelFactory";
-import {PathfinderCreaturePropertiesViewModel} from "../../../../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {MultiSelectNoCreate} from "@/public/view/components/uiBasic/multiSelectNoCreate/MultiSelectNoCreate";
+import {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
+import {CreatureDataToViewModelMapper} from "@/public/mapping/CreatureDataToViewModelMapper";
+import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
+import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {SelectEventTypesEnum} from "@/public/model/enumeration/SelectEventTypesEnum";
 import * as style from './pathfinderEncounterCreatureList.css';
 
 export interface EncounterCreatureListProps {
@@ -25,6 +26,7 @@ export interface EncounterCreatureListProps {
 }
 
 export interface EncounterCreatureListState {
+    creaturesToAdd: CreatureViewModel<PathfinderCreaturePropertiesViewModel>[];
     creaturesInBattle: CreatureViewModel<PathfinderCreaturePropertiesViewModel>[];
     creatureViewModels: CreatureViewModel<PathfinderCreaturePropertiesViewModel>[];
 }
@@ -33,22 +35,17 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
     constructor(props) {
         super(props);
         this.state = {
+            creaturesToAdd: [],
             creaturesInBattle: [],
             creatureViewModels: []
         }
     }
     creatureViewModelFactory = new CreatureViewModelFactory();
-    creaturesToAdd = [];
 
-    /**
-     * Sorts creature list by initiative
-     * @param event
-     * @param id
-     */
-    sortByIni = (event, id): void => {
+    sortByIni = (event, id, label): void => {
         const creatureMap = this.state.creaturesInBattle;
         creatureMap.filter(creature => {
-            return creature.id == id
+            return creature.id == id && creature.properties.label === label;
         })[0].properties.currentInitiative = parseInt(event.target.value);
         const creatureMapSorted = this.sortCreatureMap(creatureMap);
         this.setState({creaturesInBattle: creatureMapSorted}, () => this.setToSessionStorage())
@@ -63,42 +60,42 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
         return JSON.parse(stringCreatureData);
     };
 
-    handleRemoveFromEncounter = (id: string): void => {
+    handleRemoveFromEncounter = (id: string, label: number): void => {
         this.setState({
             creaturesInBattle:
                 this.state.creaturesInBattle.filter(elem => {
-                    return elem.id != id;
+                    return elem.id !==  id && elem.properties.label !== label;
                 })
         }, () => this.setToSessionStorage())
     };
 
-    handleCurrentHPChange = (event, id): void => {
+    handleCurrentHPChange = (event, id, label): void => {
         const creatureMap = this.state.creaturesInBattle;
         creatureMap.filter(creature => {
-            return creature.id == id
+            return creature.id == id && creature.properties.label === label;
         })[0].properties.currentHitpoints = parseInt(event.target.value);
         this.setState({creaturesInBattle: creatureMap}, () => this.setToSessionStorage())
     };
 
-    handleCurrentACChange = (event, id): void => {
+    handleCurrentACChange = (event, id, label): void => {
         const creatureMap = this.state.creaturesInBattle;
         creatureMap.filter(creature => {
-            return creature.id == id
+            return creature.id == id && creature.properties.label === label;
         })[0].properties.currentArmorclass = parseInt(event.target.value);
         this.setState({creaturesInBattle: creatureMap}, () => this.setToSessionStorage())
     };
 
-    handleCurrentTypeChange = (event, id): void => {
+    handleCurrentTypeChange = (event, id, label): void => {
         const creatureMap = this.state.creaturesInBattle;
         creatureMap.filter(creature => {
-            return creature.id == id
+            return creature.id == id && creature.properties.label === label;
         })[0].properties.type = event.target.value;
         this.setState({creaturesInBattle: creatureMap}, () => this.setToSessionStorage())
     };
 
-    determineLabel = (creatureName: string): number => {
+    determineLabel = (creatureViewModel: CreatureViewModel<PathfinderCreaturePropertiesViewModel>): number => {
         const sameCreature = this.state.creaturesInBattle.filter(elem => {
-            return elem.name == creatureName
+            return elem.name == creatureViewModel.name
         }).sort(function (cr1, cr2) {
             if (cr1.properties.label > cr2.properties.label) return 1;
             if (cr1.properties.label < cr2.properties.label) return -1;
@@ -184,15 +181,25 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
         return selectables
     };
 
-    cloneEntry = (
+    formatValues = (): selectable[] => {
+        return this.state.creaturesToAdd.map(creature => {
+            return {
+                value: creature.name,
+                label: <CreatureSelectLabel image={`${creature.properties.type}-icon.png`}
+                                            creature={creature}
+                                            labelText={`${creature.name}`}/>
+            }
+        })
+    }
+
+    cloneCreatureViewModel = (
         creatureViewModel: CreatureViewModel<PathfinderCreaturePropertiesViewModel>
     ): CreatureViewModel<PathfinderCreaturePropertiesViewModel> => {
         const clonedCreatureViewModel: CreatureViewModel<PathfinderCreaturePropertiesViewModel> =
             this.creatureViewModelFactory.createFromExisting(creatureViewModel)
-        clonedCreatureViewModel.properties.currentInitiative = Math.floor(Math.random() * (20 - 1) + 1) + creatureViewModel.properties.ini;
         clonedCreatureViewModel.properties.label =
-            creatureViewModel.properties.label == null
-            ? this.determineLabel(creatureViewModel.name) : creatureViewModel.properties.label
+            clonedCreatureViewModel.properties.label == null
+            ? this.determineLabel(clonedCreatureViewModel) : clonedCreatureViewModel.properties.label
         return clonedCreatureViewModel;
     };
 
@@ -207,7 +214,7 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
     };
 
     addSummonedCreature = (creature: CreatureViewModel<PathfinderCreaturePropertiesViewModel>): void => {
-        const summon = this.cloneEntry(creature);
+        const summon = this.cloneCreatureViewModel(creature);
         const creatureMap = this.state.creaturesInBattle;
         creatureMap.push(summon);
         this.props.addCreatureToRound(summon);
@@ -217,13 +224,15 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
     };
 
     addCreatures = (): void => {
-        const toAdd = this.creaturesToAdd.map(elem => {
-            return this.cloneEntry(elem)
-        });
         let creatureMap = this.state.creaturesInBattle;
-        creatureMap = creatureMap.concat(this.creaturesToAdd);
+
+        const toAdd = this.state.creaturesToAdd.map(creatureToAdd => {
+            return this.cloneCreatureViewModel(creatureToAdd)
+        })
+
+        creatureMap = creatureMap.concat(toAdd);
         const creatureMapSorted = this.sortCreatureMap(creatureMap);
-        this.creaturesToAdd.forEach(elem => {
+        toAdd.forEach(elem => {
             this.props.addCreatureToRound(elem);
         });
         this.setState({
@@ -232,27 +241,24 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
     };
 
     onSelect = (selected, option): void => {
-        if (option.action == 'select-option') {
+        if (option.action == SelectEventTypesEnum.SELECT_OPTION) {
             const creaturesToAdd: CreatureViewModel<PathfinderCreaturePropertiesViewModel>[] = [];
             selected.forEach(name => {
                 const creature = this.state.creatureViewModels.find(elem => {
                     return elem.name == name.value
                 });
-                const creatureViewModel: CreatureViewModel<PathfinderCreaturePropertiesViewModel> =
-                    this.creatureViewModelFactory.createFromExisting(creature);
-                creatureViewModel.properties.currentInitiative =
-                    Math.floor(Math.random() * (20 - 1) + 1) + creature.properties.ini
-                creaturesToAdd.push(creatureViewModel)
+                creaturesToAdd.push(creature)
             });
-            this.creaturesToAdd = creaturesToAdd;
+            this.setState({creaturesToAdd: creaturesToAdd})
         }
-        if (option.action == 'remove-value') {
-            this.creaturesToAdd = this.creaturesToAdd.filter(elem => {
+        if (option.action == SelectEventTypesEnum.REMOVE_OPTION) {
+            const creaturesToAdd = this.state.creaturesToAdd.filter(elem => {
                 return elem.name != option.removedValue.value
             })
+            this.setState({creaturesToAdd: creaturesToAdd})
         }
         if (option.action == 'clear') {
-            this.creaturesToAdd = [];
+            this.setState(({creaturesToAdd: []}))
         }
     };
 
@@ -270,10 +276,11 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
                     <div className={style.addDialog}>
                         <MultiSelectNoCreate
                             selectables={this.composeSelectableOptions()}
+                            value={this.formatValues()}
                             handleSelectChange={this.onSelect}
                             className={style.creatureSelect}
                         />
-                        <button className={style.creatureAddButton} type="button" onClick={this.addCreatures}>Add
+                        <button className={style.creatureAddButton} type="button" onClick={() => this.addCreatures()}>Add
                         </button>
                     </div>
                     <PathfinderAddSummon addToEncounter={this.addSummonedCreature}/>

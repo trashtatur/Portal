@@ -20,7 +20,7 @@ export class DND5SpellImporter {
 
     public importSpellByUrl = async (url: string): Promise<void> => {
         try {
-            const response: spellImport = await (await axios.get(url)).data;
+            const response: spellImport = (await axios.get(url)).data;
             this.importSpellByData(response);
         } catch (error) {
             console.error('While importing a spell form url', url, 'an error occured.\n', error);
@@ -63,7 +63,7 @@ export class DND5SpellImporter {
         const spellData: spellData = {
             name: spell.name,
             description: '',
-            higherLevelsDescription: '',
+            higherLevelsDescription: null,
             range: spell.range,
             components: '',
             ritual: spell.ritual,
@@ -71,7 +71,7 @@ export class DND5SpellImporter {
             concentration: spell.concentration,
             castingTime: spell.casting_time,
             school: '',
-            materials: spell.material ? spell.material : '',
+            materials: spell.material ? spell.material : null,
             level: spell.level
         };
 

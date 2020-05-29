@@ -1,12 +1,12 @@
 import * as React from "react";
 import {ReactElement} from "react";
 import {ToolTip} from "../../../uiBasic/tooltip/ToolTip";
-import {uuidv4} from "../../../../../service/helperFunctions";
+import {uuidv4} from "@/public/service/helperFunctions";
 import {TalentToolTip} from "../toolTipTalent/TalentToolTip";
-import {PathfinderSavingThrowsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
-import {LanguageViewModel} from "../../../../../model/pathfinder/LanguageViewModel";
-import {TalentViewModel} from "../../../../../model/pathfinder/TalentViewModel";
-import {SkillViewModel} from "../../../../../model/pathfinder/SkillViewModel";
+import {PathfinderSavingThrowsViewModel} from "@/public/model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
+import {LanguageViewModel} from "@/public/model/pathfinder/LanguageViewModel";
+import {TalentViewModel} from "@/public/model/pathfinder/TalentViewModel";
+import {SkillViewModel} from "@/public/model/pathfinder/SkillViewModel";
 import * as style from './creaturecardAttributes.css';
 
 export interface CreatureAttributesProps {

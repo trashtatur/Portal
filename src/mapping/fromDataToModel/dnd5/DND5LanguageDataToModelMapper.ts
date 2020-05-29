@@ -5,4 +5,8 @@ export class DND5LanguageDataToModelMapper implements DataToModelMapperInterface
     map = (data): DND5LanguageModel => {
         return null;
     }
+
+    mapMultiple = (data): DND5LanguageModel[] => {
+        return [];
+    }
 }

@@ -6,14 +6,18 @@ import {PathfinderCreaturePropertyEntityToModelMapper} from "./pathfinder/Pathfi
 import {DND5CreaturePropertiesModel} from "../../model/dnd5/DND5CreaturePropertiesModel";
 import {PathfinderCreaturePropertiesModel} from "../../model/pathfinder/PathfinderCreaturePropertiesModel";
 import {SystemEnum} from "../../enumeration/SystemEnum";
+import {DND5CreaturePropertiesEntityToModelMapper} from "./dnd5/DND5CreaturePropertiesEntityToModelMapper";
 
 @Service()
 export class CreatureEntityToModelMapper  {
     private pathfinderCreaturePropertiesEntityToModelMapper: PathfinderCreaturePropertyEntityToModelMapper;
+    private dnd5CreaturePropertiesEntityToModelMapper: DND5CreaturePropertiesEntityToModelMapper;
 
     constructor(
+        dnd5CreaturePropertiesEntityToModelMapper: DND5CreaturePropertiesEntityToModelMapper,
         pathfinderCreaturePropertiesEntityToModelMapper: PathfinderCreaturePropertyEntityToModelMapper,
     ) {
+        this.dnd5CreaturePropertiesEntityToModelMapper = dnd5CreaturePropertiesEntityToModelMapper;
         this.pathfinderCreaturePropertiesEntityToModelMapper = pathfinderCreaturePropertiesEntityToModelMapper;
     }
 
@@ -23,6 +27,10 @@ export class CreatureEntityToModelMapper  {
         switch (property.name) {
             case DND5CreaturePropertiesModel.name:
                 creatureModel.propertyType = SystemEnum.DND5
+                propertyModel = this.dnd5CreaturePropertiesEntityToModelMapper.map(
+                    entity['dnd5CreatureProperties'] ?? null
+                )
+                creatureModel.creatureProperties = propertyModel
                 break;
             case PathfinderCreaturePropertiesModel.name:
                 creatureModel.propertyType = SystemEnum.PATHFINDER

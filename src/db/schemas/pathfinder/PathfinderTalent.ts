@@ -1,7 +1,5 @@
 import {AllowNull, BelongsToMany, Column, DataType, Model, PrimaryKey, Table, Unique} from "sequelize-typescript";
-import {Creature} from "../Creature";
 import {PathfinderCreatureTalent} from "../assocSchemas/Pathfinder/PathfinderCreatureTalent";
-import {Col} from "sequelize/types/lib/utils";
 import {PathfinderCreatureProperties} from "./PathfinderCreatureProperties";
 
 @Table

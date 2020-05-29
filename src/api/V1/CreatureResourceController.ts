@@ -23,8 +23,19 @@ export class CreatureResourceController {
     }
 
     @Post('/:system')
-    async createCreature(@BodyParams() creatureData: creatureData): Promise<string> {
-        const creature = await this.creatureService.create(creatureData, []);
+    async createCreature(@BodyParams() creatureData: creatureData, @PathParams('system') system: string): Promise<string> {
+        const systemToInclude = this.systemToIncludeService.getSystemToInclude(system);
+        let creature = null;
+        switch (systemToInclude) {
+            case PathfinderCreatureProperties:
+                creature = await this.creatureService.create<PathfinderCreaturePropertiesModel>(creatureData, PathfinderCreaturePropertiesModel);
+                break;
+            case DND5CreatureProperties:
+                creature = await this.creatureService.create<DND5CreaturePropertiesModel>(creatureData, DND5CreaturePropertiesModel);
+                break;
+            default:
+                break;
+        }
         return JSON.stringify(creature)
     }
 
