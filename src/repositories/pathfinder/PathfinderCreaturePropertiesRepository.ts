@@ -67,7 +67,12 @@ export class PathfinderCreaturePropertiesRepository {
         creatureProperties: PathfinderCreatureProperties,
         languageModels: PathfinderLanguageModel[]
     ): Promise<PathfinderCreatureProperties> => {
-        const languages = await PathfinderLanguage.findAll({where: {name: languagesList}});
+        const languageNames = languageModels.map(language => language.name)
+        const languages: PathfinderLanguage[] = [];
+        languageNames.forEach(name => {
+            const result = PathfinderLanguage.findOrCreate({where: { name: name}})[0]
+            languages.push(result);
+        })
         languages.forEach(language => {
             creatureProperties.$add('language', language)
         });
@@ -93,11 +98,15 @@ export class PathfinderCreaturePropertiesRepository {
         const skillNames = skillModels.map(elem => {
             return elem.id
         });
-        const skills = await PathfinderSkill.findAll({where: {uuid: skillNames}});
+        const skills: PathfinderSkill[] = [];
+        skillNames.forEach(name => {
+            const result = PathfinderSkill.findOrCreate({where: {name: name}})[0]
+            skills.push(result);
+        })
         skills.forEach(skill => {
-            const skillLevel = skillList.filter(elem => {
+            const skillLevel = skillModels.find(elem => {
                 return elem.name == skill.name
-            })[0].level;
+            }).level;
             creatureProperties.$add('skill', skill, {through: {skillLevel: skillLevel}})
         });
         return creatureProperties

@@ -58,7 +58,7 @@ export class DND5Spell extends Model<DND5Spell> {
     @Column({type: DataType.TEXT({length: 'medium'})})
     materials: string;
 
-    @AllowNull(true)
+    @AllowNull(false)
     @Column
     level: number;
 

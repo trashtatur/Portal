@@ -1,12 +1,5 @@
-var config = require('../config.json');
+const config = require('../../config.json');
 
-
-
-/**
- * @name Data Supplier
- * @description Provides credential data to the connector based on the environment it is in
- * @module module-database
- */
 export class DataSupplier {
     private readonly _databaseHost: string;
     private readonly _databaseName: string;
