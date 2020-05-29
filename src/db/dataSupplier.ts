@@ -1,4 +1,4 @@
-const config = require('../../config.json');
+const config = require('../../config/config.json');
 
 export class DataSupplier {
     private readonly _databaseHost: string;
