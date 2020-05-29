@@ -34,7 +34,8 @@ export class DND5SpellImporter {
     public importSpellsByUrl = async (url: string): Promise<void> => {
         try {
             const multiSpellImport: multiSpellImport = (await axios.get(url)).data;
-            const spells = await this.getSpellImportsByEntityLocations(multiSpellImport.results);
+            let spells = await this.getSpellImportsByEntityLocations(multiSpellImport.results);
+            spells = spells.filter(spellImport => spellImport? true: false);
             this.importSpellsByData(spells);
         } catch (error) {
             console.error('While importing spells form url', url, 'an error occured.\n', error);
@@ -48,7 +49,7 @@ export class DND5SpellImporter {
             } catch (error) {
                 console.log('While importing a spell form url', `http://dnd5eapi.co${location.url}`, 'an error occured.\n', error);
             }
-        }).filter(val => !!val));
+        }));
         return spells;
     }
 
