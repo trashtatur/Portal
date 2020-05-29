@@ -5,19 +5,24 @@ import {PathfinderTalent} from "../../db/schemas/pathfinder/PathfinderTalent";
 import {PathfinderSkill} from "../../db/schemas/pathfinder/PathfinderSkill";
 import {PathfinderAction} from "../../db/schemas/pathfinder/PathfinderAction";
 import {PathfinderSkillModel} from "../../model/pathfinder/PathfinderSkillModel";
-import {Includeable} from "sequelize";
+import {NamedCreatureProperty} from "../../model/dataModel/NamedCreatureProperty";
+import {CreatureStatsModel} from "../../model/dataModel/CreatureStatsModel";
+import {PathfinderSavingThrowsModel} from "../../model/dataModel/pathfinder/PathfinderSavingThrowsModel";
+import {PathfinderTalentModel} from "../../model/pathfinder/PathfinderTalentModel";
+import {PathfinderLanguageModel} from "../../model/pathfinder/PathfinderLanguageModel";
+import {PathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
 
 export class PathfinderCreaturePropertiesRepository {
 
-    create = (pathfinderCreaturePropertiesModel: PathfinderCreaturePropertiesModel) => {
-        const pathfinderCreatureProperties = PathfinderCreatureProperties.create(
+    create = async (pathfinderCreaturePropertiesModel: PathfinderCreaturePropertiesModel): Promise<PathfinderCreatureProperties> => {
+        let pathfinderCreatureProperties = await PathfinderCreatureProperties.create(
             {
                 hitpoints: pathfinderCreaturePropertiesModel.hitpoints,
                 alignment: pathfinderCreaturePropertiesModel.alignment,
                 armorclass: pathfinderCreaturePropertiesModel.armorclass,
                 image: pathfinderCreaturePropertiesModel.image,
                 type: pathfinderCreaturePropertiesModel.type,
-                attackProperties: pathfinderCreaturePropertiesModel.attackProperties,
+                attackProperties: this.addAttackProperties(pathfinderCreaturePropertiesModel.attackProperties),
                 creatureClass: pathfinderCreaturePropertiesModel.creatureClass,
                 challenge: pathfinderCreaturePropertiesModel.challenge,
                 movement: pathfinderCreaturePropertiesModel.movement,
@@ -25,31 +30,42 @@ export class PathfinderCreaturePropertiesRepository {
                 baseAtk: pathfinderCreaturePropertiesModel.baseAtk,
                 xp: pathfinderCreaturePropertiesModel.xp,
                 size: pathfinderCreaturePropertiesModel.size,
-                stats: pathfinderCreaturePropertiesModel.stats,
-                saveThrows: pathfinderCreaturePropertiesModel.saveThrows
+                stats: this.addStats( pathfinderCreaturePropertiesModel.stats),
+                saveThrows: this.addSaveThrows(pathfinderCreaturePropertiesModel.saveThrows)
             }
         )
+        pathfinderCreatureProperties = await this.checkAssociatedTables(
+            pathfinderCreatureProperties, pathfinderCreaturePropertiesModel
+        );
+        return pathfinderCreatureProperties;
     }
 
     private checkAssociatedTables = async (
-        include: Includeable[],
-        data: object,
-        creatureProperties: PathfinderCreatureProperties
+        creatureProperties: PathfinderCreatureProperties,
+        creaturePropertiesModel: PathfinderCreaturePropertiesModel
     ): Promise<PathfinderCreatureProperties> => {
-        if (include.includes(PathfinderLanguage)) creatureProperties =
-            await this.addLanguages(creatureProperties, data['languages']);
-        if (include.includes(PathfinderSkill)) creatureProperties =
-            await this.addSkills(creatureProperties, data['skills']);
-        if (include.includes(PathfinderTalent)) creatureProperties =
-            await this.addTalents(creatureProperties, data['talents']);
-        if (include.includes(PathfinderAction)) creatureProperties =
-            await this.addActions(creatureProperties, data['actions']);
+        if ( creaturePropertiesModel.languages!== null || creaturePropertiesModel.languages !== [] ) {
+            creatureProperties =
+                await this.addLanguages(creatureProperties, creaturePropertiesModel.languages);
+        }
+        if (creaturePropertiesModel.skills !== null || creaturePropertiesModel.skills !== []) {
+            creatureProperties =
+                await this.addSkills(creatureProperties, creaturePropertiesModel.skills);
+        }
+        if (creaturePropertiesModel.talents !== null || creaturePropertiesModel.talents !== []) {
+            creatureProperties =
+                await this.addTalents(creatureProperties, creaturePropertiesModel.talents);
+        }
+        if (creaturePropertiesModel.actions !== null || creaturePropertiesModel.actions !== []) {
+            creatureProperties =
+                await this.addActions(creatureProperties, creaturePropertiesModel.actions);
+        }
         return creatureProperties
     }
 
     private addLanguages = async (
         creatureProperties: PathfinderCreatureProperties,
-        languagesList: string[]
+        languageModels: PathfinderLanguageModel[]
     ): Promise<PathfinderCreatureProperties> => {
         const languages = await PathfinderLanguage.findAll({where: {name: languagesList}});
         languages.forEach(language => {
@@ -60,9 +76,10 @@ export class PathfinderCreaturePropertiesRepository {
 
     private addTalents = async (
         creatureProperties: PathfinderCreatureProperties,
-        talentList: string[]
+        talentModels: PathfinderTalentModel[]
     ): Promise<PathfinderCreatureProperties> => {
-        const talents = await PathfinderTalent.findAll({where: {name: talentList}});
+        const talentIds = talentModels.map(talent => { return talent.id })
+        const talents = await PathfinderTalent.findAll({where: {uuid: talentIds}});
         talents.forEach(talent => {
             creatureProperties.$add('talent', talent)
         });
@@ -71,12 +88,12 @@ export class PathfinderCreaturePropertiesRepository {
 
     private addSkills = async (
         creatureProperties: PathfinderCreatureProperties,
-        skillList: PathfinderSkillModel[]
+        skillModels: PathfinderSkillModel[]
     ): Promise<PathfinderCreatureProperties> => {
-        const skillNames = skillList.map(elem => {
-            return elem.name
+        const skillNames = skillModels.map(elem => {
+            return elem.id
         });
-        const skills = await PathfinderSkill.findAll({where: {name: skillNames}});
+        const skills = await PathfinderSkill.findAll({where: {uuid: skillNames}});
         skills.forEach(skill => {
             const skillLevel = skillList.filter(elem => {
                 return elem.name == skill.name
@@ -88,12 +105,41 @@ export class PathfinderCreaturePropertiesRepository {
 
     private addActions = async (
         creatureProperties: PathfinderCreatureProperties,
-        actionList: string[]
+        actionModels: PathfinderActionModel[]
     ): Promise<PathfinderCreatureProperties> => {
-        const actions = await PathfinderAction.findAll({where: {name: actionList}});
+        const actionIds = actionModels.map(action => { return action.id })
+        const actions = await PathfinderAction.findAll({where: {uuid: actionIds}});
         actions.forEach(action => {
             creatureProperties.$add('action', action);
         });
         return creatureProperties
+    }
+
+    private addAttackProperties = (namedProperties: NamedCreatureProperty[]): string => {
+        const objectifiedProperties = namedProperties.map(property => {
+            return {
+                name: property.name,
+                property: property.property
+            }
+        })
+        return JSON.stringify(objectifiedProperties);
+    }
+
+    private addStats = (stats: CreatureStatsModel): string => {
+        return JSON.stringify(
+        {
+            str: stats.strength,
+            dex: stats.dexterity,
+            int: stats.intelligence,
+            wis: stats.intelligence,
+            con: stats.constitution,
+            cha: stats.charisma
+        })
+    }
+
+    private addSaveThrows = (saveThrows: PathfinderSavingThrowsModel): string => {
+        return JSON.stringify(
+            {ref: saveThrows.reflex, will: saveThrows.wisdom, fort: saveThrows.fortitude}
+        )
     }
 }

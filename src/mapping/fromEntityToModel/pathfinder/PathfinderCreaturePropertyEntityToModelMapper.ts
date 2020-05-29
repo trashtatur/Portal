@@ -18,7 +18,6 @@ import {AlignmentEnum} from "../../../model/enumeration/AlignmentEnum";
 import {PathfinderCreatureSizeEnum} from "../../../model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
 import {EntityToModelMapperInterface} from "../../EntityToModelMapperInterface";
 import {Service} from "@tsed/di";
-import {pathFinderSaveThrowsData} from "../../../types/pathfinderBackendTypes";
 
 @Service()
 export class PathfinderCreaturePropertyEntityToModelMapper
@@ -81,7 +80,7 @@ export class PathfinderCreaturePropertyEntityToModelMapper
 
     private mapSaveThrowsStringToSaveThrowsDataModel = (saveThrowsString: string): PathfinderSavingThrowsModel | null => {
         try {
-            const saveThrowsData: pathFinderSaveThrowsData = JSON.parse(saveThrowsString);
+            const saveThrowsData = JSON.parse(saveThrowsString);
             return new PathfinderSavingThrowsModel(saveThrowsData.ref, saveThrowsData.will, saveThrowsData.fort)
         } catch (e) {
 

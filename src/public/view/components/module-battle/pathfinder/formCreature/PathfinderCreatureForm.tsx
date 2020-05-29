@@ -3,7 +3,7 @@ import {ReactElement} from "react";
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import axios, {AxiosResponse} from "axios";
-import {setCreatureImageName, uploadImage} from "@/public/service/helperFunctions";
+import {setCreatureImageName, uploadImage, uuidv4} from "@/public/service/helperFunctions";
 import {AlignmentSelect} from "../../common/alignment select/AlignmentSelect";
 import {SizeSelect} from "./size select/SizeSelect";
 import Dropzone from 'react-dropzone-uploader'
@@ -37,6 +37,7 @@ interface CreatureFormState {
     talentData: TalentViewModel[];
     skillData: SkillViewModel[];
     actionData: ActionViewModel[];
+    skillFields: {skill: SkillViewModel; id: string}[];
 }
 
 export class PathfinderCreatureForm extends React.Component<CreatureFormProps, CreatureFormState> {
@@ -50,7 +51,8 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
             languageData: [],
             talentData: [],
             skillData: [],
-            actionData: []
+            actionData: [],
+            skillFields: []
         };
     }
 
@@ -63,10 +65,9 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
     };
 
     addOneMoreSkill = (): void => {
-        const creature = this.state.creature;
-        creature.properties.skills.push(new SkillViewModel('', '', null))
-        this.setState({creature: creature})
-
+        this.setState({skillFields: this.state.skillFields.concat(
+                [{skill: new SkillViewModel('','', 0), id: uuidv4()}]
+            )})
     };
 
     composeSelectableAttributeOptions = (attribute: "Talent" | "Action" | "Language"): selectable[] => {
@@ -325,7 +326,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                 creature.properties.stats.charisma = valueAsNumber;
                 break;
             case "con":
-                creature.properties.stats.charisma = valueAsNumber;
+                creature.properties.stats.constitution = valueAsNumber;
                 break;
             case "dex":
                 creature.properties.stats.dexterity = valueAsNumber;
@@ -379,37 +380,54 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
     };
 
     handleSkillNameChange = (value, option, id): void => {
+        const fields = this.state.skillFields;
+        if (
+            option.action === SelectEventTypesEnum.SELECT_OPTION
+            || option.action === SelectEventTypesEnum.REMOVE_OPTION
+        ) {
+            const skillField = fields.find(skillField => {
+                if (skillField.id === id) {
+                    return skillField
+                }
+            })
+            skillField.skill.name = value.value;
+            skillField.skill.id = value.additionalInfoProperty;
+        }
+        this.setState({skillFields: fields});
         const creature = this.state.creature;
-        creature.properties.skills = creature.properties.skills.map((elem) => {
-            if (elem.id !== id) return elem;
-            elem.name = value.value;
-            return elem;
+        creature.properties.skills = fields.map(field => {
+            return field.skill
         });
-        this.setState({
-            creature: creature
-        });
+        this.setState({creature: creature})
     };
 
     handleSkillLevelChange = (event, id): void => {
+        const fields = this.state.skillFields;
+        const skillField = fields.find(skillField => {
+            if (skillField.id === id) {
+                return skillField
+            }
+        })
+        const valueAsNumber = parseInt(event.target.value);
+        isNaN(valueAsNumber)? skillField.skill.level = null : skillField.skill.level = valueAsNumber;
+
+        this.setState({skillFields: fields});
         const creature = this.state.creature;
-        creature.properties.skills = creature.properties.skills.map((elem) => {
-            if (elem.id !== id) return elem;
-            let val = "";
-            if (!isNaN(parseInt(event.target.value))) val = event.target.value;
-            elem.level = parseInt(val)
-            return elem
+        creature.properties.skills = fields.map(field => {
+            return field.skill
         });
-        this.setState({
-            creature: creature
-        });
+        this.setState({creature: creature})
     };
 
     handleTalentsChange = (value, option): void => {
         const creature = this.state.creature;
-        if (option.action == SelectEventTypesEnum.SELECT_OPTION || option.action == SelectEventTypesEnum.CREATE_OPTION) {
+        if (option.action == SelectEventTypesEnum.SELECT_OPTION) {
             creature.properties.talents = this.state.talentData.filter(talent => {
                 const possibleMatch = value.find(singleValue => {
-                    if (singleValue.value === talent.name) {
+                    if (
+                        singleValue.value === talent.name
+                        && singleValue.additionalInfoProperty === talent.type
+                    ) {
                         return singleValue;
                     }
                 })
@@ -427,7 +445,8 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
             })
         } else if (option.action == SelectEventTypesEnum.REMOVE_OPTION) {
             creature.properties.talents = creature.properties.talents.filter(elem => {
-                return elem.name != option.removedValue.value;
+                return elem.name !== option.removedValue.value
+                    && elem.type !== option.removedValue.additionalInfoProperty
             })
         }
         this.setState({creature: creature})
@@ -693,18 +712,23 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                                 >
                                 {
                                     this.state.creature.properties.skills &&
-                                    this.state.creature.properties.skills.map((elem, i) => {
+                                    this.state.skillFields.map((elem, i) => {
                                         return (
                                             <label className={style.formTextInputArea}
                                                    key={i}>
                                                 <p className={style.skillLabel}>name:&nbsp;</p>
                                                 <CreatableSelect
                                                     options={this.state.skillData.map(elem => {
-                                                        return {value: elem.name, label: elem.name}
+                                                        return {
+                                                            value: elem.name,
+                                                            label: elem.name,
+                                                            additionalInfoProperty: elem.id
+                                                        }
                                                     })}
                                                     value={{
-                                                        value: this.state.creature.properties.skills[i].name,
-                                                        label: this.state.creature.properties.skills[i].name
+                                                        value: elem.skill.name,
+                                                        label: elem.skill.name,
+                                                        additionalInfoProperty: elem.skill.id
                                                     }}
                                                     isClearable
                                                     key={i + "name"}
@@ -712,7 +736,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                                                     onChange={(v, o) => this.handleSkillNameChange(v, o, elem.id)}
                                                 />
                                                 level:
-                                                <input type="text" value={elem.level}
+                                                <input type="text" value={elem.skill.level}
                                                        key={i + "level"}
                                                        className={style.skillLevelInput}
                                                        onChange={e => this.handleSkillLevelChange(e, elem.id)}/>
@@ -737,7 +761,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                             </label>
                             <label className={style.formSelectContainer}>
                                 <strong>talents:</strong>
-                                <CreatableSelect
+                                <Select
                                     options={this.composeSelectableAttributeOptions("Talent")}
                                     className={style.creatureFormSelect}
                                     value={

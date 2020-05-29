@@ -19,4 +19,13 @@ export class PersonDataToModelMapper implements DataToModelMapperInterface<Perso
             []
         )
     }
+
+    mapMultiple(data): PersonModel[] {
+        if (!data) {
+            return []
+        }
+        return data.map(person => {
+            return this.map(person);
+        })
+    }
 }

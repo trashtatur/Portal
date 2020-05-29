@@ -10,7 +10,7 @@ export class PathfinderSkillEntityToModelMapper implements EntityToModelMapperIn
 
     mapMultiple(entities?: PathfinderSkill[]): PathfinderSkillModel[] | null {
         if (!entities) {
-            return null;
+            return [];
         }
         return entities.map(entity => {
             return this.map(entity);

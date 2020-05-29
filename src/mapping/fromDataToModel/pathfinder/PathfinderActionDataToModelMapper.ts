@@ -22,6 +22,15 @@ export class PathfinderActionDataToModelMapper implements DataToModelMapperInter
         );
     }
 
+    mapMultiple = (data): PathfinderActionModel[] => {
+        if (!data) {
+            return []
+        }
+        return data.map(actionData => {
+            return this.map(actionData);
+        })
+    }
+
     private createDamage(damageData): DiceRollSpecification {
         return new DiceRollSpecification(damageData._diceCount, damageData._diceType);
     }

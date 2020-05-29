@@ -5,4 +5,8 @@ export class DND5CreaturePropertiesDataToModelMapper implements DataToModelMappe
     map = (data): DND5CreaturePropertiesModel =>  {
         return undefined;
     }
+
+    mapMultiple = (data): DND5CreaturePropertiesModel[] => {
+        return [];
+    }
 }

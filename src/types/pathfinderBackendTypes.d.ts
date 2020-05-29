@@ -1,9 +1,9 @@
 import {namedProperty} from "./backendTypes";
 
 type pathFinderSaveThrowsData = {
-    ref: number;
-    will: number;
-    fort: number;
+    _ref: number;
+    _will: number;
+    _fort: number;
 }
 export type pathfinderActionData = {
     name: string;
@@ -20,24 +20,24 @@ type pathfinderCreatureStatsData = {
 }
 
 export type pathfinderLanguageData = {
-    id?: string;
-    name: string;
+    _id?: string;
+    _name: string;
 }
 
 export type pathfinderSkillsData = {
-    id?: string;
-    name: string;
-    level: number;
+    _id?: string;
+    _name: string;
+    _level: number;
 }
 
 export type pathfinderTalentData = {
-    id?: string;
-    name: string;
-    type: string;
-    description: string;
-    benefits: string;
-    conditions?: string;
-    note?: string;
+    _id?: string;
+    _name: string;
+    _type: string;
+    _description: string;
+    _benefits: string;
+    _conditions?: string;
+    _note?: string;
 }
 
 export type pathfinderCreaturePropertiesData = {

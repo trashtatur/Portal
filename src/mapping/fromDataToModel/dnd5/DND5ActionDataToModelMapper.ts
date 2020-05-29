@@ -5,4 +5,8 @@ export class DND5ActionDataToModelMapper implements DataToModelMapperInterface<D
     map = (data): DND5ActionModel => {
         return null;
     }
+
+    mapMultiple = (data): DND5ActionModel[] => {
+        return [];
+    }
 }

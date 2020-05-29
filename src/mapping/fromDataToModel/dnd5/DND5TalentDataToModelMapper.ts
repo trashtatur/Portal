@@ -5,4 +5,8 @@ export class DND5TalentDataToModelMapper implements DataToModelMapperInterface<D
     map = (data): DND5TalentModel => {
         return null;
     }
+
+    mapMultiple = (data): DND5TalentModel[] => {
+        return [];
+    }
 }
