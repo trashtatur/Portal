@@ -74,16 +74,16 @@ export type multiSpellImport = {
 
 export type spellImport = {
 	name: string;
-	desc: string[]; // description
-	higher_level: string[]; // higherLevelDescription
+	desc: string[];
+	higher_level: string[];
 	range: string;
 	components: string[];
 	ritual: boolean;
 	duration: string;
 	concentration: boolean;
-	casting_time: string; // castingTime
+	casting_time: string;
 	school: { name: string };
-	material: string; // materials
+	material: string;
 	level: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 }
 

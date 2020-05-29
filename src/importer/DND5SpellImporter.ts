@@ -1,10 +1,9 @@
-import { spellImport, multiSpellImport, spellData } from "./dnd5ImportTypes";
+import { spellImport, multiSpellImport, spellData, entityLocation } from "./dnd5ImportTypes";
 import axios from "axios";
 import { DND5Spell } from "../db/schemas/DND5/DND5Spell";
 
 export class DND5SpellImporter {
 
-    // All data related columns in DND5Spells. Used for update.
     private spellKeys = [
         'description',
         'higherLevelsDescription',
@@ -34,33 +33,25 @@ export class DND5SpellImporter {
 
     public importSpellsByUrl = async (url: string): Promise<void> => {
         try {
-            axios.get(url).then(response => {
-                const spellLocations: multiSpellImport = response.data;
-                const spells: spellImport[] = [];
-                // collect errors that occur during the import
-                const errorList: string[] =[];
-                spellLocations.results.forEach(async location => {
-                    try {
-                        axios.get(`http://dnd5eapi.co${location.url}`).then(resp => {
-                        spells.push(resp.data);
-                        // check if last spell received
-                        if ((spellLocations.results.length + errorList.length) == spells.length) {
-                            if (errorList.length) {
-                                console.warn('Errors during spell import: ',errorList);
-                            }
-                            // import all received spells
-                            this.importSpellsByData(spells);
-                        }
-                    });
-                    } catch (error) {
-                        errorList.push(`An error occured while getting ${location.url}.`);
-                    }
-                });
-            });
+            const multiSpellImport: multiSpellImport = (await axios.get(url)).data;
+            const spells = await this.getSpellImportsLocations(multiSpellImport.results);
+            this.importSpellsByData(spells);
         } catch (error) {
             console.error('While importing spells form url', url, 'an error occured.\n', error);
         }
     };
+
+    private async getSpellImportsLocations(locations: entityLocation[]): Promise<spellImport[]> {
+
+        const spells: Promise<spellImport[]> = Promise.all(locations.map(async (location) => {
+            try {
+                return (await axios.get(`http://dnd5eapi.co${location.url}`)).data;
+            } catch (error) {
+                console.log('While importing a spell form url', `http://dnd5eapi.co${location.url}`, 'an error occured.\n', error)
+            }
+        }).filter(val => !!val));
+        return spells;
+    }
 
     public importSpellsByData = (spells: spellImport[]): void => {
         const dnd5Spells = spells.map(this.mapToDND5Spell);
@@ -80,7 +71,7 @@ export class DND5SpellImporter {
             concentration: spell.concentration,
             castingTime: spell.casting_time,
             school: '',
-            materials: spell.material? spell.material: '',
+            materials: spell.material ? spell.material : '',
             level: spell.level
         };
 
