@@ -18,7 +18,8 @@ export class DND5SpellEntityToModelMapper implements EntityToModelMapperInterfac
             entity.concentration,
             entity.castingTime,
             getEnumKeyForValue(entity.school, MagicSchoolEnum),
-            entity.materials.split(','),
+            entity.level,
+            entity.materials,
             entity.higherLevelsDescription
         );
     }

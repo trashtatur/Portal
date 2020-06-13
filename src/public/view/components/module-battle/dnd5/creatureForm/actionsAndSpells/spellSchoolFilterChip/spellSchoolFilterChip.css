@@ -1,0 +1,16 @@
+.spellSchoolFilterChip {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 10%;
+    border-color: transparent;
+    max-height: 20px;
+    padding: 2px;
+    font-size: 10pt;
+    margin-top: 2px;
+    margin-left: 2px;
+}
+
+.schoolLogo {
+    max-height: 15px;
+}

@@ -1,0 +1,37 @@
+.spellLevelFilterSection {
+    margin-top: 4px;
+    display: flex;
+    flex-direction: row;
+}
+
+.spellSchoolFilterSection {
+    margin-top: 4px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chosenSpellSection {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    border: 1px solid grey;
+    max-height: 150px;
+}
+
+.spellsToChooseHeader {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.spellsToChooseSection {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    border: 1px solid grey;
+    margin-top: 5px;
+    max-height: 250px;
+}

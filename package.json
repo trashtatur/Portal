@@ -5,7 +5,7 @@
     "build": "webpack --mode development",
     "watch": "gulp watch",
     "start": "nodemon --watch 'src/**/*.ts' --ignore 'node_modules/**/*' --exec ts-node src/index.ts",
-    "import:dnd5:spells": "nodemon --exec ts-node src/importer/importSpells.ts"
+    "import:dnd5:spells": "ts-node src/importer/importSpells.ts"
   },
   "license": "MIT",
   "dependencies": {
