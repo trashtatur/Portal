@@ -1,0 +1,6 @@
+.spellLevelFilterChip {
+    cursor: pointer;
+    padding: 8px;
+    font-size: 9pt;
+    border: solid grey 1px;
+}

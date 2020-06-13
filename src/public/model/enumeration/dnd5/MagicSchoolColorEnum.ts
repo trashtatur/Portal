@@ -1,0 +1,11 @@
+export enum MagicSchoolColorEnum {
+    ABJURATION = '#1A9fCB',
+    CONJURATION = '#CBAD52',
+    DIVINATION = '#788897',
+    ENCHANTMENT = '#912F91',
+    EVOCATION = '#F76D11',
+    ILLUSION = '#443DA7',
+    NECROMANCY = '#339017',
+    TRANSMUTATION = '#E2BA70',
+    UNIVERSAL = '#494949'
+}

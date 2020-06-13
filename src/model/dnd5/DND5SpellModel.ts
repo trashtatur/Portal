@@ -12,7 +12,8 @@ export class DND5SpellModel {
     private readonly _needsConcentration: boolean;
     private readonly _castingTime: string;
     private readonly _school: MagicSchoolEnum;
-    private readonly _materials?: string[];
+    private readonly _level: number;
+    private readonly _materials?: string;
     private readonly _higherLevelsDescription?: string;
 
     constructor(
@@ -26,7 +27,8 @@ export class DND5SpellModel {
         needsConcentration: boolean,
         castingTime: string,
         school: MagicSchoolEnum,
-        materials?: string[],
+        level: number,
+        materials?: string,
         higherLevelsDescription?: string,
     ) {
         this._id = id;
@@ -39,6 +41,7 @@ export class DND5SpellModel {
         this._needsConcentration = needsConcentration;
         this._castingTime = castingTime;
         this._school = school;
+        this._level = level;
         this._materials = materials;
         this._higherLevelsDescription = higherLevelsDescription;
     }
@@ -83,7 +86,11 @@ export class DND5SpellModel {
         return this._school;
     }
 
-    get materials(): string[] {
+    get level(): number {
+        return this._level;
+    }
+
+    get materials(): string {
         return this._materials;
     }
 

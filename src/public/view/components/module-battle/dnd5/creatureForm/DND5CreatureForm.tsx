@@ -30,6 +30,8 @@ import {HPSpeedAndACFormSectionHeader} from "@/public/view/components/module-bat
 import {LanguagesFeatsSensesAndSkillsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/languagesFeatsSensesAndSkills/LanguagesFeatsSensesAndSkillsFormSection";
 import {LanguagesFeatsSensesAndSkillsFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/headers/LanguagesFeatsSensesAndSkillsFormSectionHeader";
 import {SenseViewModel} from "@/public/model/dataModel/dnd5/SenseViewModel";
+import {AverageHPCalculatorService} from "@/public/service/dnd5/AverageHPCalculatorService";
+import {SpellFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/actionsAndSpells/SpellFormSection";
 import * as style from './dnd5CreatureForm.css';
 
 interface CreatureFormState {
@@ -118,6 +120,13 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                             break;
                     }
                     creature.properties.hitDice.diceType = hitDiceType;
+
+                    if (creature.properties.hitDice.diceCount !== null) {
+                        const averageHPCalculatorService = new AverageHPCalculatorService();
+                        creature.properties.hitpoints =
+                            averageHPCalculatorService.calculateAverageHP(creature.properties.hitDice);
+                    }
+
                     this.setState({creature: creature});
                 }
             });
@@ -174,6 +183,18 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
         creature.properties.stats.constitution = null;
         if (!isNaN(parseInt(event.target.value))) {
             creature.properties.stats.constitution = parseInt(event.target.value)
+        }
+        if (creature.properties.hitDice.diceCount !== null) {
+            creature.properties.hitDice.bonus =
+                creature.properties.stats.getStatModifierForStatValue(
+                    creature.properties.stats.constitution
+                ) * creature.properties.hitDice.diceCount
+        }
+        if (creature.properties.hitDice.diceCount !== null
+            && creature.properties.hitDice.diceType !== null
+        ) {
+            const averageHPCalculatorService = new AverageHPCalculatorService();
+            creature.properties.hitpoints = averageHPCalculatorService.calculateAverageHP(creature.properties.hitDice)
         }
         this.setState({creature: creature})
     };
@@ -401,6 +422,20 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
         this.setState({creature})
     };
 
+    handleAddSpell = (spellModel: DND5SpellViewModel): void => {
+        const creature = this.state.creature;
+        creature.properties.spells.push(spellModel);
+        this.setState({creature: creature});
+    }
+
+    handleRemoveSpell = (spellId: string): void => {
+        const creature = this.state.creature;
+        creature.properties.spells = creature.properties.spells.filter(spell => {
+            return spell.id !== spellId
+        })
+        this.setState({creature: creature});
+    }
+
     render(): ReactNode {
         return (
             <div className={style.container}>
@@ -595,6 +630,11 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                         }
                     </div>
                     <div className={style.formSection}>
+                        <SpellFormSection
+                            addSpell={this.handleAddSpell}
+                            removeSpell={this.handleRemoveSpell}
+                            chosenSpells={this.state.creature.properties.spells}
+                        />
                         {/*Actions And Spells*/}
                     </div>
                     <div className={style.formSection}>

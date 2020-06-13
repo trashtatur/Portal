@@ -49,33 +49,21 @@ export class HPSpeedAndACMonsterFormSection extends React.Component<HPAndACMonst
         this.props.changeHitDiceBonus({target: {value: calculatedHitDice.bonus}});
     }
 
-    setHitDiceBonusAndHitPoints = (event): void => {
-        const bonus = isNaN(event.target.value) ? null : parseInt(event.target.value);
-        if (!bonus) {
-            return;
-        }
-        if (!this.props.hitDice.diceCount) {
-            return;
-        }
-        const hitDice = new DiceRollSpecification(this.props.hitDice.diceCount, this.props.hitDice.diceType, bonus);
-        const hp = this.averageHPCalculatorService.calculateAverageHP(hitDice, this.props.constitutionMod);
-        this.props.changeHP({target: {value: hp}});
-        this.props.changeHitDiceBonus({target: {value: bonus}});
-    }
-
     setHitDiceCountAndHitPoints = (event): void => {
         const diceCount = isNaN(event.target.value) ? null : parseInt(event.target.value);
         if (!diceCount) {
             return;
         }
+        const bonus = diceCount * this.props.constitutionMod;
         const hitDice = new DiceRollSpecification(
             diceCount,
             this.props.hitDice.diceType,
-            this.props.hitDice.bonus
+            bonus
         );
-        const hp = this.averageHPCalculatorService.calculateAverageHP(hitDice, this.props.constitutionMod);
+        const hp = this.averageHPCalculatorService.calculateAverageHP(hitDice);
         this.props.changeHP({target: {value: hp}});
         this.props.changeHitDiceCount({target: {value: diceCount}});
+        this.props.changeHitDiceBonus({target: {value: bonus}});
     }
 
     render(): ReactNode {
@@ -117,7 +105,7 @@ export class HPSpeedAndACMonsterFormSection extends React.Component<HPAndACMonst
                                 &&
                                 <span style={{fontSize: '7pt', width: '20px'}}>
                                 +
-                            </span>
+                                </span>
                             }
                         </div>
                         <input
@@ -125,7 +113,7 @@ export class HPSpeedAndACMonsterFormSection extends React.Component<HPAndACMonst
                             max={999}
                             min={0}
                             value={this.props.hitDice.getFormattedDiceBonus()}
-                            onChange={e => this.setHitDiceBonusAndHitPoints(e)}
+                            disabled
                         />
                     </div>
                 </div>

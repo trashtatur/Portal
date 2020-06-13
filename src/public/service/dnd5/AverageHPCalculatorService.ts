@@ -1,11 +1,9 @@
 import {DiceRollSpecification} from "../../model/dataModel/DiceRollSpecification";
 
 export class AverageHPCalculatorService {
-    calculateAverageHP = (hitDice: DiceRollSpecification, constitutionModifier: number): number => {
-        const constitutionBonusToHP = hitDice.diceCount * constitutionModifier;
+    calculateAverageHP = (hitDice: DiceRollSpecification): number => {
         const diceRollAverage = Math.floor(((hitDice.diceType + 1) / 2) * hitDice.diceCount);
-
-        return diceRollAverage + constitutionBonusToHP + (hitDice.bonus ?? 0);
+        return diceRollAverage + (hitDice.bonus ?? 0);
     }
 
     /**
@@ -25,7 +23,7 @@ export class AverageHPCalculatorService {
                 hitDiceRollAverage = ((hitDiceType + 1) / 2) * hitDiceCount;
             }
         }
-        const bonus = hpValue - hitDiceRollAverage;
+        const bonus = hitDiceCount * constitutionModifier;
 
         return new DiceRollSpecification(hitDiceCount, hitDiceType, bonus)
     }

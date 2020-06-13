@@ -2,7 +2,7 @@ import {BodyParams, Controller, Get, PathParams, Post, Put, Status} from "@tsed/
 import {MulterOptions, MultipartFile} from "@tsed/multipartfiles";
 import {CreatureService} from "../../services/CreatureService";
 import {creatureData} from "../../types/backendTypes";
-import {SystemToIncludeService} from "../../helper/SystemToIncludeService";
+import {SystemToIncludeService} from "../../services/SystemToIncludeService";
 import {DND5CreatureProperties} from "../../db/schemas/DND5/DND5CreatureProperties";
 import {DND5CreaturePropertiesModel} from "../../model/dnd5/DND5CreaturePropertiesModel";
 import {PathfinderCreatureProperties} from "../../db/schemas/pathfinder/PathfinderCreatureProperties";
