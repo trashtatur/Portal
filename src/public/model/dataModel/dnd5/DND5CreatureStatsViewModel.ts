@@ -1,4 +1,6 @@
-export class DND5CreatureStatsViewModel {
+import {AbstractEffectViewModel} from "@/public/model/effects/AbstractEffectViewModel";
+
+export class DND5CreatureStatsViewModel extends AbstractEffectViewModel{
     private _strength: number;
     private _dexterity: number;
     private _constitution: number;
@@ -14,6 +16,7 @@ export class DND5CreatureStatsViewModel {
         wisdom: number,
         charisma: number,
     ) {
+        super()
         this._strength = strength;
         this._dexterity = dexterity;
         this._constitution = constitution;

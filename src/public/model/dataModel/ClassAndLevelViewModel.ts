@@ -1,10 +1,14 @@
-export class ClassAndLevelViewModel {
+import {AbstractEffectViewModel} from "@/public/model/effects/AbstractEffectViewModel";
+import {ApplyEffects} from "@/public/model/AbstractPropertyViewModel";
+
+export class ClassAndLevelViewModel extends AbstractEffectViewModel{
     private _name: string;
     private _level: number;
     constructor(
         name: string,
         level: number
     ) {
+        super()
         this._name = name;
         this._level = level;
     }
@@ -17,6 +21,7 @@ export class ClassAndLevelViewModel {
         this._name = value;
     }
 
+    @ApplyEffects
     get level(): number {
         return this._level;
     }

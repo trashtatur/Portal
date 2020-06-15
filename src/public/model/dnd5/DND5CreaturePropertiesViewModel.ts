@@ -16,7 +16,6 @@ import {DND5SpellSlotsViewModel} from "../dataModel/dnd5/DND5SpellSlotsViewModel
 import {SenseViewModel} from "../dataModel/dnd5/SenseViewModel";
 import {DND5SavingThrowsModel} from "../../../model/dataModel/dnd5/DND5SavingThrowsModel";
 import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
-import {EffectCollection} from "@/public/model/dataModel/EffectCollection";
 
 export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
 {
@@ -128,6 +127,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._id = value;
     }
 
+    @ApplyEffects
     get type(): TypeEnum {
         if (this._type === null) return TypeEnum.NONE
         return this._type;
@@ -137,6 +137,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._type = value;
     }
 
+    @ApplyEffects
     get proficiencyBonus(): number {
         return this._proficiencyBonus;
     }
@@ -145,6 +146,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._proficiencyBonus = value;
     }
 
+    @ApplyEffects
     get armorclass(): number {
         return this._armorclass;
     }
@@ -161,6 +163,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._armorType = value;
     }
 
+    @ApplyEffects
     get hitpoints(): number {
         return this._hitpoints;
     }

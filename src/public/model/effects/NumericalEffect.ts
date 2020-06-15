@@ -1,8 +1,12 @@
-export class Effect {
+import {EffectInterface} from "@/public/model/effects/EffectInterface";
+
+export class NumericalEffect implements EffectInterface<number>{
     private _will: "add" | "subtract";
     private _name: string;
     private _amount: number;
     private _from: string;
+    private _active: boolean;
+
     constructor(
         name: string,
         will: "add" | "subtract",
@@ -54,5 +58,13 @@ export class Effect {
         if (this.will === "add") {
             return value + this._amount
         }
+    }
+
+    get active(): boolean {
+        return this._active;
+    }
+
+    set active(value: boolean) {
+        this._active = value;
     }
 }
