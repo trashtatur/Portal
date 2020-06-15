@@ -1,10 +1,10 @@
-import {AbstractPropertyViewModel} from "../AbstractPropertyViewModel";
+import {AbstractPropertyViewModel, ApplyEffects} from "../AbstractPropertyViewModel";
 import {TypeEnum} from "../enumeration/TypesEnum";
 import {DiceRollSpecification} from "../dataModel/DiceRollSpecification";
 import {AlignmentEnum} from "../enumeration/AlignmentEnum";
 import {NamedPropertyViewModel} from "../dataModel/NamedPropertyViewModel";
 import {DND5CreatureTypeEnum} from "../enumeration/dnd5/DND5CreatureTypeEnum";
-import {DND5CreatureStatsModel} from "../dataModel/dnd5/DND5CreatureStatsModel";
+import {DND5CreatureStatsViewModel} from "../dataModel/dnd5/DND5CreatureStatsViewModel";
 import {DND5CreatureSizeEnum} from "../enumeration/dnd5/DND5CreatureSizeEnum";
 import {DND5ActionViewModel} from "./DND5ActionViewModel";
 import {DND5TalentViewModel} from "./DND5TalentViewModel";
@@ -15,7 +15,8 @@ import {ClassAndLevelViewModel} from "../dataModel/ClassAndLevelViewModel";
 import {DND5SpellSlotsViewModel} from "../dataModel/dnd5/DND5SpellSlotsViewModel";
 import {SenseViewModel} from "../dataModel/dnd5/SenseViewModel";
 import {DND5SavingThrowsModel} from "../../../model/dataModel/dnd5/DND5SavingThrowsModel";
-import {SpeedModel} from "@/public/model/dataModel/SpeedModel";
+import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
+import {EffectCollection} from "@/public/model/dataModel/EffectCollection";
 
 export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
 {
@@ -31,9 +32,9 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
     private _creatureType: DND5CreatureTypeEnum;
     private _challenge: number;
     private _xp: number;
-    private _stats: DND5CreatureStatsModel;
+    private _stats: DND5CreatureStatsViewModel;
     private _size: DND5CreatureSizeEnum;
-    private _speed: SpeedModel;
+    private _speed: SpeedViewModel;
     private _spellSlots: DND5SpellSlotsViewModel;
     private _classesAndLevels?: Array<ClassAndLevelViewModel>;
     private _damageVulnerabilities?: Array<string>;
@@ -64,9 +65,9 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         creatureType: DND5CreatureTypeEnum,
         challenge: number,
         xp: number,
-        stats: DND5CreatureStatsModel,
+        stats: DND5CreatureStatsViewModel,
         size: DND5CreatureSizeEnum,
-        speed: SpeedModel,
+        speed: SpeedViewModel,
         spellSlots: DND5SpellSlotsViewModel,
         classesAndLevels?: Array<ClassAndLevelViewModel>,
         damageVulnerabilities?: Array<string>,
@@ -82,7 +83,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         talents?: DND5TalentViewModel[],
         skills?: DND5SkillViewModel[],
         languages?: DND5LanguageViewModel[],
-        spells?: DND5SpellViewModel[]
+        spells?: DND5SpellViewModel[],
     ) {
         super();
         this._id = id;
@@ -200,6 +201,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._creatureType = value;
     }
 
+    @ApplyEffects
     get challenge(): number {
         return this._challenge;
     }
@@ -216,11 +218,11 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._xp = value;
     }
 
-    get stats(): DND5CreatureStatsModel {
+    get stats(): DND5CreatureStatsViewModel {
         return this._stats;
     }
 
-    set stats(value: DND5CreatureStatsModel) {
+    set stats(value: DND5CreatureStatsViewModel) {
         this._stats = value;
     }
 
@@ -232,11 +234,11 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._size = value;
     }
 
-    get speed(): SpeedModel {
+    get speed(): SpeedViewModel {
         return this._speed;
     }
 
-    set speed(value: SpeedModel) {
+    set speed(value: SpeedViewModel) {
         this._speed = value;
     }
 

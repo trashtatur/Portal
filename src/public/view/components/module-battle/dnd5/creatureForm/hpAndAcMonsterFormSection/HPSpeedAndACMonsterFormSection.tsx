@@ -2,7 +2,7 @@ import * as React from 'react';
 import {ReactNode} from 'react';
 import {DiceRollSpecification} from "@/public/model/dataModel/DiceRollSpecification";
 import {DND5CreatureSizeEnum} from "@/public/model/enumeration/dnd5/DND5CreatureSizeEnum";
-import {SpeedModel} from "@/public/model/dataModel/SpeedModel";
+import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
 import {AverageHPCalculatorService} from "@/public/service/dnd5/AverageHPCalculatorService";
 import * as style from "../formSectionGeneralStyles.css";
 
@@ -12,7 +12,7 @@ interface HPAndACMonsterFormSectionProps {
     ac: string;
     changeAC: Function;
     constitutionMod: number;
-    speed: SpeedModel;
+    speed: SpeedViewModel;
     changeLandSpeed: Function;
     changeAirSpeed: Function;
     changeWaterSpeed: Function;

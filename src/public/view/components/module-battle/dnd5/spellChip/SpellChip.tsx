@@ -60,9 +60,9 @@ export class SpellChip extends React.Component<SpellChipProps> {
                     onClick={() => this.props.onClick()}
                     onMouseOver={() => this.props.onHover()}
                 >
-                    <img src={`images/dnd5/magicSchools/${this.props.school}.jpg`} className={style.spellChipSchoolImage}/>
+                    <img src={`images/dnd5/magicSchools/${this.props.school}.jpg`} className={style.spellChipSchoolImage} alt={"Magic school image"}/>
                     <span className={style.spellChipLevel}>{this.props.level}</span>
-                    <span>{this.props.name}</span>
+                    <div className={style.spellChipName}>{this.props.name}</div>
                 </div>
             </>
         )

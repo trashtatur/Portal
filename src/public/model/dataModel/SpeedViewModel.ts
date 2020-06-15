@@ -1,4 +1,4 @@
-export class SpeedModel {
+export class SpeedViewModel {
     private _land: number;
     private _water: number;
     private _air: number;

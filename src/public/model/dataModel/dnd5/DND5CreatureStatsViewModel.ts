@@ -1,4 +1,4 @@
-export class DND5CreatureStatsModel {
+export class DND5CreatureStatsViewModel {
     private _strength: number;
     private _dexterity: number;
     private _constitution: number;

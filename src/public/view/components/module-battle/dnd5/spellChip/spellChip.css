@@ -6,13 +6,18 @@
     margin-top: 3px;
     margin-left: 3px;
     padding: 3px;
-    max-height: 15px;
+    height: 15px;
     font-size: 8pt;
 }
 
 .spellChipLevel {
+    padding-top: 2px;
     border-left: 1px solid grey;
     border-right: 1px solid grey;
+}
+
+.spellChipName {
+    padding-top: 2px;
 }
 
 .spellChipSchoolImage {

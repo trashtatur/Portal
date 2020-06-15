@@ -4,15 +4,7 @@ import {Modal} from "../../../common/modal/Modal";
 import {DND5FormMenu} from "../formMenu/DND5FormMenu";
 import * as style from './dnd5Menu.css';
 
-interface DND5MenuProps {
-
-}
-
-interface DND5MenuState {
-
-}
-
-export class DND5Menu extends React.Component<DND5MenuProps, DND5MenuState> {
+export class DND5Menu extends React.Component {
 
     render(): ReactNode {
         return (

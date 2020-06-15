@@ -2,6 +2,7 @@ import {CreatureViewModel} from "../model/CreatureViewModel";
 import {PathfinderCreaturePropertiesDataToViewModelMapper} from "./pathfinder/PathfinderCreaturePropertiesDataToViewModelMapper";
 import {DND5CreaturePropertiesDataToViewModelMapper} from "./dnd5/DND5CreaturePropertiesDataToViewModelMapper";
 import {creatureData} from "../types/commonDataTypes";
+import {AbstractPropertyViewModel} from "@/public/model/AbstractPropertyViewModel";
 
 export class CreatureDataToViewModelMapper {
     private pathfinderCreaturePropertiesDataToViewModelMapper: PathfinderCreaturePropertiesDataToViewModelMapper;
@@ -13,7 +14,7 @@ export class CreatureDataToViewModelMapper {
         this.pathfinderCreaturePropertiesDataToViewModelMapper = new PathfinderCreaturePropertiesDataToViewModelMapper();
     }
 
-    mapSingle = <T>(data: creatureData): CreatureViewModel<T> => {
+    mapSingle = <T extends AbstractPropertyViewModel>(data: creatureData): CreatureViewModel<T> => {
         let properties = null;
         switch (data._propertyType) {
             case 'pathfinder':
@@ -30,7 +31,7 @@ export class CreatureDataToViewModelMapper {
         )
     }
 
-    mapMultiple = <T>(data: creatureData[], property: { new(...args: any[]): T }): CreatureViewModel<T>[] => {
+    mapMultiple = <T extends AbstractPropertyViewModel>(data: creatureData[], property: { new(...args: any[]): T }): CreatureViewModel<T>[] => {
         const viewModels: CreatureViewModel<T>[] = [];
         data.forEach(creature => {
             viewModels.push(this.mapSingle<T>(creature));

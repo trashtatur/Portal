@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
 import {ClassAndLevelViewModel} from "@/public/model/dataModel/ClassAndLevelViewModel";
-import {SpeedModel} from "@/public/model/dataModel/SpeedModel";
+import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
 
 interface HPSpeedAndACPlayerFormSectionProps {
     hp: string;
     changeHP: Function;
     ac: string;
     changeAC: Function;
-    speed: SpeedModel;
+    speed: SpeedViewModel;
     changeLandSpeed: Function;
     changeAirSpeed: Function;
     changeWaterSpeed: Function;

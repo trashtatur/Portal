@@ -61,9 +61,9 @@ export class SpellSchoolFilterChip extends React.Component<SpelSchoolFilterChipP
                     src={`images/dnd5/magicSchools/${this.props.name}.jpg`}
                     alt={'Magic school symbol'}
                 />
-                <span>
+                <div className={style.schoolName}>
                     {this.props.name}
-                </span>
+                </div>
             </div>
         )
     }

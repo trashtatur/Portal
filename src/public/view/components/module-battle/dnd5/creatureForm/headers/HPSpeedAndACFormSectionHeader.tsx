@@ -2,12 +2,12 @@ import * as React from 'react';
 import {ReactNode} from 'react';
 import {DiceRollSpecification} from "@/public/model/dataModel/DiceRollSpecification";
 import * as style from "@/public/view/components/module-battle/dnd5/creatureForm/dnd5CreatureForm.css";
-import {SpeedModel} from "@/public/model/dataModel/SpeedModel";
+import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
 
 interface HPAndACMonsterFormSectionHeaderProps {
     hp: number;
     ac: number;
-    speed: SpeedModel;
+    speed: SpeedViewModel;
     hitDice: DiceRollSpecification;
 }
 
