@@ -5,9 +5,9 @@ import {DND5CreatureTypeEnum} from "../../model/enumeration/dnd5/DND5CreatureTyp
 import {DND5CreatureStatsViewModel} from "../../model/dataModel/dnd5/DND5CreatureStatsViewModel";
 import {DND5CreatureSizeEnum} from "../../model/enumeration/dnd5/DND5CreatureSizeEnum";
 import {DND5SpellSlotsViewModel} from "../../model/dataModel/dnd5/DND5SpellSlotsViewModel";
-import {DND5SavingThrowsModel} from "../../../model/dataModel/dnd5/DND5SavingThrowsModel";
 import {TypeEnum} from "../../model/enumeration/TypesEnum";
 import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
+import {DND5SavingThrowsViewModel} from "@/public/model/dataModel/dnd5/DND5SavingThrowsViewModel";
 
 export class DND5CreaturePropertiesViewModelFactory {
     createEmpty = (): DND5CreaturePropertiesViewModel => {
@@ -54,7 +54,7 @@ export class DND5CreaturePropertiesViewModelFactory {
             [],
             [],
             [],
-            new DND5SavingThrowsModel(),
+            new DND5SavingThrowsViewModel(),
             '',
             [],
             [],

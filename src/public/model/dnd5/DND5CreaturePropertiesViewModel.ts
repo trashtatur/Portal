@@ -14,8 +14,8 @@ import {DND5SpellViewModel} from "./DND5SpellViewModel";
 import {ClassAndLevelViewModel} from "../dataModel/ClassAndLevelViewModel";
 import {DND5SpellSlotsViewModel} from "../dataModel/dnd5/DND5SpellSlotsViewModel";
 import {SenseViewModel} from "../dataModel/dnd5/SenseViewModel";
-import {DND5SavingThrowsModel} from "../../../model/dataModel/dnd5/DND5SavingThrowsModel";
 import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
+import {DND5SavingThrowsViewModel} from "@/public/model/dataModel/dnd5/DND5SavingThrowsViewModel";
 
 export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
 {
@@ -40,7 +40,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
     private _damageResistances?: Array<string>;
     private _conditionImmunities?: Array<string>;
     private _damageImmunities?: Array<string>;
-    private _savingThrows?: DND5SavingThrowsModel;
+    private _savingThrows?: DND5SavingThrowsViewModel;
     private _image?: string;
     private _senses?: SenseViewModel[];
     private _legendaryActions?: NamedPropertyViewModel[];
@@ -73,7 +73,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         damageResistances?: Array<string>,
         conditionImmunities?: Array<string>,
         damageImmunities?: Array<string>,
-        savingThrows?: DND5SavingThrowsModel,
+        savingThrows?: DND5SavingThrowsViewModel,
         image?: string,
         senses?: SenseViewModel[],
         legendaryActions?: NamedPropertyViewModel[],
@@ -293,11 +293,11 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._damageImmunities = value;
     }
 
-    get savingThrows(): DND5SavingThrowsModel {
+    get savingThrows(): DND5SavingThrowsViewModel {
         return this._savingThrows;
     }
 
-    set savingThrows(value: DND5SavingThrowsModel) {
+    set savingThrows(value: DND5SavingThrowsViewModel) {
         this._savingThrows = value;
     }
 
