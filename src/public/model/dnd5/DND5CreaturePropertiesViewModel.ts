@@ -1,4 +1,4 @@
-import {AbstractPropertyViewModel, ApplyEffects} from "../AbstractPropertyViewModel";
+import {AbstractPropertyViewModel} from "../AbstractPropertyViewModel";
 import {TypeEnum} from "../enumeration/TypesEnum";
 import {DiceRollSpecification} from "../dataModel/DiceRollSpecification";
 import {AlignmentEnum} from "../enumeration/AlignmentEnum";
@@ -16,6 +16,8 @@ import {DND5SpellSlotsViewModel} from "../dataModel/dnd5/DND5SpellSlotsViewModel
 import {SenseViewModel} from "../dataModel/dnd5/SenseViewModel";
 import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
 import {DND5SavingThrowsViewModel} from "@/public/model/dataModel/dnd5/DND5SavingThrowsViewModel";
+import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
+
 
 export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
 {

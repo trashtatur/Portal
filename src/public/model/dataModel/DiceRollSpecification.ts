@@ -1,5 +1,5 @@
 import {AbstractEffectViewModel} from "@/public/model/effects/AbstractEffectViewModel";
-import {ApplyEffects} from "@/public/model/AbstractPropertyViewModel";
+import {ApplyEffects, } from "@/public/model/effects/decorator/DecoratorFunctions";
 
 export class DiceRollSpecification extends AbstractEffectViewModel{
     private _diceCount: number;
@@ -43,17 +43,17 @@ export class DiceRollSpecification extends AbstractEffectViewModel{
     }
 
     getFormattedDiceType(): string {
-        if (this._diceType == null) {
+        if (!this._diceType) {
             return '';
         }
         return String(this._diceType);
     }
 
     getFormattedDiceCount(): string {
-        if (this.diceCount == null) {
+        if (!this.diceCount) {
             return '';
         }
-        return String(this._diceCount)
+        return String(this.diceCount)
     }
 
     getFormattedDiceBonus(): string {

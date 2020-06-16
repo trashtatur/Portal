@@ -1,5 +1,5 @@
 import {AbstractEffectViewModel} from "@/public/model/effects/AbstractEffectViewModel";
-import {ApplyEffects} from "@/public/model/AbstractPropertyViewModel";
+import {ApplyEffects } from "@/public/model/effects/decorator/DecoratorFunctions";
 
 export class ClassAndLevelViewModel extends AbstractEffectViewModel{
     private _name: string;

@@ -1,5 +1,10 @@
 import {TypeEnum} from "../model/enumeration/TypesEnum";
 
+export type loggingContext = {
+    caller?: string;
+    callee?: string;
+}
+
 export type selectableCreatures = {
     label: string;
     options: selectable[];
