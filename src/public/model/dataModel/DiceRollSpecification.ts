@@ -1,4 +1,7 @@
-export class DiceRollSpecification {
+import {AbstractEffectViewModel} from "@/public/model/effects/AbstractEffectViewModel";
+import {ApplyEffects, } from "@/public/model/effects/decorator/DecoratorFunctions";
+
+export class DiceRollSpecification extends AbstractEffectViewModel{
     private _diceCount: number;
     private _bonus?: number;
     private _diceType: number;
@@ -8,11 +11,13 @@ export class DiceRollSpecification {
         diceType: number,
         bonus?: number
     ) {
+        super()
         this._diceCount = diceCount;
         this._diceType = diceType;
         this._bonus = bonus;
     }
 
+    @ApplyEffects
     get diceCount(): number {
         return this._diceCount;
     }
@@ -38,17 +43,17 @@ export class DiceRollSpecification {
     }
 
     getFormattedDiceType(): string {
-        if (this._diceType == null) {
+        if (!this._diceType) {
             return '';
         }
         return String(this._diceType);
     }
 
     getFormattedDiceCount(): string {
-        if (this._diceCount == null) {
+        if (!this.diceCount) {
             return '';
         }
-        return String(this._diceCount)
+        return String(this.diceCount)
     }
 
     getFormattedDiceBonus(): string {

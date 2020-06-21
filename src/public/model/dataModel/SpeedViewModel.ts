@@ -1,4 +1,6 @@
-export class SpeedModel {
+import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
+
+export class SpeedViewModel {
     private _land: number;
     private _water: number;
     private _air: number;
@@ -12,6 +14,7 @@ export class SpeedModel {
         this._air = air;
     }
 
+    @ApplyEffects
     get land(): number {
         return this._land;
     }
@@ -20,6 +23,7 @@ export class SpeedModel {
         this._land = value;
     }
 
+    @ApplyEffects
     get water(): number {
         return this._water;
     }
@@ -28,6 +32,7 @@ export class SpeedModel {
         this._water = value;
     }
 
+    @ApplyEffects
     get air(): number {
         return this._air;
     }

@@ -1,5 +1,18 @@
 import {TypeEnum} from "../model/enumeration/TypesEnum";
 
+export type effectData = {
+
+}
+
+export type effectDataCollection = {
+    effects: effectData[];
+}
+
+export type loggingContext = {
+    caller?: string;
+    callee?: string;
+}
+
 export type selectableCreatures = {
     label: string;
     options: selectable[];

@@ -2,9 +2,10 @@ import * as React from 'react';
 import {ReactNode} from 'react';
 import {DiceRollSpecification} from "@/public/model/dataModel/DiceRollSpecification";
 import {DND5CreatureSizeEnum} from "@/public/model/enumeration/dnd5/DND5CreatureSizeEnum";
-import {SpeedModel} from "@/public/model/dataModel/SpeedModel";
+import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
 import {AverageHPCalculatorService} from "@/public/service/dnd5/AverageHPCalculatorService";
-import * as style from "../formSectionGeneralStyles.css";
+import {SpeedSubSection} from "@/public/view/components/module-battle/dnd5/creatureForm/hpSpeedAndACFormSection/speedSubSection/SpeedSubSection";
+import * as style from "../../formSectionGeneralStyles.css";
 
 interface HPAndACMonsterFormSectionProps {
     hp: string;
@@ -12,7 +13,7 @@ interface HPAndACMonsterFormSectionProps {
     ac: string;
     changeAC: Function;
     constitutionMod: number;
-    speed: SpeedModel;
+    speed: SpeedViewModel;
     changeLandSpeed: Function;
     changeAirSpeed: Function;
     changeWaterSpeed: Function;
@@ -133,42 +134,12 @@ export class HPSpeedAndACMonsterFormSection extends React.Component<HPAndACMonst
                     />
                 </div>
                 <div className={style.formInputSection}>
-                    <label htmlFor={'dnd5CreatureForm--speed'}>Speed</label>
-                    <div id={'dnd5CreatureForm--speed'} style={{display: 'flex'}}>
-                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                            <label htmlFor={'dnd5CreatureForm--speed--land'}>🚹</label>
-                            <input
-                                id={'dnd5CreatureForm--speed--land'}
-                                onChange={e => this.props.changeLandSpeed(e)}
-                                type={'number'}
-                                style={{maxWidth: '45px'}}
-                                max={99}
-                                value={this.props.speed.land}
-                            />
-                        </div>
-                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                            <label htmlFor={'dnd5CreatureForm--speed--air'}>🐦</label>
-                            <input
-                                id={'dnd5CreatureForm--speed--air'}
-                                onChange={e => this.props.changeAirSpeed(e)}
-                                type={'number'}
-                                style={{maxWidth: '45px'}}
-                                max={99}
-                                value={this.props.speed.air}
-                            />
-                        </div>
-                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                            <label htmlFor={'dnd5CreatureForm--speed--water'}>🐟</label>
-                            <input
-                                id={'dnd5CreatureForm--speed--water'}
-                                onChange={e => this.props.changeWaterSpeed(e)}
-                                type={'number'}
-                                style={{maxWidth: '45px'}}
-                                max={99}
-                                value={this.props.speed.water}
-                            />
-                        </div>
-                    </div>
+                    <SpeedSubSection
+                        speed={this.props.speed}
+                        changeLandSpeed={this.props.changeLandSpeed}
+                        changeAirSpeed={this.props.changeAirSpeed}
+                        changeWaterSpeed={this.props.changeWaterSpeed}
+                    />
                 </div>
             </>
         )

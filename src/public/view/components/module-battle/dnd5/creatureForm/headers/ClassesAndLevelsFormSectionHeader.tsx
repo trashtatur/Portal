@@ -7,6 +7,7 @@ import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
 interface ClassesAndLevelsFormSectionHeaderProps {
     classesAndLevels: ClassAndLevelViewModel[];
     type: TypeEnum;
+    enforced: boolean;
 }
 
 export class ClassesAndLevelsFormSectionHeader extends React.Component<ClassesAndLevelsFormSectionHeaderProps, {}> {
@@ -16,7 +17,7 @@ export class ClassesAndLevelsFormSectionHeader extends React.Component<ClassesAn
             <>
                 {
                     this.props.classesAndLevels.length === 0
-                    && this.props.type === TypeEnum.PLAYER
+                    && (this.props.type === TypeEnum.PLAYER || this.props.enforced)
                     &&
                     <span className={style.formSectionCompletion}>
                         ☐<span className={style.formSectionHeader}>Classes & Levels</span>
@@ -24,7 +25,7 @@ export class ClassesAndLevelsFormSectionHeader extends React.Component<ClassesAn
                 }
                 {
                     this.props.classesAndLevels.length !== 0
-                    && this.props.type === TypeEnum.PLAYER
+                    && (this.props.type === TypeEnum.PLAYER || this.props.enforced)
                     &&
                     <span className={style.formSectionCompletion}>
                         ☑<span className={style.formSectionHeader}>Classes & Levels</span>

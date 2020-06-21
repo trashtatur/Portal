@@ -64,7 +64,12 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
         this.setState({
             creaturesInBattle:
                 this.state.creaturesInBattle.filter(elem => {
-                    return elem.id !==  id && elem.properties.label !== label;
+                    if (elem.properties.id === id) {
+                        if (elem.properties.label === label) {
+                            return false;
+                        }
+                    }
+                    return true;
                 })
         }, () => this.setToSessionStorage())
     };

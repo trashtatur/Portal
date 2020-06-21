@@ -1,6 +1,7 @@
 import {RangeTypeEnum} from "../enumeration/RangeTypeEnum";
 import {DiceRollSpecification} from "../dataModel/DiceRollSpecification";
 import {PathfinderDamageType} from "../dataModel/pathfinder/PathfinderDamageType";
+import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
 
 export class ActionViewModel {
     private _name: string;
@@ -68,6 +69,7 @@ export class ActionViewModel {
         this._attackBonus = value;
     }
 
+    @ApplyEffects
     get range(): number {
         return this._range;
     }
@@ -76,6 +78,7 @@ export class ActionViewModel {
         this._range = value;
     }
 
+    @ApplyEffects
     get damage(): DiceRollSpecification {
         return this._damage;
     }
@@ -84,6 +87,7 @@ export class ActionViewModel {
         this._damage = value;
     }
 
+    @ApplyEffects
     get critMod(): number {
         return this._critMod;
     }
@@ -109,21 +113,21 @@ export class ActionViewModel {
     }
 
     getFormattedAttackBonus(): string {
-        if (this._attackBonus == null) {
+        if (this.attackBonus == null) {
             return '';
         }
         return String(this._attackBonus);
     }
 
     getFormattedCritMod(): string {
-        if (this._critMod == null) {
+        if (this.critMod == null) {
             return ''
         }
         return String(this._critMod)
     }
 
     getFormattedRange(): string {
-        if (this._range == null) {
+        if (this.range == null) {
             return ''
         }
         return String(this._range)

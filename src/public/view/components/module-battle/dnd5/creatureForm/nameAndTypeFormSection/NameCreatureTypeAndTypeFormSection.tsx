@@ -4,15 +4,18 @@ import Select from 'react-select';
 import {selectable} from "@/public/types/frontendTypes";
 import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
 import {DND5CreatureTypeEnum} from "@/public/model/enumeration/dnd5/DND5CreatureTypeEnum";
+import Switch from "react-switch";
 import * as style from '../formSectionGeneralStyles.css'
 
 interface InitialDND5CreatureFormFormSectionProps {
     name: string;
-    type: string;
+    type: TypeEnum;
     creatureType: DND5CreatureTypeEnum;
     changeCreatureType: Function;
     changeName: Function;
     changeType: Function;
+    changeEnforceClassLevels;
+    classLevelsEnforced: boolean;
 }
 
 const selectableCreatureTypes: selectable[] = [
@@ -92,6 +95,7 @@ const selectableTypes: selectable[] = [
         value: TypeEnum.SUMMON
     }
 ]
+
 export class NameCreatureTypeAndTypeFormSection extends React.Component<InitialDND5CreatureFormFormSectionProps, {}> {
 
 
@@ -110,28 +114,39 @@ export class NameCreatureTypeAndTypeFormSection extends React.Component<InitialD
                 <div className={style.formInputSection}>
                     <label htmlFor={'dnd5CreatureForm--type'}>Type</label>
                     <Select
-                       options={selectableTypes}
-                       id={'dnd5CreatureForm--type'}
-                       className={style.selectMenu}
-                       maxMenuHeight={110}
-                       value={{value: this.props.type, label: this.props.type}}
-                       onChange={this.props.changeType}
+                        options={selectableTypes}
+                        id={'dnd5CreatureForm--type'}
+                        className={style.selectMenu}
+                        maxMenuHeight={110}
+                        value={{value: this.props.type, label: this.props.type}}
+                        onChange={this.props.changeType}
                     />
                 </div>
                 {
                     (this.props.type === TypeEnum.MONSTER || this.props.type === TypeEnum.SUMMON)
                     &&
-                    <div className={style.formInputSection}>
-                        <label htmlFor={'dnd5CreatureForm--creatureType'}>Creature Type</label>
-                        <Select
-                            options={selectableCreatureTypes}
-                            id={'dnd5CreatureForm--creatureType'}
-                            className={style.selectMenu}
-                            maxMenuHeight={110}
-                            value={{value: this.props.creatureType, label: this.props.creatureType}}
-                            onChange={this.props.changeCreatureType}
-                        />
-                    </div>
+                    <>
+                        <div className={style.formInputSection}>
+                            <label htmlFor={'dnd5CreatureForm--creatureType'}>Creature Type</label>
+                            <Select
+                                options={selectableCreatureTypes}
+                                id={'dnd5CreatureForm--creatureType'}
+                                className={style.selectMenu}
+                                maxMenuHeight={110}
+                                value={{value: this.props.creatureType, label: this.props.creatureType}}
+                                onChange={this.props.changeCreatureType}
+                            />
+                        </div>
+                        <div className={style.formInputSection}>
+                            <label htmlFor={'dnd5CreatureForm--hasClassLevels'}>Has class levels?</label>
+                            <Switch
+                                id={'hasClassLevels'}
+                                checked={this.props.classLevelsEnforced}
+                                onChange={this.props.changeEnforceClassLevels}
+                                onColor={'#19803f'}
+                            />
+                        </div>
+                    </>
                 }
             </>
         )

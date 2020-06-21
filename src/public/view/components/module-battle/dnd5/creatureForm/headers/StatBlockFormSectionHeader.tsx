@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {DND5CreatureStatsModel} from "../../../../../../model/dataModel/dnd5/DND5CreatureStatsModel";
+import {DND5CreatureStatsViewModel} from "../../../../../../model/dataModel/dnd5/DND5CreatureStatsViewModel";
 import * as style from "../dnd5CreatureForm.css";
 
 interface StatBlockFormSectionHeaderProps {
-    stats: DND5CreatureStatsModel;
+    stats: DND5CreatureStatsViewModel;
 }
 
 export class StatBlockFormSectionHeader extends React.Component<StatBlockFormSectionHeaderProps, {}> {

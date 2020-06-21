@@ -4,8 +4,11 @@
     "test": "mocha --require ts-node/register tests/**/*Test.ts",
     "build": "webpack --mode development",
     "watch": "gulp watch",
-    "start": "nodemon --watch 'src/**/*.ts' --ignore 'node_modules/**/*' --exec ts-node src/index.ts",
+    "start": "nodemon --watch 'src/**/*.ts' --exec ts-node src/index.ts",
     "import:dnd5:spells": "ts-node src/importer/importSpells.ts"
+  },
+  "nodemonConfig": {
+    "ignore": ["src/public/**/*","node_modules/**/*"]
   },
   "license": "MIT",
   "dependencies": {

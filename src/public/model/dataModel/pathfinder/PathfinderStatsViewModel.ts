@@ -1,5 +1,6 @@
 import {getSizeModFromSizeEnum} from "../../enumeration/pathfinder/PathfinderCreatureSizeModifierEnum";
 import {PathfinderCreatureSizeEnum} from "../../enumeration/pathfinder/PathfinderCreatureSizeEnum";
+import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
 
 export class PathfinderStatsViewModel {
 
@@ -44,6 +45,7 @@ export class PathfinderStatsViewModel {
         this._creatureSize = creatureSize;
     }
 
+    @ApplyEffects
     get dexterity(): number {
         return this._dexterity;
     }
@@ -52,6 +54,7 @@ export class PathfinderStatsViewModel {
         this._dexterity = value;
     }
 
+    @ApplyEffects
     get strength(): number {
         return this._strength;
     }
@@ -60,6 +63,7 @@ export class PathfinderStatsViewModel {
         this._strength = value;
     }
 
+    @ApplyEffects
     get constitution(): number {
         return this._constitution;
     }
@@ -68,6 +72,7 @@ export class PathfinderStatsViewModel {
         this._constitution = value;
     }
 
+    @ApplyEffects
     get wisdom(): number {
         return this._wisdom;
     }
@@ -76,6 +81,7 @@ export class PathfinderStatsViewModel {
         this._wisdom = value;
     }
 
+    @ApplyEffects
     get intelligence(): number {
         return this._intelligence;
     }
@@ -84,6 +90,7 @@ export class PathfinderStatsViewModel {
         this._intelligence = value;
     }
 
+    @ApplyEffects
     get charisma(): number {
         return this._charisma;
     }
@@ -92,16 +99,8 @@ export class PathfinderStatsViewModel {
         this._charisma = value;
     }
 
-    get baseAttack(): number {
-        return this._baseAttack;
-    }
-
     set baseAttack(value: number) {
         this._baseAttack = value;
-    }
-
-    get creatureSize(): PathfinderCreatureSizeEnum {
-        return this._creatureSize;
     }
 
     set creatureSize(value: PathfinderCreatureSizeEnum) {
@@ -111,17 +110,17 @@ export class PathfinderStatsViewModel {
     getAsString = (attributeToGet: string): string => {
         switch (attributeToGet) {
             case this.LABELS.STR:
-                return this._strength.toString();
+                return this.strength.toString();
             case this.LABELS.CHA:
-                return this._charisma.toString();
+                return this.charisma.toString();
             case this.LABELS.CON:
-                return this._constitution.toString();
+                return this.constitution.toString();
             case this.LABELS.INT:
-                return this._intelligence.toString();
+                return this.intelligence.toString();
             case this.LABELS.WIS:
-                return this._wisdom.toString();
+                return this.wisdom.toString();
             case this.LABELS.DEX:
-                return this.LABELS.DEX.toString();
+                return this.dexterity.toString();
         }
     };
 

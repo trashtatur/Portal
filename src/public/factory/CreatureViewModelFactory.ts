@@ -1,6 +1,7 @@
 import {CreatureViewModel} from "../model/CreatureViewModel";
 import {PathfinderCreaturePropertiesDataToViewModelMapper} from "../mapping/pathfinder/PathfinderCreaturePropertiesDataToViewModelMapper";
 import {PropertyFactory} from "./PropertyFactory";
+import {AbstractPropertyViewModel} from "@/public/model/AbstractPropertyViewModel";
 
 export class CreatureViewModelFactory {
     private pathfinderPropertiesToViewModelMapper: PathfinderCreaturePropertiesDataToViewModelMapper;
@@ -12,7 +13,7 @@ export class CreatureViewModelFactory {
         this.propertiesFactory = new PropertyFactory()
     }
 
-    public createFromExisting = <T>(creatureViewModel: CreatureViewModel<T>): CreatureViewModel<T> => {
+    public createFromExisting = <T extends AbstractPropertyViewModel>(creatureViewModel: CreatureViewModel<T>): CreatureViewModel<T> => {
         return new CreatureViewModel<T>(
             creatureViewModel.id,
             creatureViewModel.name,
@@ -20,7 +21,7 @@ export class CreatureViewModelFactory {
         )
     }
 
-    public createEmpty = <T>(property: { new(...args: any[]): T }): CreatureViewModel<T> => {
+    public createEmpty = <T extends AbstractPropertyViewModel>(property: { new(...args: any[]): T }): CreatureViewModel<T> => {
         return new CreatureViewModel<T>(
             '',
             '',
@@ -28,7 +29,7 @@ export class CreatureViewModelFactory {
         )
     }
 
-    public createSummonedCreature = <T>(property: { new(...args: any[]): T }): CreatureViewModel<T> => {
+    public createSummonedCreature = <T extends AbstractPropertyViewModel>(property: { new(...args: any[]): T }): CreatureViewModel<T> => {
         return new CreatureViewModel<T>(
             '',
             '',

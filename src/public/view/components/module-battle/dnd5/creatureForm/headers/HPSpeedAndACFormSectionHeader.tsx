@@ -2,12 +2,12 @@ import * as React from 'react';
 import {ReactNode} from 'react';
 import {DiceRollSpecification} from "@/public/model/dataModel/DiceRollSpecification";
 import * as style from "@/public/view/components/module-battle/dnd5/creatureForm/dnd5CreatureForm.css";
-import {SpeedModel} from "@/public/model/dataModel/SpeedModel";
+import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
 
 interface HPAndACMonsterFormSectionHeaderProps {
     hp: number;
     ac: number;
-    speed: SpeedModel;
+    speed: SpeedViewModel;
     hitDice: DiceRollSpecification;
 }
 
@@ -19,7 +19,7 @@ export class HPSpeedAndACFormSectionHeader extends React.Component<HPAndACMonste
                 {
                     (this.props.hp === null
                     || this.props.ac === null
-                    || this.props.hitDice === null)
+                    || this.props.hitDice.diceCount === null)
                     &&
                     <span className={style.formSectionCompletion}>
                         ☐<span className={style.formSectionHeader}>Hitpoints, Speed & Armorclass</span>
@@ -28,7 +28,7 @@ export class HPSpeedAndACFormSectionHeader extends React.Component<HPAndACMonste
                 {
                     this.props.hp !== null
                     && this.props.ac !== null
-                    && this.props.hitDice !== null
+                    && this.props.hitDice.diceCount !== null
                     &&
                     <span className={style.formSectionCompletion}>
                         ☑<span className={style.formSectionHeader}>Hitpoints, Speed & Armorclass</span>

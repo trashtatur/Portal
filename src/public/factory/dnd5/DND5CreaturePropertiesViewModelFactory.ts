@@ -2,12 +2,13 @@ import {DND5CreaturePropertiesViewModel} from "../../model/dnd5/DND5CreatureProp
 import {DiceRollSpecification} from "../../model/dataModel/DiceRollSpecification";
 import {AlignmentEnum} from "../../model/enumeration/AlignmentEnum";
 import {DND5CreatureTypeEnum} from "../../model/enumeration/dnd5/DND5CreatureTypeEnum";
-import {DND5CreatureStatsModel} from "../../model/dataModel/dnd5/DND5CreatureStatsModel";
+import {DND5CreatureStatsViewModel} from "../../model/dataModel/dnd5/DND5CreatureStatsViewModel";
 import {DND5CreatureSizeEnum} from "../../model/enumeration/dnd5/DND5CreatureSizeEnum";
 import {DND5SpellSlotsViewModel} from "../../model/dataModel/dnd5/DND5SpellSlotsViewModel";
-import {DND5SavingThrowsModel} from "../../../model/dataModel/dnd5/DND5SavingThrowsModel";
 import {TypeEnum} from "../../model/enumeration/TypesEnum";
-import {SpeedModel} from "@/public/model/dataModel/SpeedModel";
+import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
+import {DND5SavingThrowsViewModel} from "@/public/model/dataModel/dnd5/DND5SavingThrowsViewModel";
+import {InnateSpellCollection} from "@/public/model/dataModel/dnd5/InnateSpellCollection";
 
 export class DND5CreaturePropertiesViewModelFactory {
     createEmpty = (): DND5CreaturePropertiesViewModel => {
@@ -24,7 +25,7 @@ export class DND5CreaturePropertiesViewModelFactory {
             DND5CreatureTypeEnum.NONE,
             null,
             null,
-            new DND5CreatureStatsModel(
+            new DND5CreatureStatsViewModel(
                 null,
                 null,
                 null,
@@ -33,7 +34,7 @@ export class DND5CreaturePropertiesViewModelFactory {
                 null
             ),
             DND5CreatureSizeEnum.NONE,
-            new SpeedModel(
+            new SpeedViewModel(
                 null,
                 null,
                 null
@@ -54,7 +55,7 @@ export class DND5CreaturePropertiesViewModelFactory {
             [],
             [],
             [],
-            new DND5SavingThrowsModel(),
+            new DND5SavingThrowsViewModel(),
             '',
             [],
             [],
@@ -63,7 +64,8 @@ export class DND5CreaturePropertiesViewModelFactory {
             [],
             [],
             [],
-            []
+            [],
+            null,
         )
     }
 

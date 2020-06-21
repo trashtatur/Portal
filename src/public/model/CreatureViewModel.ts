@@ -1,6 +1,7 @@
 import {AbstractPropertyViewModel} from "./AbstractPropertyViewModel";
+import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
 
-export class CreatureViewModel<T extends AbstractPropertyViewModel> {
+export class CreatureViewModel<T extends AbstractPropertyViewModel> extends AbstractPropertyViewModel{
     private _id: string;
     private _name: string;
     private _properties: T;
@@ -10,6 +11,7 @@ export class CreatureViewModel<T extends AbstractPropertyViewModel> {
         name: string,
         properties: T
     ) {
+        super()
         this._properties = properties;
         this._id = id;
         this._name = name;
@@ -23,6 +25,7 @@ export class CreatureViewModel<T extends AbstractPropertyViewModel> {
         this._id = value;
     }
 
+    @ApplyEffects
     get name(): string {
         return this._name;
     }

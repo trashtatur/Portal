@@ -1,4 +1,4 @@
-export class DND5SavingThrowsModel {
+export class DND5SavingThrowsModel{
     private readonly _strengthSave?: number;
     private readonly _dexteritySave?: number;
     private readonly _constitutionSave?: number;
