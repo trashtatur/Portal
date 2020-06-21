@@ -186,7 +186,7 @@ export class LanguagesFeatsSensesAndSkillsFormSection extends React.Component<La
                                     <label htmlFor={`${elem.id}--dnd5CreatureForm--senses--name`}>Sense</label>
                                     <CreatableSelect
                                         id={`${elem.id}--dnd5CreatureForm--senses--name`}
-                                        onChange={(option, value) => this.handleSenseChange(elem.id, option, value)}
+                                        onChange={(value, option) => this.handleSenseChange(elem.id, value, option)}
                                         options={selectableSenses}
                                         value={{label: elem.sense.name, value: elem.sense.name}}
                                         className={style.formSubSelectMenu}

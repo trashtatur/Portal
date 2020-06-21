@@ -37,22 +37,23 @@ export const EffectClass = <T extends { new(...args: any[]): {} }>(constructor: 
 export const ApplyEffects = (target: Record<string, any>, propertyKey: string): PropertyDescriptor => {
     let value = target[propertyKey];
     const getter = function () {
+        const reflectedValue = Reflect.get(this, `_${propertyKey}`);
         if (value === undefined) {
-            return null;
+            if (reflectedValue === undefined || reflectedValue === null) {
+                return null;
+            }
         }
         if (!this || !(this.effects instanceof EffectCollection)) {
             loggingService.debug(`${this.type} | This class does not use effects`, {caller: 'ApplyEffects'})
-            return value;
+            return reflectedValue;
         }
         for (const effect of this.effects.effects) {
             if (!effect.active) continue;
             if (effect.from === propertyKey) {
-                value = effect.applyEffect(value);
-                break;
+                return effect.applyEffect(reflectedValue);
             }
         }
-        console.log(this.effects)
-        return value;
+        return reflectedValue;
     }
 
     const setter = function (param) {

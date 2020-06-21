@@ -15,8 +15,12 @@ export class TextEffect implements EffectInterface<string>{
         this._value = value;
         this._from = from;
     }
+
     applyEffect = (value: string): string => {
-        return undefined;
+        if (this.will === 'add') {
+            return `${value} ${this.value}`
+        }
+        return value;
     }
 
     get will(): "add" | "replace" {

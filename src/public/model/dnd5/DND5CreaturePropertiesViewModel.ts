@@ -17,6 +17,7 @@ import {SenseViewModel} from "../dataModel/dnd5/SenseViewModel";
 import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
 import {DND5SavingThrowsViewModel} from "@/public/model/dataModel/dnd5/DND5SavingThrowsViewModel";
 import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
+import {InnateSpellCollection} from "@/public/model/dataModel/dnd5/InnateSpellCollection";
 
 
 export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
@@ -52,6 +53,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
     private _skills?: DND5SkillViewModel[];
     private _languages?: DND5LanguageViewModel[];
     private _spells?: DND5SpellViewModel[];
+    private _innateSpells?: InnateSpellCollection;
 
     constructor(
         id: string,
@@ -85,6 +87,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         skills?: DND5SkillViewModel[],
         languages?: DND5LanguageViewModel[],
         spells?: DND5SpellViewModel[],
+        innateSpells?: InnateSpellCollection
     ) {
         super();
         this._id = id;
@@ -118,6 +121,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._skills = skills;
         this._languages = languages;
         this._spells = spells;
+        this._innateSpells = innateSpells;
     }
 
     get id(): string {
@@ -373,6 +377,14 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
 
     set spells(value: DND5SpellViewModel[]) {
         this._spells = value;
+    }
+
+    get innateSpells(): InnateSpellCollection {
+        return this._innateSpells;
+    }
+
+    set innateSpells(value: InnateSpellCollection) {
+        this._innateSpells = value;
     }
 
     getPrimitiveAttributeAsString(attribute?: string | number): string {

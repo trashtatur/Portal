@@ -1,36 +1,36 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import axios from 'axios';
 import {MagicSchoolEnum} from "@/public/model/enumeration/dnd5/MagicSchoolEnum";
 import {DND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
 import {SpellLevelFilterChip} from "@/public/view/components/module-battle/dnd5/creatureForm/spells/spellLevelFilterChip/SpellLevelFilterChip";
 import {SpellSchoolFilterChip} from "@/public/view/components/module-battle/dnd5/creatureForm/spells/spellSchoolFilterChip/SpellSchoolFilterChip";
 import {DND5SpellDataToViewModelMapper} from "@/public/mapping/dnd5/DND5SpellDataToViewModelMapper";
 import {SpellChip} from "@/public/view/components/module-battle/dnd5/spellChip/SpellChip";
-import * as style from './spellFormSection.css';
+import * as style from './spellsWithSlotsFormSection.css';
 
 interface SpellFormSectionProps {
     addSpell: Function;
     removeSpell: Function;
     chosenSpells: DND5SpellViewModel[];
+    spellsToChooseFrom: DND5SpellViewModel[];
+    addSpellsToChoice: Function;
+    removeSpellFromChoice: Function;
 }
 
 interface SpellFormSectionState {
-    spellsToChooseFrom: DND5SpellViewModel[];
     detailedSpell: DND5SpellViewModel;
     spellSearchFilter: string;
     spellLevelFilter: { level: number; active: boolean }[];
     spellSchoolFilter: { school: MagicSchoolEnum; active: boolean }[];
 }
 
-export class SpellFormSection extends React.Component<SpellFormSectionProps, SpellFormSectionState> {
+export class SpellsWithSlotsFormSection extends React.Component<SpellFormSectionProps, SpellFormSectionState> {
     private spellDataToViewModelMapper: DND5SpellDataToViewModelMapper;
 
     constructor(props) {
         super(props);
         this.spellDataToViewModelMapper = new DND5SpellDataToViewModelMapper();
         this.state = {
-            spellsToChooseFrom: [],
             detailedSpell: null,
             spellSearchFilter: '',
             spellSchoolFilter: [
@@ -55,16 +55,6 @@ export class SpellFormSection extends React.Component<SpellFormSectionProps, Spe
                 {level: 8, active: true},
                 {level: 9, active: true},
             ]
-        }
-    }
-
-    componentDidMount = async(): Promise<void> => {
-        try {
-            const spellData = (await axios.get('/V1/DND5/Spell')).data;
-            const mappedSpells = this.sortSpellsBySpellLevel(this.spellDataToViewModelMapper.mapMultiple(spellData));
-            this.setState({spellsToChooseFrom: mappedSpells})
-        } catch (e) {
-            console.log(e)
         }
     }
 
@@ -93,17 +83,13 @@ export class SpellFormSection extends React.Component<SpellFormSectionProps, Spe
     }
 
     selectSpell = (spell: DND5SpellViewModel): void => {
-        const spellsToChooseFrom = this.state.spellsToChooseFrom.filter(spellChoice => {
-            return spellChoice.id !== spell.id;
-        })
-        this.setState({spellsToChooseFrom: spellsToChooseFrom});
+        this.props.removeSpellFromChoice(spell.id);
         this.props.addSpell(spell);
     }
 
     deselectSpell = (spell: DND5SpellViewModel): void => {
-        const spellsToChooseFromUpdated = this.sortSpellsBySpellLevel(this.state.spellsToChooseFrom.concat([spell]));
-        this.setState({spellsToChooseFrom: spellsToChooseFromUpdated})
-        this.props.removeSpell(spell.id)
+        this.props.addSpellsToChoice(spell);
+        this.props.removeSpell(spell.id);
     }
 
     displaySpellInformation = (spell: DND5SpellViewModel): void => {
@@ -169,7 +155,7 @@ export class SpellFormSection extends React.Component<SpellFormSectionProps, Spe
                 />
             </div>
             <div className={style.spellsToChooseSection}>
-                {this.state.spellsToChooseFrom.map(spell => {
+                {this.props.spellsToChooseFrom.map(spell => {
                     const nameFiltered =
                         !spell.name.toLowerCase().includes(this.state.spellSearchFilter.toLowerCase().trim());
                     if (nameFiltered) {

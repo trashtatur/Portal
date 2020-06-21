@@ -14,7 +14,7 @@ export class BooleanEffect implements EffectInterface<boolean>{
     }
 
     applyEffect = (value: boolean): boolean => {
-        return undefined;
+        return this.value;
     }
 
     get value(): boolean {

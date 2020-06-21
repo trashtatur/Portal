@@ -58,10 +58,15 @@ export class FormSectionDisplayRuleService {
         return this.shouldDisplayLanguagesFeatsSensesAndSkillsSection(hitpoints, armorclass, speed, dice);
     }
 
-    shouldDisplayInnateSpellCastingOrSpellChoiceSwitch = (enforcedClassLevels: boolean, type: TypeEnum): boolean => {
+    shouldDisplaySpellsWithSlotsSection = (enforcedClassLevels: boolean, type: TypeEnum): boolean => {
         if (type === TypeEnum.PLAYER) {
-            return false
+            return true;
         }
-        return enforcedClassLevels;
+        return  enforcedClassLevels;
+    }
+
+    shouldDisplayInnateSpellCastingOrSpellChoiceSwitch = (type: TypeEnum): boolean => {
+        return type !== TypeEnum.PLAYER;
+
     }
 }

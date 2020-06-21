@@ -16,7 +16,10 @@ export class PercentageEffect implements EffectInterface<number>{
         this._from = from;
     }
     applyEffect = (value: number): number => {
-        return undefined;
+        if (this.will === 'add') {
+            return Math.floor(value + (value / 100) * this.percentageAmount);
+        }
+        return Math.floor(value - (value / 100) * this.percentageAmount);
     }
 
     get will(): "add" | "subtract" {

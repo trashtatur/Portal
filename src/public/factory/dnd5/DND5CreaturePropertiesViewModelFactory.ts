@@ -8,6 +8,7 @@ import {DND5SpellSlotsViewModel} from "../../model/dataModel/dnd5/DND5SpellSlots
 import {TypeEnum} from "../../model/enumeration/TypesEnum";
 import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
 import {DND5SavingThrowsViewModel} from "@/public/model/dataModel/dnd5/DND5SavingThrowsViewModel";
+import {InnateSpellCollection} from "@/public/model/dataModel/dnd5/InnateSpellCollection";
 
 export class DND5CreaturePropertiesViewModelFactory {
     createEmpty = (): DND5CreaturePropertiesViewModel => {
@@ -63,7 +64,8 @@ export class DND5CreaturePropertiesViewModelFactory {
             [],
             [],
             [],
-            []
+            [],
+            null,
         )
     }
 

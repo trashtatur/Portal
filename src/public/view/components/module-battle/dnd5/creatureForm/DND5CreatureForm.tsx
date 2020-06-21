@@ -23,20 +23,18 @@ import {ClassesAndLevelsFormSectionHeader} from "@/public/view/components/module
 import {ClassesAndLevelsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/classesAndLevelsFormSection/ClassesAndLevelsFormSection";
 import {ClassAndLevelViewModel} from "@/public/model/dataModel/ClassAndLevelViewModel";
 import {AverageStatsTable} from "@/public/model/dataModel/dnd5/AverageStatsTable";
-import {HPSpeedAndACPlayerFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/hpAndAcPlayerFormSection/HPSpeedAndACPlayerFormSection";
-import {HPSpeedAndACMonsterFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/hpAndAcMonsterFormSection/HPSpeedAndACMonsterFormSection";
+import {HPSpeedAndACPlayerFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/hpSpeedAndACFormSection/hpAndAcPlayerFormSection/HPSpeedAndACPlayerFormSection";
+import {HPSpeedAndACMonsterFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/hpSpeedAndACFormSection/hpAndAcMonsterFormSection/HPSpeedAndACMonsterFormSection";
 import {HPSpeedAndACFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/headers/HPSpeedAndACFormSectionHeader";
 import {LanguagesFeatsSensesAndSkillsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/languagesFeatsSensesAndSkills/LanguagesFeatsSensesAndSkillsFormSection";
 import {LanguagesFeatsSensesAndSkillsFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/headers/LanguagesFeatsSensesAndSkillsFormSectionHeader";
 import {SenseViewModel} from "@/public/model/dataModel/dnd5/SenseViewModel";
 import {AverageHPCalculatorService} from "@/public/service/dnd5/AverageHPCalculatorService";
-import {SpellFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/spells/SpellFormSection";
 import {FormSectionDisplayRuleService} from "@/public/service/dnd5/FormSectionDisplayRuleService";
 import {SpellsFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/headers/SpellsFormSectionHeader";
-import ReactSwitch from "react-switch";
-import {InnateSpellCastingFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/innateSpellCasting/InnateSpellCastingFormSection";
+import {SpellsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/spells/SpellsFormSection";
+import {InnateSpellViewModel} from "@/public/model/dataModel/dnd5/InnateSpellViewModel";
 import * as style from './dnd5CreatureForm.css';
-import * as generalStyle from './formSectionGeneralStyles.css';
 
 interface CreatureFormState {
     enforceClassLevels: boolean;
@@ -436,10 +434,6 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
         this.setState({creature})
     };
 
-    handleInnateSpellCastingChange = (value: boolean): void => {
-      this.setState({innateSpellCasting: value});
-    };
-
     handleAddSpell = (spellModel: DND5SpellViewModel): void => {
         const creature = this.state.creature;
         creature.properties.spells.push(spellModel);
@@ -454,10 +448,23 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
         this.setState({creature: creature});
     }
 
+    handleAddInnateSpell = (innateSpell: InnateSpellViewModel): void => {
+        const creature = this.state.creature;
+        creature.properties.innateSpells.addInnateSpell(innateSpell);
+        this.setState({creature: creature});
+    }
+
+    handleRemoveInnateSpell = (innateSpell: InnateSpellViewModel): void => {
+        const creature = this.state.creature;
+        creature.properties.innateSpells.removeInnateSpell(innateSpell);
+        this.setState({creature: creature});
+    }
+
     render(): ReactNode {
         return (
             <div className={style.container}>
                 <div className={style.creatureFormContainer}>
+                    {/*Name Creaturetype and Type*/}
                     <div className={style.formSection}>
                         <NameCreatureTypeAndTypeFormSectionHeader
                             name={this.state.creature.name}
@@ -474,6 +481,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                             classLevelsEnforced={this.state.enforceClassLevels}
                         />
                     </div>
+                    {/*Size Alignment and Challenge*/}
                     <div className={style.formSection}>
                         <SizeAlignmentAndChallengeFormSectionHeader
                             size={this.state.creature.properties.size}
@@ -497,6 +505,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                             />
                         }
                     </div>
+                    {/*Abilities*/}
                     <div className={style.formSection}>
                         <StatBlockFormSectionHeader stats={this.state.creature.properties.stats}/>
                         {
@@ -530,6 +539,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                             />
                         }
                     </div>
+                    {/*Classes and levels*/}
                     <div className={style.formSection}>
                         <ClassesAndLevelsFormSectionHeader
                             classesAndLevels={this.state.creature.properties.classesAndLevels}
@@ -548,6 +558,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                             />
                         }
                     </div>
+                    {/*HP Speed and AC*/}
                     <div className={style.formSection}>
                         <HPSpeedAndACFormSectionHeader
                             hp={this.state.creature.properties.hitpoints}
@@ -566,7 +577,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                                 )}
                                 changeHP={this.handleHitpointsChange}
                                 ac={this.state.creature.properties.getPrimitiveAttributeAsString(
-                                    this.state.creature.properties.hitpoints
+                                    this.state.creature.properties.armorclass
                                 )}
                                 changeAC={this.handleArmorClassChange}
                                 speed={this.state.creature.properties.speed}
@@ -574,7 +585,6 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                                 changeAirSpeed={this.handleAirSpeedChange}
                                 changeWaterSpeed={this.handleWaterSpeedChange}
                                 classesAndLevels={this.state.creature.properties.classesAndLevels}
-                                changeHitDice={this.handleHitDiceCountChange}
                             />
                         }
                         {
@@ -611,6 +621,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                             />
                         }
                     </div>
+                    {/*Languages Feats Senses and Skills*/}
                     <div className={style.formSection}>
                         <LanguagesFeatsSensesAndSkillsFormSectionHeader/>
                         {
@@ -635,60 +646,46 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                             />
                         }
                     </div>
+                    {/*Spells and/or innate spell casting*/}
                     <div className={style.formSection}>
-                        {/*Spells and/or innate spell casting*/}
-
                         <SpellsFormSectionHeader />
-                        {
-                            this.formSectionDisplayRuleService.shouldDisplayInnateSpellCastingOrSpellChoiceSwitch(
-                                this.state.enforceClassLevels,
-                                this.state.creature.properties.type
-                            ) &&
-                            this.formSectionDisplayRuleService.shouldDisplaySpellsSection(
+                        <SpellsFormSection
+                            handleAddSlotSpell={this.handleAddSpell}
+                            handleAddInnateSpell={this.handleAddInnateSpell}
+                            handleRemoveSlotSpell={this.handleRemoveSpell}
+                            handleRemoveInnateSpell={this.handleRemoveInnateSpell}
+                            chosenSlotSpells={this.state.creature.properties.spells}
+                            chosenInnateSpells={this.state.creature.properties.innateSpells}
+                            shouldDisplaySpellsSection={this.formSectionDisplayRuleService.shouldDisplaySpellsSection(
                                 this.state.creature.properties.hitpoints,
                                 this.state.creature.properties.armorclass,
                                 this.state.creature.properties.speed,
                                 this.state.creature.properties.hitDice
-                            ) &&
-                            <div className={generalStyle.formInputSection}>
-                                <label>Uses innate spell casting?</label>
-                                <ReactSwitch
-                                    checked={this.state.innateSpellCasting}
-                                    onChange={this.handleInnateSpellCastingChange}
-                                    onColor={'#19803f'}
-                                />
-                            </div>
-                        }
-                        {
-                            this.formSectionDisplayRuleService.shouldDisplaySpellsSection(
-                                this.state.creature.properties.hitpoints,
-                                this.state.creature.properties.armorclass,
-                                this.state.creature.properties.speed,
-                                this.state.creature.properties.hitDice
-                            ) &&
-                            <SpellFormSection
-                                addSpell={this.handleAddSpell}
-                                removeSpell={this.handleRemoveSpell}
-                                chosenSpells={this.state.creature.properties.spells}
-                            />
-                        }
-                        {
-                            this.state.innateSpellCasting
-                            &&
-                                <InnateSpellCastingFormSection />
-                        }
+                            )}
+                            shouldDisplaySpellsWithSlotsSection={
+                                this.formSectionDisplayRuleService.shouldDisplaySpellsWithSlotsSection(
+                                    this.state.enforceClassLevels,
+                                    this.state.creature.properties.type
+                                )
+                            }
+                            shouldDisplaySwitchForInnateSpellCasting={
+                                this.formSectionDisplayRuleService.shouldDisplayInnateSpellCastingOrSpellChoiceSwitch(
+                                    this.state.creature.properties.type
+                                )
+                            }
+                        />
                     </div>
+                    {/*Actions*/}
                     <div className={style.formSection}>
-                        {/*Actions*/}
                     </div>
+                    {/*Attack Properties and Reactions*/}
                     <div className={style.formSection}>
-                        {/*Attack Properties and Reactions*/}
                     </div>
+                    {/*Damage Vuln/Res/immununities and Condition immunities*/}
                     <div className={style.formSection}>
-                        {/*Damage Vuln/Res/immununities and Condition immunities*/}
                     </div>
+                    {/*Legendary Actions*/}
                     <div className={style.formSection}>
-                        {/*Legendary Actions*/}
                     </div>
                 </div>
                 <div className={style.creatureCardContainer}>

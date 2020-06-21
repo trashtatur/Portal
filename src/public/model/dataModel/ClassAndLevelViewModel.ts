@@ -1,23 +1,27 @@
 import {AbstractEffectViewModel} from "@/public/model/effects/AbstractEffectViewModel";
 import {ApplyEffects } from "@/public/model/effects/decorator/DecoratorFunctions";
+import {ClassesEnum} from "@/public/model/enumeration/dnd5/ClassesEnum";
 
 export class ClassAndLevelViewModel extends AbstractEffectViewModel{
-    private _name: string;
+    private _name: ClassesEnum;
+    private _subclass?: string;
     private _level: number;
     constructor(
-        name: string,
-        level: number
+        name: ClassesEnum,
+        level: number,
+        subclass?: string
     ) {
         super()
+        this._subclass = subclass;
         this._name = name;
         this._level = level;
     }
 
-    get name(): string {
+    get name(): ClassesEnum {
         return this._name;
     }
 
-    set name(value: string) {
+    set name(value: ClassesEnum) {
         this._name = value;
     }
 
@@ -28,5 +32,13 @@ export class ClassAndLevelViewModel extends AbstractEffectViewModel{
 
     set level(value: number) {
         this._level = value;
+    }
+
+    get subclass(): string {
+        return this._subclass;
+    }
+
+    set subclass(value: string) {
+        this._subclass = value;
     }
 }

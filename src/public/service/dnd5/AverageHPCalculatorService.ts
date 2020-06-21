@@ -24,7 +24,7 @@ export class AverageHPCalculatorService {
             }
         }
         const bonus = hitDiceCount * constitutionModifier;
-
+        if (bonus)
         return new DiceRollSpecification(hitDiceCount, hitDiceType, bonus)
     }
 }
