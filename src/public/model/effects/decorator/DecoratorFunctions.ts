@@ -1,8 +1,8 @@
 import {EffectCollection} from "@/public/model/effects/EffectCollection";
-import {BooleanEffect} from "@/public/model/effects/BooleanEffect";
 import {HttpService} from "@/public/service/HttpService";
 import {LoggingService} from "@/public/service/LoggingService";
 import {EffectDataToEffectCollectionMapper} from "@/public/mapping/EffectDataToEffectCollectionMapper";
+import 'reflect-metadata';
 
 const httpService = new HttpService();
 const loggingService = new LoggingService();
@@ -36,6 +36,7 @@ export const EffectClass = <T extends { new(...args: any[]): {} }>(constructor: 
  */
 export const ApplyEffects = (target: Record<string, any>, propertyKey: string): PropertyDescriptor => {
     let value = target[propertyKey];
+    Reflect.defineMetadata('applyEffects', true, target, propertyKey);
     const getter = function () {
         const reflectedValue = Reflect.get(this, `_${propertyKey}`);
         if (value === undefined) {
