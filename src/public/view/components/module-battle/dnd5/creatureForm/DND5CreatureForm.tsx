@@ -290,6 +290,14 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
         this.setState({creature: creature});
     };
 
+    handleHitDiceTypeChange = (event): void => {
+        const creature = this.state.creature;
+        if (!isNaN(parseInt(event.target.value))) {
+            creature.properties.hitDice.diceType = parseInt(event.target.value);
+        }
+        this.setState({creature: creature});
+    };
+
     handleHitDiceCountChange = (event): void => {
         const creature = this.state.creature;
         if (!isNaN(parseInt(event.target.value))) {
@@ -555,6 +563,8 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                             <ClassesAndLevelsFormSection
                                 classesAndLevels={this.state.creature.properties.classesAndLevels}
                                 changeClassesAndLevels={this.handleClassesAndLevelsChange}
+                                changeHitDiceCount={this.handleHitDiceCountChange}
+                                changeHitDiceType={this.handleHitDiceTypeChange}
                             />
                         }
                     </div>
