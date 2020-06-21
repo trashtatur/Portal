@@ -104,7 +104,7 @@ export class PathfinderCreaturePropertiesViewModelFactory {
             creatureProperties.talents,
             creatureProperties.attackProperties
         )
-        creatureProperties.currentInitiative =
+        model.currentInitiative =
             Math.floor(Math.random() * (20 - 1) + 1) + creatureProperties.ini;
         model.label = creatureProperties.label;
         return model;

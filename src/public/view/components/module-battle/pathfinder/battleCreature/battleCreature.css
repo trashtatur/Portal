@@ -16,14 +16,14 @@
 
 .creatureCurrentContainer {
     font-family: "Trajan Pro", serif;
-    width: 45em;
-    display: inline-block;
+    display: flex;
+    justify-content: space-between;
 }
 
 
 .titleContainer {
-    width: 22%;
-    float: right;
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 .nextToTitleContainer {
@@ -46,7 +46,7 @@
     width: 0;
     height: 0;
     border-top: 0pt solid transparent;
-    border-bottom: 32px solid transparent;
+    border-bottom: 33px solid transparent;
     border-right: 18pt solid black;
     float: right;
 }
@@ -58,11 +58,7 @@
     padding-bottom: 0.45em;
     margin: 0;
     font-weight: bold;
-    text-align: right;
-    height: 80%;
-    box-sizing: border-box;
     font-size: 12pt;
-    float: right;
 }
 
 .removeCreatureButton {

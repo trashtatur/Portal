@@ -25,7 +25,6 @@ export class CreaturecardAttributes extends React.Component<CreatureAttributesPr
     }
 
     formatSkillsIfPreview(): string {
-        if (!this.props.preview) return this.props.skills.join(", ");
         if (!this.props.skills) {
             return ''
         }
@@ -77,7 +76,7 @@ export class CreaturecardAttributes extends React.Component<CreatureAttributesPr
                 <tr className={style.attributeBlock}>
                     <td className={style.attributeName}>Languages:</td>
                     <td className={style.attributeEntry}>
-                        {this.props.languages && this.props.languages.map(language => {return language.name})}
+                        {this.props.languages && this.props.languages.map(language => {return language.name}).join(', ')}
                     </td>
                 </tr>
                 <tr className={style.attributeBlock}>
