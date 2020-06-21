@@ -1,3 +1,5 @@
+import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
+
 export class PathfinderSavingThrowsViewModel {
     private _reflex: number;
     private _wisdom: number;
@@ -13,6 +15,7 @@ export class PathfinderSavingThrowsViewModel {
         this._fortitude = fortitude;
     }
 
+    @ApplyEffects
     get reflex(): number {
         return this._reflex;
     }
@@ -21,6 +24,7 @@ export class PathfinderSavingThrowsViewModel {
         this._reflex = value;
     }
 
+    @ApplyEffects
     get wisdom(): number {
         return this._wisdom;
     }
@@ -29,6 +33,7 @@ export class PathfinderSavingThrowsViewModel {
         this._wisdom = value;
     }
 
+    @ApplyEffects
     get fortitude(): number {
         return this._fortitude;
     }

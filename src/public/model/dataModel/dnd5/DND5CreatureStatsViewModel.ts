@@ -1,4 +1,5 @@
 import {AbstractEffectViewModel} from "@/public/model/effects/AbstractEffectViewModel";
+import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
 
 export class DND5CreatureStatsViewModel extends AbstractEffectViewModel{
     private _strength: number;
@@ -25,6 +26,7 @@ export class DND5CreatureStatsViewModel extends AbstractEffectViewModel{
         this._charisma = charisma;
     }
 
+    @ApplyEffects
     get strength(): number {
         return this._strength;
     }
@@ -33,6 +35,7 @@ export class DND5CreatureStatsViewModel extends AbstractEffectViewModel{
         this._strength = value;
     }
 
+    @ApplyEffects
     get dexterity(): number {
         return this._dexterity;
     }
@@ -41,6 +44,7 @@ export class DND5CreatureStatsViewModel extends AbstractEffectViewModel{
         this._dexterity = value;
     }
 
+    @ApplyEffects
     get constitution(): number {
         return this._constitution;
     }
@@ -49,6 +53,7 @@ export class DND5CreatureStatsViewModel extends AbstractEffectViewModel{
         this._constitution = value;
     }
 
+    @ApplyEffects
     get intelligence(): number {
         return this._intelligence;
     }
@@ -57,6 +62,7 @@ export class DND5CreatureStatsViewModel extends AbstractEffectViewModel{
         this._intelligence = value;
     }
 
+    @ApplyEffects
     get wisdom(): number {
         return this._wisdom;
     }
@@ -65,6 +71,7 @@ export class DND5CreatureStatsViewModel extends AbstractEffectViewModel{
         this._wisdom = value;
     }
 
+    @ApplyEffects
     get charisma(): number {
         return this._charisma;
     }

@@ -186,6 +186,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._hitDice = value;
     }
 
+    @ApplyEffects
     get alignment(): AlignmentEnum {
         return this._alignment;
     }
@@ -235,6 +236,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._stats = value;
     }
 
+    @ApplyEffects
     get size(): DND5CreatureSizeEnum {
         return this._size;
     }

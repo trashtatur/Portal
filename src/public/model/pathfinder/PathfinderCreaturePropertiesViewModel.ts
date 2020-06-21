@@ -9,6 +9,7 @@ import {SkillViewModel} from "./SkillViewModel";
 import {TalentViewModel} from "./TalentViewModel";
 import {NamedPropertyViewModel} from "../dataModel/NamedPropertyViewModel";
 import {AbstractPropertyViewModel} from "../AbstractPropertyViewModel";
+import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
 
 export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewModel{
 
@@ -94,6 +95,7 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         this._id = value;
     }
 
+    @ApplyEffects
     get type(): TypeEnum {
         return this._type;
     }
@@ -110,6 +112,7 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         this._armorclass = value;
     }
 
+    @ApplyEffects
     get hitpoints(): number {
         return this._hitpoints;
     }
@@ -118,6 +121,7 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         this._hitpoints = value;
     }
 
+    @ApplyEffects
     get alignment(): AlignmentEnum {
         return this._alignment;
     }
@@ -150,6 +154,7 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         this._movement = value;
     }
 
+    @ApplyEffects
     get ini(): number {
         return this._ini;
     }
@@ -166,6 +171,7 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         this._baseAtk = value;
     }
 
+    @ApplyEffects
     get size(): PathfinderCreatureSizeEnum {
         return this._size;
     }
@@ -246,6 +252,7 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         this._attackProperties = value;
     }
 
+    @ApplyEffects
     get currentHitpoints(): number {
         return this._currentHitpoints;
     }
@@ -254,6 +261,7 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         this._currentHitpoints = value;
     }
 
+    @ApplyEffects
     get currentInitiative(): number {
         return this._currentInitiative;
     }
@@ -262,6 +270,7 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         this._currentInitiative = value;
     }
 
+    @ApplyEffects
     get currentArmorclass(): number {
         return this._currentArmorclass;
     }
