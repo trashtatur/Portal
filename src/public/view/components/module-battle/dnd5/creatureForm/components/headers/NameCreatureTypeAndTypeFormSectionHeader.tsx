@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {TypeEnum} from "../../../../../../model/enumeration/TypesEnum";
-import * as style from "../dnd5CreatureForm.css";
+import {TypeEnum} from "../../../../../../../model/enumeration/TypesEnum";
+import * as style from "../../dnd5CreatureForm.css";
 
 interface InitialDND5CreatureFormSectionHeaderProps {
     name: string | null;

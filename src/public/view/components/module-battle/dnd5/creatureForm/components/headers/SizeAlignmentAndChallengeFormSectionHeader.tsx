@@ -3,7 +3,7 @@ import {ReactNode} from 'react';
 import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
 import {DND5CreatureSizeEnum} from "@/public/model/enumeration/dnd5/DND5CreatureSizeEnum";
 import {AlignmentEnum} from "@/public/model/enumeration/AlignmentEnum";
-import * as style from "../dnd5CreatureForm.css";
+import * as style from "../../dnd5CreatureForm.css";
 
 interface SizeAndChallengeFormSectionHeaderProps {
     size: DND5CreatureSizeEnum | null;

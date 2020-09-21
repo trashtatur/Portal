@@ -73,7 +73,6 @@ export class CreatureService {
             {where: condition, include: include});
     }
 
-
     async findAll<T extends AbstractCreaturePropertyModel>(includedProperty: Includeable, propertyModelToInclude: { new(...args: any[]): T }): Promise<CreatureModel<T>[]> {
         return this.creatureRepository.findAll<T>(includedProperty, propertyModelToInclude);
     }

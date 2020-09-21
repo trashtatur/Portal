@@ -4,8 +4,8 @@ import {DiceRollSpecification} from "@/public/model/dataModel/DiceRollSpecificat
 import {DND5CreatureSizeEnum} from "@/public/model/enumeration/dnd5/DND5CreatureSizeEnum";
 import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
 import {AverageHPCalculatorService} from "@/public/service/dnd5/AverageHPCalculatorService";
-import {SpeedSubSection} from "@/public/view/components/module-battle/dnd5/creatureForm/hpSpeedAndACFormSection/speedSubSection/SpeedSubSection";
-import * as style from "../../formSectionGeneralStyles.css";
+import {SpeedFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/speedFormSection/SpeedFormSection";
+import * as style from "../formSectionGeneralStyles.css";
 
 interface HPAndACMonsterFormSectionProps {
     hp: string;
@@ -134,7 +134,7 @@ export class HPSpeedAndACMonsterFormSection extends React.Component<HPAndACMonst
                     />
                 </div>
                 <div className={style.formInputSection}>
-                    <SpeedSubSection
+                    <SpeedFormSection
                         speed={this.props.speed}
                         changeLandSpeed={this.props.changeLandSpeed}
                         changeAirSpeed={this.props.changeAirSpeed}

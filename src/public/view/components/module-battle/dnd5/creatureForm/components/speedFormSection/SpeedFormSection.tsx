@@ -9,7 +9,7 @@ interface SpeedSubSectionProps {
     changeWaterSpeed: Function;
 }
 
-export class SpeedSubSection extends React.Component<SpeedSubSectionProps> {
+export class SpeedFormSection extends React.Component<SpeedSubSectionProps> {
 
     render(): ReactNode {
         return (

@@ -2,16 +2,18 @@ import * as React from "react";
 import {ReactElement} from "react";
 import {PathfinderMenu} from "../menu/PathfinderMenu";
 import {Dicebar} from "../dicebar/Dicebar";
-import {SystemsEnum} from "../../../../enumeration/SystemsEnum";
+import {SystemsEnum} from "@/public/enumeration/SystemsEnum";
 import {DND5Menu} from "../../module-battle/dnd5/menu/DND5Menu";
 import {Link} from 'react-router-dom'
-import {RoutesEnum} from "../../../../service/RoutesEnum";
+import {RoutesEnum} from "@/public/service/RoutesEnum";
+import withErrorBoundary from "@/public/view/components/common/errorBoundary/WithErrorBoundary";
 import * as style from './topBar.css';
 
 interface TopBarProps {
     system: SystemsEnum;
 }
 
+@withErrorBoundary()
 export class TopBar extends React.Component<TopBarProps> {
 
     render(): ReactElement {

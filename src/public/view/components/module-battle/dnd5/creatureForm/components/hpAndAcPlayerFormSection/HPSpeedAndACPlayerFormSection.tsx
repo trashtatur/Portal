@@ -2,8 +2,8 @@ import * as React from 'react';
 import {ReactNode} from 'react';
 import {ClassAndLevelViewModel} from "@/public/model/dataModel/ClassAndLevelViewModel";
 import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
-import {SpeedSubSection} from "@/public/view/components/module-battle/dnd5/creatureForm/hpSpeedAndACFormSection/speedSubSection/SpeedSubSection";
-import * as style from "@/public/view/components/module-battle/dnd5/creatureForm/formSectionGeneralStyles.css";
+import {SpeedFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/speedFormSection/SpeedFormSection";
+import * as style from "@/public/view/components/module-battle/dnd5/creatureForm/components/formSectionGeneralStyles.css";
 
 interface HPSpeedAndACPlayerFormSectionProps {
     hp: string;
@@ -42,7 +42,7 @@ export class HPSpeedAndACPlayerFormSection extends React.Component<HPSpeedAndACP
                     />
                 </div>
                 <div className={style.formInputSection}>
-                    <SpeedSubSection
+                    <SpeedFormSection
                         speed={this.props.speed}
                         changeLandSpeed={this.props.changeLandSpeed}
                         changeAirSpeed={this.props.changeAirSpeed}
