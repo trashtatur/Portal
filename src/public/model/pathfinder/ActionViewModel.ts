@@ -1,6 +1,6 @@
 import {RangeTypeEnum} from "../enumeration/RangeTypeEnum";
-import {DiceRollSpecification} from "../dataModel/DiceRollSpecification";
-import {PathfinderDamageType} from "../dataModel/pathfinder/PathfinderDamageType";
+import {DiceRollSpecification} from "../DiceRollSpecification";
+import {PathfinderDamageType} from "./PathfinderDamageType";
 import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
 
 export class ActionViewModel {

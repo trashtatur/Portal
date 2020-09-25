@@ -1,6 +1,12 @@
+import {JsonProperty, Serializable} from "typescript-json-serializer";
+
+@Serializable()
 export class DiceRollSpecification {
+    @JsonProperty({name:'diceCount'})
     private readonly _diceCount: number;
+    @JsonProperty({name:'diceType'})
     private readonly _diceType: number;
+    @JsonProperty({name:'bonus'})
     private readonly _bonus: number;
 
     constructor(

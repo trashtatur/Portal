@@ -21,19 +21,19 @@ import {DND5CreatureCard} from "../creatureCard/DND5CreatureCard";
 import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
 import {ClassesAndLevelsFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/components/headers/ClassesAndLevelsFormSectionHeader";
 import {ClassesAndLevelsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/classesAndLevelsFormSection/ClassesAndLevelsFormSection";
-import {ClassAndLevelViewModel} from "@/public/model/dataModel/ClassAndLevelViewModel";
-import {AverageStatsTable} from "@/public/model/dataModel/dnd5/AverageStatsTable";
+import {ClassAndLevelViewModel} from "@/public/model/ClassAndLevelViewModel";
+import {DND5AverageStatsTable} from "@/public/model/dnd5/DND5AverageStatsTable";
 import {HPSpeedAndACPlayerFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/hpAndAcPlayerFormSection/HPSpeedAndACPlayerFormSection";
 import {HPSpeedAndACMonsterFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/hpAndAcMonsterFormSection/HPSpeedAndACMonsterFormSection";
 import {HPSpeedAndACFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/components/headers/HPSpeedAndACFormSectionHeader";
 import {LanguagesFeatsSensesAndSkillsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/languagesFeatsSensesAndSkills/LanguagesFeatsSensesAndSkillsFormSection";
 import {LanguagesFeatsSensesAndSkillsFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/components/headers/LanguagesFeatsSensesAndSkillsFormSectionHeader";
-import {SenseViewModel} from "@/public/model/dataModel/dnd5/SenseViewModel";
+import {DND5SenseViewModel} from "@/public/model/dnd5/DND5SenseViewModel";
 import {AverageHPCalculatorService} from "@/public/service/dnd5/AverageHPCalculatorService";
 import {FormSectionDisplayRuleService} from "@/public/service/dnd5/FormSectionDisplayRuleService";
 import {SpellsFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/components/headers/SpellsFormSectionHeader";
 import {SpellsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/spellFormSection/SpellsFormSection";
-import {InnateSpellViewModel} from "@/public/model/dataModel/dnd5/InnateSpellViewModel";
+import {DND5InnateSpellViewModel} from "@/public/model/dnd5/DND5InnateSpellViewModel";
 import * as style from './dnd5CreatureForm.css';
 
 interface CreatureFormState {
@@ -51,14 +51,14 @@ interface CreatureFormState {
 export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
     private crToXPService: CRToExperiencePointsConverterService;
     private creatureViewModelFactory: CreatureViewModelFactory;
-    private averageStatsTable: AverageStatsTable;
+    private averageStatsTable: DND5AverageStatsTable;
     private formSectionDisplayRuleService: FormSectionDisplayRuleService;
 
     constructor(props) {
         super(props);
         this.crToXPService = new CRToExperiencePointsConverterService();
         this.creatureViewModelFactory = new CreatureViewModelFactory();
-        this.averageStatsTable = AverageStatsTable.create();
+        this.averageStatsTable = DND5AverageStatsTable.create();
         this.formSectionDisplayRuleService = new FormSectionDisplayRuleService();
         this.state = {
             creature: this.creatureViewModelFactory.createEmpty(DND5CreaturePropertiesViewModel),
@@ -436,7 +436,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
         }
     };
 
-    handleSensesChange = (senses: SenseViewModel[]): void => {
+    handleSensesChange = (senses: DND5SenseViewModel[]): void => {
         const creature = this.state.creature;
         creature.properties.senses = senses;
         this.setState({creature})
@@ -456,13 +456,13 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
         this.setState({creature: creature});
     }
 
-    handleAddInnateSpell = (innateSpell: InnateSpellViewModel): void => {
+    handleAddInnateSpell = (innateSpell: DND5InnateSpellViewModel): void => {
         const creature = this.state.creature;
         creature.properties.innateSpells.addInnateSpell(innateSpell);
         this.setState({creature: creature});
     }
 
-    handleRemoveInnateSpell = (innateSpell: InnateSpellViewModel): void => {
+    handleRemoveInnateSpell = (innateSpell: DND5InnateSpellViewModel): void => {
         const creature = this.state.creature;
         creature.properties.innateSpells.removeInnateSpell(innateSpell);
         this.setState({creature: creature});

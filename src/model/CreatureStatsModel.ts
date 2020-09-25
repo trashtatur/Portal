@@ -1,9 +1,18 @@
+import {JsonProperty, Serializable} from "typescript-json-serializer";
+
+@Serializable()
 export class CreatureStatsModel {
+    @JsonProperty({name: 'strength'})
     private readonly _strength: number;
+    @JsonProperty({name: 'dexterity'})
     private readonly _dexterity: number;
+    @JsonProperty({name: 'constitution'})
     private readonly _constitution: number;
+    @JsonProperty({name: 'intelligence'})
     private readonly _intelligence: number;
+    @JsonProperty({name: 'wisdom'})
     private readonly _wisdom: number;
+    @JsonProperty({name: 'charisma'})
     private readonly _charisma: number;
 
     constructor(

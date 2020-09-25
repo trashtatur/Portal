@@ -1,4 +1,4 @@
-export class SenseViewModel {
+export class DND5SenseViewModel {
     private _name: string;
     private _value: number;
     constructor(

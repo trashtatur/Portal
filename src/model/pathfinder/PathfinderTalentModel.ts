@@ -1,12 +1,21 @@
 import {ModelInterface} from "../ModelInterface";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class PathfinderTalentModel implements ModelInterface {
+    @JsonProperty({name: 'id'})
     private readonly _id: string;
+    @JsonProperty({name: 'name'})
     private readonly _name: string;
+    @JsonProperty({name: 'type'})
     private readonly _type: string;
+    @JsonProperty({name: 'description'})
     private readonly _description: string;
+    @JsonProperty({name: 'benefits'})
     private readonly _benefits: string;
+    @JsonProperty({name: 'conditions'})
     private readonly _conditions?: string;
+    @JsonProperty({name: 'note'})
     private readonly _note?: string;
 
     constructor(

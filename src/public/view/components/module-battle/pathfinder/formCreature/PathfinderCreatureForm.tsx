@@ -17,7 +17,7 @@ import {LanguageViewModel} from "@/public/model/pathfinder/LanguageViewModel";
 import {TalentViewModel} from "@/public/model/pathfinder/TalentViewModel";
 import {SkillViewModel} from "@/public/model/pathfinder/SkillViewModel";
 import {ActionViewModel} from "@/public/model/pathfinder/ActionViewModel";
-import {NamedPropertyViewModel} from "@/public/model/dataModel/NamedPropertyViewModel";
+import {NamedPropertyViewModel} from "@/public/model/NamedPropertyViewModel";
 import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import {PathfinderTalentDataToViewModelMapper} from "@/public/mapping/pathfinder/PathfinderTalentDataToViewModelMapper";
 import {PathfinderLanguageDataToViewModelMapper} from "@/public/mapping/pathfinder/PathfinderLanguageDataToViewModelMapper";

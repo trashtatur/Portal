@@ -1,23 +1,23 @@
 import {AbstractPropertyViewModel} from "../AbstractPropertyViewModel";
 import {TypeEnum} from "../enumeration/TypesEnum";
-import {DiceRollSpecification} from "../dataModel/DiceRollSpecification";
+import {DiceRollSpecification} from "../DiceRollSpecification";
 import {AlignmentEnum} from "../enumeration/AlignmentEnum";
-import {NamedPropertyViewModel} from "../dataModel/NamedPropertyViewModel";
+import {NamedPropertyViewModel} from "../NamedPropertyViewModel";
 import {DND5CreatureTypeEnum} from "../enumeration/dnd5/DND5CreatureTypeEnum";
-import {DND5CreatureStatsViewModel} from "../dataModel/dnd5/DND5CreatureStatsViewModel";
+import {DND5CreatureStatsViewModel} from "./DND5CreatureStatsViewModel";
 import {DND5CreatureSizeEnum} from "../enumeration/dnd5/DND5CreatureSizeEnum";
 import {DND5ActionViewModel} from "./DND5ActionViewModel";
 import {DND5TalentViewModel} from "./DND5TalentViewModel";
 import {DND5SkillViewModel} from "./DND5SkillViewModel";
 import {DND5LanguageViewModel} from "./DND5LanguageViewModel";
 import {DND5SpellViewModel} from "./DND5SpellViewModel";
-import {ClassAndLevelViewModel} from "../dataModel/ClassAndLevelViewModel";
-import {DND5SpellSlotsViewModel} from "../dataModel/dnd5/DND5SpellSlotsViewModel";
-import {SenseViewModel} from "../dataModel/dnd5/SenseViewModel";
-import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
-import {DND5SavingThrowsViewModel} from "@/public/model/dataModel/dnd5/DND5SavingThrowsViewModel";
+import {ClassAndLevelViewModel} from "../ClassAndLevelViewModel";
+import {DND5SpellSlotsViewModel} from "./DND5SpellSlotsViewModel";
+import {DND5SenseViewModel} from "./DND5SenseViewModel";
+import {SpeedViewModel} from "@/public/model/SpeedViewModel";
+import {DND5SavingThrowsViewModel} from "@/public/model/dnd5/DND5SavingThrowsViewModel";
 import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
-import {InnateSpellCollection} from "@/public/model/dataModel/dnd5/InnateSpellCollection";
+import {DND5InnateSpellCollection} from "@/public/model/dnd5/DND5InnateSpellCollection";
 
 
 export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
@@ -45,7 +45,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
     private _damageImmunities?: Array<string>;
     private _savingThrows?: DND5SavingThrowsViewModel;
     private _image?: string;
-    private _senses?: SenseViewModel[];
+    private _senses?: DND5SenseViewModel[];
     private _legendaryActions?: NamedPropertyViewModel[];
     private _reactions?: NamedPropertyViewModel[];
     private _actions?: DND5ActionViewModel[];
@@ -53,7 +53,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
     private _skills?: DND5SkillViewModel[];
     private _languages?: DND5LanguageViewModel[];
     private _spells?: DND5SpellViewModel[];
-    private _innateSpells?: InnateSpellCollection;
+    private _innateSpells?: DND5InnateSpellCollection;
 
     constructor(
         id: string,
@@ -79,7 +79,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         damageImmunities?: Array<string>,
         savingThrows?: DND5SavingThrowsViewModel,
         image?: string,
-        senses?: SenseViewModel[],
+        senses?: DND5SenseViewModel[],
         legendaryActions?: NamedPropertyViewModel[],
         reactions?: NamedPropertyViewModel[],
         actions?: DND5ActionViewModel[],
@@ -87,7 +87,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         skills?: DND5SkillViewModel[],
         languages?: DND5LanguageViewModel[],
         spells?: DND5SpellViewModel[],
-        innateSpells?: InnateSpellCollection
+        innateSpells?: DND5InnateSpellCollection
     ) {
         super();
         this._id = id;
@@ -317,11 +317,11 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._image = value;
     }
 
-    get senses(): SenseViewModel[] {
+    get senses(): DND5SenseViewModel[] {
         return this._senses;
     }
 
-    set senses(value: SenseViewModel[]) {
+    set senses(value: DND5SenseViewModel[]) {
         this._senses = value;
     }
 
@@ -381,11 +381,11 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._spells = value;
     }
 
-    get innateSpells(): InnateSpellCollection {
+    get innateSpells(): DND5InnateSpellCollection {
         return this._innateSpells;
     }
 
-    set innateSpells(value: InnateSpellCollection) {
+    set innateSpells(value: DND5InnateSpellCollection) {
         this._innateSpells = value;
     }
 

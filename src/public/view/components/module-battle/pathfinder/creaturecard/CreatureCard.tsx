@@ -9,10 +9,10 @@ import {CreaturecardAttributes} from "../creaturecardAttributes/CreaturecardAttr
 import {CreaturecardAttackProperties} from "../../common/creaturecardAttackProperties/CreaturecardAttackProperties";
 import {CreaturecardActions} from "../creaturecardActions/CreaturecardActions";
 import {ReactElement} from "react";
-import {PathfinderStatsViewModel} from "@/public/model/dataModel/pathfinder/PathfinderStatsViewModel";
+import {PathfinderStatsViewModel} from "@/public/model/pathfinder/PathfinderStatsViewModel";
 import {PathfinderCreatureSizeEnum} from "@/public/model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
-import {NamedPropertyViewModel} from "@/public/model/dataModel/NamedPropertyViewModel";
-import {PathfinderSavingThrowsViewModel} from "@/public/model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
+import {NamedPropertyViewModel} from "@/public/model/NamedPropertyViewModel";
+import {PathfinderSavingThrowsViewModel} from "@/public/model/pathfinder/PathfinderSavingThrowsViewModel";
 import {TalentViewModel} from "@/public/model/pathfinder/TalentViewModel";
 import {ActionViewModel} from "@/public/model/pathfinder/ActionViewModel";
 import {SkillViewModel} from "@/public/model/pathfinder/SkillViewModel";

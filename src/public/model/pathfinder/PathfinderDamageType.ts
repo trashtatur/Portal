@@ -1,4 +1,4 @@
-import {PathfinderDamageTypesEnum} from "../../enumeration/pathfinder/PathfinderDamageTypesEnum";
+import {PathfinderDamageTypesEnum} from "../enumeration/pathfinder/PathfinderDamageTypesEnum";
 
 export class PathfinderDamageType {
     private _damageType: PathfinderDamageTypesEnum[];

@@ -7,6 +7,8 @@ import {DND5CreatureProperties} from "../../db/schemas/DND5/DND5CreatureProperti
 import {DND5CreaturePropertiesModel} from "../../model/dnd5/DND5CreaturePropertiesModel";
 import {PathfinderCreatureProperties} from "../../db/schemas/pathfinder/PathfinderCreatureProperties";
 import {PathfinderCreaturePropertiesModel} from "../../model/pathfinder/PathfinderCreaturePropertiesModel";
+import {deserialize, serialize} from "typescript-json-serializer";
+import {CreatureModel} from "../../model/CreatureModel";
 
 
 @Controller('/creature')

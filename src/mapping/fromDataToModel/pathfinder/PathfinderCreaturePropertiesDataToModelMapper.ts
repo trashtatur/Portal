@@ -3,14 +3,14 @@ import {PathfinderCreaturePropertiesModel} from "../../../model/pathfinder/Pathf
 import {getEnumKeyForValue} from "../../../helper/HelperFunctions";
 import {TypeEnum} from "../../../model/enumeration/TypeEnum";
 import {PathfinderCreatureSizeEnum} from "../../../model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
-import {CreatureStatsModel} from "../../../model/dataModel/CreatureStatsModel";
-import {PathfinderSavingThrowsModel} from "../../../model/dataModel/pathfinder/PathfinderSavingThrowsModel";
+import {CreatureStatsModel} from "../../../model/CreatureStatsModel";
+import {PathfinderSavingThrowsModel} from "../../../model/pathfinder/PathfinderSavingThrowsModel";
 import {Service} from "@tsed/di";
 import {PathfinderActionDataToModelMapper} from "./PathfinderActionDataToModelMapper";
 import {PathfinderSkillDataToModelMapper} from "./PathfinderSkillDataToModelMapper";
 import {PathfinderLanguageDataToModelMapper} from "./PathfinderLanguageDataToModelMapper";
 import {PathfinderTalentDataToModelMapper} from "./PathfinderTalentDataToModelMapper";
-import {NamedCreatureProperty} from "../../../model/dataModel/NamedCreatureProperty";
+import {NamedCreatureProperty} from "../../../model/NamedCreatureProperty";
 
 @Service()
 export class PathfinderCreaturePropertiesDataToModelMapper implements DataToModelMapperInterface<PathfinderCreaturePropertiesModel>{

@@ -1,7 +1,11 @@
-import {DND5DamageTypeEnum} from "../../enumeration/dnd5/DND5DamageTypeEnum";
+import {DND5DamageTypeEnum} from "../enumeration/dnd5/DND5DamageTypeEnum";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class DND5DamageType {
+    @JsonProperty({name: 'isMagic'})
     private readonly _isMagic: boolean;
+    @JsonProperty({name: 'damageTypes'})
     private readonly _damageTypes: DND5DamageTypeEnum[];
 
     constructor(

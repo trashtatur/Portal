@@ -1,9 +1,9 @@
 import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
 import {DND5CreatureSizeEnum} from "@/public/model/enumeration/dnd5/DND5CreatureSizeEnum";
 import {AlignmentEnum} from "@/public/model/enumeration/AlignmentEnum";
-import {DND5CreatureStatsViewModel} from "@/public/model/dataModel/dnd5/DND5CreatureStatsViewModel";
-import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
-import {DiceRollSpecification} from "@/public/model/dataModel/DiceRollSpecification";
+import {DND5CreatureStatsViewModel} from "@/public/model/dnd5/DND5CreatureStatsViewModel";
+import {SpeedViewModel} from "@/public/model/SpeedViewModel";
+import {DiceRollSpecification} from "@/public/model/DiceRollSpecification";
 
 export class FormSectionDisplayRuleService {
 

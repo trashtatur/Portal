@@ -1,4 +1,4 @@
-import {DiceRollSpecification} from "../../model/dataModel/DiceRollSpecification";
+import {DiceRollSpecification} from "../../model/DiceRollSpecification";
 
 export class AverageHPCalculatorService {
     calculateAverageHP = (hitDice: DiceRollSpecification): number => {

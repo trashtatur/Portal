@@ -54,7 +54,7 @@ class AverageStatsTableEntry {
     }
 }
 
-export class AverageStatsTable {
+export class DND5AverageStatsTable {
     private readonly _tableEntries: AverageStatsTableEntry[]
 
     constructor(
@@ -63,7 +63,7 @@ export class AverageStatsTable {
         this._tableEntries = tableEntries;
     }
 
-    static create = (): AverageStatsTable => {
+    static create = (): DND5AverageStatsTable => {
         const tableEntries = [
             new AverageStatsTableEntry(0, 2, 13, [1, 6], 3, [0, 1], 13),
             new AverageStatsTableEntry(0.125, 2, 13, [7, 35], 3, [2, 3], 13),
@@ -100,7 +100,7 @@ export class AverageStatsTable {
             new AverageStatsTableEntry(29, 8, 19, [761, 805], 13, [285, 302], 22),
             new AverageStatsTableEntry(30, 8, 19, [805, 850], 14, [303, 320], 23),
         ];
-        return new AverageStatsTable(tableEntries);
+        return new DND5AverageStatsTable(tableEntries);
     }
 
     getMatchingEntriesByChallengeRating = (challengeRating: number): AverageStatsTableEntry => {

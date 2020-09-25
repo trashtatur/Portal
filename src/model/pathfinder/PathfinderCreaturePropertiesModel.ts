@@ -2,35 +2,57 @@ import {AbstractCreaturePropertyModel} from "../AbstractCreaturePropertyModel";
 import {TypeEnum} from "../enumeration/TypeEnum";
 import {AlignmentEnum} from "../enumeration/AlignmentEnum";
 import {PathfinderCreatureSizeEnum} from "../enumeration/pathfinder/PathfinderCreatureSizeEnum";
-import {CreatureStatsModel} from "../dataModel/CreatureStatsModel";
-import {PathfinderSavingThrowsModel} from "../dataModel/pathfinder/PathfinderSavingThrowsModel";
+import {CreatureStatsModel} from "../CreatureStatsModel";
+import {PathfinderSavingThrowsModel} from "./PathfinderSavingThrowsModel";
 import {PathfinderActionModel} from "./PathfinderActionModel";
 import {PathfinderLanguageModel} from "./PathfinderLanguageModel";
 import {PathfinderSkillModel} from "./PathfinderSkillModel";
 import {PathfinderTalentModel} from "./PathfinderTalentModel";
-import {NamedCreatureProperty} from "../dataModel/NamedCreatureProperty";
+import {NamedCreatureProperty} from "../NamedCreatureProperty";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class PathfinderCreaturePropertiesModel extends AbstractCreaturePropertyModel{
 
+    @JsonProperty({name: 'id'})
     private readonly _id: string;
+    @JsonProperty({name: 'type'})
     private readonly _type: TypeEnum;
+    @JsonProperty({name: 'armorclass'})
     private readonly _armorclass: number;
+    @JsonProperty({name: 'hitpoints'})
     private readonly _hitpoints: number;
+    @JsonProperty({name: 'alignment'})
     private readonly _alignment: AlignmentEnum;
+    @JsonProperty({name: 'creatureClass'})
     private readonly _creatureClass: string;
+    @JsonProperty({name: 'challenge'})
     private readonly _challenge: number;
+    @JsonProperty({name: 'movement'})
     private readonly _movement: number;
+    @JsonProperty({name: 'ini'})
     private readonly _ini: number;
+    @JsonProperty({name: 'baseAtk'})
     private readonly _baseAtk: number;
+    @JsonProperty({name: 'size'})
     private readonly _size: PathfinderCreatureSizeEnum;
+    @JsonProperty({name: 'stats'})
     private readonly _stats: CreatureStatsModel;
+    @JsonProperty({name: 'saveThrows'})
     private readonly _saveThrows: PathfinderSavingThrowsModel;
+    @JsonProperty({name: 'xp'})
     private readonly _xp?: number;
+    @JsonProperty({name: 'image'})
     private readonly _image?: string;
+    @JsonProperty({name: 'actions'})
     private readonly _actions?: PathfinderActionModel[];
+    @JsonProperty({name: 'languages'})
     private readonly _languages?: PathfinderLanguageModel[];
+    @JsonProperty({name: 'skills'})
     private readonly _skills?: PathfinderSkillModel[];
+    @JsonProperty({name: 'talents'})
     private readonly _talents?: PathfinderTalentModel[];
+    @JsonProperty({name: 'attackProperties'})
     private readonly _attackProperties?: NamedCreatureProperty[];
 
 

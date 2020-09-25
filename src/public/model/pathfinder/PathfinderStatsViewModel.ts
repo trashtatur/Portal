@@ -1,5 +1,5 @@
-import {getSizeModFromSizeEnum} from "../../enumeration/pathfinder/PathfinderCreatureSizeModifierEnum";
-import {PathfinderCreatureSizeEnum} from "../../enumeration/pathfinder/PathfinderCreatureSizeEnum";
+import {getSizeModFromSizeEnum} from "../enumeration/pathfinder/PathfinderCreatureSizeModifierEnum";
+import {PathfinderCreatureSizeEnum} from "../enumeration/pathfinder/PathfinderCreatureSizeEnum";
 import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
 
 export class PathfinderStatsViewModel {

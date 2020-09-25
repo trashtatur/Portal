@@ -1,13 +1,13 @@
 import {TypeEnum} from "../enumeration/TypesEnum";
 import {AlignmentEnum} from "../enumeration/AlignmentEnum";
 import {PathfinderCreatureSizeEnum} from "../enumeration/pathfinder/PathfinderCreatureSizeEnum";
-import {PathfinderStatsViewModel} from "../dataModel/pathfinder/PathfinderStatsViewModel";
-import {PathfinderSavingThrowsViewModel} from "../dataModel/pathfinder/PathfinderSavingThrowsViewModel";
+import {PathfinderStatsViewModel} from "./PathfinderStatsViewModel";
+import {PathfinderSavingThrowsViewModel} from "./PathfinderSavingThrowsViewModel";
 import {ActionViewModel} from "./ActionViewModel";
 import {LanguageViewModel} from "./LanguageViewModel";
 import {SkillViewModel} from "./SkillViewModel";
 import {TalentViewModel} from "./TalentViewModel";
-import {NamedPropertyViewModel} from "../dataModel/NamedPropertyViewModel";
+import {NamedPropertyViewModel} from "../NamedPropertyViewModel";
 import {AbstractPropertyViewModel} from "../AbstractPropertyViewModel";
 import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
 

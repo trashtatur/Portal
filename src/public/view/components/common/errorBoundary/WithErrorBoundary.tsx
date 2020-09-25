@@ -1,13 +1,13 @@
 import * as React from 'react';
-import {Component, ComponentType} from 'react';
+import {Component, ComponentType, ReactNode} from 'react';
 import {ErrorBoundary} from "@/public/view/components/common/errorBoundary/ErrorBoundary";
 
-function withErrorBoundary(): <P extends object>(WrappedComponent: ComponentType<P>) => void {
-    return <P extends object>(WrappedComponent: ComponentType<P>) =>
-        class WithErrorComponent extends Component<P> {
-            public render() {
+function withErrorBoundary(FallbackComponent?): (WrappedComponent: ComponentType) => void {
+    return (WrappedComponent: ComponentType) =>
+        class WithErrorBoundary extends Component{
+             render(): ReactNode {
                 return(
-                    <ErrorBoundary>
+                    <ErrorBoundary fallbackComponent={FallbackComponent ?? <FallbackComponent />}>
                         <WrappedComponent {...this.props} />
                     </ErrorBoundary>
                 )

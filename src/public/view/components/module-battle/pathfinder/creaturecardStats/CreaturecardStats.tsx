@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import {PathfinderStatsViewModel} from "@/public/model/dataModel/pathfinder/PathfinderStatsViewModel";
+import {PathfinderStatsViewModel} from "@/public/model/pathfinder/PathfinderStatsViewModel";
 import {CreaturecardBaseStatsHeaderVisual} from "../../common/creaturecardBaseStatsVisual/CreaturecardBaseStatsHeaderVisual";
 import {CreaturecardBaseStatsValuesVisual} from "../../common/creaturecardBaseStatsVisual/CreaturecardBaseStatsValuesVisual";
 import * as style from './creaturecardStats.css'

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {DiceRollSpecification} from "@/public/model/dataModel/DiceRollSpecification";
+import {DiceRollSpecification} from "@/public/model/DiceRollSpecification";
 import * as style from "@/public/view/components/module-battle/dnd5/creatureForm/dnd5CreatureForm.css";
-import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
+import {SpeedViewModel} from "@/public/model/SpeedViewModel";
 
 interface HPAndACMonsterFormSectionHeaderProps {
     hp: number;

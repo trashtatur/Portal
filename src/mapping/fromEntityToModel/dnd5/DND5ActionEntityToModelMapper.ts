@@ -3,7 +3,7 @@ import {DND5ActionModel} from "../../../model/dnd5/DND5ActionModel";
 import {DND5Action} from "../../../db/schemas/DND5/DND5Action";
 import {getEnumKeyForValue, mapDamageStringToDamageDataModel} from "../../../helper/HelperFunctions";
 import {RangeTypeEnum} from "../../../model/enumeration/RangeTypeEnum";
-import {DND5DamageType} from "../../../model/dataModel/dnd5/DND5DamageType";
+import {DND5DamageType} from "../../../model/dnd5/DND5DamageType";
 import {DND5DamageTypeEnum} from "../../../model/enumeration/dnd5/DND5DamageTypeEnum";
 
 export class DND5ActionEntityToModelMapper implements EntityToModelMapperInterface<DND5Action, DND5ActionModel>{

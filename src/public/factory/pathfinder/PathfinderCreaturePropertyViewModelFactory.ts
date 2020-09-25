@@ -1,8 +1,8 @@
 import {PathfinderCreaturePropertiesViewModel} from "../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import {AlignmentEnum} from "../../model/enumeration/AlignmentEnum";
 import {PathfinderCreatureSizeEnum} from "../../model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
-import {PathfinderStatsViewModel} from "../../model/dataModel/pathfinder/PathfinderStatsViewModel";
-import {PathfinderSavingThrowsViewModel} from "../../model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
+import {PathfinderStatsViewModel} from "../../model/pathfinder/PathfinderStatsViewModel";
+import {PathfinderSavingThrowsViewModel} from "../../model/pathfinder/PathfinderSavingThrowsViewModel";
 
 export class PathfinderCreaturePropertiesViewModelFactory {
 

@@ -1,5 +1,10 @@
+import {JsonProperty, Serializable} from "typescript-json-serializer";
+
+@Serializable()
 export class SenseModel {
+    @JsonProperty({name: 'name'})
     private readonly _name: string;
+    @JsonProperty({name: 'value'})
     private readonly _value: string;
 
     constructor(

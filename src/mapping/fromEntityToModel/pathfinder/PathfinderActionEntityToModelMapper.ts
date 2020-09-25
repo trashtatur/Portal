@@ -2,7 +2,7 @@ import {EntityToModelMapperInterface} from "../../EntityToModelMapperInterface";
 import {PathfinderAction} from "../../../db/schemas/pathfinder/PathfinderAction";
 import {PathfinderActionModel} from "../../../model/pathfinder/PathfinderActionModel";
 import {RangeTypeEnum} from "../../../model/enumeration/RangeTypeEnum";
-import {PathfinderDamageType} from "../../../model/dataModel/pathfinder/PathfinderDamageType";
+import {PathfinderDamageType} from "../../../model/pathfinder/PathfinderDamageType";
 import {PathfinderDamageTypesEnum} from "../../../model/enumeration/pathfinder/PathfinderDamageTypesEnum";
 import {getEnumKeyForValue, mapDamageStringToDamageDataModel} from "../../../helper/HelperFunctions";
 

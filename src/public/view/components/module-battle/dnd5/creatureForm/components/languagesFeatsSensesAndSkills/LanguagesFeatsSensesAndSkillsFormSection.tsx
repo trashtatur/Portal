@@ -2,7 +2,7 @@ import * as React from 'react';
 import {ReactNode} from 'react';
 import {DND5LanguageViewModel} from "@/public/model/dnd5/DND5LanguageViewModel";
 import {DND5TalentViewModel} from "@/public/model/dnd5/DND5TalentViewModel";
-import {SenseViewModel} from "@/public/model/dataModel/dnd5/SenseViewModel";
+import {DND5SenseViewModel} from "@/public/model/dnd5/DND5SenseViewModel";
 import {DND5SkillViewModel} from "@/public/model/dnd5/DND5SkillViewModel";
 import {MultiSelectWithCreate} from "@/public/view/components/uiBasic/multiSelectWithCreate/MultiSelectWithCreate";
 import {MultiSelectNoCreate} from "@/public/view/components/uiBasic/multiSelectNoCreate/MultiSelectNoCreate";
@@ -19,7 +19,7 @@ interface LanguagesFeatsSensesAndSkillsFormSectionProps {
     feats: DND5TalentViewModel[];
     selectableFeats: DND5TalentViewModel[];
     changeFeats: Function;
-    senses: SenseViewModel[];
+    senses: DND5SenseViewModel[];
     changeSenses: Function;
     skills: DND5SkillViewModel[];
     selectableSkills: DND5SkillViewModel[];
@@ -27,7 +27,7 @@ interface LanguagesFeatsSensesAndSkillsFormSectionProps {
 }
 
 interface LanguagesFeatsSensesAndSkillsFormSectionState {
-    senseFields: {sense: SenseViewModel; id: string}[];
+    senseFields: {sense: DND5SenseViewModel; id: string}[];
 }
 
 const selectableSenses: selectable[] = [
@@ -54,13 +54,13 @@ export class LanguagesFeatsSensesAndSkillsFormSection extends React.Component<La
         }
     }
 
-    formatPropsForState = (): {sense: SenseViewModel; id: string}[] => {
+    formatPropsForState = (): {sense: DND5SenseViewModel; id: string}[] => {
         return this.props.senses.map(sense => {
             return {sense: sense, id: uuidv4()}
         });
     };
 
-    formatStateForProps = (): SenseViewModel[] => {
+    formatStateForProps = (): DND5SenseViewModel[] => {
         return this.state.senseFields.map(senseField => {
             return senseField.sense
         });
@@ -70,7 +70,7 @@ export class LanguagesFeatsSensesAndSkillsFormSection extends React.Component<La
     addOneSenseField = (): void => {
         this.setState({
             senseFields: this.state.senseFields.concat(
-                [{sense: new SenseViewModel('', 0), id: uuidv4()}]
+                [{sense: new DND5SenseViewModel('', 0), id: uuidv4()}]
             )
         });
     }

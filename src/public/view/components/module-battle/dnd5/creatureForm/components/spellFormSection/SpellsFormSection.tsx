@@ -5,7 +5,7 @@ import ReactSwitch from "react-switch";
 import {SpellsWithSlotsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/spellsWithSlotFormSection/SpellsWithSlotsFormSection";
 import {InnateSpellCastingFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/innateSpellCastingFormSection/InnateSpellCastingFormSection";
 import {DND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
-import {InnateSpellCollection} from "@/public/model/dataModel/dnd5/InnateSpellCollection";
+import {DND5InnateSpellCollection} from "@/public/model/dnd5/DND5InnateSpellCollection";
 import {HttpService} from "@/public/service/HttpService";
 import {SpellSortingService} from "@/public/service/dnd5/SpellSortingService";
 import {DND5SpellDataToViewModelMapper} from "@/public/mapping/dnd5/DND5SpellDataToViewModelMapper";
@@ -16,7 +16,7 @@ interface SpellsFormSectionProps {
     handleRemoveSlotSpell: Function;
     handleRemoveInnateSpell: Function;
     chosenSlotSpells: DND5SpellViewModel[];
-    chosenInnateSpells: InnateSpellCollection;
+    chosenInnateSpells: DND5InnateSpellCollection;
     shouldDisplaySpellsSection: boolean;
     shouldDisplaySpellsWithSlotsSection: boolean;
     shouldDisplaySwitchForInnateSpellCasting: boolean;

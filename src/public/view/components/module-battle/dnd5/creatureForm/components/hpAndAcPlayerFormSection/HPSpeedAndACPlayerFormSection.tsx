@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {ClassAndLevelViewModel} from "@/public/model/dataModel/ClassAndLevelViewModel";
-import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
+import {ClassAndLevelViewModel} from "@/public/model/ClassAndLevelViewModel";
+import {SpeedViewModel} from "@/public/model/SpeedViewModel";
 import {SpeedFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/speedFormSection/SpeedFormSection";
 import * as style from "@/public/view/components/module-battle/dnd5/creatureForm/components/formSectionGeneralStyles.css";
 

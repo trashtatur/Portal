@@ -1,6 +1,6 @@
 import {ActionViewModel} from "../../model/pathfinder/ActionViewModel";
-import {DiceRollSpecification} from "../../model/dataModel/DiceRollSpecification";
-import {PathfinderDamageType} from "../../model/dataModel/pathfinder/PathfinderDamageType";
+import {DiceRollSpecification} from "../../model/DiceRollSpecification";
+import {PathfinderDamageType} from "../../model/pathfinder/PathfinderDamageType";
 import {pathfinderActionData} from "../../types/pathfinderDataTypes";
 
 export class PathfinderActionDataToViewModelMapper {

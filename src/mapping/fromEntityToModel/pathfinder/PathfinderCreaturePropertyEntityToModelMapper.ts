@@ -4,10 +4,10 @@ import {PathfinderSkillEntityToModelMapper} from "./PathfinderSkillEntityToModel
 import {PathfinderLanguageEntityToModelMapper} from "./PathfinderLanguageEntityToModelMapper";
 import {PathfinderCreatureProperties} from "../../../db/schemas/pathfinder/PathfinderCreatureProperties";
 import {PathfinderCreaturePropertiesModel} from "../../../model/pathfinder/PathfinderCreaturePropertiesModel";
-import {CreatureStatsModel} from "../../../model/dataModel/CreatureStatsModel";
+import {CreatureStatsModel} from "../../../model/CreatureStatsModel";
 import {namedProperty, stats} from "../../../types/backendTypes";
-import {PathfinderSavingThrowsModel} from "../../../model/dataModel/pathfinder/PathfinderSavingThrowsModel";
-import {NamedCreatureProperty} from "../../../model/dataModel/NamedCreatureProperty";
+import {PathfinderSavingThrowsModel} from "../../../model/pathfinder/PathfinderSavingThrowsModel";
+import {NamedCreatureProperty} from "../../../model/NamedCreatureProperty";
 import {
     getEnumKeyForValue,
     mapNamedPropertiesStringToNamedPropertiesModel,

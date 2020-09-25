@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {DiceRollSpecification} from "@/public/model/dataModel/DiceRollSpecification";
+import {DiceRollSpecification} from "@/public/model/DiceRollSpecification";
 import {DND5CreatureSizeEnum} from "@/public/model/enumeration/dnd5/DND5CreatureSizeEnum";
-import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
+import {SpeedViewModel} from "@/public/model/SpeedViewModel";
 import {AverageHPCalculatorService} from "@/public/service/dnd5/AverageHPCalculatorService";
 import {SpeedFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/speedFormSection/SpeedFormSection";
 import * as style from "../formSectionGeneralStyles.css";

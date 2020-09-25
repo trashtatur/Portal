@@ -6,7 +6,8 @@ import {DND5ActionDataToModelMapper} from "../../mapping/fromDataToModel/dnd5/DN
 import {DataValidationException} from "../../exception/DataValidationException";
 
 @Service()
-export class DND5ActionService {
+export class DND5ActionService
+{
     private dnd5ActionForm: DND5ActionForm;
     private dnd5ActionRepository: DND5ActionRepository;
     private dnd5ActionDataToModelMapper: DND5ActionDataToModelMapper;

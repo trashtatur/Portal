@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
 import {DND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
-import {InnateSpellViewModel} from "@/public/model/dataModel/dnd5/InnateSpellViewModel";
-import {InnateSpellCollection} from "@/public/model/dataModel/dnd5/InnateSpellCollection";
+import {DND5InnateSpellViewModel} from "@/public/model/dnd5/DND5InnateSpellViewModel";
+import {DND5InnateSpellCollection} from "@/public/model/dnd5/DND5InnateSpellCollection";
 
 interface InnateSpellCastingFormSectionProps {
     innateSpellsToChooseFrom: DND5SpellViewModel[];
-    chosenInnateSpells: InnateSpellCollection;
+    chosenInnateSpells: DND5InnateSpellCollection;
     addInnateSpell: Function;
     removeInnateSpell: Function;
     addInnateSpellToChoice: Function;

@@ -8,7 +8,10 @@
     "import:dnd5:spells": "ts-node src/importer/importSpells.ts"
   },
   "nodemonConfig": {
-    "ignore": ["src/public/**/*","node_modules/**/*"]
+    "ignore": [
+      "src/public/**/*",
+      "node_modules/**/*"
+    ]
   },
   "license": "MIT",
   "dependencies": {
@@ -42,6 +45,7 @@
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.1.0",
     "sequelize-typescript": "^1.0.0",
+    "typescript-json-serializer": "^2.4.0",
     "typescript-plugin-css-modules": "^2.0.2",
     "validate-typescript": "^4.0.2",
     "youtube-api-v3-search": "^1.2.1"

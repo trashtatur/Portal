@@ -1,4 +1,4 @@
-import {SpellComponentEnum} from "../../model/dataModel/SpellComponentEnum";
+import {SpellComponentEnum} from "../../model/SpellComponentEnum";
 import {MagicSchoolEnum} from "../../model/enumeration/dnd5/MagicSchoolEnum";
 
 export type dnd5CreaturePropertiesData = {}

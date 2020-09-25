@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {ClassAndLevelViewModel} from "@/public/model/dataModel/ClassAndLevelViewModel";
+import {ClassAndLevelViewModel} from "@/public/model/ClassAndLevelViewModel";
 import * as style from "@/public/view/components/module-battle/dnd5/creatureForm/dnd5CreatureForm.css";
 import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
 

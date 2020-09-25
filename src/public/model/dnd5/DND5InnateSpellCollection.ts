@@ -1,12 +1,12 @@
-import {InnateSpellViewModel} from "@/public/model/dataModel/dnd5/InnateSpellViewModel";
+import {DND5InnateSpellViewModel} from "@/public/model/dnd5/DND5InnateSpellViewModel";
 
-export class InnateSpellCollection {
-    private _innateSpells: InnateSpellViewModel[];
+export class DND5InnateSpellCollection {
+    private _innateSpells: DND5InnateSpellViewModel[];
     private _spellAttribute: "strength" | "dexterity" | "constitution" | "intelligence" | "wisdom" | "charisma";
     private _constraint?: string;
 
     constructor(
-        innateSpells: InnateSpellViewModel[],
+        innateSpells: DND5InnateSpellViewModel[],
         spellAttribute: "strength" | "dexterity" | "constitution" | "intelligence" | "wisdom" | "charisma",
         constraint?: string
     ) {
@@ -15,19 +15,19 @@ export class InnateSpellCollection {
         this._constraint = constraint;
     }
 
-    addInnateSpell = (spell: InnateSpellViewModel): void => {
+    addInnateSpell = (spell: DND5InnateSpellViewModel): void => {
         this._innateSpells = this._innateSpells.concat(spell);
     }
 
-    removeInnateSpell = (spell: InnateSpellViewModel): void => {
+    removeInnateSpell = (spell: DND5InnateSpellViewModel): void => {
         this._innateSpells = this._innateSpells.filter(innate => innate.spell.id !== spell.spell.id);
     }
 
-    get innateSpells(): InnateSpellViewModel[] {
+    get innateSpells(): DND5InnateSpellViewModel[] {
         return this._innateSpells;
     }
 
-    set innateSpells(value: InnateSpellViewModel[]) {
+    set innateSpells(value: DND5InnateSpellViewModel[]) {
         this._innateSpells = value;
     }
 

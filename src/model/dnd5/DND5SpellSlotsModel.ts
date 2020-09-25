@@ -1,13 +1,26 @@
+import {JsonProperty, Serializable} from "typescript-json-serializer";
+
+@Serializable()
 export class DND5SpellSlotsModel {
+    @JsonProperty({name: 'first'})
     private readonly _first: number;
+    @JsonProperty({name: 'second'})
     private readonly _second: number;
+    @JsonProperty({name: 'third'})
     private readonly _third: number;
+    @JsonProperty({name: 'fourth'})
     private readonly _fourth: number;
+    @JsonProperty({name: 'fifth'})
     private readonly _fifth: number;
+    @JsonProperty({name: 'sixth'})
     private readonly _sixth: number;
+    @JsonProperty({name: 'seventh'})
     private readonly _seventh: number;
+    @JsonProperty({name: 'eighth'})
     private readonly _eighth: number;
+    @JsonProperty({name: 'ninth'})
     private readonly _ninth: number;
+    @JsonProperty({name: 'cantrips'})
     private readonly _cantrips: string;
 
     constructor(

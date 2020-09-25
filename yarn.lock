@@ -6713,6 +6713,13 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
+typescript-json-serializer@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/typescript-json-serializer/-/typescript-json-serializer-2.4.0.tgz#1c5a0549d44ce8c69bcce8b3bc10ad2f73f09834"
+  integrity sha512-JGyigTSXye9bdxJB0EJR30/bbrvUbPstgToUD0SLWgKOr4O2+JUe3kjU8wiPC+g3von3H+i8YxJE0frcXTsZ+w==
+  dependencies:
+    reflect-metadata "^0.1.13"
+
 typescript-plugin-css-modules@^2.0.2:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/typescript-plugin-css-modules/-/typescript-plugin-css-modules-2.2.0.tgz#c145e4187a5cf0c029c90e4c63bef165226dca4c"

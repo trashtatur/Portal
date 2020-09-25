@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
+import {SpeedViewModel} from "@/public/model/SpeedViewModel";
 
 interface SpeedSubSectionProps {
     speed: SpeedViewModel;

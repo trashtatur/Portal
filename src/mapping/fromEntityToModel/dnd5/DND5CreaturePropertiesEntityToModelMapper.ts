@@ -17,9 +17,9 @@ import {DND5TalentEntityToModelMapper} from "./DND5TalentEntityToModelMapper";
 import {DND5SkillEntityToModelMapper} from "./DND5SkillEntityToModelMapper";
 import {DND5SpellEntityToModelMapper} from "./DND5SpellEntityToModelMapper";
 import {Service} from "@tsed/di";
-import {DND5SavingThrowsModel} from "../../../model/dataModel/dnd5/DND5SavingThrowsModel";
-import {SenseModel} from "../../../model/dataModel/dnd5/SenseModel";
-import {DND5SpellSlotsModel} from "../../../model/dataModel/dnd5/DND5SpellSlotsModel";
+import {DND5SavingThrowsModel} from "../../../model/dnd5/DND5SavingThrowsModel";
+import {SenseModel} from "../../../model/dnd5/SenseModel";
+import {DND5SpellSlotsModel} from "../../../model/dnd5/DND5SpellSlotsModel";
 import {dnd5SavingThrows, dnd5Sense, dnd5SpellSlots} from "../../../types/dnd5BackendTypes";
 
 @Service()

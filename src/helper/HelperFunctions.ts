@@ -1,7 +1,7 @@
-import {DiceRollSpecification} from "../model/dataModel/DiceRollSpecification";
-import {CreatureStatsModel} from "../model/dataModel/CreatureStatsModel";
+import {DiceRollSpecification} from "../model/DiceRollSpecification";
+import {CreatureStatsModel} from "../model/CreatureStatsModel";
 import {namedProperty, stats} from "../types/backendTypes";
-import {NamedCreatureProperty} from "../model/dataModel/NamedCreatureProperty";
+import {NamedCreatureProperty} from "../model/NamedCreatureProperty";
 
 export const getEnumKeyForValue = <T> (value: string, enumToSearch: T): T[keyof T] => {
     for (const key of Object.keys(enumToSearch)) {

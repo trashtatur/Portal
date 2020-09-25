@@ -1,6 +1,6 @@
 import {DND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
 
-export class InnateSpellViewModel {
+export class DND5InnateSpellViewModel {
     private _spell: DND5SpellViewModel;
     private _times: number;
     private _per: "day" | "at will";

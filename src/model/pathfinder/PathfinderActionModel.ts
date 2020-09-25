@@ -1,17 +1,28 @@
 import {ModelInterface} from "../ModelInterface";
-import {DiceRollSpecification} from "../dataModel/DiceRollSpecification";
+import {DiceRollSpecification} from "../DiceRollSpecification";
 import {RangeTypeEnum} from "../enumeration/RangeTypeEnum";
-import {PathfinderDamageType} from "../dataModel/pathfinder/PathfinderDamageType";
+import {PathfinderDamageType} from "./PathfinderDamageType";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class PathfinderActionModel implements ModelInterface {
+    @JsonProperty({name: 'id'})
     private readonly _id: string;
+    @JsonProperty({name: 'name'})
     private readonly _name: string;
+    @JsonProperty({name: 'rangeType'})
     private readonly _rangeType: RangeTypeEnum;
+    @JsonProperty({name: 'attackBonus'})
     private readonly _attackBonus: number;
+    @JsonProperty({name: 'range'})
     private readonly _range: number;
+    @JsonProperty({name: 'damage'})
     private readonly _damage: DiceRollSpecification;
+    @JsonProperty({name: 'critMod'})
     private readonly _critMod: number;
+    @JsonProperty({name: 'damageTypes'})
     private readonly _damageTypes: PathfinderDamageType;
+    @JsonProperty({name: 'additionalInfo'})
     private readonly _additionalInfo: string;
 
     constructor(

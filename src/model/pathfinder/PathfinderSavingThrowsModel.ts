@@ -1,6 +1,12 @@
+import {JsonProperty, Serializable} from "typescript-json-serializer";
+
+@Serializable()
 export class PathfinderSavingThrowsModel {
+    @JsonProperty({name: 'reflex'})
     private readonly _reflex: number;
+    @JsonProperty({name: 'wisdom'})
     private readonly _wisdom: number;
+    @JsonProperty({name: 'fortitude'})
     private readonly _fortitude: number;
 
     constructor(

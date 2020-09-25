@@ -1,9 +1,18 @@
+import {JsonProperty, Serializable} from "typescript-json-serializer";
+
+@Serializable()
 export class DND5SavingThrowsModel{
+    @JsonProperty({name: 'strengthSave'})
     private readonly _strengthSave?: number;
+    @JsonProperty({name: 'dexteritySave'})
     private readonly _dexteritySave?: number;
+    @JsonProperty({name: 'constitutionSave'})
     private readonly _constitutionSave?: number;
+    @JsonProperty({name: 'intelligenceSave'})
     private readonly _intelligenceSave?: number;
+    @JsonProperty({name: 'wisdomSave'})
     private readonly _wisdomSave?: number;
+    @JsonProperty({name: 'charismaSave'})
     private readonly _charismaSave?: number;
 
     constructor(

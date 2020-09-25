@@ -3,7 +3,7 @@ import {ReactElement} from "react";
 import {ToolTip} from "../../../uiBasic/tooltip/ToolTip";
 import {uuidv4} from "@/public/service/helperFunctions";
 import {TalentToolTip} from "../toolTipTalent/TalentToolTip";
-import {PathfinderSavingThrowsViewModel} from "@/public/model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
+import {PathfinderSavingThrowsViewModel} from "@/public/model/pathfinder/PathfinderSavingThrowsViewModel";
 import {LanguageViewModel} from "@/public/model/pathfinder/LanguageViewModel";
 import {TalentViewModel} from "@/public/model/pathfinder/TalentViewModel";
 import {SkillViewModel} from "@/public/model/pathfinder/SkillViewModel";

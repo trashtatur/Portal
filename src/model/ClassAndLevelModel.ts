@@ -1,5 +1,10 @@
+import {JsonProperty, Serializable} from "typescript-json-serializer";
+
+@Serializable()
 export class ClassAndLevelModel {
+    @JsonProperty({name: 'className'})
     private readonly _className: string;
+    @JsonProperty({name: 'level'})
     private readonly _level: number;
 
     constructor(

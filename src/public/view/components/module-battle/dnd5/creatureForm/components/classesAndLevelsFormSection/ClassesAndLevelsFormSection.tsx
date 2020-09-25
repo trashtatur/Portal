@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {ClassAndLevelViewModel} from "@/public/model/dataModel/ClassAndLevelViewModel";
+import {ClassAndLevelViewModel} from "@/public/model/ClassAndLevelViewModel";
 import {uuidv4} from "@/public/service/helperFunctions";
 import {ClassesEnum} from "@/public/model/enumeration/dnd5/ClassesEnum";
 import {selectable} from "@/public/types/frontendTypes";
