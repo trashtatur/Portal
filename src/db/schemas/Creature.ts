@@ -1,7 +1,7 @@
 import {
     AllowNull,
     Column,
-    DataType, HasMany, HasOne,
+    DataType, HasOne,
     Model,
     PrimaryKey,
     Table, Unique

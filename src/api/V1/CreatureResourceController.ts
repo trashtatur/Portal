@@ -7,8 +7,6 @@ import {DND5CreatureProperties} from "../../db/schemas/DND5/DND5CreatureProperti
 import {DND5CreaturePropertiesModel} from "../../model/dnd5/DND5CreaturePropertiesModel";
 import {PathfinderCreatureProperties} from "../../db/schemas/pathfinder/PathfinderCreatureProperties";
 import {PathfinderCreaturePropertiesModel} from "../../model/pathfinder/PathfinderCreaturePropertiesModel";
-import {deserialize, serialize} from "typescript-json-serializer";
-import {CreatureModel} from "../../model/CreatureModel";
 
 
 @Controller('/creature')
@@ -27,17 +25,7 @@ export class CreatureResourceController {
     @Post('/:system')
     async createCreature(@BodyParams() creatureData: creatureData, @PathParams('system') system: string): Promise<string> {
         const systemToInclude = this.systemToIncludeService.getSystemToInclude(system);
-        let creature = null;
-        switch (systemToInclude) {
-            case PathfinderCreatureProperties:
-                creature = await this.creatureService.create<PathfinderCreaturePropertiesModel>(creatureData, PathfinderCreaturePropertiesModel);
-                break;
-            case DND5CreatureProperties:
-                creature = await this.creatureService.create<DND5CreaturePropertiesModel>(creatureData, DND5CreaturePropertiesModel);
-                break;
-            default:
-                break;
-        }
+        const creature = await this.creatureService.create<typeof systemToInclude>(creatureData, systemToInclude);
         return JSON.stringify(creature)
     }
 

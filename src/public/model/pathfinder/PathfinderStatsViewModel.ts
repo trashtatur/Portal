@@ -1,7 +1,9 @@
 import {getSizeModFromSizeEnum} from "../enumeration/pathfinder/PathfinderCreatureSizeModifierEnum";
 import {PathfinderCreatureSizeEnum} from "../enumeration/pathfinder/PathfinderCreatureSizeEnum";
 import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class PathfinderStatsViewModel {
 
     BASE_CMD_BONUS = 10;
@@ -16,11 +18,17 @@ export class PathfinderStatsViewModel {
         CMB: "CMB",
         CMD: "CMD"
     };
+    @JsonProperty({name: 'dexterity'})
     private _dexterity: number;
+    @JsonProperty({name: 'strength'})
     private _strength: number;
+    @JsonProperty({name: 'constitution'})
     private _constitution: number;
+    @JsonProperty({name: 'wisdom'})
     private _wisdom: number;
+    @JsonProperty({name: 'intelligence'})
     private _intelligence: number;
+    @JsonProperty({name: 'charisma'})
     private _charisma: number;
     private _creatureSize: PathfinderCreatureSizeEnum;
     private _baseAttack: number;

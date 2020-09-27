@@ -1,6 +1,12 @@
+import {JsonProperty, Serializable} from "typescript-json-serializer";
+
+@Serializable()
 export class SkillViewModel {
+    @JsonProperty({name: 'id'})
     private _id: string;
+    @JsonProperty({name: 'name'})
     private _name: string;
+    @JsonProperty({name: 'level'})
     private _level: number;
 
     constructor(

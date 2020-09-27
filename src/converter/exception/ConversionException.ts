@@ -1,4 +1,4 @@
-export class MappingException extends Error{
+export class ConversionException extends Error{
 
     constructor(message?: string) {
         super(message);

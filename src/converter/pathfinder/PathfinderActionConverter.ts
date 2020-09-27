@@ -1,13 +1,13 @@
-import {EntityToModelMapperInterface} from "../../EntityToModelMapperInterface";
-import {PathfinderAction} from "../../../db/schemas/pathfinder/PathfinderAction";
-import {PathfinderActionModel} from "../../../model/pathfinder/PathfinderActionModel";
-import {RangeTypeEnum} from "../../../model/enumeration/RangeTypeEnum";
-import {PathfinderDamageType} from "../../../model/pathfinder/PathfinderDamageType";
-import {PathfinderDamageTypesEnum} from "../../../model/enumeration/pathfinder/PathfinderDamageTypesEnum";
-import {getEnumKeyForValue, mapDamageStringToDamageDataModel} from "../../../helper/HelperFunctions";
+import {ConverterInterface} from "../ConverterInterface";
+import {PathfinderAction} from "../../db/schemas/pathfinder/PathfinderAction";
+import {PathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
+import {RangeTypeEnum} from "../../model/enumeration/RangeTypeEnum";
+import {PathfinderDamageType} from "../../model/pathfinder/PathfinderDamageType";
+import {PathfinderDamageTypesEnum} from "../../model/enumeration/pathfinder/PathfinderDamageTypesEnum";
+import {getEnumKeyForValue, mapDamageStringToDamageDataModel} from "../../helper/HelperFunctions";
 
-export class PathfinderActionEntityToModelMapper implements EntityToModelMapperInterface<PathfinderAction, PathfinderActionModel> {
-    map(entity: PathfinderAction): PathfinderActionModel {
+export class PathfinderActionConverter implements ConverterInterface<PathfinderAction, PathfinderActionModel> {
+    convertEntity(entity: PathfinderAction): PathfinderActionModel {
         return new PathfinderActionModel(
             entity.uuid,
             entity.name,
@@ -21,12 +21,12 @@ export class PathfinderActionEntityToModelMapper implements EntityToModelMapperI
         )
     }
 
-    mapMultiple = (entities?: PathfinderAction[]): PathfinderActionModel[] | null => {
+    convertMultipleEntities = (entities?: PathfinderAction[]): PathfinderActionModel[] | null => {
         if (!entities) {
             return null;
         }
         return entities.map(entity => {
-            return this.map(entity);
+            return this.convertEntity(entity);
         });
     }
     private mapDamageTypeStringToDamageTypeDataModel = (damageTypeString: string): PathfinderDamageType => {

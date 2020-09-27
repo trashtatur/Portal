@@ -1,5 +1,10 @@
+import {JsonProperty, Serializable} from "typescript-json-serializer";
+
+@Serializable()
 export class LanguageViewModel {
+    @JsonProperty({name: 'id'})
     private _id: string;
+    @JsonProperty({name: 'name'})
     private _name: string;
 
     constructor(

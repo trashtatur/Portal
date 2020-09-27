@@ -1,16 +1,16 @@
 import {Service} from "@tsed/di";
 import {DND5SpellModel} from "../../model/dnd5/DND5SpellModel";
 import {DND5Spell} from "../../db/schemas/DND5/DND5Spell";
-import {DND5SpellEntityToModelMapper} from "../../mapping/fromEntityToModel/dnd5/DND5SpellEntityToModelMapper";
+import {DND5SpellConverter} from "../../converter/dnd5/DND5SpellConverter";
 
 @Service()
 export class DND5SpellRepository {
-    private dnd5SpellEntityToModelMapper: DND5SpellEntityToModelMapper;
+    private dnd5SpellConverter: DND5SpellConverter;
 
     constructor(
-        dnd5SpellEntityToModelMapper: DND5SpellEntityToModelMapper
+        dnd5SpellConverter: DND5SpellConverter
     ) {
-        this.dnd5SpellEntityToModelMapper = dnd5SpellEntityToModelMapper;
+        this.dnd5SpellConverter = dnd5SpellConverter;
     }
 
     create = async(dnd5SkillModel: DND5SpellModel): Promise<DND5SpellModel> => {
@@ -35,6 +35,6 @@ export class DND5SpellRepository {
 
     findAll = async(): Promise<DND5SpellModel[]> => {
         const spells = await DND5Spell.findAll();
-        return this.dnd5SpellEntityToModelMapper.mapMultiple(spells);
+        return this.dnd5SpellConverter.convertMultipleEntities(spells);
     }
 }

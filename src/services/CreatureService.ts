@@ -7,24 +7,37 @@ import {creatureData} from "../types/backendTypes";
 import {CreatureRepository} from "../repositories/CreatureRepository";
 import {CreatureModel} from "../model/CreatureModel";
 import {AbstractCreaturePropertyModel} from "../model/AbstractCreaturePropertyModel";
-import {CreatureDataToModelMapper} from "../mapping/fromDataToModel/CreatureDataToModelMapper";
+import {DND5CreaturePropertiesModel} from "../model/dnd5/DND5CreaturePropertiesModel";
+import {SystemEnum} from "../enumeration/SystemEnum";
+import {deserialize} from "typescript-json-serializer";
+import {PathfinderCreaturePropertiesModel} from "../model/pathfinder/PathfinderCreaturePropertiesModel";
 const mkdirp = require('mkdirp');
 
 @Service()
 export class CreatureService {
     private creatureRepository: CreatureRepository;
-    private creatureDataToModelMapper: CreatureDataToModelMapper;
 
     constructor(
         creatureRepository: CreatureRepository,
-        creatureDataToModelMapper: CreatureDataToModelMapper
     ) {
-        this.creatureDataToModelMapper = creatureDataToModelMapper;
         this.creatureRepository = creatureRepository;
     }
 
     async create<T extends AbstractCreaturePropertyModel>(data: creatureData, system: { new(...args: any[]): T }): Promise<CreatureModel<T>> {
-        const creatureModel = this.creatureDataToModelMapper.map(data, system);
+        let propertyModel = null;
+        const creatureModel = deserialize(data, CreatureModel);
+        switch (system.name) {
+            case DND5CreaturePropertiesModel.name:
+                creatureModel.propertyType = SystemEnum.DND5
+                propertyModel = deserialize(data.creatureProperties, DND5CreaturePropertiesModel);
+                creatureModel.creatureProperties = propertyModel
+                break;
+            case PathfinderCreaturePropertiesModel.name:
+                creatureModel.propertyType = SystemEnum.PATHFINDER
+                propertyModel = deserialize(data.creatureProperties, PathfinderCreaturePropertiesModel);
+                creatureModel.creatureProperties = propertyModel
+                break;
+        }
         return this.creatureRepository.create(creatureModel, system)
     }
 
@@ -73,7 +86,7 @@ export class CreatureService {
             {where: condition, include: include});
     }
 
-    async findAll<T extends AbstractCreaturePropertyModel>(includedProperty: Includeable, propertyModelToInclude: { new(...args: any[]): T }): Promise<CreatureModel<T>[]> {
+    async findAll<T extends AbstractCreaturePropertyModel>(includedProperty, propertyModelToInclude: { new(...args: any[]): T }): Promise<CreatureModel<T>[]> {
         return this.creatureRepository.findAll<T>(includedProperty, propertyModelToInclude);
     }
 

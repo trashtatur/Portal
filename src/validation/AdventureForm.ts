@@ -8,7 +8,7 @@ export class AdventureForm implements FormValidatorInterface{
         _name: Type(String),
         _core: Type(String),
     };
-    validate(data): boolean | object {
+    validate(data): object {
         return validate(this.schema, data)
     }
 }

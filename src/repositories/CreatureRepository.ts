@@ -1,7 +1,7 @@
 import {CreatureModel} from "../model/CreatureModel";
 import {Creature} from "../db/schemas/Creature";
 import {Service} from "@tsed/di";
-import {CreatureEntityToModelMapper} from "../mapping/fromEntityToModel/CreatureEntityToModelMapper";
+import {CreatureConverter} from "../converter/CreatureConverter";
 import {PathfinderCreaturePropertiesRepository} from "./pathfinder/PathfinderCreaturePropertiesRepository";
 import {Includeable} from "sequelize";
 import {AbstractCreaturePropertyModel} from "../model/AbstractCreaturePropertyModel";
@@ -12,18 +12,18 @@ import {PathfinderCreaturePropertiesModel} from "../model/pathfinder/PathfinderC
 
 @Service()
 export class CreatureRepository {
-    private creatureEntityToModelMapper: CreatureEntityToModelMapper;
+    private creatureConverter: CreatureConverter;
     private pathfinderCreaturePropertiesRepository: PathfinderCreaturePropertiesRepository;
     private dnd5CreaturePropertiesRepository: DND5CreaturePropertiesRepository;
 
     constructor(
-        creatureEntityToModelMapper: CreatureEntityToModelMapper,
+        creatureConverter: CreatureConverter,
         pathfinderCreaturePropertiesRepository: PathfinderCreaturePropertiesRepository,
         dnd5CreaturePropertiesRepository: DND5CreaturePropertiesRepository
     ) {
         this.dnd5CreaturePropertiesRepository = dnd5CreaturePropertiesRepository;
         this.pathfinderCreaturePropertiesRepository = pathfinderCreaturePropertiesRepository;
-        this.creatureEntityToModelMapper = creatureEntityToModelMapper;
+        this.creatureConverter = creatureConverter;
     }
 
     create = async <T extends AbstractCreaturePropertyModel>(creatureModel: CreatureModel<T>, system: { new(...args: any[]): T }): Promise<CreatureModel<T>> => {
@@ -38,16 +38,16 @@ export class CreatureRepository {
                     await this.dnd5CreaturePropertiesRepository.create(
                         creatureModel.creatureProperties as unknown as DND5CreaturePropertiesModel
                     )
-                creature.$add('dnd5CreatureProperties', dnd5Properties)
+                creature.$set('dnd5CreatureProperties', dnd5Properties)
                 break;
             case PathfinderCreaturePropertiesModel.name:
                 const pathfinderProperties =
                     await this.pathfinderCreaturePropertiesRepository.create(
                         creatureModel.creatureProperties as unknown as PathfinderCreaturePropertiesModel
                     );
-                creature.$add('pathfinderCreatureProperties', pathfinderProperties);
+                creature.$set('pathfinderCreatureProperties', pathfinderProperties);
         }
-        return this.creatureEntityToModelMapper.map(creature, system);
+        return this.creatureConverter.map(creature, system);
     }
 
     findOneBy = async <T extends AbstractCreaturePropertyModel>(key, value): Promise<CreatureModel<T>> => {
@@ -66,7 +66,7 @@ export class CreatureRepository {
             }
         );
         return creatures.map(creatureEntity => {
-            return this.creatureEntityToModelMapper.map<T>(creatureEntity, propertyModelToInclude);
+            return this.creatureConverter.map<T>(creatureEntity, propertyModelToInclude);
         })
     }
 }

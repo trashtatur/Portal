@@ -1,16 +1,16 @@
 import {PathfinderLanguageModel} from "../../model/pathfinder/PathfinderLanguageModel";
 import {PathfinderLanguage} from "../../db/schemas/pathfinder/PathfinderLanguage";
 import {Service} from "@tsed/di";
-import {PathfinderLanguageEntityToModelMapper} from "../../mapping/fromEntityToModel/pathfinder/PathfinderLanguageEntityToModelMapper";
+import {PathfinderLanguageConverter} from "../../converter/pathfinder/PathfinderLanguageConverter";
 
 @Service()
 export class PathfinderLanguageRepository {
-    private pathfinderLanguageEntityToModelMapper: PathfinderLanguageEntityToModelMapper;
+    private pathfinderLanguageConverter: PathfinderLanguageConverter;
 
     constructor(
-        pathfinderLanguageEntityToModelMapper: PathfinderLanguageEntityToModelMapper
+        pathfinderLanguageConverter: PathfinderLanguageConverter
     ) {
-        this.pathfinderLanguageEntityToModelMapper = pathfinderLanguageEntityToModelMapper;
+        this.pathfinderLanguageConverter = pathfinderLanguageConverter;
     }
 
     create = async(pathfinderLanguageModel: PathfinderLanguageModel): Promise <PathfinderLanguageModel> => {
@@ -20,7 +20,7 @@ export class PathfinderLanguageRepository {
     findAll = async(): Promise<PathfinderLanguageModel[]> => {
         const languages = await PathfinderLanguage.findAll();
         return languages.map(language => {
-            return this.pathfinderLanguageEntityToModelMapper.map(language)
+            return this.pathfinderLanguageConverter.convertEntity(language)
         })
     }
 }

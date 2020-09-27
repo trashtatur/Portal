@@ -2,17 +2,27 @@ import {RangeTypeEnum} from "../enumeration/RangeTypeEnum";
 import {DiceRollSpecification} from "../DiceRollSpecification";
 import {PathfinderDamageType} from "./PathfinderDamageType";
 import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class ActionViewModel {
-    private _name: string;
-    private _rangeType: RangeTypeEnum;
-    private _attackBonus: number;
+    @JsonProperty({name: 'id'})
     private _id: string;
-    private _additionalinfo: string;
+    @JsonProperty({name: 'name'})
+    private _name: string;
+    @JsonProperty({name: 'rangeType'})
+    private _rangeType: RangeTypeEnum;
+    @JsonProperty({name: 'attackBonus'})
+    private _attackBonus: number;
+    @JsonProperty({name: 'range'})
     private _range: number;
+    @JsonProperty({name: 'damage'})
     private _damage: DiceRollSpecification;
+    @JsonProperty({name: 'critMod'})
     private _critMod: number;
+    @JsonProperty({name: 'damageType'})
     private _damageType: PathfinderDamageType;
+    @JsonProperty({name: 'additionalInfo'})
     private _additionalInfo?: string;
 
     constructor(
@@ -24,7 +34,7 @@ export class ActionViewModel {
         damage: DiceRollSpecification,
         critMod: number,
         damageType: PathfinderDamageType,
-        additionalInfo: string,
+        additionalInfo?: string,
     ) {
         this._id = id;
         this._name = name;
@@ -34,7 +44,7 @@ export class ActionViewModel {
         this._damage = damage;
         this._critMod = critMod;
         this._damageType = damageType;
-        this._additionalinfo = additionalInfo;
+        this._additionalInfo = additionalInfo;
     }
 
     get id(): string {
@@ -134,10 +144,10 @@ export class ActionViewModel {
     }
 
     get additionalinfo(): string {
-        return this._additionalinfo;
+        return this._additionalInfo;
     }
 
     set additionalinfo(value: string) {
-        this._additionalinfo = value;
+        this._additionalInfo = value;
     }
 }

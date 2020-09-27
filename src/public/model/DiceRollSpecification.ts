@@ -1,9 +1,14 @@
 import {AbstractEffectViewModel} from "@/public/model/effects/AbstractEffectViewModel";
 import {ApplyEffects, } from "@/public/model/effects/decorator/DecoratorFunctions";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class DiceRollSpecification extends AbstractEffectViewModel{
+    @JsonProperty({name: 'diceCount'})
     private _diceCount: number;
+    @JsonProperty({name: 'bonus'})
     private _bonus?: number;
+    @JsonProperty({name: 'diceType'})
     private _diceType: number;
 
     constructor(

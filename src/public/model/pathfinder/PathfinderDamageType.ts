@@ -1,8 +1,13 @@
 import {PathfinderDamageTypesEnum} from "../enumeration/pathfinder/PathfinderDamageTypesEnum";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class PathfinderDamageType {
+    @JsonProperty({name: 'damageType'})
     private _damageType: PathfinderDamageTypesEnum[];
+    @JsonProperty({name: 'isHybrid'})
     private _isHybrid: boolean;
+    @JsonProperty({name: 'isMagic'})
     private _isMagic: boolean;
 
     constructor(

@@ -1,12 +1,12 @@
-import {EntityToModelMapperInterface} from "../EntityToModelMapperInterface";
-import {PersonModel} from "../../model/PersonModel";
-import {Person} from "../../db/schemas/Person";
-import {AdventureModel} from "../../model/AdventureModel";
-import {SceneModel} from "../../model/SceneModel";
+import {ConverterInterface} from "./ConverterInterface";
+import {PersonModel} from "../model/PersonModel";
+import {Person} from "../db/schemas/Person";
+import {AdventureModel} from "../model/AdventureModel";
+import {SceneModel} from "../model/SceneModel";
 
-export class PersonEntityToModelMapper implements EntityToModelMapperInterface<Person, PersonModel>{
+export class PersonConverter implements ConverterInterface<Person, PersonModel>{
 
-    map(entity: Person): PersonModel {
+    convertEntity(entity: Person): PersonModel {
         let adventures = [];
         if (entity.adventures !== undefined) {
             adventures = entity.adventures.map(adventure => {
@@ -58,12 +58,12 @@ export class PersonEntityToModelMapper implements EntityToModelMapperInterface<P
         return customFields;
     };
 
-    mapMultiple(entities?: Person[]): PersonModel[] | null {
+    convertMultipleEntities(entities?: Person[]): PersonModel[] | null {
         if (!entities) {
             return null;
         }
         return entities.map(entity => {
-            return this.map(entity);
+            return this.convertEntity(entity);
         });
     }
 

@@ -1,10 +1,20 @@
+import {JsonProperty, Serializable} from "typescript-json-serializer";
+
+@Serializable()
 export class TalentViewModel {
+    @JsonProperty({name: 'id'})
     private _id: string;
+    @JsonProperty({name: 'name'})
     private _name: string;
+    @JsonProperty({name: 'type'})
     private _type: string;
+    @JsonProperty({name: 'description'})
     private _description: string;
+    @JsonProperty({name: 'benefits'})
     private _benefits: string;
+    @JsonProperty({name: 'conditions'})
     private _conditions?: string;
+    @JsonProperty({name: 'note'})
     private _note?: string;
 
     constructor(

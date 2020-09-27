@@ -10,28 +10,50 @@ import {TalentViewModel} from "./TalentViewModel";
 import {NamedPropertyViewModel} from "../NamedPropertyViewModel";
 import {AbstractPropertyViewModel} from "../AbstractPropertyViewModel";
 import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
+import {getEnumKeyForValue} from "@/public/service/helperFunctions";
 
+@Serializable()
 export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewModel{
-
+    @JsonProperty({name: 'id'})
     private _id: string;
+    @JsonProperty({name: 'type', onDeserialize: (data) => getEnumKeyForValue(data, TypeEnum)})
     private _type: TypeEnum;
+    @JsonProperty({name: 'armorclass'})
     private _armorclass: number;
+    @JsonProperty({name: 'hitpoints'})
     private _hitpoints: number;
+    @JsonProperty({name: 'alignment', onDeserialize: (data) => getEnumKeyForValue(data, AlignmentEnum)})
     private _alignment: AlignmentEnum;
+    @JsonProperty({name: 'creatureClass'})
     private _creatureClass: string;
+    @JsonProperty({name: 'challenge'})
     private _challenge: number;
+    @JsonProperty({name: 'movement'})
     private _movement: number;
+    @JsonProperty({name: 'ini'})
     private _ini: number;
+    @JsonProperty({name: 'baseAtk'})
     private _baseAtk: number;
+    @JsonProperty({name: 'size', onDeserialize: (data) => getEnumKeyForValue(data, PathfinderCreatureSizeEnum)})
     private _size: PathfinderCreatureSizeEnum;
+    @JsonProperty({name: 'stats'})
     private _stats: PathfinderStatsViewModel;
+    @JsonProperty({name: 'saveThrows'})
     private _saveThrows: PathfinderSavingThrowsViewModel;
+    @JsonProperty({name: 'xp'})
     private _xp?: number;
+    @JsonProperty({name: 'image'})
     private _image?: string;
+    @JsonProperty({name: 'actions', type: ActionViewModel})
     private _actions?: ActionViewModel[];
+    @JsonProperty({name: 'languages', type: LanguageViewModel})
     private _languages?: LanguageViewModel[];
+    @JsonProperty({name: 'skills', type: SkillViewModel})
     private _skills?: SkillViewModel[];
+    @JsonProperty({name: 'talents', type: TalentViewModel})
     private _talents?: TalentViewModel[];
+    @JsonProperty({name: 'attackProperties', type: NamedPropertyViewModel})
     private _attackProperties?: NamedPropertyViewModel[];
     private _currentHitpoints: number;
     private _currentInitiative: number;

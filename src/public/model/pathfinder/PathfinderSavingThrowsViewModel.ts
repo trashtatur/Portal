@@ -1,8 +1,13 @@
 import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class PathfinderSavingThrowsViewModel {
+    @JsonProperty({name: 'reflex'})
     private _reflex: number;
+    @JsonProperty({name: 'wisdom'})
     private _wisdom: number;
+    @JsonProperty({name: 'fortitude'})
     private _fortitude: number;
 
     constructor(

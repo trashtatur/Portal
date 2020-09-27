@@ -2,12 +2,6 @@ import {ModelInterface} from "./ModelInterface";
 import {AbstractCreaturePropertyModel} from "./AbstractCreaturePropertyModel";
 import {SystemEnum} from "../enumeration/SystemEnum";
 import {JsonProperty, Serializable} from "typescript-json-serializer";
-import {DND5CreaturePropertiesModel} from "./dnd5/DND5CreaturePropertiesModel";
-import {PathfinderCreaturePropertiesModel} from "./pathfinder/PathfinderCreaturePropertiesModel";
-
-const creaturePropertyType = (ref, creatureProperty) => {
-
-}
 
 @Serializable()
 export class CreatureModel<T extends AbstractCreaturePropertyModel> implements ModelInterface{

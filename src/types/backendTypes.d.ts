@@ -27,9 +27,9 @@ export type personData = {
 };
 
 export type creatureData = {
-    _id?: string;
-    _name: string;
-    _properties: string;
+    id?: string;
+    name: string;
+    creatureProperties: object;
 };
 
 type namedProperty = {

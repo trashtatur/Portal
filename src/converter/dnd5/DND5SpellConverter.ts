@@ -1,12 +1,12 @@
-import {EntityToModelMapperInterface} from "../../EntityToModelMapperInterface";
-import {DND5Spell} from "../../../db/schemas/DND5/DND5Spell";
-import {DND5SpellModel} from "../../../model/dnd5/DND5SpellModel";
-import {getEnumKeyForValue} from "../../../helper/HelperFunctions";
-import {MagicSchoolEnum} from "../../../model/enumeration/dnd5/MagicSchoolEnum";
-import {SpellComponentEnum} from "../../../model/SpellComponentEnum";
+import {ConverterInterface} from "../ConverterInterface";
+import {DND5Spell} from "../../db/schemas/DND5/DND5Spell";
+import {DND5SpellModel} from "../../model/dnd5/DND5SpellModel";
+import {getEnumKeyForValue} from "../../helper/HelperFunctions";
+import {MagicSchoolEnum} from "../../model/enumeration/dnd5/MagicSchoolEnum";
+import {SpellComponentEnum} from "../../model/SpellComponentEnum";
 
-export class DND5SpellEntityToModelMapper implements EntityToModelMapperInterface<DND5Spell, DND5SpellModel>{
-    map = (entity: DND5Spell): DND5SpellModel => {
+export class DND5SpellConverter implements ConverterInterface<DND5Spell, DND5SpellModel>{
+    convertEntity = (entity: DND5Spell): DND5SpellModel => {
         return new DND5SpellModel(
             entity.uuid,
             entity.name,
@@ -24,12 +24,12 @@ export class DND5SpellEntityToModelMapper implements EntityToModelMapperInterfac
         );
     }
 
-    mapMultiple = (entities?: DND5Spell[]): DND5SpellModel[] | null => {
+    convertMultipleEntities = (entities?: DND5Spell[]): DND5SpellModel[] | null => {
         if (!entities) {
             return null
         }
         return entities.map(entity => {
-            return this.map(entity);
+            return this.convertEntity(entity);
         })
     }
 

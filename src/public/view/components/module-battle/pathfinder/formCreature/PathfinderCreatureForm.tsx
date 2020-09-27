@@ -23,6 +23,7 @@ import {PathfinderTalentDataToViewModelMapper} from "@/public/mapping/pathfinder
 import {PathfinderLanguageDataToViewModelMapper} from "@/public/mapping/pathfinder/PathfinderLanguageDataToViewModelMapper";
 import {PathfinderSkillDataToViewModelMapper} from "@/public/mapping/pathfinder/PathfinderSkillDataToViewModelMapper";
 import {PathfinderActionDataToViewModelMapper} from "@/public/mapping/pathfinder/PathfinderActionDataToViewModelMapper";
+import {serialize} from "typescript-json-serializer";
 import * as style from "./pathfinderCreatureForm.css";
 
 interface CreatureFormProps {
@@ -60,7 +61,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
 
     addOneMoreAttackProperty = (): void => {
         const creature = this.state.creature;
-        creature.properties.attackProperties.push(new NamedPropertyViewModel('', ''))
+        creature.creatureProperties.attackProperties.push(new NamedPropertyViewModel('', ''))
         this.setState({creature: creature})
     };
 
@@ -157,25 +158,26 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
 
     previewImage = (): null | string => {
         // Default case for image
-        if (this.state.creature.properties.image == "") return null;
+        if (this.state.creature.creatureProperties.image == "") return null;
         // Image already existing
-        if (typeof this.state.creature.properties.image == "string") return this.state.creature.properties.image;
+        if (typeof this.state.creature.creatureProperties.image == "string") return this.state.creature.creatureProperties.image;
         // Image in form
-        if (this.state.creature.properties.image != null) return URL.createObjectURL(this.state.creature.properties.image);
+        if (this.state.creature.creatureProperties.image != null) return URL.createObjectURL(this.state.creature.creatureProperties.image);
         // Image in form deleted
         return null;
     };
 
     handleSubmit = async (event): Promise<void> => {
         event.preventDefault();
-        uploadImage(this.state.creature.properties.image, this.state.creature.name, this.state.creature.properties.challenge);
+        uploadImage(this.state.creature.creatureProperties.image, this.state.creature.name, this.state.creature.creatureProperties.challenge);
         try {
             const creature = this.state.creature;
-            if (typeof creature.properties.image !== "string") {
-                creature.properties.image =
-                    setCreatureImageName(creature.name, creature.properties.challenge, creature.properties.image);
+            if (typeof creature.creatureProperties.image !== "string") {
+                creature.creatureProperties.image =
+                    setCreatureImageName(creature.name, creature.creatureProperties.challenge, creature.creatureProperties.image);
             }
-            await axios.post('/V1/Creature/pathfinder', creature);
+            creature.creatureProperties = serialize(creature.creatureProperties)
+            await axios.post('/V1/Creature/pathfinder', serialize(creature));
             alert('Created entry in database');
             this.resetForm();
         } catch (error) {
@@ -197,43 +199,43 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
 
     handleTypeChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.type = event.target.value;
+        creature.creatureProperties.type = event.target.value;
         this.setState({creature: creature})
     };
 
     typeBoxChecked = (typeValue): boolean => {
-        return this.state.creature.properties.type == typeValue;
+        return this.state.creature.creatureProperties.type == typeValue;
     };
 
     handleHPChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.hitpoints = null;
-        if (!isNaN(parseInt(event.target.value))) creature.properties.hitpoints = parseInt(event.target.value);
+        creature.creatureProperties.hitpoints = null;
+        if (!isNaN(parseInt(event.target.value))) creature.creatureProperties.hitpoints = parseInt(event.target.value);
         this.setState({creature: creature})
     };
 
     handleACChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.armorclass = null;
-        if (!isNaN(parseInt(event.target.value))) creature.properties.armorclass = parseInt(event.target.value);
+        creature.creatureProperties.armorclass = null;
+        if (!isNaN(parseInt(event.target.value))) creature.creatureProperties.armorclass = parseInt(event.target.value);
         this.setState({creature: creature})
     };
 
     handleAlignmentChange = (value): void => {
         const creature = this.state.creature;
-        creature.properties.alignment = value.value;
+        creature.creatureProperties.alignment = value.value;
         this.setState({creature: creature})
     };
 
     handleCreatureClassChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.creatureClass = event.target.value;
+        creature.creatureProperties.creatureClass = event.target.value;
         this.setState({creature: creature})
     };
 
     handleAttackPropertiesNameChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.attackProperties = creature.properties.attackProperties.map((elem) => {
+        creature.creatureProperties.attackProperties = creature.creatureProperties.attackProperties.map((elem) => {
             if (elem.name + '-name' !== event.target.id) return elem;
             elem.name = event.target.value;
             return elem;
@@ -245,7 +247,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
 
     handleAttackPropertiesValueChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.attackProperties = creature.properties.attackProperties.map((elem) => {
+        creature.creatureProperties.attackProperties = creature.creatureProperties.attackProperties.map((elem) => {
             if (elem.name + '-prop' !== event.target.id) return elem;
             elem.property = event.target.value;
             return elem;
@@ -257,58 +259,58 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
 
     handleChallengeChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.challenge = null;
-        if (!isNaN(parseInt(event.target.value))) creature.properties.challenge = parseInt(event.target.value);
+        creature.creatureProperties.challenge = null;
+        if (!isNaN(parseInt(event.target.value))) creature.creatureProperties.challenge = parseInt(event.target.value);
         this.setState({creature: creature})
     };
 
     handleMovementChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.movement = null;
-        if (!isNaN(parseInt(event.target.value))) creature.properties.movement = parseInt(event.target.value);
-        creature.properties.movement = parseInt(event.target.value);
+        creature.creatureProperties.movement = null;
+        if (!isNaN(parseInt(event.target.value))) creature.creatureProperties.movement = parseInt(event.target.value);
+        creature.creatureProperties.movement = parseInt(event.target.value);
         this.setState({creature: creature})
     };
 
     handleIniChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.ini = null;
-        if (!isNaN(parseInt(event.target.value))) creature.properties.ini = parseInt(event.target.value);
+        creature.creatureProperties.ini = null;
+        if (!isNaN(parseInt(event.target.value))) creature.creatureProperties.ini = parseInt(event.target.value);
         this.setState({creature: creature})
     };
 
     handleImageChange = ({meta, file}, status): void => {
         const creature = this.state.creature;
-        creature.properties.image = file;
+        creature.creatureProperties.image = file;
         this.setState({creature: creature});
         if (status == "removed") {
-            creature.properties.image = null;
+            creature.creatureProperties.image = null;
             this.setState({creature: creature})
         }
     };
 
     handleBaseAtkChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.baseAtk = null;
-        creature.properties.stats.baseAttack = null;
+        creature.creatureProperties.baseAtk = null;
+        creature.creatureProperties.stats.baseAttack = null;
         if (!isNaN(parseInt(event.target.value))) {
-            creature.properties.baseAtk = parseInt(event.target.value);
-            creature.properties.stats.baseAttack = parseInt(event.target.value);
+            creature.creatureProperties.baseAtk = parseInt(event.target.value);
+            creature.creatureProperties.stats.baseAttack = parseInt(event.target.value);
         }
         this.setState({creature: creature})
     };
 
     handleXPChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.xp = null;
-        if (!isNaN(parseInt(event.target.value))) creature.properties.xp = parseInt(event.target.value);
+        creature.creatureProperties.xp = null;
+        if (!isNaN(parseInt(event.target.value))) creature.creatureProperties.xp = parseInt(event.target.value);
         this.setState({creature: creature})
     };
 
     handleSizeChange = (value): void => {
         const creature = this.state.creature;
-        creature.properties.size = value.value;
-        creature.properties.stats.creatureSize = value.value;
+        creature.creatureProperties.size = value.value;
+        creature.creatureProperties.stats.creatureSize = value.value;
         this.setState({creature: creature})
     };
 
@@ -320,22 +322,22 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
         }
         switch (stat) {
             case "str":
-                creature.properties.stats.strength = valueAsNumber;
+                creature.creatureProperties.stats.strength = valueAsNumber;
                 break;
             case "cha":
-                creature.properties.stats.charisma = valueAsNumber;
+                creature.creatureProperties.stats.charisma = valueAsNumber;
                 break;
             case "con":
-                creature.properties.stats.constitution = valueAsNumber;
+                creature.creatureProperties.stats.constitution = valueAsNumber;
                 break;
             case "dex":
-                creature.properties.stats.dexterity = valueAsNumber;
+                creature.creatureProperties.stats.dexterity = valueAsNumber;
                 break;
             case "int":
-                creature.properties.stats.intelligence = valueAsNumber;
+                creature.creatureProperties.stats.intelligence = valueAsNumber;
                 break;
             case "wis":
-                creature.properties.stats.wisdom = valueAsNumber;
+                creature.creatureProperties.stats.wisdom = valueAsNumber;
                 break;
             default:
                 break;
@@ -351,13 +353,13 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
         }
         switch (saveThrow) {
             case "fort":
-                creature.properties.saveThrows.fortitude = valueAsNumber;
+                creature.creatureProperties.saveThrows.fortitude = valueAsNumber;
                 break;
             case "ref":
-                creature.properties.saveThrows.reflex = valueAsNumber;
+                creature.creatureProperties.saveThrows.reflex = valueAsNumber;
                 break;
             case "will":
-                creature.properties.saveThrows.wisdom = valueAsNumber;
+                creature.creatureProperties.saveThrows.wisdom = valueAsNumber;
                 break;
             default:
                 break;
@@ -368,11 +370,11 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
     handleLanguagesChange = (value, option): void => {
         const creature = this.state.creature;
         if (option.action == SelectEventTypesEnum.SELECT_OPTION || option.action == SelectEventTypesEnum.CREATE_OPTION) {
-            creature.properties.languages = value.map(elem => {
+            creature.creatureProperties.languages = value.map(elem => {
                 return new LanguageViewModel(null, elem.value)
             });
         } else if (option.action == SelectEventTypesEnum.REMOVE_OPTION) {
-            creature.properties.languages = creature.properties.languages.filter(elem => {
+            creature.creatureProperties.languages = creature.creatureProperties.languages.filter(elem => {
                 return elem.name != option.removedValue.value
             })
         }
@@ -395,7 +397,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
         }
         this.setState({skillFields: fields});
         const creature = this.state.creature;
-        creature.properties.skills = fields.map(field => {
+        creature.creatureProperties.skills = fields.map(field => {
             return field.skill
         });
         this.setState({creature: creature})
@@ -413,7 +415,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
 
         this.setState({skillFields: fields});
         const creature = this.state.creature;
-        creature.properties.skills = fields.map(field => {
+        creature.creatureProperties.skills = fields.map(field => {
             return field.skill
         });
         this.setState({creature: creature})
@@ -422,7 +424,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
     handleTalentsChange = (value, option): void => {
         const creature = this.state.creature;
         if (option.action == SelectEventTypesEnum.SELECT_OPTION) {
-            creature.properties.talents = this.state.talentData.filter(talent => {
+            creature.creatureProperties.talents = this.state.talentData.filter(talent => {
                 const possibleMatch = value.find(singleValue => {
                     if (
                         singleValue.value === talent.name
@@ -444,7 +446,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                 }
             })
         } else if (option.action == SelectEventTypesEnum.REMOVE_OPTION) {
-            creature.properties.talents = creature.properties.talents.filter(elem => {
+            creature.creatureProperties.talents = creature.creatureProperties.talents.filter(elem => {
                 return elem.name !== option.removedValue.value
                     && elem.type !== option.removedValue.additionalInfoProperty
             })
@@ -455,7 +457,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
     handleActionsChange = (value, option): void => {
         const creature = this.state.creature;
         if (option.action == SelectEventTypesEnum.SELECT_OPTION) {
-            creature.properties.actions = this.state.actionData.filter(action => {
+            creature.creatureProperties.actions = this.state.actionData.filter(action => {
                 const possibleMatch = value.find(singleValue => {
                     if (
                         singleValue.value === action.name
@@ -480,7 +482,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
             })
 
         } else if (option.action == SelectEventTypesEnum.REMOVE_OPTION) {
-            creature.properties.actions = creature.properties.actions.filter(elem => {
+            creature.creatureProperties.actions = creature.creatureProperties.actions.filter(elem => {
                 return elem.name !== option.removedValue.value
                 && elem.damage !== option.removedValue.additionalInfoProperty
             })
@@ -523,7 +525,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                             </label>
                             <label className={style.formTextInputArea}>
                                 <strong>hitpoints:</strong>
-                                <input type="number" value={this.state.creature.properties.hitpoints}
+                                <input type="number" value={this.state.creature.creatureProperties.hitpoints}
                                        onChange={this.handleHPChange}
                                        placeholder={"a creatures life"}
                                        className={style.creatureFormInput}
@@ -531,7 +533,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                             </label>
                             <label className={style.formTextInputArea}>
                                 <strong>armorclass:</strong>
-                                <input type="number" value={this.state.creature.properties.armorclass}
+                                <input type="number" value={this.state.creature.creatureProperties.armorclass}
                                        onChange={this.handleACChange}
                                        placeholder={"A creatures armor"}
                                        className={style.creatureFormInput}
@@ -540,14 +542,14 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                             <label className={style.formSelectContainer}>
                                 <strong>alignment:</strong>
                                 <AlignmentSelect handleAlignmentChange={this.handleAlignmentChange}
-                                                 value={this.state.creature.properties.alignment}
+                                                 value={this.state.creature.creatureProperties.alignment}
                                                  className={style.creatureFormSelect}
                                 />
                             </label>
                             <RedFadeLine/>
                             <label className={style.formTextInputArea}>
                                 <strong>creature type:</strong>
-                                <input type="text" value={this.state.creature.properties.creatureClass}
+                                <input type="text" value={this.state.creature.creatureProperties.creatureClass}
                                        onChange={this.handleCreatureClassChange}
                                        placeholder={"e.g. humanoid (goblin)..."}
                                        className={style.creatureFormInput}
@@ -560,8 +562,8 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                                         style={{marginLeft: "26%"}}
                                 >+
                                 </button>
-                                {this.state.creature.properties.attackProperties &&
-                                this.state.creature.properties.attackProperties.map((elem, i) => {
+                                {this.state.creature.creatureProperties.attackProperties &&
+                                this.state.creature.creatureProperties.attackProperties.map((elem, i) => {
                                     return (
                                         <label className={style.formTextInputArea}
                                                key={i}>
@@ -584,7 +586,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                             </label>
                             <label className={style.formTextInputArea}>
                                 <strong>challenge:</strong>
-                                <input type="number" value={this.state.creature.properties.challenge}
+                                <input type="number" value={this.state.creature.creatureProperties.challenge}
                                        onChange={this.handleChallengeChange}
                                        placeholder={"how strong this is"}
                                        className={style.creatureFormInput}
@@ -592,7 +594,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                             </label>
                             <label className={style.formTextInputArea}>
                                 <strong>movement:</strong>
-                                <input type="number" value={this.state.creature.properties.movement}
+                                <input type="number" value={this.state.creature.creatureProperties.movement}
                                        onChange={this.handleMovementChange}
                                        placeholder={"How far this moves"}
                                        className={style.creatureFormInput}
@@ -601,7 +603,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                             <label className={style.formTextInputArea}>
                                 <strong>initiative modifier:</strong>
                                 <input type="number"
-                                       value={this.state.creature.properties.ini}
+                                       value={this.state.creature.creatureProperties.ini}
                                        onChange={this.handleIniChange}
                                        placeholder={"ini bonus to rolls"}
                                        className={style.creatureFormInput}
@@ -609,7 +611,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                             </label>
                             <label className={style.formTextInputArea}>
                                 <strong>base Attack bonus:</strong>
-                                <input type="number" value={this.state.creature.properties.baseAtk}
+                                <input type="number" value={this.state.creature.creatureProperties.baseAtk}
                                        onChange={this.handleBaseAtkChange}
                                        placeholder={"Bonus to attack rolls"}
                                        className={style.creatureFormInput}
@@ -619,7 +621,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                             <label className={style.formTextInputArea}>
                                 <strong>xp:</strong>
                                 <input
-                                    type="number" value={this.state.creature.properties.xp}
+                                    type="number" value={this.state.creature.creatureProperties.xp}
                                     onChange={this.handleXPChange}
                                     placeholder={"the xp it yields"}
                                     className={style.creatureFormInput}
@@ -630,8 +632,8 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                                 <strong>size:</strong>
                                 <SizeSelect handleSizeChange={this.handleSizeChange}
                                             value={{
-                                                value: this.state.creature.properties.size,
-                                                label: this.state.creature.properties.size
+                                                value: this.state.creature.creatureProperties.size,
+                                                label: this.state.creature.creatureProperties.size
                                             }}
                                 />
                             </label>
@@ -641,19 +643,19 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                                     <label className={style.singleVal}>
                                         str:&nbsp;
                                         <input className={style.subInput} type="number"
-                                               value={this.state.creature.properties.stats.strength}
+                                               value={this.state.creature.creatureProperties.stats.strength}
                                                onChange={e => this.handleStatsChange(e, "str")}/>
                                     </label>
                                     <label className={style.singleVal}>
                                         dex:&nbsp;
                                         <input className={style.subInput} type="number"
-                                               value={this.state.creature.properties.stats.dexterity}
+                                               value={this.state.creature.creatureProperties.stats.dexterity}
                                                onChange={e => this.handleStatsChange(e, "dex")}/>
                                     </label>
                                     <label className={style.singleVal}>
                                         con:
                                         <input className={style.subInput} type="number"
-                                               value={this.state.creature.properties.stats.constitution}
+                                               value={this.state.creature.creatureProperties.stats.constitution}
                                                onChange={e => this.handleStatsChange(e, "con")}/>
                                     </label>
 
@@ -662,19 +664,19 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                                     <label className={style.singleVal}>
                                         int:&nbsp;
                                         <input className={style.subInput} type="number"
-                                               value={this.state.creature.properties.stats.intelligence}
+                                               value={this.state.creature.creatureProperties.stats.intelligence}
                                                onChange={e => this.handleStatsChange(e, "int")}/>
                                     </label>
                                     <label className={style.singleVal}>
                                         wis:&nbsp;
                                         <input className={style.subInput} type="number"
-                                               value={this.state.creature.properties.stats.wisdom}
+                                               value={this.state.creature.creatureProperties.stats.wisdom}
                                                onChange={e => this.handleStatsChange(e, "wis")}/>
                                     </label>
                                     <label className={style.singleVal}>
                                         cha:&nbsp;
                                         <input className={style.subInput} type="number"
-                                               value={this.state.creature.properties.stats.charisma}
+                                               value={this.state.creature.creatureProperties.stats.charisma}
                                                onChange={e => this.handleStatsChange(e, "cha")}/>
                                     </label>
                                 </div>
@@ -685,19 +687,19 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                                     <label className={style.singleVal}>
                                         ref:
                                         <input className={style.subInput} type="number"
-                                               value={this.state.creature.properties.saveThrows.reflex}
+                                               value={this.state.creature.creatureProperties.saveThrows.reflex}
                                                onChange={e => this.handleSaveThrowsChange(e, "ref")}/>
                                     </label>
                                     <label className={style.singleVal}>
                                         will:
                                         <input className={style.subInput} type="number"
-                                               value={this.state.creature.properties.saveThrows.wisdom}
+                                               value={this.state.creature.creatureProperties.saveThrows.wisdom}
                                                onChange={e => this.handleSaveThrowsChange(e, "will")}/>
                                     </label>
                                     <label className={style.singleVal}>
                                         fort:
                                         <input className={style.subInput} type="number"
-                                               value={this.state.creature.properties.saveThrows.fortitude}
+                                               value={this.state.creature.creatureProperties.saveThrows.fortitude}
                                                onChange={e => this.handleSaveThrowsChange(e, "fort")}/>
                                     </label>
                                 </div>
@@ -711,7 +713,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                                 </button
                                 >
                                 {
-                                    this.state.creature.properties.skills &&
+                                    this.state.creature.creatureProperties.skills &&
                                     this.state.skillFields.map((elem, i) => {
                                         return (
                                             <label className={style.formTextInputArea}
@@ -750,8 +752,8 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                                     options={this.composeSelectableAttributeOptions("Language")}
                                     className={style.creatureFormSelect}
                                     value={
-                                        this.state.creature.properties.languages &&
-                                        this.state.creature.properties.languages.map(elem => {
+                                        this.state.creature.creatureProperties.languages &&
+                                        this.state.creature.creatureProperties.languages.map(elem => {
                                             return ({value: elem.name, label: elem.name})
                                         })}
                                     isClearable
@@ -765,8 +767,8 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                                     options={this.composeSelectableAttributeOptions("Talent")}
                                     className={style.creatureFormSelect}
                                     value={
-                                        this.state.creature.properties.talents &&
-                                        this.state.creature.properties.talents.map(elem => {
+                                        this.state.creature.creatureProperties.talents &&
+                                        this.state.creature.creatureProperties.talents.map(elem => {
                                             return ({
                                                 value: elem.name,
                                                 label: elem.name,
@@ -784,8 +786,8 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                                     options={this.composeSelectableAttributeOptions("Action")}
                                     className={style.creatureFormSelect}
                                     value={
-                                        this.state.creature.properties.actions &&
-                                        this.state.creature.properties.actions.map(elem => {
+                                        this.state.creature.creatureProperties.actions &&
+                                        this.state.creature.creatureProperties.actions.map(elem => {
                                             return ({
                                                 value: elem.name,
                                                 label: `${elem.name} ${elem.damage.getFullDiceRollString()}`,
@@ -826,23 +828,23 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                         <div className={`${style.formPart} ${style.formPartCreature}`}>
                             <CreatureCard
                                 name={this.state.creature.name}
-                                hitpoints={this.state.creature.properties.hitpoints}
-                                armorclass={this.state.creature.properties.armorclass}
-                                alignment={this.state.creature.properties.alignment}
-                                creatureClass={this.state.creature.properties.creatureClass}
-                                challenge={this.state.creature.properties.challenge}
-                                movement={this.state.creature.properties.movement}
-                                ini={this.state.creature.properties.ini}
-                                baseAtk={this.state.creature.properties.baseAtk}
-                                size={this.state.creature.properties.size}
-                                stats={this.state.creature.properties.stats}
-                                saveThrows={this.state.creature.properties.saveThrows}
-                                actions={this.state.creature.properties.actions}
-                                attackProperties={this.state.creature.properties.attackProperties}
-                                languages={this.state.creature.properties.languages}
-                                skills={this.state.creature.properties.skills}
-                                talents={this.state.creature.properties.talents}
-                                xp={this.state.creature.properties.xp}
+                                hitpoints={this.state.creature.creatureProperties.hitpoints}
+                                armorclass={this.state.creature.creatureProperties.armorclass}
+                                alignment={this.state.creature.creatureProperties.alignment}
+                                creatureClass={this.state.creature.creatureProperties.creatureClass}
+                                challenge={this.state.creature.creatureProperties.challenge}
+                                movement={this.state.creature.creatureProperties.movement}
+                                ini={this.state.creature.creatureProperties.ini}
+                                baseAtk={this.state.creature.creatureProperties.baseAtk}
+                                size={this.state.creature.creatureProperties.size}
+                                stats={this.state.creature.creatureProperties.stats}
+                                saveThrows={this.state.creature.creatureProperties.saveThrows}
+                                actions={this.state.creature.creatureProperties.actions}
+                                attackProperties={this.state.creature.creatureProperties.attackProperties}
+                                languages={this.state.creature.creatureProperties.languages}
+                                skills={this.state.creature.creatureProperties.skills}
+                                talents={this.state.creature.creatureProperties.talents}
+                                xp={this.state.creature.creatureProperties.xp}
                                 image={this.previewImage()}
                                 preview={true}
                             />
