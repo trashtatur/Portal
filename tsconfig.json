@@ -15,6 +15,7 @@
     "emitDecoratorMetadata": true,
     "removeComments": true,
     "baseUrl": ".",
+    "resolveJsonModule": true,
     "paths": {
       "@/public/*": [
         "src/public/*"
