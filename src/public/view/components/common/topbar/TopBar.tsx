@@ -5,7 +5,7 @@ import {Dicebar} from "../dicebar/Dicebar";
 import {SystemsEnum} from "@/public/enumeration/SystemsEnum";
 import {DND5Menu} from "../../module-battle/dnd5/menu/DND5Menu";
 import {Link} from 'react-router-dom'
-import {RoutesEnum} from "@/public/service/RoutesEnum";
+import {RoutesEnum} from "@/public/enumeration/RoutesEnum";
 import withErrorBoundary from "@/public/view/components/common/errorBoundary/WithErrorBoundary";
 import * as style from './topBar.css';
 

@@ -4,7 +4,8 @@ import {PathfinderActionModel} from "../../model/pathfinder/PathfinderActionMode
 import {RangeTypeEnum} from "../../model/enumeration/RangeTypeEnum";
 import {PathfinderDamageType} from "../../model/pathfinder/PathfinderDamageType";
 import {PathfinderDamageTypesEnum} from "../../model/enumeration/pathfinder/PathfinderDamageTypesEnum";
-import {getEnumKeyForValue, mapDamageStringToDamageDataModel} from "../../helper/HelperFunctions";
+import {getEnumKeyForValue} from "../../services/EnumKeyFromStringService";
+import {convertDamageString} from "../DamageStringConverter";
 
 export class PathfinderActionConverter implements ConverterInterface<PathfinderAction, PathfinderActionModel> {
     convertEntity(entity: PathfinderAction): PathfinderActionModel {
@@ -14,7 +15,7 @@ export class PathfinderActionConverter implements ConverterInterface<PathfinderA
             getEnumKeyForValue(entity.rangeType, RangeTypeEnum),
             entity.attackBonus,
             entity.range,
-            mapDamageStringToDamageDataModel(entity.damage),
+            convertDamageString(entity.damage),
             entity.critMod,
             this.mapDamageTypeStringToDamageTypeDataModel(entity.damageType),
             entity.additionalInfo
@@ -29,6 +30,7 @@ export class PathfinderActionConverter implements ConverterInterface<PathfinderA
             return this.convertEntity(entity);
         });
     }
+
     private mapDamageTypeStringToDamageTypeDataModel = (damageTypeString: string): PathfinderDamageType => {
         const isHybrid = damageTypeString.includes('(hybrid)')
         const isMagic = damageTypeString.includes('(magic)')

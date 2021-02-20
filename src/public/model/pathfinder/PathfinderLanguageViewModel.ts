@@ -1,22 +1,18 @@
 import {JsonProperty, Serializable} from "typescript-json-serializer";
 
 @Serializable()
-export class SkillViewModel {
+export class PathfinderLanguageViewModel {
     @JsonProperty({name: 'id'})
     private _id: string;
     @JsonProperty({name: 'name'})
     private _name: string;
-    @JsonProperty({name: 'level'})
-    private _level: number;
 
     constructor(
         id: string,
-        name: string,
-        level: number
+        name: string
     ) {
         this._id = id;
         this._name = name;
-        this._level = level;
     }
 
     get id(): string {
@@ -33,13 +29,5 @@ export class SkillViewModel {
 
     set name(value: string) {
         this._name = value;
-    }
-
-    get level(): number {
-        return this._level;
-    }
-
-    set level(value: number) {
-        this._level = value;
     }
 }

@@ -3,21 +3,21 @@ import {MulterOptions, MultipartFile} from "@tsed/multipartfiles";
 import {CreatureService} from "../../services/CreatureService";
 import {creatureData} from "../../types/backendTypes";
 import {SystemToIncludeService} from "../../services/SystemToIncludeService";
-import {DND5CreatureProperties} from "../../db/schemas/DND5/DND5CreatureProperties";
-import {DND5CreaturePropertiesModel} from "../../model/dnd5/DND5CreaturePropertiesModel";
-import {PathfinderCreatureProperties} from "../../db/schemas/pathfinder/PathfinderCreatureProperties";
-import {PathfinderCreaturePropertiesModel} from "../../model/pathfinder/PathfinderCreaturePropertiesModel";
+import {CreatureSerializerService} from "../../services/CreatureSerializerService";
 
 
 @Controller('/creature')
 export class CreatureResourceController {
     private creatureService: CreatureService;
     private systemToIncludeService: SystemToIncludeService;
+    private creatureSerializerService: CreatureSerializerService;
 
     constructor(
         creatureService: CreatureService,
+        creatureSerializerService: CreatureSerializerService,
         systemToIncludeService: SystemToIncludeService
     ) {
+        this.creatureSerializerService = creatureSerializerService;
         this.systemToIncludeService = systemToIncludeService;
         this.creatureService = creatureService;
     }
@@ -52,20 +52,10 @@ export class CreatureResourceController {
     }
 
     @Get('/:system')
-    async allCreatures(@PathParams('system') system: string): Promise<string> {
+    async allCreatures(@PathParams('system') system: string): Promise<string[]> {
         const systemToInclude = this.systemToIncludeService.getSystemToInclude(system);
-        let creatures = [];
-        switch (systemToInclude) {
-            case DND5CreatureProperties:
-                creatures = await this.creatureService.findAll<DND5CreaturePropertiesModel>(systemToInclude, DND5CreaturePropertiesModel)
-                break;
-            case PathfinderCreatureProperties:
-                creatures = await this.creatureService.findAll<PathfinderCreaturePropertiesModel>(systemToInclude, PathfinderCreaturePropertiesModel)
-                break;
-            default:
-                break;
-        }
-        return JSON.stringify(creatures)
+        const creatures = await this.creatureService.findAll<typeof systemToInclude>(systemToInclude)
+        return this.creatureSerializerService.serializeCreatures(creatures);
     }
 
     @Get('/:system/name/:creatureName')

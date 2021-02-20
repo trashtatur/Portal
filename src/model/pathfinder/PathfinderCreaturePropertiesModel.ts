@@ -10,7 +10,7 @@ import {PathfinderSkillModel} from "./PathfinderSkillModel";
 import {PathfinderTalentModel} from "./PathfinderTalentModel";
 import {NamedCreatureProperty} from "../NamedCreatureProperty";
 import {JsonProperty, Serializable} from "typescript-json-serializer";
-import {getEnumKeyForValue} from "../../helper/HelperFunctions";
+import {getEnumKeyForValue} from "../../services/EnumKeyFromStringService";
 
 @Serializable()
 export class PathfinderCreaturePropertiesModel extends AbstractCreaturePropertyModel{
@@ -45,15 +45,15 @@ export class PathfinderCreaturePropertiesModel extends AbstractCreaturePropertyM
     private readonly _xp?: number;
     @JsonProperty({name: 'image'})
     private readonly _image?: string;
-    @JsonProperty({name: 'actions'})
+    @JsonProperty({name: 'actions', type: PathfinderActionModel})
     private readonly _actions?: PathfinderActionModel[];
-    @JsonProperty({name: 'languages'})
+    @JsonProperty({name: 'languages', type: PathfinderLanguageModel})
     private readonly _languages?: PathfinderLanguageModel[];
-    @JsonProperty({name: 'skills'})
+    @JsonProperty({name: 'skills', type: PathfinderSkillModel})
     private readonly _skills?: PathfinderSkillModel[];
-    @JsonProperty({name: 'talents'})
+    @JsonProperty({name: 'talents', type: PathfinderTalentModel})
     private readonly _talents?: PathfinderTalentModel[];
-    @JsonProperty({name: 'attackProperties'})
+    @JsonProperty({name: 'attackProperties', type: NamedCreatureProperty})
     private readonly _attackProperties?: NamedCreatureProperty[];
 
 

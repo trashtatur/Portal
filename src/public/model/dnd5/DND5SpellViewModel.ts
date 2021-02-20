@@ -1,19 +1,35 @@
 import {MagicSchoolEnum} from "@/public/model/enumeration/dnd5/MagicSchoolEnum";
 import {SpellComponentEnum} from "@/public/model/enumeration/dnd5/SpellComponentEnum";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
+import {string} from "prop-types";
 
+@Serializable()
 export class DND5SpellViewModel {
+    @JsonProperty({name: 'id'})
     private _id: string;
+    @JsonProperty({name: 'name'})
     private _name: string;
+    @JsonProperty({name: 'description'})
     private _description: string;
+    @JsonProperty({name: 'range'})
     private _range: string;
+    @JsonProperty({name: 'components', type: string})
     private _components: SpellComponentEnum[];
+    @JsonProperty({name: 'canBeCastAsRitual'})
     private _canBeCastAsRitual: boolean;
+    @JsonProperty({name: 'duration'})
     private _duration: string;
+    @JsonProperty({name: 'needsConcentration'})
     private _needsConcentration: boolean;
+    @JsonProperty({name: 'castingTime'})
     private _castingTime: string;
+    @JsonProperty({name: 'school'})
     private _school: MagicSchoolEnum;
+    @JsonProperty({name: 'level'})
     private _level: number;
+    @JsonProperty({name: 'materials'})
     private _materials?: string;
+    @JsonProperty({name: 'higherLevelsDescription'})
     private _higherLevelsDescription?: string;
 
     constructor(

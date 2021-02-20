@@ -1,5 +1,5 @@
-import {AbstractEffectViewModel} from "@/public/model/effects/AbstractEffectViewModel";
+import {StatusEffectAware} from "@/public/model/status/StatusEffectAware";
 
-export class AbstractPropertyViewModel extends AbstractEffectViewModel{
+export class AbstractPropertyViewModel extends StatusEffectAware {
 
 }

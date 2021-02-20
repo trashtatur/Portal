@@ -1,12 +1,6 @@
 import {ConverterInterface} from "../ConverterInterface";
 import {DND5CreatureProperties} from "../../db/schemas/DND5/DND5CreatureProperties";
 import {DND5CreaturePropertiesModel} from "../../model/dnd5/DND5CreaturePropertiesModel";
-import {
-    getEnumKeyForValue,
-    mapDamageStringToDamageDataModel,
-    mapNamedPropertiesStringToNamedPropertiesModel,
-    mapStatsStringToStatsDataModel
-} from "../../helper/HelperFunctions";
 import {TypeEnum} from "../../model/enumeration/TypeEnum";
 import {AlignmentEnum} from "../../model/enumeration/AlignmentEnum";
 import {CreatureTypeEnum} from "../../model/enumeration/dnd5/CreatureTypeEnum";
@@ -21,6 +15,10 @@ import {DND5SavingThrowsModel} from "../../model/dnd5/DND5SavingThrowsModel";
 import {SenseModel} from "../../model/dnd5/SenseModel";
 import {DND5SpellSlotsModel} from "../../model/dnd5/DND5SpellSlotsModel";
 import {dnd5SavingThrows, dnd5Sense, dnd5SpellSlots} from "../../types/dnd5BackendTypes";
+import {getEnumKeyForValue} from "../../services/EnumKeyFromStringService";
+import {convertDamageString} from "../DamageStringConverter";
+import {convertStatsString} from "../StatsStringConverter";
+import {convertNamedPropertiesString} from "../NamedPropertiesStringConverter";
 
 @Service()
 export class DND5CreaturePropertiesConverter implements ConverterInterface<DND5CreatureProperties, DND5CreaturePropertiesModel> {
@@ -51,13 +49,13 @@ export class DND5CreaturePropertiesConverter implements ConverterInterface<DND5C
             entity.proficiencyBonus,
             entity.armorclass,
             entity.hitpoints,
-            mapDamageStringToDamageDataModel(entity.hitDice),
+            convertDamageString(entity.hitDice),
             getEnumKeyForValue(entity.alignment, AlignmentEnum),
             entity.attackProperties,
             getEnumKeyForValue(entity.creatureType, CreatureTypeEnum),
             entity.challenge,
             entity.xp,
-            mapStatsStringToStatsDataModel(entity.stats),
+            convertStatsString(entity.stats),
             getEnumKeyForValue(entity.size, DND5CreatureSizeEnum),
             entity.speed,
             this.mapSpellSlotStringToSpellSlotsModel(entity.spellSlots),
@@ -69,8 +67,8 @@ export class DND5CreaturePropertiesConverter implements ConverterInterface<DND5C
             this.mapSavingThrowsStringToSavingThrowsModel(entity.savingThrows),
             entity.image,
             this.mapSensesStringTosSensesModel(entity.senses),
-            mapNamedPropertiesStringToNamedPropertiesModel(entity.legendaryActions),
-            mapNamedPropertiesStringToNamedPropertiesModel(entity.reactions),
+            convertNamedPropertiesString(entity.legendaryActions),
+            convertNamedPropertiesString(entity.reactions),
             this.dnd5ActionConverter.convertMultipleEntities(entity.actions),
             this.dnd5TalentConverter.convertMultipleEntities(entity.talents),
             this.dnd5SkillConverter.convertMultipleEntities(entity.skills),

@@ -7,6 +7,8 @@ import {DND5CreaturePropertiesModel} from "../model/dnd5/DND5CreaturePropertiesM
 import {PathfinderCreaturePropertiesModel} from "../model/pathfinder/PathfinderCreaturePropertiesModel";
 import {SystemEnum} from "../enumeration/SystemEnum";
 import {DND5CreaturePropertiesConverter} from "./dnd5/DND5CreaturePropertiesConverter";
+import {DND5CreatureProperties} from "../db/schemas/DND5/DND5CreatureProperties";
+import {PathfinderCreatureProperties} from "../db/schemas/pathfinder/PathfinderCreatureProperties";
 
 @Service()
 export class CreatureConverter  {
@@ -21,10 +23,10 @@ export class CreatureConverter  {
         this.pathfinderCreaturePropertiesEntityToModelMapper = pathfinderCreaturePropertiesEntityToModelMapper;
     }
 
-    map<T extends AbstractCreaturePropertyModel>(entity: Creature, property: { new(...args: any[]): T }): CreatureModel<T> {
+    map<T extends AbstractCreaturePropertyModel>(entity: Creature, creatureProperty): CreatureModel<T> {
         let propertyModel = null;
         const creatureModel = new CreatureModel(entity.uuid, entity.name, propertyModel)
-        switch (property.name) {
+        switch (creatureProperty.name) {
             case DND5CreaturePropertiesModel.name:
                 creatureModel.propertyType = SystemEnum.DND5
                 propertyModel = this.dnd5CreaturePropertiesEntityToModelMapper.convertEntity(

@@ -1,9 +1,9 @@
 import {ConverterInterface} from "../ConverterInterface";
 import {DND5Spell} from "../../db/schemas/DND5/DND5Spell";
 import {DND5SpellModel} from "../../model/dnd5/DND5SpellModel";
-import {getEnumKeyForValue} from "../../helper/HelperFunctions";
 import {MagicSchoolEnum} from "../../model/enumeration/dnd5/MagicSchoolEnum";
 import {SpellComponentEnum} from "../../model/SpellComponentEnum";
+import {getEnumKeyForValue} from "../../services/EnumKeyFromStringService";
 
 export class DND5SpellConverter implements ConverterInterface<DND5Spell, DND5SpellModel>{
     convertEntity = (entity: DND5Spell): DND5SpellModel => {

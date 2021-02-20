@@ -8,9 +8,9 @@ import {MultiSelectWithCreate} from "@/public/view/components/uiBasic/multiSelec
 import {MultiSelectNoCreate} from "@/public/view/components/uiBasic/multiSelectNoCreate/MultiSelectNoCreate";
 import CreatableSelect from 'react-select';
 import {selectable} from "@/public/types/frontendTypes";
-import {uuidv4} from "@/public/service/helperFunctions";
 import {SelectEventTypesEnum} from "@/public/model/enumeration/SelectEventTypesEnum";
 import * as style from "../formSectionGeneralStyles.css";
+import {uuidv4} from "@/public/service/UuidService";
 
 interface LanguagesFeatsSensesAndSkillsFormSectionProps {
     languages: DND5LanguageViewModel[];

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
 import {ClassAndLevelViewModel} from "@/public/model/ClassAndLevelViewModel";
-import {uuidv4} from "@/public/service/helperFunctions";
 import {ClassesEnum} from "@/public/model/enumeration/dnd5/ClassesEnum";
 import {selectable} from "@/public/types/frontendTypes";
 import Select from 'react-select';
 import {SelectEventTypesEnum} from "@/public/model/enumeration/SelectEventTypesEnum";
 import * as style from '../formSectionGeneralStyles.css';
+import {uuidv4} from "@/public/service/UuidService";
 
 interface ClassesAndLevelsFormSectionProps {
     classesAndLevels: ClassAndLevelViewModel[];

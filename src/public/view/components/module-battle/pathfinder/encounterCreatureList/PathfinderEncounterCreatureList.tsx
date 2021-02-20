@@ -2,7 +2,6 @@ import * as React from "react";
 import {ReactElement} from "react";
 import {BattleCreature} from "../battleCreature/BattleCreature";
 import axios, {AxiosResponse} from 'axios';
-import {uuidv4} from "@/public/service/helperFunctions";
 import {selectable, selectableCreatures} from "@/public/types/frontendTypes";
 import {CreatureSelectLabel} from "@/public/view/components/uiBasic/creatureSelectLabel/CreatureSelectLabel";
 import {PathfinderAddSummon} from "@/public/view/components/module-battle/pathfinder/formAddSummon/PathfinderAddSummon";
@@ -10,10 +9,11 @@ import {BattleDiceRoller} from "../battleDiceRoller/BattleDiceRoller";
 import {MultiSelectNoCreate} from "@/public/view/components/uiBasic/multiSelectNoCreate/MultiSelectNoCreate";
 import {CreatureViewModel} from "@/public/model/CreatureViewModel";
 import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
-import {CreatureDataToViewModelMapper} from "@/public/mapping/CreatureDataToViewModelMapper";
 import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
 import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import {SelectEventTypesEnum} from "@/public/model/enumeration/SelectEventTypesEnum";
+import {CreatureSerializerService} from "@/public/service/CreatureSerializerService";
+import {uuidv4} from "@/public/service/UuidService";
 import * as style from './pathfinderEncounterCreatureList.css';
 
 export interface EncounterCreatureListProps {
@@ -117,9 +117,9 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
             //this.setState({creaturesInBattle: potentialEncounter});
         }
         try {
-            const creatureMapper = new CreatureDataToViewModelMapper();
+            const creatureSerializerService = new CreatureSerializerService()
             const creatureData = await this.getAllCreatures();
-            const creatureViewModels = creatureMapper.mapMultiple(creatureData.data, PathfinderCreaturePropertiesViewModel);
+            const creatureViewModels = creatureSerializerService.deserializeCreatures(creatureData.data)
             this.setState({creatureViewModels: creatureViewModels})
         } catch (e) {
             console.log(e)

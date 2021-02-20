@@ -1,8 +1,8 @@
-import {AbstractEffectViewModel} from "@/public/model/effects/AbstractEffectViewModel";
-import {ApplyEffects } from "@/public/model/effects/decorator/DecoratorFunctions";
+import {ApplyEffects } from "@/public/model/status/decorator/DecoratorFunctions";
 import {ClassesEnum} from "@/public/model/enumeration/dnd5/ClassesEnum";
+import {StatusEffectAware} from "@/public/model/status/StatusEffectAware";
 
-export class ClassAndLevelViewModel extends AbstractEffectViewModel{
+export class ClassAndLevelViewModel extends StatusEffectAware{
     private _name: ClassesEnum;
     private _subclass?: string;
     private _level: number;

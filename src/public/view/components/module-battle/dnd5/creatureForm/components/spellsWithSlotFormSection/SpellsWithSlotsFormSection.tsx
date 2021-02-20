@@ -4,7 +4,6 @@ import {MagicSchoolEnum} from "@/public/model/enumeration/dnd5/MagicSchoolEnum";
 import {DND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
 import {SpellLevelFilterChip} from "@/public/view/components/module-battle/dnd5/spellLevelFilterChip/SpellLevelFilterChip";
 import {SpellSchoolFilterChip} from "@/public/view/components/module-battle/dnd5/spellSchoolFilterChip/SpellSchoolFilterChip";
-import {DND5SpellDataToViewModelMapper} from "@/public/mapping/dnd5/DND5SpellDataToViewModelMapper";
 import {SpellChip} from "@/public/view/components/module-battle/dnd5/spellChip/SpellChip";
 import * as style from './spellsWithSlotsFormSection.css';
 
@@ -25,11 +24,9 @@ interface SpellFormSectionState {
 }
 
 export class SpellsWithSlotsFormSection extends React.Component<SpellFormSectionProps, SpellFormSectionState> {
-    private spellDataToViewModelMapper: DND5SpellDataToViewModelMapper;
 
     constructor(props) {
         super(props);
-        this.spellDataToViewModelMapper = new DND5SpellDataToViewModelMapper();
         this.state = {
             detailedSpell: null,
             spellSearchFilter: '',

@@ -3,24 +3,26 @@ import {Creature} from "../db/schemas/Creature";
 import {Service} from "@tsed/di";
 import {CreatureConverter} from "../converter/CreatureConverter";
 import {PathfinderCreaturePropertiesRepository} from "./pathfinder/PathfinderCreaturePropertiesRepository";
-import {Includeable} from "sequelize";
 import {AbstractCreaturePropertyModel} from "../model/AbstractCreaturePropertyModel";
-import {DND5CreatureProperties} from "../db/schemas/DND5/DND5CreatureProperties";
 import {DND5CreaturePropertiesModel} from "../model/dnd5/DND5CreaturePropertiesModel";
 import {DND5CreaturePropertiesRepository} from "./dnd5/DND5CreaturePropertiesRepository";
 import {PathfinderCreaturePropertiesModel} from "../model/pathfinder/PathfinderCreaturePropertiesModel";
+import {SystemToIncludeService} from "../services/SystemToIncludeService";
 
 @Service()
 export class CreatureRepository {
     private creatureConverter: CreatureConverter;
+    private systemToIncludeService: SystemToIncludeService;
     private pathfinderCreaturePropertiesRepository: PathfinderCreaturePropertiesRepository;
     private dnd5CreaturePropertiesRepository: DND5CreaturePropertiesRepository;
 
     constructor(
         creatureConverter: CreatureConverter,
+        systemToIncludeService: SystemToIncludeService,
         pathfinderCreaturePropertiesRepository: PathfinderCreaturePropertiesRepository,
         dnd5CreaturePropertiesRepository: DND5CreaturePropertiesRepository
     ) {
+        this.systemToIncludeService = systemToIncludeService;
         this.dnd5CreaturePropertiesRepository = dnd5CreaturePropertiesRepository;
         this.pathfinderCreaturePropertiesRepository = pathfinderCreaturePropertiesRepository;
         this.creatureConverter = creatureConverter;
@@ -54,19 +56,20 @@ export class CreatureRepository {
         return null;
     }
 
-    findAll = async <T extends AbstractCreaturePropertyModel>(includedProperty, propertyModelToInclude: { new(...args: any[]): T }): Promise<CreatureModel<T>[]> => {
+    findAll = async <T extends AbstractCreaturePropertyModel>(includedProperty): Promise<CreatureModel<T>[]> => {
+        const includeModel = this.systemToIncludeService.getSystemPropertyEntityTypeFromPropertyModelType(includedProperty);
         const creatures = await Creature.findAll(
             {
                 include: [
                     {
-                        model: includedProperty,
+                        model: includeModel,
                         include: [{all: true, nested: true} as any]
                     }
                 ],
             }
         );
         return creatures.map(creatureEntity => {
-            return this.creatureConverter.map<T>(creatureEntity, propertyModelToInclude);
+            return this.creatureConverter.map<T>(creatureEntity, includedProperty);
         })
     }
 }

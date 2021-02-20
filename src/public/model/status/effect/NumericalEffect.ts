@@ -1,30 +1,25 @@
-import {EffectInterface} from "@/public/model/effects/EffectInterface";
+import {EffectInterface} from "@/public/model/status/effect/EffectInterface";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class NumericalEffect implements EffectInterface<number>{
+    @JsonProperty({name: 'will'})
     private _will: "add" | "subtract";
-    private _name: string;
+    @JsonProperty({name: 'amount'})
     private _amount: number;
+    @JsonProperty({name: 'from'})
     private _from: string;
+    @JsonProperty({name: 'active'})
     private _active: boolean;
 
     constructor(
-        name: string,
         will: "add" | "subtract",
         amount: number,
         from: string
     ) {
-        this._name = name;
         this._will = will;
         this._amount = amount;
         this._from = from;
-    }
-
-    get name(): string {
-        return this._name;
-    }
-
-    set name(value: string) {
-        this._name = value;
     }
 
     get will(): "add" | "subtract" {

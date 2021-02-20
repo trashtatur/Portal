@@ -1,16 +1,34 @@
+import {JsonProperty, Serializable} from "typescript-json-serializer";
+import {PersonViewModel} from "@/public/model/PersonViewModel";
+
+@Serializable()
 export class SceneViewModel{
+    @JsonProperty({name: 'id'})
     private _id?: string;
+    @JsonProperty({name: 'number'})
     private _number = null;
+    @JsonProperty({name: 'name'})
     private _name = '';
+    @JsonProperty({name: 'hook'})
     private _hook = '';
+    @JsonProperty({name: 'token'})
     private _token = '';
+    @JsonProperty({name: 'act'})
     private _act = null;
+    @JsonProperty({name: 'resolve'})
     private _resolve = '';
-    private _parentScenes: Array<SceneViewModel> = [];
+    @JsonProperty({name: 'parentScenes', type: SceneViewModel})
+    private _parentScenes: SceneViewModel[] = [];
+    @JsonProperty({name: 'additionalDescription'})
     private _additionalDescription = '';
-    private _images: Array<string> = [];
+    @JsonProperty({name: 'images'})
+    private _images: string[] = [];
+    @JsonProperty({name: 'treasure'})
     private _treasure = '';
+    @JsonProperty({name: 'adventureId'})
     private _adventureId?: string;
+    @JsonProperty({name: 'persons', type: PersonViewModel})
+    private _persons?: PersonViewModel[] = []
 
     constructor(
         id?: string,
@@ -21,10 +39,11 @@ export class SceneViewModel{
         token = '',
         act: number = null,
         resolve = '',
-        parentScenes: Array<SceneViewModel> = [],
+        parentScenes: SceneViewModel[] = [],
         additionalDescription = '',
-        images: Array<string> = [],
+        images: string[] = [],
         treasure = '',
+        persons: PersonViewModel[] = [],
     ) {
         this._id = id;
         this._adventureId = adventureId;
@@ -38,6 +57,7 @@ export class SceneViewModel{
         this._additionalDescription = additionalDescription;
         this._images = images;
         this._treasure = treasure;
+        this._persons = persons;
     }
 
     get id(): string {
@@ -118,11 +138,11 @@ export class SceneViewModel{
         this._resolve = value;
     }
 
-    get parentScenes(): Array<SceneViewModel> {
+    get parentScenes(): SceneViewModel[] {
         return this._parentScenes;
     }
 
-    set parentScenes(value: Array<SceneViewModel>) {
+    set parentScenes(value: SceneViewModel[]) {
         this._parentScenes = value;
     }
 
@@ -134,11 +154,11 @@ export class SceneViewModel{
         this._additionalDescription = value;
     }
 
-    get images(): Array<string> {
+    get images(): string[] {
         return this._images;
     }
 
-    set images(value: Array<string>) {
+    set images(value: string[]) {
         this._images = value;
     }
 
@@ -148,5 +168,13 @@ export class SceneViewModel{
 
     set treasure(value: string) {
         this._treasure = value;
+    }
+
+    get persons(): PersonViewModel[] {
+        return this._persons;
+    }
+
+    set persons(value: PersonViewModel[]) {
+        this._persons = value;
     }
 }

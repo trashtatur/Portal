@@ -2,11 +2,12 @@ import * as React from 'react';
 import {CSSProperties, ReactNode} from 'react';
 import Dropzone from "react-dropzone-uploader";
 import Switch from "react-switch";
-import {setCreatureImageName, uploadImage} from "@/public/service/helperFunctions";
 import axios from "axios";
 import {CreatureViewModel} from "@/public/model/CreatureViewModel";
 import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
 import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {uploadCreatureImage} from "@/public/service/HttpService";
+import {setCreatureImagePath} from "@/public/service/ImagePathService";
 import * as style from './pathfinderAddSummon.css';
 
 interface AddSummonProps {
@@ -40,7 +41,7 @@ export class PathfinderAddSummon extends React.Component<AddSummonProps, AddSumm
     handleSubmit = async (event): Promise<void> => {
         event.preventDefault();
         if (this.state.submitToDB) {
-            uploadImage(
+            uploadCreatureImage(
                 this.state.summonedCreature.creatureProperties.image,
                 this.state.summonedCreature.name,
                 this.state.summonedCreature.creatureProperties.challenge
@@ -49,7 +50,7 @@ export class PathfinderAddSummon extends React.Component<AddSummonProps, AddSumm
                 const creature = this.state.summonedCreature;
                 if (typeof creature.creatureProperties.image !== "string") {
                     creature.creatureProperties.image =
-                        setCreatureImageName(creature.name, creature.creatureProperties.challenge, creature.creatureProperties.image);
+                        setCreatureImagePath(creature.name, creature.creatureProperties.challenge, creature.creatureProperties.image);
                 }
                 await axios.post('/V1/Creature', creature);
                 alert('Created entry in database');
@@ -91,21 +92,21 @@ export class PathfinderAddSummon extends React.Component<AddSummonProps, AddSumm
     handleHitpointsChange = (event): void => {
         const summonedCreature = this.state.summonedCreature;
         summonedCreature.creatureProperties.hitpoints = null;
-        if (!isNaN(parseInt(event.target.value))) summonedCreature.creatureProperties.hitpoints = event.target.value;
+        if (!isNaN(parseInt(event.target.value))) summonedCreature.creatureProperties.hitpoints = parseInt(event.target.value);
         this.setState({summonedCreature: summonedCreature})
     };
 
     handleArmorClassChange = (event): void => {
         const summonedCreature = this.state.summonedCreature;
         summonedCreature.creatureProperties.armorclass = null;
-        if (!isNaN(parseInt(event.target.value))) summonedCreature.creatureProperties.armorclass = event.target.value;
+        if (!isNaN(parseInt(event.target.value))) summonedCreature.creatureProperties.armorclass = parseInt(event.target.value);
         this.setState({summonedCreature: summonedCreature})
     };
 
     handleIniChange = (event): void => {
         const summonedCreature = this.state.summonedCreature;
         summonedCreature.creatureProperties.ini = null;
-        if (!isNaN(parseInt(event.target.value))) summonedCreature.creatureProperties.ini = event.target.value;
+        if (!isNaN(parseInt(event.target.value))) summonedCreature.creatureProperties.ini = parseInt(event.target.value);
         this.setState({summonedCreature: summonedCreature})
     };
 

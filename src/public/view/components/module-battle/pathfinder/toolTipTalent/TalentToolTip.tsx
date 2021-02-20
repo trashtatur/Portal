@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {CSSProperties, ReactNode} from 'react';
 import {PathfinderTalentTypesEnum} from "@/public/model/enumeration/pathfinder/PathfinderTalentTypesEnum";
-import {TalentViewModel} from "@/public/model/pathfinder/TalentViewModel";
+import {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
 import * as style from './talentTooltip.css';
 
 export interface TalentToolTipProps {
-    talent: TalentViewModel;
+    talent: PathfinderTalentViewModel;
 }
 
 export class TalentToolTip extends React.Component<TalentToolTipProps> {

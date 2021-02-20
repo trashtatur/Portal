@@ -1,6 +1,7 @@
 import {BodyParams, Controller, Get, PathParams, Post, Put} from "@tsed/common";
 import {AdventureService} from "../../services/AdventureService";
 import {adventureData} from "../../types/backendTypes";
+import {serialize} from "typescript-json-serializer";
 
 @Controller('/Adventure')
 export class AdventureResourceController {
@@ -18,9 +19,9 @@ export class AdventureResourceController {
     }
 
     @Get()
-    async allAdventures(): Promise<string> {
+    async allAdventures(): Promise<string[]> {
         const adventures = await this.adventureService.findAll();
-        return JSON.stringify(adventures);
+        return adventures.map(adventure => serialize(adventure));
     }
 
     @Post()

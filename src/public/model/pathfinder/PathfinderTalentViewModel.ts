@@ -1,7 +1,7 @@
 import {JsonProperty, Serializable} from "typescript-json-serializer";
 
 @Serializable()
-export class TalentViewModel {
+export class PathfinderTalentViewModel {
     @JsonProperty({name: 'id'})
     private _id: string;
     @JsonProperty({name: 'name'})

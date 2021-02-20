@@ -3,8 +3,8 @@ import {JsonProperty, Serializable} from "typescript-json-serializer";
 
 @Serializable()
 export class PathfinderDamageType {
-    @JsonProperty({name: 'damageType'})
-    private _damageType: PathfinderDamageTypesEnum[];
+    @JsonProperty({name: 'damageTypes'})
+    private _damageTypes: PathfinderDamageTypesEnum[];
     @JsonProperty({name: 'isHybrid'})
     private _isHybrid: boolean;
     @JsonProperty({name: 'isMagic'})
@@ -15,17 +15,17 @@ export class PathfinderDamageType {
         isMagic: boolean,
         isHybrid: boolean
     ) {
-        this._damageType = damageTypes;
+        this._damageTypes = damageTypes;
         this._isMagic = isMagic;
         this._isHybrid = isHybrid;
     }
 
-    get damageType(): PathfinderDamageTypesEnum[] {
-        return this._damageType;
+    get damageTypes(): PathfinderDamageTypesEnum[] {
+        return this._damageTypes;
     }
 
-    set damageType(value: PathfinderDamageTypesEnum[]) {
-        this._damageType = value;
+    set damageTypes(value: PathfinderDamageTypesEnum[]) {
+        this._damageTypes = value;
     }
 
     get isMagic(): boolean {
@@ -52,7 +52,7 @@ export class PathfinderDamageType {
         if (this._isMagic) {
             string += '(magic) '
         }
-        string += this._damageType.join(', ')
+        string += this._damageTypes.join(', ')
         return string;
     }
 }

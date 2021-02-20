@@ -86,8 +86,8 @@ export class CreatureService {
             {where: condition, include: include});
     }
 
-    async findAll<T extends AbstractCreaturePropertyModel>(includedProperty, propertyModelToInclude: { new(...args: any[]): T }): Promise<CreatureModel<T>[]> {
-        return this.creatureRepository.findAll<T>(includedProperty, propertyModelToInclude);
+    async findAll<T extends AbstractCreaturePropertyModel>(includedProperty): Promise<CreatureModel<T>[]> {
+        return this.creatureRepository.findAll<T>(includedProperty);
     }
 
     async moveCreatureImage(currentLocation: string, newFileName: string) {

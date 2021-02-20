@@ -1,11 +1,11 @@
-import {ActionViewModel} from "../model/pathfinder/ActionViewModel";
+import {PathfinderActionViewModel} from "../model/pathfinder/PathfinderActionViewModel";
 import {RangeTypeEnum} from "../model/enumeration/RangeTypeEnum";
 import {DiceRollSpecification} from "../model/DiceRollSpecification";
 import {PathfinderDamageType} from "../model/pathfinder/PathfinderDamageType";
 
 export class ActionViewModelFactory {
-    public static createEmpty = (): ActionViewModel => {
-        return new ActionViewModel(
+    public static createEmpty = (): PathfinderActionViewModel => {
+        return new PathfinderActionViewModel(
             '',
             '',
             RangeTypeEnum.NONE,

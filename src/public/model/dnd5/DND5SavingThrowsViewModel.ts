@@ -1,7 +1,7 @@
-import {AbstractEffectViewModel} from "@/public/model/effects/AbstractEffectViewModel";
-import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
+import {ApplyEffects} from "@/public/model/status/decorator/DecoratorFunctions";
+import {StatusEffectAware} from "@/public/model/status/StatusEffectAware";
 
-export class DND5SavingThrowsViewModel extends AbstractEffectViewModel{
+export class DND5SavingThrowsViewModel extends StatusEffectAware {
     private readonly _strengthSave?: number;
     private readonly _dexteritySave?: number;
     private readonly _constitutionSave?: number;

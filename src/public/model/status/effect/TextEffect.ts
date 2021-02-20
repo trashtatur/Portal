@@ -1,9 +1,15 @@
-import {EffectInterface} from "@/public/model/effects/EffectInterface";
+import {EffectInterface} from "@/public/model/status/effect/EffectInterface";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class TextEffect implements EffectInterface<string>{
+    @JsonProperty({name: 'will'})
     private _will: "add" | "replace";
+    @JsonProperty({name: 'value'})
     private _value: string;
+    @JsonProperty({name: 'from'})
     private _from: string;
+    @JsonProperty({name: 'active'})
     private _active: boolean;
 
     constructor(

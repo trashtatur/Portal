@@ -3,15 +3,15 @@ import {AlignmentEnum} from "../enumeration/AlignmentEnum";
 import {PathfinderCreatureSizeEnum} from "../enumeration/pathfinder/PathfinderCreatureSizeEnum";
 import {PathfinderStatsViewModel} from "./PathfinderStatsViewModel";
 import {PathfinderSavingThrowsViewModel} from "./PathfinderSavingThrowsViewModel";
-import {ActionViewModel} from "./ActionViewModel";
-import {LanguageViewModel} from "./LanguageViewModel";
-import {SkillViewModel} from "./SkillViewModel";
-import {TalentViewModel} from "./TalentViewModel";
+import {PathfinderActionViewModel} from "./PathfinderActionViewModel";
+import {PathfinderLanguageViewModel} from "./PathfinderLanguageViewModel";
+import {PathfinderSkillViewModel} from "./PathfinderSkillViewModel";
+import {PathfinderTalentViewModel} from "./PathfinderTalentViewModel";
 import {NamedPropertyViewModel} from "../NamedPropertyViewModel";
 import {AbstractPropertyViewModel} from "../AbstractPropertyViewModel";
-import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
+import {ApplyEffects} from "@/public/model/status/decorator/DecoratorFunctions";
 import {JsonProperty, Serializable} from "typescript-json-serializer";
-import {getEnumKeyForValue} from "@/public/service/helperFunctions";
+import {getEnumKeyForValue} from "@/public/service/EnumFromStringService";
 
 @Serializable()
 export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewModel{
@@ -45,14 +45,14 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
     private _xp?: number;
     @JsonProperty({name: 'image'})
     private _image?: string;
-    @JsonProperty({name: 'actions', type: ActionViewModel})
-    private _actions?: ActionViewModel[];
-    @JsonProperty({name: 'languages', type: LanguageViewModel})
-    private _languages?: LanguageViewModel[];
-    @JsonProperty({name: 'skills', type: SkillViewModel})
-    private _skills?: SkillViewModel[];
-    @JsonProperty({name: 'talents', type: TalentViewModel})
-    private _talents?: TalentViewModel[];
+    @JsonProperty({name: 'actions', type: PathfinderActionViewModel})
+    private _actions?: PathfinderActionViewModel[];
+    @JsonProperty({name: 'languages', type: PathfinderLanguageViewModel})
+    private _languages?: PathfinderLanguageViewModel[];
+    @JsonProperty({name: 'skills', type: PathfinderSkillViewModel})
+    private _skills?: PathfinderSkillViewModel[];
+    @JsonProperty({name: 'talents', type: PathfinderTalentViewModel})
+    private _talents?: PathfinderTalentViewModel[];
     @JsonProperty({name: 'attackProperties', type: NamedPropertyViewModel})
     private _attackProperties?: NamedPropertyViewModel[];
     private _currentHitpoints: number;
@@ -76,10 +76,10 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         saveThrows: PathfinderSavingThrowsViewModel,
         xp?: number,
         image?: string,
-        actions?: ActionViewModel[],
-        languages?: LanguageViewModel[],
-        skills?: SkillViewModel[],
-        talents?: TalentViewModel[],
+        actions?: PathfinderActionViewModel[],
+        languages?: PathfinderLanguageViewModel[],
+        skills?: PathfinderSkillViewModel[],
+        talents?: PathfinderTalentViewModel[],
         attackProperties?: NamedPropertyViewModel[],
     ) {
         super();
@@ -234,35 +234,35 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         this._image = value;
     }
 
-    get actions(): ActionViewModel[] {
+    get actions(): PathfinderActionViewModel[] {
         return this._actions;
     }
 
-    set actions(value: ActionViewModel[]) {
+    set actions(value: PathfinderActionViewModel[]) {
         this._actions = value;
     }
 
-    get languages(): LanguageViewModel[] {
+    get languages(): PathfinderLanguageViewModel[] {
         return this._languages;
     }
 
-    set languages(value: LanguageViewModel[]) {
+    set languages(value: PathfinderLanguageViewModel[]) {
         this._languages = value;
     }
 
-    get skills(): SkillViewModel[] {
+    get skills(): PathfinderSkillViewModel[] {
         return this._skills;
     }
 
-    set skills(value: SkillViewModel[]) {
+    set skills(value: PathfinderSkillViewModel[]) {
         this._skills = value;
     }
 
-    get talents(): TalentViewModel[] {
+    get talents(): PathfinderTalentViewModel[] {
         return this._talents;
     }
 
-    set talents(value: TalentViewModel[]) {
+    set talents(value: PathfinderTalentViewModel[]) {
         this._talents = value;
     }
 

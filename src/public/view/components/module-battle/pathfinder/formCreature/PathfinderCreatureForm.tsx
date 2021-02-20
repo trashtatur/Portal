@@ -3,7 +3,6 @@ import {ReactElement} from "react";
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import axios, {AxiosResponse} from "axios";
-import {setCreatureImageName, uploadImage, uuidv4} from "@/public/service/helperFunctions";
 import {AlignmentSelect} from "../../common/alignment select/AlignmentSelect";
 import {SizeSelect} from "./size select/SizeSelect";
 import Dropzone from 'react-dropzone-uploader'
@@ -13,17 +12,17 @@ import {RedFadeLine} from "../../../uiBasic/redFadeLine/RedFadeLine";
 import {SelectEventTypesEnum} from "@/public/model/enumeration/SelectEventTypesEnum";
 import {CreatureViewModel} from "@/public/model/CreatureViewModel";
 import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
-import {LanguageViewModel} from "@/public/model/pathfinder/LanguageViewModel";
-import {TalentViewModel} from "@/public/model/pathfinder/TalentViewModel";
-import {SkillViewModel} from "@/public/model/pathfinder/SkillViewModel";
-import {ActionViewModel} from "@/public/model/pathfinder/ActionViewModel";
+import {PathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
+import {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
+import {PathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
+import {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
 import {NamedPropertyViewModel} from "@/public/model/NamedPropertyViewModel";
 import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
-import {PathfinderTalentDataToViewModelMapper} from "@/public/mapping/pathfinder/PathfinderTalentDataToViewModelMapper";
-import {PathfinderLanguageDataToViewModelMapper} from "@/public/mapping/pathfinder/PathfinderLanguageDataToViewModelMapper";
-import {PathfinderSkillDataToViewModelMapper} from "@/public/mapping/pathfinder/PathfinderSkillDataToViewModelMapper";
-import {PathfinderActionDataToViewModelMapper} from "@/public/mapping/pathfinder/PathfinderActionDataToViewModelMapper";
 import {serialize} from "typescript-json-serializer";
+import {uuidv4} from "@/public/service/UuidService";
+import {uploadCreatureImage} from "@/public/service/HttpService";
+import {setCreatureImagePath} from "@/public/service/ImagePathService";
+import {deserializeMultiple} from "@/public/service/SerializerService";
 import * as style from "./pathfinderCreatureForm.css";
 
 interface CreatureFormProps {
@@ -34,11 +33,11 @@ interface CreatureFormProps {
 
 interface CreatureFormState {
     creature: CreatureViewModel<PathfinderCreaturePropertiesViewModel>;
-    languageData: LanguageViewModel[];
-    talentData: TalentViewModel[];
-    skillData: SkillViewModel[];
-    actionData: ActionViewModel[];
-    skillFields: {skill: SkillViewModel; id: string}[];
+    languageData: PathfinderLanguageViewModel[];
+    talentData: PathfinderTalentViewModel[];
+    skillData: PathfinderSkillViewModel[];
+    actionData: PathfinderActionViewModel[];
+    skillFields: {skill: PathfinderSkillViewModel; id: string}[];
 }
 
 export class PathfinderCreatureForm extends React.Component<CreatureFormProps, CreatureFormState> {
@@ -67,7 +66,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
 
     addOneMoreSkill = (): void => {
         this.setState({skillFields: this.state.skillFields.concat(
-                [{skill: new SkillViewModel('','', 0), id: uuidv4()}]
+                [{skill: new PathfinderSkillViewModel('','', 0), id: uuidv4()}]
             )})
     };
 
@@ -117,8 +116,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
 
         this.getAll("Talent").then(result => {
             if (Array.isArray(result.data)) {
-                const talentDataMappper = new PathfinderTalentDataToViewModelMapper()
-                const talentViewModels = talentDataMappper.mapMultiple(result.data)
+                const talentViewModels = deserializeMultiple(result.data, PathfinderTalentViewModel)
                 this.setState({talentData: talentViewModels})
             }
         }).catch(function (error) {
@@ -127,8 +125,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
 
         this.getAll("Language").then(result => {
             if (Array.isArray(result.data)) {
-                const languageDataMapper = new PathfinderLanguageDataToViewModelMapper();
-                const languageViewModels = languageDataMapper.mapMultiple(result.data)
+                const languageViewModels = deserializeMultiple(result.data, PathfinderLanguageViewModel)
                 this.setState({languageData: languageViewModels})
             }
         }).catch(function (error) {
@@ -137,18 +134,15 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
 
         this.getAll('Skill').then(result => {
             if (Array.isArray(result.data)) {
-                const skillDataMapper = new PathfinderSkillDataToViewModelMapper();
-                const skillViewModels = skillDataMapper.mapMultiple(result.data)
+                const skillViewModels = deserializeMultiple(result.data, PathfinderSkillViewModel)
                 this.setState({skillData: skillViewModels})
             }
         }).catch(function (error) {
             console.log(error)
         });
-
         this.getAll("Action").then(result => {
             if (Array.isArray(result.data)) {
-                const actionDataMapper = new PathfinderActionDataToViewModelMapper();
-                const actionViewModels = actionDataMapper.mapMultiple(result.data)
+                const actionViewModels = deserializeMultiple(result.data, PathfinderActionViewModel)
                 this.setState({actionData: actionViewModels})
             }
         }).catch(function (error) {
@@ -169,12 +163,12 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
 
     handleSubmit = async (event): Promise<void> => {
         event.preventDefault();
-        uploadImage(this.state.creature.creatureProperties.image, this.state.creature.name, this.state.creature.creatureProperties.challenge);
+        uploadCreatureImage(this.state.creature.creatureProperties.image, this.state.creature.name, this.state.creature.creatureProperties.challenge);
         try {
             const creature = this.state.creature;
             if (typeof creature.creatureProperties.image !== "string") {
                 creature.creatureProperties.image =
-                    setCreatureImageName(creature.name, creature.creatureProperties.challenge, creature.creatureProperties.image);
+                    setCreatureImagePath(creature.name, creature.creatureProperties.challenge, creature.creatureProperties.image);
             }
             creature.creatureProperties = serialize(creature.creatureProperties)
             await axios.post('/V1/Creature/pathfinder', serialize(creature));
@@ -371,7 +365,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
         const creature = this.state.creature;
         if (option.action == SelectEventTypesEnum.SELECT_OPTION || option.action == SelectEventTypesEnum.CREATE_OPTION) {
             creature.creatureProperties.languages = value.map(elem => {
-                return new LanguageViewModel(null, elem.value)
+                return new PathfinderLanguageViewModel(null, elem.value)
             });
         } else if (option.action == SelectEventTypesEnum.REMOVE_OPTION) {
             creature.creatureProperties.languages = creature.creatureProperties.languages.filter(elem => {
@@ -434,7 +428,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                     }
                 })
                 if (possibleMatch) {
-                    return new TalentViewModel(
+                    return new PathfinderTalentViewModel(
                         talent.id,
                         talent.name,
                         talent.type,
@@ -467,7 +461,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                     }
                 })
                 if (possibleMatch) {
-                    return new ActionViewModel(
+                    return new PathfinderActionViewModel(
                         action.id,
                         action.name,
                         action.rangeType,
@@ -475,7 +469,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                         action.range,
                         action.damage,
                         action.critMod,
-                        action.damageType,
+                        action.damageTypes,
                         action.additionalInfo
                     )
                 }

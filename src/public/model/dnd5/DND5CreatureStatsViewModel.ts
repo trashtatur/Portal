@@ -1,7 +1,7 @@
-import {AbstractEffectViewModel} from "@/public/model/effects/AbstractEffectViewModel";
-import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
+import {ApplyEffects} from "@/public/model/status/decorator/DecoratorFunctions";
+import {StatusEffectAware} from "@/public/model/status/StatusEffectAware";
 
-export class DND5CreatureStatsViewModel extends AbstractEffectViewModel{
+export class DND5CreatureStatsViewModel extends StatusEffectAware {
     private _strength: number;
     private _dexterity: number;
     private _constitution: number;

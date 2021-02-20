@@ -1,15 +1,12 @@
 import {CreatureViewModel} from "../model/CreatureViewModel";
-import {PathfinderCreaturePropertiesDataToViewModelMapper} from "../mapping/pathfinder/PathfinderCreaturePropertiesDataToViewModelMapper";
 import {PropertyFactory} from "./PropertyFactory";
 import {AbstractPropertyViewModel} from "@/public/model/AbstractPropertyViewModel";
 
 export class CreatureViewModelFactory {
-    private pathfinderPropertiesToViewModelMapper: PathfinderCreaturePropertiesDataToViewModelMapper;
     private propertiesFactory: PropertyFactory;
 
     constructor(
     ) {
-        this.pathfinderPropertiesToViewModelMapper = new PathfinderCreaturePropertiesDataToViewModelMapper()
         this.propertiesFactory = new PropertyFactory()
     }
 

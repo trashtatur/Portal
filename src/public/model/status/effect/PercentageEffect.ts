@@ -1,9 +1,15 @@
-import {EffectInterface} from "@/public/model/effects/EffectInterface";
+import {EffectInterface} from "@/public/model/status/effect/EffectInterface";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class PercentageEffect implements EffectInterface<number>{
+    @JsonProperty({name: 'will'})
     private _will: "add" | "subtract";
+    @JsonProperty({name: 'percentageAmount'})
     private _percentageAmount: number;
+    @JsonProperty({name: 'from'})
     private _from: string;
+    @JsonProperty({name: 'active'})
     private _active: boolean;
 
     constructor(

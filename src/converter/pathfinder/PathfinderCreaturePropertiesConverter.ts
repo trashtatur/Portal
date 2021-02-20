@@ -8,16 +8,14 @@ import {CreatureStatsModel} from "../../model/CreatureStatsModel";
 import {namedProperty, stats} from "../../types/backendTypes";
 import {PathfinderSavingThrowsModel} from "../../model/pathfinder/PathfinderSavingThrowsModel";
 import {NamedCreatureProperty} from "../../model/NamedCreatureProperty";
-import {
-    getEnumKeyForValue,
-    mapNamedPropertiesStringToNamedPropertiesModel,
-    mapStatsStringToStatsDataModel
-} from "../../helper/HelperFunctions";
 import {TypeEnum} from "../../model/enumeration/TypeEnum";
 import {AlignmentEnum} from "../../model/enumeration/AlignmentEnum";
 import {PathfinderCreatureSizeEnum} from "../../model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
 import {ConverterInterface} from "../ConverterInterface";
 import {Service} from "@tsed/di";
+import {getEnumKeyForValue} from "../../services/EnumKeyFromStringService";
+import {convertStatsString} from "../StatsStringConverter";
+import {convertNamedPropertiesString} from "../NamedPropertiesStringConverter";
 
 @Service()
 export class PathfinderCreaturePropertiesConverter
@@ -56,7 +54,7 @@ export class PathfinderCreaturePropertiesConverter
             pathfinderCreaturePropertyEntity.ini,
             pathfinderCreaturePropertyEntity.baseAtk,
             getEnumKeyForValue(pathfinderCreaturePropertyEntity.size, PathfinderCreatureSizeEnum),
-            mapStatsStringToStatsDataModel(pathfinderCreaturePropertyEntity.stats),
+            convertStatsString(pathfinderCreaturePropertyEntity.stats),
             this.convertSaveThrowsStringToSaveThrowsDataModel(pathfinderCreaturePropertyEntity.saveThrows),
             pathfinderCreaturePropertyEntity.xp,
             pathfinderCreaturePropertyEntity.image,
@@ -64,7 +62,7 @@ export class PathfinderCreaturePropertiesConverter
             this.pathfinderLanguageConverter.convertMultipleEntities(pathfinderCreaturePropertyEntity.languages),
             this.pathfinderSkillConverter.convertMultipleEntities(pathfinderCreaturePropertyEntity.skills),
             this.pathfinderTalentConverter.convertMultipleEntities(pathfinderCreaturePropertyEntity.talents),
-            mapNamedPropertiesStringToNamedPropertiesModel(pathfinderCreaturePropertyEntity.attackProperties)
+            convertNamedPropertiesString(pathfinderCreaturePropertyEntity.attackProperties)
         )
     }
 

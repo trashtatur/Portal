@@ -1,7 +1,7 @@
 import * as React from "react";
 import axios from "axios";
 import {ReactElement} from "react";
-import {ActionViewModel} from "@/public/model/pathfinder/ActionViewModel";
+import {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
 import {MultiSelectNoCreate} from "../../../uiBasic/multiSelectNoCreate/MultiSelectNoCreate";
 import {ActionViewModelFactory} from "@/public/factory/ActionViewModelFactory";
 import * as style from './pathfinderActionForm.css';
@@ -11,7 +11,7 @@ export interface ActionFormProps {
 }
 
 export interface ActionFormState {
-    action: ActionViewModel;
+    action: PathfinderActionViewModel;
 }
 
 export class PathfinderActionForm extends React.Component<ActionFormProps, ActionFormState> {
@@ -109,7 +109,7 @@ export class PathfinderActionForm extends React.Component<ActionFormProps, Actio
     handleDamageTypeChange = (value, option): void => {
         const actionVM = this.state.action;
         if (option.action == "select-option") {
-            actionVM.damageType.damageType = value.map(elem => {
+            actionVM.damageTypes.damageTypes = value.map(elem => {
                 return elem.value
             });
         }
@@ -178,10 +178,10 @@ export class PathfinderActionForm extends React.Component<ActionFormProps, Actio
                             <MultiSelectNoCreate
                                 handleSelectChange={this.handleDamageTypeChange}
                                 className={style.damageTypeSelect}
-                                selectables={this.state.action.damageType.damageType.map(elem=> {
+                                selectables={this.state.action.damageTypes.damageTypes.map(elem=> {
                                     return {label: elem, value: elem}
                                 })}
-                                value={this.state.action.damageType.damageType.map(elem=> {
+                                value={this.state.action.damageTypes.damageTypes.map(elem=> {
                                     return {label: elem, value: elem}
                                 })}
                             />
@@ -191,7 +191,7 @@ export class PathfinderActionForm extends React.Component<ActionFormProps, Actio
                             <input
                                 type={"checkbox"}
                                 onChange={this.handleIsMagicChange}
-                                checked={this.state.action.damageType.isMagic}
+                                checked={this.state.action.damageTypes.isMagic}
                             />
                         </label>
                     </div>

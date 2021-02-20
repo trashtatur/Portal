@@ -1,18 +1,18 @@
 import * as React from "react";
 import {ReactElement} from "react";
 import {ToolTip} from "../../../uiBasic/tooltip/ToolTip";
-import {uuidv4} from "@/public/service/helperFunctions";
 import {TalentToolTip} from "../toolTipTalent/TalentToolTip";
 import {PathfinderSavingThrowsViewModel} from "@/public/model/pathfinder/PathfinderSavingThrowsViewModel";
-import {LanguageViewModel} from "@/public/model/pathfinder/LanguageViewModel";
-import {TalentViewModel} from "@/public/model/pathfinder/TalentViewModel";
-import {SkillViewModel} from "@/public/model/pathfinder/SkillViewModel";
+import {PathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
+import {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
+import {PathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
 import * as style from './creaturecardAttributes.css';
+import {uuidv4} from "@/public/service/UuidService";
 
 export interface CreatureAttributesProps {
-    skills: SkillViewModel[];
-    talents: TalentViewModel[];
-    languages: LanguageViewModel[];
+    skills: PathfinderSkillViewModel[];
+    talents: PathfinderTalentViewModel[];
+    languages: PathfinderLanguageViewModel[];
     saveThrows: PathfinderSavingThrowsViewModel;
     preview?: boolean;
 }

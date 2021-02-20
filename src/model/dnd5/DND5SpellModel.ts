@@ -1,6 +1,7 @@
 import {SpellComponentEnum} from "../SpellComponentEnum";
 import {MagicSchoolEnum} from "../enumeration/dnd5/MagicSchoolEnum";
 import {JsonProperty, Serializable} from "typescript-json-serializer";
+import {string} from "prop-types";
 
 @Serializable()
 export class DND5SpellModel {
@@ -12,7 +13,7 @@ export class DND5SpellModel {
     private readonly _description: string;
     @JsonProperty({name: 'range'})
     private readonly _range: string;
-    @JsonProperty({name: 'components'})
+    @JsonProperty({name: 'components', type: string})
     private readonly _components: SpellComponentEnum[];
     @JsonProperty({name: 'canBeCastAsRitual'})
     private readonly _canBeCastAsRitual: boolean;

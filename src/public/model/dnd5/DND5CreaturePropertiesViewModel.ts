@@ -16,7 +16,7 @@ import {DND5SpellSlotsViewModel} from "./DND5SpellSlotsViewModel";
 import {DND5SenseViewModel} from "./DND5SenseViewModel";
 import {SpeedViewModel} from "@/public/model/SpeedViewModel";
 import {DND5SavingThrowsViewModel} from "@/public/model/dnd5/DND5SavingThrowsViewModel";
-import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
+import {ApplyEffects} from "@/public/model/status/decorator/DecoratorFunctions";
 import {DND5InnateSpellCollection} from "@/public/model/dnd5/DND5InnateSpellCollection";
 
 

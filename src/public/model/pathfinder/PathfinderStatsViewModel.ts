@@ -1,6 +1,6 @@
 import {getSizeModFromSizeEnum} from "../enumeration/pathfinder/PathfinderCreatureSizeModifierEnum";
 import {PathfinderCreatureSizeEnum} from "../enumeration/pathfinder/PathfinderCreatureSizeEnum";
-import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
+import {ApplyEffects} from "@/public/model/status/decorator/DecoratorFunctions";
 import {JsonProperty, Serializable} from "typescript-json-serializer";
 
 @Serializable()

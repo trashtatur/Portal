@@ -1,9 +1,9 @@
 import * as React from "react";
 import axios from 'axios'
-import {uuidv4} from "@/public/service/helperFunctions";
 import {oneEntryFormEntry} from "@/public/types/frontendTypes";
 import {ReactElement} from "react";
 import * as style from './oneEntryForm.css';
+import {uuidv4} from "@/public/service/UuidService";
 
 
 export interface OneEntryFormProps {

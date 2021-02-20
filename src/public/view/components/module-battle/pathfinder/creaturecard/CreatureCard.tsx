@@ -13,10 +13,10 @@ import {PathfinderStatsViewModel} from "@/public/model/pathfinder/PathfinderStat
 import {PathfinderCreatureSizeEnum} from "@/public/model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
 import {NamedPropertyViewModel} from "@/public/model/NamedPropertyViewModel";
 import {PathfinderSavingThrowsViewModel} from "@/public/model/pathfinder/PathfinderSavingThrowsViewModel";
-import {TalentViewModel} from "@/public/model/pathfinder/TalentViewModel";
-import {ActionViewModel} from "@/public/model/pathfinder/ActionViewModel";
-import {SkillViewModel} from "@/public/model/pathfinder/SkillViewModel";
-import {LanguageViewModel} from "@/public/model/pathfinder/LanguageViewModel";
+import {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
+import {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
+import {PathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
+import {PathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
 import {AlignmentEnum} from "@/public/model/enumeration/AlignmentEnum";
 import * as style from "./creatureCard.css";
 
@@ -39,10 +39,10 @@ export interface CreatureCardProps {
     stats: PathfinderStatsViewModel;
     saveThrows: PathfinderSavingThrowsViewModel;
     foldable?: boolean;
-    languages?: LanguageViewModel[];
-    skills?: SkillViewModel[];
-    talents?: TalentViewModel[];
-    actions?: ActionViewModel[];
+    languages?: PathfinderLanguageViewModel[];
+    skills?: PathfinderSkillViewModel[];
+    talents?: PathfinderTalentViewModel[];
+    actions?: PathfinderActionViewModel[];
     preview?: boolean;
 }
 

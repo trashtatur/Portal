@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
 import {Link} from 'react-router-dom'
-import {RoutesEnum} from "../../../service/RoutesEnum";
+import {RoutesEnum} from "../../../enumeration/RoutesEnum";
 import withErrorBoundary from "@/public/view/components/common/errorBoundary/WithErrorBoundary";
 import * as style from "./landingpage.css";
 

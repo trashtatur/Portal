@@ -1,11 +1,11 @@
 import {RangeTypeEnum} from "../enumeration/RangeTypeEnum";
 import {DiceRollSpecification} from "../DiceRollSpecification";
 import {PathfinderDamageType} from "./PathfinderDamageType";
-import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
+import {ApplyEffects} from "@/public/model/status/decorator/DecoratorFunctions";
 import {JsonProperty, Serializable} from "typescript-json-serializer";
 
 @Serializable()
-export class ActionViewModel {
+export class PathfinderActionViewModel {
     @JsonProperty({name: 'id'})
     private _id: string;
     @JsonProperty({name: 'name'})
@@ -20,8 +20,8 @@ export class ActionViewModel {
     private _damage: DiceRollSpecification;
     @JsonProperty({name: 'critMod'})
     private _critMod: number;
-    @JsonProperty({name: 'damageType'})
-    private _damageType: PathfinderDamageType;
+    @JsonProperty({name: 'damageTypes'})
+    private _damageTypes: PathfinderDamageType;
     @JsonProperty({name: 'additionalInfo'})
     private _additionalInfo?: string;
 
@@ -43,7 +43,7 @@ export class ActionViewModel {
         this._range = range;
         this._damage = damage;
         this._critMod = critMod;
-        this._damageType = damageType;
+        this._damageTypes = damageType;
         this._additionalInfo = additionalInfo;
     }
 
@@ -106,12 +106,12 @@ export class ActionViewModel {
         this._critMod = value;
     }
 
-    get damageType(): PathfinderDamageType {
-        return this._damageType;
+    get damageTypes(): PathfinderDamageType {
+        return this._damageTypes;
     }
 
-    set damageType(value: PathfinderDamageType) {
-        this._damageType = value;
+    set damageTypes(value: PathfinderDamageType) {
+        this._damageTypes = value;
     }
 
     get additionalInfo(): string {

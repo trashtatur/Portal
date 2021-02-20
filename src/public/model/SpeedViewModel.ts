@@ -1,4 +1,4 @@
-import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
+import {ApplyEffects} from "@/public/model/status/decorator/DecoratorFunctions";
 
 export class SpeedViewModel {
     private _land: number;

@@ -1,10 +1,11 @@
 import {ConverterInterface} from "../ConverterInterface";
 import {DND5ActionModel} from "../../model/dnd5/DND5ActionModel";
 import {DND5Action} from "../../db/schemas/DND5/DND5Action";
-import {getEnumKeyForValue, mapDamageStringToDamageDataModel} from "../../helper/HelperFunctions";
 import {RangeTypeEnum} from "../../model/enumeration/RangeTypeEnum";
 import {DND5DamageType} from "../../model/dnd5/DND5DamageType";
 import {DND5DamageTypeEnum} from "../../model/enumeration/dnd5/DND5DamageTypeEnum";
+import {getEnumKeyForValue} from "../../services/EnumKeyFromStringService";
+import {convertDamageString} from "../DamageStringConverter";
 
 export class DND5ActionConverter implements ConverterInterface<DND5Action, DND5ActionModel>{
     convertEntity = (entity: DND5Action): DND5ActionModel => {
@@ -15,7 +16,7 @@ export class DND5ActionConverter implements ConverterInterface<DND5Action, DND5A
             entity.attackBonus,
             entity.range,
             entity.magical,
-            mapDamageStringToDamageDataModel(entity.damage),
+            convertDamageString(entity.damage),
             this.mapDamageTypeStringToDamageTypeDataModel(entity.damageType),
             entity.additionalInfo
         )
