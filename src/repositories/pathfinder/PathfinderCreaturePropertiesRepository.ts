@@ -5,9 +5,9 @@ import {PathfinderTalent} from "../../db/schemas/pathfinder/PathfinderTalent";
 import {PathfinderSkill} from "../../db/schemas/pathfinder/PathfinderSkill";
 import {PathfinderAction} from "../../db/schemas/pathfinder/PathfinderAction";
 import {PathfinderSkillModel} from "../../model/pathfinder/PathfinderSkillModel";
-import {NamedCreatureProperty} from "../../model/dataModel/NamedCreatureProperty";
-import {CreatureStatsModel} from "../../model/dataModel/CreatureStatsModel";
-import {PathfinderSavingThrowsModel} from "../../model/dataModel/pathfinder/PathfinderSavingThrowsModel";
+import {NamedCreatureProperty} from "../../model/NamedCreatureProperty";
+import {CreatureStatsModel} from "../../model/CreatureStatsModel";
+import {PathfinderSavingThrowsModel} from "../../model/pathfinder/PathfinderSavingThrowsModel";
 import {PathfinderTalentModel} from "../../model/pathfinder/PathfinderTalentModel";
 import {PathfinderLanguageModel} from "../../model/pathfinder/PathfinderLanguageModel";
 import {PathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
@@ -37,6 +37,7 @@ export class PathfinderCreaturePropertiesRepository {
         pathfinderCreatureProperties = await this.checkAssociatedTables(
             pathfinderCreatureProperties, pathfinderCreaturePropertiesModel
         );
+        await pathfinderCreatureProperties.save();
         return pathfinderCreatureProperties;
     }
 
@@ -69,13 +70,11 @@ export class PathfinderCreaturePropertiesRepository {
     ): Promise<PathfinderCreatureProperties> => {
         const languageNames = languageModels.map(language => language.name)
         const languages: PathfinderLanguage[] = [];
-        languageNames.forEach(name => {
-            const result = PathfinderLanguage.findOrCreate({where: { name: name}})[0]
-            languages.push(result);
-        })
-        languages.forEach(language => {
-            creatureProperties.$add('language', language)
-        });
+        for (const name of languageNames) {
+            const result = await PathfinderLanguage.findOrCreate({where: { name: name}})
+            languages.push(result[0])
+        }
+        creatureProperties.$add('language', languages)
         return creatureProperties
     }
 
@@ -85,9 +84,7 @@ export class PathfinderCreaturePropertiesRepository {
     ): Promise<PathfinderCreatureProperties> => {
         const talentIds = talentModels.map(talent => { return talent.id })
         const talents = await PathfinderTalent.findAll({where: {uuid: talentIds}});
-        talents.forEach(talent => {
-            creatureProperties.$add('talent', talent)
-        });
+        creatureProperties.$add('talent', talents);
         return creatureProperties
     }
 
@@ -96,7 +93,7 @@ export class PathfinderCreaturePropertiesRepository {
         skillModels: PathfinderSkillModel[]
     ): Promise<PathfinderCreatureProperties> => {
         const skillNames = skillModels.map(elem => {
-            return elem.id
+            return elem.name
         });
         const skills: PathfinderSkill[] = [];
         skillNames.forEach(name => {
@@ -118,9 +115,7 @@ export class PathfinderCreaturePropertiesRepository {
     ): Promise<PathfinderCreatureProperties> => {
         const actionIds = actionModels.map(action => { return action.id })
         const actions = await PathfinderAction.findAll({where: {uuid: actionIds}});
-        actions.forEach(action => {
-            creatureProperties.$add('action', action);
-        });
+        creatureProperties.$add('action', actions);
         return creatureProperties
     }
 

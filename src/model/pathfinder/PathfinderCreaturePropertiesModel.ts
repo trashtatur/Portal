@@ -2,35 +2,58 @@ import {AbstractCreaturePropertyModel} from "../AbstractCreaturePropertyModel";
 import {TypeEnum} from "../enumeration/TypeEnum";
 import {AlignmentEnum} from "../enumeration/AlignmentEnum";
 import {PathfinderCreatureSizeEnum} from "../enumeration/pathfinder/PathfinderCreatureSizeEnum";
-import {CreatureStatsModel} from "../dataModel/CreatureStatsModel";
-import {PathfinderSavingThrowsModel} from "../dataModel/pathfinder/PathfinderSavingThrowsModel";
+import {CreatureStatsModel} from "../CreatureStatsModel";
+import {PathfinderSavingThrowsModel} from "./PathfinderSavingThrowsModel";
 import {PathfinderActionModel} from "./PathfinderActionModel";
 import {PathfinderLanguageModel} from "./PathfinderLanguageModel";
 import {PathfinderSkillModel} from "./PathfinderSkillModel";
 import {PathfinderTalentModel} from "./PathfinderTalentModel";
-import {NamedCreatureProperty} from "../dataModel/NamedCreatureProperty";
+import {NamedCreatureProperty} from "../NamedCreatureProperty";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
+import {getEnumKeyForValue} from "../../services/EnumKeyFromStringService";
 
+@Serializable()
 export class PathfinderCreaturePropertiesModel extends AbstractCreaturePropertyModel{
 
+    @JsonProperty({name: 'id'})
     private readonly _id: string;
+    @JsonProperty({name: 'type', onDeserialize: (data) =>  getEnumKeyForValue(data, TypeEnum)})
     private readonly _type: TypeEnum;
+    @JsonProperty({name: 'armorclass'})
     private readonly _armorclass: number;
+    @JsonProperty({name: 'hitpoints'})
     private readonly _hitpoints: number;
+    @JsonProperty({name: 'alignment', onDeserialize: (data) => getEnumKeyForValue(data, AlignmentEnum)})
     private readonly _alignment: AlignmentEnum;
+    @JsonProperty({name: 'creatureClass'})
     private readonly _creatureClass: string;
+    @JsonProperty({name: 'challenge'})
     private readonly _challenge: number;
+    @JsonProperty({name: 'movement'})
     private readonly _movement: number;
+    @JsonProperty({name: 'ini'})
     private readonly _ini: number;
+    @JsonProperty({name: 'baseAtk'})
     private readonly _baseAtk: number;
+    @JsonProperty({name: 'size', onDeserialize: (data) => getEnumKeyForValue(data, PathfinderCreatureSizeEnum)})
     private readonly _size: PathfinderCreatureSizeEnum;
+    @JsonProperty({name: 'stats'})
     private readonly _stats: CreatureStatsModel;
+    @JsonProperty({name: 'saveThrows'})
     private readonly _saveThrows: PathfinderSavingThrowsModel;
+    @JsonProperty({name: 'xp'})
     private readonly _xp?: number;
+    @JsonProperty({name: 'image'})
     private readonly _image?: string;
+    @JsonProperty({name: 'actions', type: PathfinderActionModel})
     private readonly _actions?: PathfinderActionModel[];
+    @JsonProperty({name: 'languages', type: PathfinderLanguageModel})
     private readonly _languages?: PathfinderLanguageModel[];
+    @JsonProperty({name: 'skills', type: PathfinderSkillModel})
     private readonly _skills?: PathfinderSkillModel[];
+    @JsonProperty({name: 'talents', type: PathfinderTalentModel})
     private readonly _talents?: PathfinderTalentModel[];
+    @JsonProperty({name: 'attackProperties', type: NamedCreatureProperty})
     private readonly _attackProperties?: NamedCreatureProperty[];
 
 

@@ -8,7 +8,10 @@
     "import:dnd5:spells": "ts-node src/importer/importSpells.ts"
   },
   "nodemonConfig": {
-    "ignore": ["src/public/**/*","node_modules/**/*"]
+    "ignore": [
+      "src/public/**/*",
+      "node_modules/**/*"
+    ]
   },
   "license": "MIT",
   "dependencies": {
@@ -17,7 +20,7 @@
     "@tsed/di": "5.44.17",
     "@tsed/multipartfiles": "5.44.17",
     "@types/react-router": "^5.1.5",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.4",
@@ -25,7 +28,7 @@
     "csv-string": "^3.2.0",
     "d3": "^5.16.0",
     "express": "4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "method-override": "^3.0.0",
     "multer": "^1.4.2",
     "mysql2": "^1.6.5",
@@ -42,6 +45,7 @@
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.1.0",
     "sequelize-typescript": "^1.0.0",
+    "typescript-json-serializer": "^2.4.0",
     "typescript-plugin-css-modules": "^2.0.2",
     "validate-typescript": "^4.0.2",
     "youtube-api-v3-search": "^1.2.1"

@@ -2,21 +2,19 @@ import {Service} from "@tsed/di";
 import {DND5ActionModel} from "../../model/dnd5/DND5ActionModel";
 import {DND5ActionForm} from "../../validation/dnd5/DND5ActionForm";
 import {DND5ActionRepository} from "../../repositories/dnd5/DND5ActionRepository";
-import {DND5ActionDataToModelMapper} from "../../mapping/fromDataToModel/dnd5/DND5ActionDataToModelMapper";
 import {DataValidationException} from "../../exception/DataValidationException";
+import {deserialize} from "typescript-json-serializer";
 
 @Service()
-export class DND5ActionService {
+export class DND5ActionService
+{
     private dnd5ActionForm: DND5ActionForm;
     private dnd5ActionRepository: DND5ActionRepository;
-    private dnd5ActionDataToModelMapper: DND5ActionDataToModelMapper;
 
     constructor(
-        dnD5ActionDataToModelMapper: DND5ActionDataToModelMapper,
         dnD5ActionForm: DND5ActionForm,
         dnD5ActionRepository: DND5ActionRepository
     ) {
-        this.dnd5ActionDataToModelMapper = dnD5ActionDataToModelMapper;
         this.dnd5ActionForm = dnD5ActionForm;
         this.dnd5ActionRepository = dnD5ActionRepository;
     }
@@ -24,7 +22,7 @@ export class DND5ActionService {
     create = async (actionData): Promise<DND5ActionModel> => {
         const validatedData = this.dnd5ActionForm.validate(actionData)
         if (validatedData) {
-            const actionModel = this.dnd5ActionDataToModelMapper.map(actionData);
+            const actionModel = deserialize(actionData, DND5ActionModel);
             return this.dnd5ActionRepository.create(actionModel);
         } else {
             throw new DataValidationException(`DND5 Action could not be created, data is not valid`)
@@ -35,7 +33,7 @@ export class DND5ActionService {
         const viewModels = actionDataArray.map(actionDataEntry => {
             const validatedData = this.dnd5ActionForm.validate(actionDataEntry)
             if (validatedData) {
-                return this.dnd5ActionDataToModelMapper.map(actionDataEntry);
+                return deserialize(validatedData, DND5ActionModel);
             } else {
                 throw new DataValidationException(`DND5 Action could not be created, data is not valid`)
             }
@@ -50,7 +48,7 @@ export class DND5ActionService {
     update = async (actionData): Promise<DND5ActionModel> => {
         const validatedData = this.dnd5ActionForm.validate(actionData)
         if (validatedData) {
-            const actionModel = this.dnd5ActionDataToModelMapper.map(actionData);
+            const actionModel = deserialize(validatedData, DND5ActionModel);
             return this.dnd5ActionRepository.update(actionModel);
         } else {
             throw new DataValidationException(`DND5 Action could not be updated, data is not valid`)

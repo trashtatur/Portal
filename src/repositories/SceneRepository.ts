@@ -3,23 +3,23 @@ import {Scene} from "../db/schemas/Scene";
 import {Adventure} from "../db/schemas/Adventure";
 import {Person} from "../db/schemas/Person";
 import {Service} from "@tsed/di";
-import {SceneEntityToModelMapper} from "../mapping/fromEntityToModel/SceneEntityToModelMapper";
+import {SceneConverter} from "../converter/SceneConverter";
 
 @Service()
 export class SceneRepository {
-    private readonly sceneEntityToModelMapper: SceneEntityToModelMapper;
+    private readonly sceneConverter: SceneConverter;
 
     constructor(
-        sceneEntityToModelMapper: SceneEntityToModelMapper
+        sceneConverter: SceneConverter
     ) {
-        this.sceneEntityToModelMapper = sceneEntityToModelMapper;
+        this.sceneConverter = sceneConverter;
     }
 
     create = async (sceneModel: SceneModel): Promise<SceneModel> => {
         let sceneEntity = await this.buildSceneBase(sceneModel);
         sceneEntity = await this.includeProvidedRelationsIntoScene(sceneEntity, sceneModel);
         sceneEntity = await sceneEntity.save();
-        return this.sceneEntityToModelMapper.map(sceneEntity);
+        return this.sceneConverter.convertEntity(sceneEntity);
     }
 
     private includeProvidedRelationsIntoScene = async (scene: Scene, sceneModel: SceneModel): Promise<Scene> => {

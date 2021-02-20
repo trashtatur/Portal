@@ -2,13 +2,13 @@ import {FormValidatorInterface} from "../FormValidatorInterface";
 import {Type, validate} from 'validate-typescript'
 
 
-export class PathfinderLanguageForm {
+export class PathfinderLanguageForm implements FormValidatorInterface{
 
     schema = {
         inputs: [{value: Type(String), id: Type(String)}]
     };
 
-    validate(data): boolean | object {
+    validate(data): object {
         return validate(this.schema, data)
     }
 }

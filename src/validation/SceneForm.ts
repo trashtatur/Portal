@@ -18,8 +18,7 @@ export class SceneForm implements FormValidatorInterface{
         _persons: Optional([Type(String)])
     };
 
-    validate(data: sceneData): boolean | object {
+    validate(data: sceneData): object {
         return validate(this.schema, data)
     }
-
 }

@@ -5,7 +5,7 @@ import {PathfinderEncounter} from "../module-battle/pathfinder/encounter/Pathfin
 import {Route, Switch} from "react-router-dom";
 import {AdventureOverview} from "../module-tome/adventureOverview/AdventureOverview";
 import {LandingPage} from "../landingPage/LandingPage";
-import {RoutesEnum} from "../../../service/RoutesEnum";
+import {RoutesEnum} from "../../../enumeration/RoutesEnum";
 import {SingleAdventure} from "../module-tome/singleAdventure/SingleAdventure";
 import {SystemsEnum} from "../../../enumeration/SystemsEnum";
 import {SystemChoiceBar} from "../common/systemChoiceBar/SystemChoiceBar";

@@ -1,7 +1,14 @@
+import {JsonProperty, Serializable} from "typescript-json-serializer";
+
+@Serializable()
 export class DND5TalentModel {
+    @JsonProperty({name: 'id'})
     private readonly _id: string;
+    @JsonProperty({name: 'name'})
     private readonly _name: string;
+    @JsonProperty({name: 'condition'})
     private readonly _condition: string;
+    @JsonProperty({name: 'benefit'})
     private readonly _benefit: string;
 
     constructor(

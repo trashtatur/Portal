@@ -9,31 +9,31 @@ import {DND5ActionViewModel} from "@/public/model/dnd5/DND5ActionViewModel";
 import {DND5SkillViewModel} from "@/public/model/dnd5/DND5SkillViewModel";
 import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
 import {CRToExperiencePointsConverterService} from "@/public/service/dnd5/CRToExperiencePointsConverterService";
-import {NameCreatureTypeAndTypeFormSection} from "./nameAndTypeFormSection/NameCreatureTypeAndTypeFormSection";
-import {StatBlockFormSection} from "./statBlockFormSection/StatBlockFormSection";
-import {NameCreatureTypeAndTypeFormSectionHeader} from "./headers/NameCreatureTypeAndTypeFormSectionHeader";
-import {StatBlockFormSectionHeader} from "./headers/StatBlockFormSectionHeader";
-import {SizeAlignmentAndChallengeFormSection} from "./sizeAndChallengeFormSection/SizeAlignmentAndChallengeFormSection";
-import {SizeAlignmentAndChallengeFormSectionHeader} from "./headers/SizeAlignmentAndChallengeFormSectionHeader";
+import {NameCreatureTypeAndTypeFormSection} from "./components/nameAndTypeFormSection/NameCreatureTypeAndTypeFormSection";
+import {StatBlockFormSection} from "./components/statBlockFormSection/StatBlockFormSection";
+import {NameCreatureTypeAndTypeFormSectionHeader} from "./components/headers/NameCreatureTypeAndTypeFormSectionHeader";
+import {StatBlockFormSectionHeader} from "./components/headers/StatBlockFormSectionHeader";
+import {SizeAlignmentAndChallengeFormSection} from "./components/sizeAndChallengeFormSection/SizeAlignmentAndChallengeFormSection";
+import {SizeAlignmentAndChallengeFormSectionHeader} from "./components/headers/SizeAlignmentAndChallengeFormSectionHeader";
 import {SelectEventTypesEnum} from "@/public/model/enumeration/SelectEventTypesEnum";
 import {DND5CreatureSizeEnum} from "@/public/model/enumeration/dnd5/DND5CreatureSizeEnum";
 import {DND5CreatureCard} from "../creatureCard/DND5CreatureCard";
 import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
-import {ClassesAndLevelsFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/headers/ClassesAndLevelsFormSectionHeader";
-import {ClassesAndLevelsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/classesAndLevelsFormSection/ClassesAndLevelsFormSection";
-import {ClassAndLevelViewModel} from "@/public/model/dataModel/ClassAndLevelViewModel";
-import {AverageStatsTable} from "@/public/model/dataModel/dnd5/AverageStatsTable";
-import {HPSpeedAndACPlayerFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/hpSpeedAndACFormSection/hpAndAcPlayerFormSection/HPSpeedAndACPlayerFormSection";
-import {HPSpeedAndACMonsterFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/hpSpeedAndACFormSection/hpAndAcMonsterFormSection/HPSpeedAndACMonsterFormSection";
-import {HPSpeedAndACFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/headers/HPSpeedAndACFormSectionHeader";
-import {LanguagesFeatsSensesAndSkillsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/languagesFeatsSensesAndSkills/LanguagesFeatsSensesAndSkillsFormSection";
-import {LanguagesFeatsSensesAndSkillsFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/headers/LanguagesFeatsSensesAndSkillsFormSectionHeader";
-import {SenseViewModel} from "@/public/model/dataModel/dnd5/SenseViewModel";
+import {ClassesAndLevelsFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/components/headers/ClassesAndLevelsFormSectionHeader";
+import {ClassesAndLevelsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/classesAndLevelsFormSection/ClassesAndLevelsFormSection";
+import {ClassAndLevelViewModel} from "@/public/model/ClassAndLevelViewModel";
+import {DND5AverageStatsTable} from "@/public/model/dnd5/DND5AverageStatsTable";
+import {HPSpeedAndACPlayerFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/hpAndAcPlayerFormSection/HPSpeedAndACPlayerFormSection";
+import {HPSpeedAndACMonsterFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/hpAndAcMonsterFormSection/HPSpeedAndACMonsterFormSection";
+import {HPSpeedAndACFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/components/headers/HPSpeedAndACFormSectionHeader";
+import {LanguagesFeatsSensesAndSkillsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/languagesFeatsSensesAndSkills/LanguagesFeatsSensesAndSkillsFormSection";
+import {LanguagesFeatsSensesAndSkillsFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/components/headers/LanguagesFeatsSensesAndSkillsFormSectionHeader";
+import {DND5SenseViewModel} from "@/public/model/dnd5/DND5SenseViewModel";
 import {AverageHPCalculatorService} from "@/public/service/dnd5/AverageHPCalculatorService";
 import {FormSectionDisplayRuleService} from "@/public/service/dnd5/FormSectionDisplayRuleService";
-import {SpellsFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/headers/SpellsFormSectionHeader";
-import {SpellsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/spells/SpellsFormSection";
-import {InnateSpellViewModel} from "@/public/model/dataModel/dnd5/InnateSpellViewModel";
+import {SpellsFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/components/headers/SpellsFormSectionHeader";
+import {SpellsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/spellFormSection/SpellsFormSection";
+import {DND5InnateSpellViewModel} from "@/public/model/dnd5/DND5InnateSpellViewModel";
 import * as style from './dnd5CreatureForm.css';
 
 interface CreatureFormState {
@@ -51,14 +51,14 @@ interface CreatureFormState {
 export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
     private crToXPService: CRToExperiencePointsConverterService;
     private creatureViewModelFactory: CreatureViewModelFactory;
-    private averageStatsTable: AverageStatsTable;
+    private averageStatsTable: DND5AverageStatsTable;
     private formSectionDisplayRuleService: FormSectionDisplayRuleService;
 
     constructor(props) {
         super(props);
         this.crToXPService = new CRToExperiencePointsConverterService();
         this.creatureViewModelFactory = new CreatureViewModelFactory();
-        this.averageStatsTable = AverageStatsTable.create();
+        this.averageStatsTable = DND5AverageStatsTable.create();
         this.formSectionDisplayRuleService = new FormSectionDisplayRuleService();
         this.state = {
             creature: this.creatureViewModelFactory.createEmpty(DND5CreaturePropertiesViewModel),
@@ -82,7 +82,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
     handleTypeChange = (value, option): void => {
         if (option.action === SelectEventTypesEnum.SELECT_OPTION) {
             const creature = this.state.creature;
-            creature.properties.type = value.value;
+            creature.creatureProperties.type = value.value;
             this.setState({creature: creature})
         }
     }
@@ -94,7 +94,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
     handleCreatureTypeChange = (value, option): void => {
         if (option.action === SelectEventTypesEnum.SELECT_OPTION) {
             const creature = this.state.creature;
-            creature.properties.creatureType = value.value;
+            creature.creatureProperties.creatureType = value.value;
             this.setState({creature: creature})
         }
     }
@@ -102,14 +102,14 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
     handleSizeChange = (value, option): void => {
         if (option.action === SelectEventTypesEnum.SELECT_OPTION) {
             const creature = this.state.creature;
-            creature.properties.size = value.value;
+            creature.creatureProperties.size = value.value;
             this.setState({creature: creature}, () => {
                 if (
-                    this.state.creature.properties.type === TypeEnum.SUMMON
-                    || this.state.creature.properties.type === TypeEnum.MONSTER
+                    this.state.creature.creatureProperties.type === TypeEnum.SUMMON
+                    || this.state.creature.creatureProperties.type === TypeEnum.MONSTER
                 ) {
                     let hitDiceType = null;
-                    switch (this.state.creature.properties.size) {
+                    switch (this.state.creature.creatureProperties.size) {
                         case DND5CreatureSizeEnum.GARGANTUAN:
                             hitDiceType = 20;
                             break;
@@ -131,12 +131,12 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                         default:
                             break;
                     }
-                    creature.properties.hitDice.diceType = hitDiceType;
+                    creature.creatureProperties.hitDice.diceType = hitDiceType;
 
-                    if (creature.properties.hitDice.diceCount !== null) {
+                    if (creature.creatureProperties.hitDice.diceCount !== null) {
                         const averageHPCalculatorService = new AverageHPCalculatorService();
-                        creature.properties.hitpoints =
-                            averageHPCalculatorService.calculateAverageHP(creature.properties.hitDice);
+                        creature.creatureProperties.hitpoints =
+                            averageHPCalculatorService.calculateAverageHP(creature.creatureProperties.hitDice);
                     }
 
                     this.setState({creature: creature});
@@ -148,14 +148,14 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
     handleAlignmentChange = (value, option): void => {
         if (option.action === SelectEventTypesEnum.SELECT_OPTION) {
             const creature = this.state.creature;
-            creature.properties.alignment = value.value;
+            creature.creatureProperties.alignment = value.value;
             this.setState({creature: creature})
         }
     }
 
     handleCRChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.challenge = null;
+        creature.creatureProperties.challenge = null;
         if (!isNaN(parseInt(event.target.value))) {
             let valueAsNumber = parseInt(event.target.value);
             if (valueAsNumber > 30) {
@@ -164,9 +164,9 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
             if (valueAsNumber < 0.125) {
                 valueAsNumber = 0;
             }
-            creature.properties.challenge = valueAsNumber;
-            creature.properties.xp = this.crToXPService.getExperiencePointsByCRValue(valueAsNumber);
-            creature.properties.proficiencyBonus =
+            creature.creatureProperties.challenge = valueAsNumber;
+            creature.creatureProperties.xp = this.crToXPService.getExperiencePointsByCRValue(valueAsNumber);
+            creature.creatureProperties.proficiencyBonus =
                 this.averageStatsTable.getMatchingEntriesByChallengeRating(valueAsNumber).proficiencyBonus;
         }
         this.setState({creature: creature})
@@ -174,94 +174,94 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
 
     handleStrengthChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.stats.strength = null;
+        creature.creatureProperties.stats.strength = null;
         if (!isNaN(parseInt(event.target.value))) {
-            creature.properties.stats.strength = parseInt(event.target.value)
+            creature.creatureProperties.stats.strength = parseInt(event.target.value)
         }
         this.setState({creature: creature})
     };
 
     handleDexterityChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.stats.dexterity = null;
+        creature.creatureProperties.stats.dexterity = null;
         if (!isNaN(parseInt(event.target.value))) {
-            creature.properties.stats.dexterity = parseInt(event.target.value)
+            creature.creatureProperties.stats.dexterity = parseInt(event.target.value)
         }
         this.setState({creature: creature})
     };
 
     handleConstitutionChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.stats.constitution = null;
+        creature.creatureProperties.stats.constitution = null;
         if (!isNaN(parseInt(event.target.value))) {
-            creature.properties.stats.constitution = parseInt(event.target.value)
+            creature.creatureProperties.stats.constitution = parseInt(event.target.value)
         }
-        if (creature.properties.hitDice.diceCount !== null) {
-            creature.properties.hitDice.bonus =
-                creature.properties.stats.getStatModifierForStatValue(
-                    creature.properties.stats.constitution
-                ) * creature.properties.hitDice.diceCount
+        if (creature.creatureProperties.hitDice.diceCount !== null) {
+            creature.creatureProperties.hitDice.bonus =
+                creature.creatureProperties.stats.getStatModifierForStatValue(
+                    creature.creatureProperties.stats.constitution
+                ) * creature.creatureProperties.hitDice.diceCount
         }
-        if (creature.properties.hitDice.diceCount !== null
-            && creature.properties.hitDice.diceType !== null
+        if (creature.creatureProperties.hitDice.diceCount !== null
+            && creature.creatureProperties.hitDice.diceType !== null
         ) {
             const averageHPCalculatorService = new AverageHPCalculatorService();
-            creature.properties.hitpoints = averageHPCalculatorService.calculateAverageHP(creature.properties.hitDice)
+            creature.creatureProperties.hitpoints = averageHPCalculatorService.calculateAverageHP(creature.creatureProperties.hitDice)
         }
         this.setState({creature: creature})
     };
 
     handleIntelligenceChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.stats.intelligence = null;
+        creature.creatureProperties.stats.intelligence = null;
         if (!isNaN(parseInt(event.target.value))) {
-            creature.properties.stats.intelligence = parseInt(event.target.value)
+            creature.creatureProperties.stats.intelligence = parseInt(event.target.value)
         }
         this.setState({creature: creature})
     };
 
     handleWisdomChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.stats.wisdom = null;
+        creature.creatureProperties.stats.wisdom = null;
         if (!isNaN(parseInt(event.target.value))) {
-            creature.properties.stats.wisdom = parseInt(event.target.value)
+            creature.creatureProperties.stats.wisdom = parseInt(event.target.value)
         }
         this.setState({creature: creature})
     };
 
     handleCharismaChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.stats.charisma = null;
+        creature.creatureProperties.stats.charisma = null;
         if (!isNaN(parseInt(event.target.value))) {
-            creature.properties.stats.charisma = parseInt(event.target.value)
+            creature.creatureProperties.stats.charisma = parseInt(event.target.value)
         }
         this.setState({creature: creature})
     };
 
     handleClassesAndLevelsChange = (classesAndLevels: ClassAndLevelViewModel[]): void => {
         const creature = this.state.creature;
-        creature.properties.classesAndLevels = classesAndLevels;
+        creature.creatureProperties.classesAndLevels = classesAndLevels;
         this.setState({creature: creature});
     };
 
     handleHitpointsChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.hitpoints = null;
+        creature.creatureProperties.hitpoints = null;
         if (!isNaN(parseInt(event.target.value))) {
-            creature.properties.hitpoints = parseInt(event.target.value)
+            creature.creatureProperties.hitpoints = parseInt(event.target.value)
         }
         this.setState({creature: creature})
     };
 
     handleArmorClassChange = (event): void => {
         const creature = this.state.creature;
-        creature.properties.armorclass = null;
+        creature.creatureProperties.armorclass = null;
         if (!isNaN(parseInt(event.target.value))) {
             let valueAsNumber = parseInt(event.target.value);
             if (valueAsNumber < 0) {
                 valueAsNumber = 0;
             }
-            creature.properties.armorclass = valueAsNumber;
+            creature.creatureProperties.armorclass = valueAsNumber;
         }
         this.setState({creature: creature})
     }
@@ -269,7 +269,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
     handleLandSpeedChange = (event): void => {
         const creature = this.state.creature;
         if (!isNaN(parseInt(event.target.value))) {
-            creature.properties.speed.land = parseInt(event.target.value);
+            creature.creatureProperties.speed.land = parseInt(event.target.value);
         }
         this.setState({creature: creature});
     };
@@ -277,7 +277,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
     handleAirSpeedChange = (event): void => {
         const creature = this.state.creature;
         if (!isNaN(parseInt(event.target.value))) {
-            creature.properties.speed.air = parseInt(event.target.value);
+            creature.creatureProperties.speed.air = parseInt(event.target.value);
         }
         this.setState({creature: creature});
     };
@@ -285,7 +285,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
     handleWaterSpeedChange = (event): void => {
         const creature = this.state.creature;
         if (!isNaN(parseInt(event.target.value))) {
-            creature.properties.speed.water = parseInt(event.target.value);
+            creature.creatureProperties.speed.water = parseInt(event.target.value);
         }
         this.setState({creature: creature});
     };
@@ -293,7 +293,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
     handleHitDiceTypeChange = (event): void => {
         const creature = this.state.creature;
         if (!isNaN(parseInt(event.target.value))) {
-            creature.properties.hitDice.diceType = parseInt(event.target.value);
+            creature.creatureProperties.hitDice.diceType = parseInt(event.target.value);
         }
         this.setState({creature: creature});
     };
@@ -301,7 +301,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
     handleHitDiceCountChange = (event): void => {
         const creature = this.state.creature;
         if (!isNaN(parseInt(event.target.value))) {
-            creature.properties.hitDice.diceCount = parseInt(event.target.value);
+            creature.creatureProperties.hitDice.diceCount = parseInt(event.target.value);
         }
         this.setState({creature: creature});
     }
@@ -309,7 +309,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
     handleHitDiceBonusChange = (event): void => {
         const creature = this.state.creature;
         if (!isNaN(parseInt(event.target.value))) {
-            creature.properties.hitDice.bonus = parseInt(event.target.value);
+            creature.creatureProperties.hitDice.bonus = parseInt(event.target.value);
         }
         this.setState({creature: creature});
     }
@@ -320,8 +320,8 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
             option.action === SelectEventTypesEnum.CREATE_OPTION
             || option.action === SelectEventTypesEnum.SELECT_OPTION
         ) {
-            creature.properties.languages = value.map(elem => {
-                const alreadyKnownLanguage = this.state.creature.properties.languages.find(language => {
+            creature.creatureProperties.languages = value.map(elem => {
+                const alreadyKnownLanguage = this.state.creature.creatureProperties.languages.find(language => {
                     if (language.name === elem.value) {
                         return language;
                     }
@@ -341,7 +341,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
             });
             this.setState({creature: creature})
         } else if (option.action === SelectEventTypesEnum.REMOVE_OPTION) {
-            creature.properties.languages = creature.properties.languages.filter(language => {
+            creature.creatureProperties.languages = creature.creatureProperties.languages.filter(language => {
                 const possibleRemovalMatch = value.find(elem => {
                     if (elem.value === language.name) {
                         return elem;
@@ -360,8 +360,8 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
             option.action === SelectEventTypesEnum.CREATE_OPTION
             || option.action === SelectEventTypesEnum.SELECT_OPTION
         ) {
-            creature.properties.languages = value.map(elem => {
-                const alreadyKnown = this.state.creature.properties.talents.find(talent => {
+            creature.creatureProperties.languages = value.map(elem => {
+                const alreadyKnown = this.state.creature.creatureProperties.talents.find(talent => {
                     if (talent.name === elem.value) {
                         return talent;
                     }
@@ -383,7 +383,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
             });
             this.setState({creature: creature})
         } else if (option.action === SelectEventTypesEnum.REMOVE_OPTION) {
-            creature.properties.talents = creature.properties.talents.filter(talent => {
+            creature.creatureProperties.talents = creature.creatureProperties.talents.filter(talent => {
                 const possibleRemovalMatch = value.find(elem => {
                     if (elem.value === talent.name) {
                         return elem;
@@ -402,8 +402,8 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
             option.action === SelectEventTypesEnum.CREATE_OPTION
             || option.action === SelectEventTypesEnum.SELECT_OPTION
         ) {
-            creature.properties.skills = value.map(elem => {
-                const alreadyKnown = this.state.creature.properties.skills.find(skill => {
+            creature.creatureProperties.skills = value.map(elem => {
+                const alreadyKnown = this.state.creature.creatureProperties.skills.find(skill => {
                     if (skill.name === elem.value) {
                         return skill;
                     }
@@ -423,7 +423,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
             });
             this.setState({creature: creature})
         } else if (option.action === SelectEventTypesEnum.REMOVE_OPTION) {
-            creature.properties.skills = creature.properties.skills.filter(skill => {
+            creature.creatureProperties.skills = creature.creatureProperties.skills.filter(skill => {
                 const possibleRemovalMatch = value.find(elem => {
                     if (elem.value === skill.name) {
                         return elem;
@@ -436,35 +436,35 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
         }
     };
 
-    handleSensesChange = (senses: SenseViewModel[]): void => {
+    handleSensesChange = (senses: DND5SenseViewModel[]): void => {
         const creature = this.state.creature;
-        creature.properties.senses = senses;
+        creature.creatureProperties.senses = senses;
         this.setState({creature})
     };
 
     handleAddSpell = (spellModel: DND5SpellViewModel): void => {
         const creature = this.state.creature;
-        creature.properties.spells.push(spellModel);
+        creature.creatureProperties.spells.push(spellModel);
         this.setState({creature: creature});
     }
 
     handleRemoveSpell = (spellId: string): void => {
         const creature = this.state.creature;
-        creature.properties.spells = creature.properties.spells.filter(spell => {
+        creature.creatureProperties.spells = creature.creatureProperties.spells.filter(spell => {
             return spell.id !== spellId
         })
         this.setState({creature: creature});
     }
 
-    handleAddInnateSpell = (innateSpell: InnateSpellViewModel): void => {
+    handleAddInnateSpell = (innateSpell: DND5InnateSpellViewModel): void => {
         const creature = this.state.creature;
-        creature.properties.innateSpells.addInnateSpell(innateSpell);
+        creature.creatureProperties.innateSpells.addInnateSpell(innateSpell);
         this.setState({creature: creature});
     }
 
-    handleRemoveInnateSpell = (innateSpell: InnateSpellViewModel): void => {
+    handleRemoveInnateSpell = (innateSpell: DND5InnateSpellViewModel): void => {
         const creature = this.state.creature;
-        creature.properties.innateSpells.removeInnateSpell(innateSpell);
+        creature.creatureProperties.innateSpells.removeInnateSpell(innateSpell);
         this.setState({creature: creature});
     }
 
@@ -476,13 +476,13 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                     <div className={style.formSection}>
                         <NameCreatureTypeAndTypeFormSectionHeader
                             name={this.state.creature.name}
-                            type={this.state.creature.properties.type}
+                            type={this.state.creature.creatureProperties.type}
                         />
                         <NameCreatureTypeAndTypeFormSection
                             name={this.state.creature.name}
-                            creatureType={this.state.creature.properties.creatureType}
+                            creatureType={this.state.creature.creatureProperties.creatureType}
                             changeCreatureType={this.handleCreatureTypeChange}
-                            type={this.state.creature.properties.type}
+                            type={this.state.creature.creatureProperties.type}
                             changeName={this.handleNameChange}
                             changeType={this.handleTypeChange}
                             changeEnforceClassLevels={this.handleEnforceClassLevelsChange}
@@ -492,56 +492,56 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                     {/*Size Alignment and Challenge*/}
                     <div className={style.formSection}>
                         <SizeAlignmentAndChallengeFormSectionHeader
-                            size={this.state.creature.properties.size}
-                            challenge={this.state.creature.properties.challenge}
-                            alignment={this.state.creature.properties.alignment}
-                            type={this.state.creature.properties.type}
+                            size={this.state.creature.creatureProperties.size}
+                            challenge={this.state.creature.creatureProperties.challenge}
+                            alignment={this.state.creature.creatureProperties.alignment}
+                            type={this.state.creature.creatureProperties.type}
                         />
                         {
-                            this.formSectionDisplayRuleService.shouldDisplaySizeAndAlignmentSection(this.state.creature.name, this.state.creature.properties.type)
+                            this.formSectionDisplayRuleService.shouldDisplaySizeAndAlignmentSection(this.state.creature.name, this.state.creature.creatureProperties.type)
                             &&
                             <SizeAlignmentAndChallengeFormSection
-                                size={this.state.creature.properties.size}
+                                size={this.state.creature.creatureProperties.size}
                                 changeSize={this.handleSizeChange}
-                                challenge={this.state.creature.properties.getPrimitiveAttributeAsString(
-                                    this.state.creature.properties.challenge
+                                challenge={this.state.creature.creatureProperties.getPrimitiveAttributeAsString(
+                                    this.state.creature.creatureProperties.challenge
                                 )}
                                 changeChallenge={this.handleCRChange}
-                                alignment={this.state.creature.properties.alignment}
+                                alignment={this.state.creature.creatureProperties.alignment}
                                 changeAlignment={this.handleAlignmentChange}
-                                type={this.state.creature.properties.type}
+                                type={this.state.creature.creatureProperties.type}
                             />
                         }
                     </div>
                     {/*Abilities*/}
                     <div className={style.formSection}>
-                        <StatBlockFormSectionHeader stats={this.state.creature.properties.stats}/>
+                        <StatBlockFormSectionHeader stats={this.state.creature.creatureProperties.stats}/>
                         {
-                            this.formSectionDisplayRuleService.shouldDisplayStatBlockSection(this.state.creature.properties.size, this.state.creature.properties.alignment)
+                            this.formSectionDisplayRuleService.shouldDisplayStatBlockSection(this.state.creature.creatureProperties.size, this.state.creature.creatureProperties.alignment)
                             &&
                             <StatBlockFormSection
-                                strength={this.state.creature.properties.getPrimitiveAttributeAsString(
-                                    this.state.creature.properties.stats.strength
+                                strength={this.state.creature.creatureProperties.getPrimitiveAttributeAsString(
+                                    this.state.creature.creatureProperties.stats.strength
                                 )}
                                 changeStrength={this.handleStrengthChange}
-                                dexterity={this.state.creature.properties.getPrimitiveAttributeAsString(
-                                    this.state.creature.properties.stats.dexterity
+                                dexterity={this.state.creature.creatureProperties.getPrimitiveAttributeAsString(
+                                    this.state.creature.creatureProperties.stats.dexterity
                                 )}
                                 changeDexterity={this.handleDexterityChange}
-                                constitution={this.state.creature.properties.getPrimitiveAttributeAsString(
-                                    this.state.creature.properties.stats.constitution
+                                constitution={this.state.creature.creatureProperties.getPrimitiveAttributeAsString(
+                                    this.state.creature.creatureProperties.stats.constitution
                                 )}
                                 changeConstitution={this.handleConstitutionChange}
-                                intelligence={this.state.creature.properties.getPrimitiveAttributeAsString(
-                                    this.state.creature.properties.stats.intelligence
+                                intelligence={this.state.creature.creatureProperties.getPrimitiveAttributeAsString(
+                                    this.state.creature.creatureProperties.stats.intelligence
                                 )}
                                 changeIntelligence={this.handleIntelligenceChange}
-                                wisdom={this.state.creature.properties.getPrimitiveAttributeAsString(
-                                    this.state.creature.properties.stats.wisdom
+                                wisdom={this.state.creature.creatureProperties.getPrimitiveAttributeAsString(
+                                    this.state.creature.creatureProperties.stats.wisdom
                                 )}
                                 changeWisdom={this.handleWisdomChange}
-                                charisma={this.state.creature.properties.getPrimitiveAttributeAsString(
-                                    this.state.creature.properties.stats.charisma
+                                charisma={this.state.creature.creatureProperties.getPrimitiveAttributeAsString(
+                                    this.state.creature.creatureProperties.stats.charisma
                                 )}
                                 changeCharisma={this.handleCharismaChange}
                             />
@@ -550,18 +550,18 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                     {/*Classes and levels*/}
                     <div className={style.formSection}>
                         <ClassesAndLevelsFormSectionHeader
-                            classesAndLevels={this.state.creature.properties.classesAndLevels}
-                            type={this.state.creature.properties.type}
+                            classesAndLevels={this.state.creature.creatureProperties.classesAndLevels}
+                            type={this.state.creature.creatureProperties.type}
                             enforced={this.state.enforceClassLevels}
                         />
                         {
                             this.formSectionDisplayRuleService.shouldDisplayClassesAndLevelsSection(
                                 this.state.enforceClassLevels,
-                                this.state.creature.properties.type,
-                                this.state.creature.properties.stats
+                                this.state.creature.creatureProperties.type,
+                                this.state.creature.creatureProperties.stats
                             ) &&
                             <ClassesAndLevelsFormSection
-                                classesAndLevels={this.state.creature.properties.classesAndLevels}
+                                classesAndLevels={this.state.creature.creatureProperties.classesAndLevels}
                                 changeClassesAndLevels={this.handleClassesAndLevelsChange}
                                 changeHitDiceCount={this.handleHitDiceCountChange}
                                 changeHitDiceType={this.handleHitDiceTypeChange}
@@ -571,62 +571,62 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                     {/*HP Speed and AC*/}
                     <div className={style.formSection}>
                         <HPSpeedAndACFormSectionHeader
-                            hp={this.state.creature.properties.hitpoints}
-                            ac={this.state.creature.properties.armorclass}
-                            speed={this.state.creature.properties.speed}
-                            hitDice={this.state.creature.properties.hitDice}
+                            hp={this.state.creature.creatureProperties.hitpoints}
+                            ac={this.state.creature.creatureProperties.armorclass}
+                            speed={this.state.creature.creatureProperties.speed}
+                            hitDice={this.state.creature.creatureProperties.hitDice}
                         />
                         {
                             this.formSectionDisplayRuleService.shouldDisplayHPSpeedAndACPlayerSection(
-                                this.state.creature.properties.type,
-                                this.state.creature.properties.stats
+                                this.state.creature.creatureProperties.type,
+                                this.state.creature.creatureProperties.stats
                             ) &&
                             <HPSpeedAndACPlayerFormSection
-                                hp={this.state.creature.properties.getPrimitiveAttributeAsString(
-                                    this.state.creature.properties.hitpoints
+                                hp={this.state.creature.creatureProperties.getPrimitiveAttributeAsString(
+                                    this.state.creature.creatureProperties.hitpoints
                                 )}
                                 changeHP={this.handleHitpointsChange}
-                                ac={this.state.creature.properties.getPrimitiveAttributeAsString(
-                                    this.state.creature.properties.armorclass
+                                ac={this.state.creature.creatureProperties.getPrimitiveAttributeAsString(
+                                    this.state.creature.creatureProperties.armorclass
                                 )}
                                 changeAC={this.handleArmorClassChange}
-                                speed={this.state.creature.properties.speed}
+                                speed={this.state.creature.creatureProperties.speed}
                                 changeLandSpeed={this.handleLandSpeedChange}
                                 changeAirSpeed={this.handleAirSpeedChange}
                                 changeWaterSpeed={this.handleWaterSpeedChange}
-                                classesAndLevels={this.state.creature.properties.classesAndLevels}
+                                classesAndLevels={this.state.creature.creatureProperties.classesAndLevels}
                             />
                         }
                         {
                             this.formSectionDisplayRuleService.shouldDisplayHPSpeedAndACMonsterSection(
-                                this.state.creature.properties.type,
-                                this.state.creature.properties.stats
+                                this.state.creature.creatureProperties.type,
+                                this.state.creature.creatureProperties.stats
                             ) &&
                             <HPSpeedAndACMonsterFormSection
-                                hp={this.state.creature.properties.getPrimitiveAttributeAsString(
-                                    this.state.creature.properties.hitpoints
+                                hp={this.state.creature.creatureProperties.getPrimitiveAttributeAsString(
+                                    this.state.creature.creatureProperties.hitpoints
                                 )}
                                 changeHP={this.handleHitpointsChange}
-                                ac={this.state.creature.properties.getPrimitiveAttributeAsString(
-                                    this.state.creature.properties.armorclass
+                                ac={this.state.creature.creatureProperties.getPrimitiveAttributeAsString(
+                                    this.state.creature.creatureProperties.armorclass
                                 )}
                                 changeAC={this.handleArmorClassChange}
-                                constitutionMod={this.state.creature.properties.stats.getStatModifierForStatValue(
-                                    this.state.creature.properties.stats.constitution
+                                constitutionMod={this.state.creature.creatureProperties.stats.getStatModifierForStatValue(
+                                    this.state.creature.creatureProperties.stats.constitution
                                 )}
-                                speed={this.state.creature.properties.speed}
+                                speed={this.state.creature.creatureProperties.speed}
                                 changeLandSpeed={this.handleLandSpeedChange}
                                 changeAirSpeed={this.handleAirSpeedChange}
                                 changeWaterSpeed={this.handleWaterSpeedChange}
-                                size={this.state.creature.properties.size}
-                                hitDice={this.state.creature.properties.hitDice}
+                                size={this.state.creature.creatureProperties.size}
+                                hitDice={this.state.creature.creatureProperties.hitDice}
                                 changeHitDiceCount={this.handleHitDiceCountChange}
                                 changeHitDiceBonus={this.handleHitDiceBonusChange}
                                 averageAC={this.averageStatsTable.getMatchingEntriesByChallengeRating(
-                                    this.state.creature.properties.challenge
+                                    this.state.creature.creatureProperties.challenge
                                 ).armorClass}
                                 averageHP={this.averageStatsTable.getMatchingEntriesByChallengeRating(
-                                    this.state.creature.properties.challenge
+                                    this.state.creature.creatureProperties.challenge
                                 ).hitPointsRange}
                             />
                         }
@@ -636,21 +636,21 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                         <LanguagesFeatsSensesAndSkillsFormSectionHeader/>
                         {
                             this.formSectionDisplayRuleService.shouldDisplayLanguagesFeatsSensesAndSkillsSection(
-                                this.state.creature.properties.hitpoints,
-                                this.state.creature.properties.armorclass,
-                                this.state.creature.properties.speed,
-                                this.state.creature.properties.hitDice
+                                this.state.creature.creatureProperties.hitpoints,
+                                this.state.creature.creatureProperties.armorclass,
+                                this.state.creature.creatureProperties.speed,
+                                this.state.creature.creatureProperties.hitDice
                             ) &&
                             <LanguagesFeatsSensesAndSkillsFormSection
-                                languages={this.state.creature.properties.languages}
+                                languages={this.state.creature.creatureProperties.languages}
                                 selectableLanguages={this.state.languagesToSelectFrom}
                                 changeLanguages={this.handleLanguagesChange}
-                                feats={this.state.creature.properties.talents}
+                                feats={this.state.creature.creatureProperties.talents}
                                 selectableFeats={this.state.talentsToSelectFrom}
                                 changeFeats={this.handleFeatsChange}
-                                senses={this.state.creature.properties.senses}
+                                senses={this.state.creature.creatureProperties.senses}
                                 changeSenses={this.handleSensesChange}
-                                skills={this.state.creature.properties.skills}
+                                skills={this.state.creature.creatureProperties.skills}
                                 selectableSkills={this.state.skillsToSelectFrom}
                                 changeSkills={this.handleSkillsChange}
                             />
@@ -664,23 +664,23 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                             handleAddInnateSpell={this.handleAddInnateSpell}
                             handleRemoveSlotSpell={this.handleRemoveSpell}
                             handleRemoveInnateSpell={this.handleRemoveInnateSpell}
-                            chosenSlotSpells={this.state.creature.properties.spells}
-                            chosenInnateSpells={this.state.creature.properties.innateSpells}
+                            chosenSlotSpells={this.state.creature.creatureProperties.spells}
+                            chosenInnateSpells={this.state.creature.creatureProperties.innateSpells}
                             shouldDisplaySpellsSection={this.formSectionDisplayRuleService.shouldDisplaySpellsSection(
-                                this.state.creature.properties.hitpoints,
-                                this.state.creature.properties.armorclass,
-                                this.state.creature.properties.speed,
-                                this.state.creature.properties.hitDice
+                                this.state.creature.creatureProperties.hitpoints,
+                                this.state.creature.creatureProperties.armorclass,
+                                this.state.creature.creatureProperties.speed,
+                                this.state.creature.creatureProperties.hitDice
                             )}
                             shouldDisplaySpellsWithSlotsSection={
                                 this.formSectionDisplayRuleService.shouldDisplaySpellsWithSlotsSection(
                                     this.state.enforceClassLevels,
-                                    this.state.creature.properties.type
+                                    this.state.creature.creatureProperties.type
                                 )
                             }
                             shouldDisplaySwitchForInnateSpellCasting={
                                 this.formSectionDisplayRuleService.shouldDisplayInnateSpellCastingOrSpellChoiceSwitch(
-                                    this.state.creature.properties.type
+                                    this.state.creature.creatureProperties.type
                                 )
                             }
                         />

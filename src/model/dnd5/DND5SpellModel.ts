@@ -1,19 +1,35 @@
-import {SpellComponentEnum} from "../dataModel/SpellComponentEnum";
+import {SpellComponentEnum} from "../SpellComponentEnum";
 import {MagicSchoolEnum} from "../enumeration/dnd5/MagicSchoolEnum";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
+import {string} from "prop-types";
 
+@Serializable()
 export class DND5SpellModel {
+    @JsonProperty({name: 'id'})
     private readonly _id: string;
+    @JsonProperty({name: 'name'})
     private readonly _name: string;
+    @JsonProperty({name: 'description'})
     private readonly _description: string;
+    @JsonProperty({name: 'range'})
     private readonly _range: string;
+    @JsonProperty({name: 'components', type: string})
     private readonly _components: SpellComponentEnum[];
+    @JsonProperty({name: 'canBeCastAsRitual'})
     private readonly _canBeCastAsRitual: boolean;
+    @JsonProperty({name: 'duration'})
     private readonly _duration: string;
+    @JsonProperty({name: 'needsConcentration'})
     private readonly _needsConcentration: boolean;
+    @JsonProperty({name: 'castingTime'})
     private readonly _castingTime: string;
+    @JsonProperty({name: 'school'})
     private readonly _school: MagicSchoolEnum;
+    @JsonProperty({name: 'level'})
     private readonly _level: number;
+    @JsonProperty({name: 'materials'})
     private readonly _materials?: string;
+    @JsonProperty({name: 'higherLevelsDescription'})
     private readonly _higherLevelsDescription?: string;
 
     constructor(

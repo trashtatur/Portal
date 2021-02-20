@@ -1,19 +1,34 @@
 import {ModelInterface} from "./ModelInterface";
 import {PersonModel} from "./PersonModel";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class SceneModel implements ModelInterface {
+    @JsonProperty({name: 'id'})
     private readonly _id: string;
+    @JsonProperty({name: 'adventureId'})
     private readonly _adventureId: string;
+    @JsonProperty({name: 'number'})
     private readonly _number: number;
+    @JsonProperty({name: 'name'})
     private readonly _name: string;
+    @JsonProperty({name: 'hook'})
     private readonly _hook: string;
+    @JsonProperty({name: 'token'})
     private readonly _token: string;
+    @JsonProperty({name: 'act'})
     private readonly _act: number;
+    @JsonProperty({name: 'resolve'})
     private readonly _resolve: string;
+    @JsonProperty({name: 'parentScenes'})
     private _parentScenes?: Array<SceneModel>;
+    @JsonProperty({name: 'additionalDescription'})
     private readonly _additionalDescription?: string;
+    @JsonProperty({name: 'images'})
     private readonly _images?: Array<string>;
+    @JsonProperty({name: 'treasure'})
     private readonly _treasure?: string;
+    @JsonProperty({name: 'persons'})
     private readonly _persons?: Array<PersonModel>;
 
     constructor(

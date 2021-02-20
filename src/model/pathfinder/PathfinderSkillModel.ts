@@ -1,8 +1,13 @@
 import {ModelInterface} from "../ModelInterface";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class PathfinderSkillModel implements ModelInterface {
+    @JsonProperty({name: 'id'})
     private readonly _id: string;
+    @JsonProperty({name: 'name'})
     private readonly _name: string;
+    @JsonProperty({name: 'level'})
     private readonly _level: number;
 
     constructor(

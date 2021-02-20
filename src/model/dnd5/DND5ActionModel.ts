@@ -1,16 +1,27 @@
 import {RangeTypeEnum} from "../enumeration/RangeTypeEnum";
-import {DiceRollSpecification} from "../dataModel/DiceRollSpecification";
-import {DND5DamageType} from "../dataModel/dnd5/DND5DamageType";
+import {DiceRollSpecification} from "../DiceRollSpecification";
+import {DND5DamageType} from "./DND5DamageType";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class DND5ActionModel {
+    @JsonProperty({name: 'id'})
     private readonly _id: string;
+    @JsonProperty({name: 'name'})
     private readonly _name: string;
+    @JsonProperty({name: 'rangeType'})
     private readonly _rangeType: RangeTypeEnum;
+    @JsonProperty({name: 'attackBonus'})
     private readonly _attackBonus: number;
+    @JsonProperty({name: 'range'})
     private readonly _range: string;
+    @JsonProperty({name: 'magical'})
     private readonly _magical: boolean;
+    @JsonProperty({name: 'damage'})
     private readonly _damage: DiceRollSpecification;
+    @JsonProperty({name: 'damageType'})
     private readonly _damageType: DND5DamageType;
+    @JsonProperty({name: 'additionalInfo'})
     private readonly _additionalInfo: string;
 
     constructor(

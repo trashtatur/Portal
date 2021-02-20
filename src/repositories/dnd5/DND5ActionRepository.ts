@@ -1,16 +1,16 @@
 import {Service} from "@tsed/di";
 import {DND5ActionModel} from "../../model/dnd5/DND5ActionModel";
-import {DND5ActionEntityToModelMapper} from "../../mapping/fromEntityToModel/dnd5/DND5ActionEntityToModelMapper";
+import {DND5ActionConverter} from "../../converter/dnd5/DND5ActionConverter";
 import {DND5Action} from "../../db/schemas/DND5/DND5Action";
 
 @Service()
 export class DND5ActionRepository {
-    private dnd5ActionEntityToModelMapper: DND5ActionEntityToModelMapper;
+    private dnd5ActionConverter: DND5ActionConverter;
 
     constructor(
-        dnd5ActionEntityToModelMapper: DND5ActionEntityToModelMapper
+        dnd5ActionConverter: DND5ActionConverter
     ) {
-        this.dnd5ActionEntityToModelMapper = dnd5ActionEntityToModelMapper;
+        this.dnd5ActionConverter = dnd5ActionConverter;
     }
 
     create = async(dnd5ActionModel: DND5ActionModel): Promise<DND5ActionModel> => {
@@ -24,7 +24,7 @@ export class DND5ActionRepository {
             damageType: dnd5ActionModel.damageType.damageTypes.join(','),
             additionalInfo: dnd5ActionModel.additionalInfo
         });
-        return this.dnd5ActionEntityToModelMapper.map(entity);
+        return this.dnd5ActionConverter.convertEntity(entity);
     }
 
     bulkCreate = async(dnd5ActionModels: DND5ActionModel[]): Promise<DND5ActionModel[]> => {
@@ -44,11 +44,11 @@ export class DND5ActionRepository {
         const condition = {};
         condition[key] = value;
         const entity = await DND5Action.findOne({where: condition});
-        return this.dnd5ActionEntityToModelMapper.map(entity);
+        return this.dnd5ActionConverter.convertEntity(entity);
     }
 
     findAll = async(): Promise<DND5ActionModel[]> => {
         const entities = await DND5Action.findAll();
-        return this.dnd5ActionEntityToModelMapper.mapMultiple(entities);
+        return this.dnd5ActionConverter.convertMultipleEntities(entities);
     }
 }

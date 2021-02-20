@@ -3,49 +3,81 @@ import {DND5ActionModel} from "./DND5ActionModel";
 import {DND5TalentModel} from "./DND5TalentModel";
 import {DND5SkillModel} from "./DND5SkillModel";
 import {DND5LanguageModel} from "./DND5LanguageModel";
-import {DiceRollSpecification} from "../dataModel/DiceRollSpecification";
+import {DiceRollSpecification} from "../DiceRollSpecification";
 import {AlignmentEnum} from "../enumeration/AlignmentEnum";
-import {NamedCreatureProperty} from "../dataModel/NamedCreatureProperty";
+import {NamedCreatureProperty} from "../NamedCreatureProperty";
 import {DND5CreatureSizeEnum} from "../enumeration/dnd5/DND5CreatureSizeEnum";
 import {TypeEnum} from "../enumeration/TypeEnum";
 import {CreatureTypeEnum} from "../enumeration/dnd5/CreatureTypeEnum";
-import {CreatureStatsModel} from "../dataModel/CreatureStatsModel";
-import {SenseModel} from "../dataModel/dnd5/SenseModel";
-import {DND5SavingThrowsModel} from "../dataModel/dnd5/DND5SavingThrowsModel";
-import {ClassAndLevelModel} from "../dataModel/ClassAndLevelModel";
+import {CreatureStatsModel} from "../CreatureStatsModel";
+import {SenseModel} from "./SenseModel";
+import {DND5SavingThrowsModel} from "./DND5SavingThrowsModel";
+import {ClassAndLevelModel} from "../ClassAndLevelModel";
 import {DND5SpellModel} from "./DND5SpellModel";
-import {DND5SpellSlotsModel} from "../dataModel/dnd5/DND5SpellSlotsModel";
+import {DND5SpellSlotsModel} from "./DND5SpellSlotsModel";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class DND5CreaturePropertiesModel extends AbstractCreaturePropertyModel {
+    @JsonProperty({name: 'id'})
     private readonly _id: string;
+    @JsonProperty({name: 'type'})
     private readonly _type: TypeEnum;
+    @JsonProperty({name: 'proficiencyBonus'})
     private readonly _proficiencyBonus: number;
+    @JsonProperty({name: 'armorclass'})
     private readonly _armorclass: number;
+    @JsonProperty({name: 'hitpoints'})
     private readonly _hitpoints: number;
+    @JsonProperty({name: 'hitDice'})
     private readonly _hitDice: DiceRollSpecification;
+    @JsonProperty({name: 'alignment'})
     private readonly _alignment: AlignmentEnum;
+    @JsonProperty({name: 'attackProperties'})
     private readonly _attackProperties: NamedCreatureProperty[];
+    @JsonProperty({name: 'creatureType'})
     private readonly _creatureType: CreatureTypeEnum;
+    @JsonProperty({name: 'challenge'})
     private readonly _challenge: number;
+    @JsonProperty({name: 'xp'})
     private readonly _xp: number;
+    @JsonProperty({name: 'stats'})
     private readonly _stats: CreatureStatsModel;
+    @JsonProperty({name: 'size'})
     private readonly _size: DND5CreatureSizeEnum;
+    @JsonProperty({name: 'speed'})
     private readonly _speed: string;
+    @JsonProperty({name: 'spellSlots'})
     private readonly _spellSlots: DND5SpellSlotsModel;
+    @JsonProperty({name: 'classesAndLevels'})
     private readonly _classesAndLevels?: Array<ClassAndLevelModel>;
+    @JsonProperty({name: 'damageVulnerabilities'})
     private readonly _damageVulnerabilities?: Array<string>;
+    @JsonProperty({name: 'damageResistances'})
     private readonly _damageResistances?: Array<string>;
+    @JsonProperty({name: 'conditionImmunities'})
     private readonly _conditionImmunities?: Array<string>;
+    @JsonProperty({name: 'damageImmunities'})
     private readonly _damageImmunities?: Array<string>;
+    @JsonProperty({name: 'savingThrows'})
     private readonly _savingThrows?: DND5SavingThrowsModel;
+    @JsonProperty({name: 'image'})
     private readonly _image?: string;
+    @JsonProperty({name: 'senses'})
     private readonly _senses?: SenseModel[];
+    @JsonProperty({name: 'legendaryActions'})
     private readonly _legendaryActions?: NamedCreatureProperty[];
+    @JsonProperty({name: 'reactions'})
     private readonly _reactions?: NamedCreatureProperty[];
+    @JsonProperty({name: 'actions'})
     private readonly _actions?: DND5ActionModel[];
+    @JsonProperty({name: 'talents'})
     private readonly _talents?: DND5TalentModel[];
+    @JsonProperty({name: 'skills'})
     private readonly _skills?: DND5SkillModel[];
+    @JsonProperty({name: 'languages'})
     private readonly _languages?: DND5LanguageModel[];
+    @JsonProperty({name: 'spells'})
     private readonly _spells?: DND5SpellModel[];
 
     constructor(

@@ -1,14 +1,14 @@
 import {DND5CreaturePropertiesViewModel} from "../../model/dnd5/DND5CreaturePropertiesViewModel";
-import {DiceRollSpecification} from "../../model/dataModel/DiceRollSpecification";
+import {DiceRollSpecification} from "../../model/DiceRollSpecification";
 import {AlignmentEnum} from "../../model/enumeration/AlignmentEnum";
 import {DND5CreatureTypeEnum} from "../../model/enumeration/dnd5/DND5CreatureTypeEnum";
-import {DND5CreatureStatsViewModel} from "../../model/dataModel/dnd5/DND5CreatureStatsViewModel";
+import {DND5CreatureStatsViewModel} from "../../model/dnd5/DND5CreatureStatsViewModel";
 import {DND5CreatureSizeEnum} from "../../model/enumeration/dnd5/DND5CreatureSizeEnum";
-import {DND5SpellSlotsViewModel} from "../../model/dataModel/dnd5/DND5SpellSlotsViewModel";
+import {DND5SpellSlotsViewModel} from "../../model/dnd5/DND5SpellSlotsViewModel";
 import {TypeEnum} from "../../model/enumeration/TypesEnum";
-import {SpeedViewModel} from "@/public/model/dataModel/SpeedViewModel";
-import {DND5SavingThrowsViewModel} from "@/public/model/dataModel/dnd5/DND5SavingThrowsViewModel";
-import {InnateSpellCollection} from "@/public/model/dataModel/dnd5/InnateSpellCollection";
+import {SpeedViewModel} from "@/public/model/SpeedViewModel";
+import {DND5SavingThrowsViewModel} from "@/public/model/dnd5/DND5SavingThrowsViewModel";
+import {DND5InnateSpellCollection} from "@/public/model/dnd5/DND5InnateSpellCollection";
 
 export class DND5CreaturePropertiesViewModelFactory {
     createEmpty = (): DND5CreaturePropertiesViewModel => {

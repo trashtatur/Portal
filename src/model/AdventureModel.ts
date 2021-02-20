@@ -1,12 +1,19 @@
 import {ModelInterface} from "./ModelInterface";
 import {SceneModel} from "./SceneModel";
 import {PersonModel} from "./PersonModel";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class AdventureModel implements ModelInterface {
+    @JsonProperty({name: 'id'})
     private readonly _id: string;
+    @JsonProperty({name: 'name'})
     private readonly _name: string;
+    @JsonProperty({name: 'core'})
     private readonly _core: string;
+    @JsonProperty({name: 'scenes'})
     private readonly _scenes?: SceneModel[];
+    @JsonProperty({name: 'persons'})
     private readonly _persons?: PersonModel[];
 
     constructor(

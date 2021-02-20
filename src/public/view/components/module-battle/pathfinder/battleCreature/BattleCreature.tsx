@@ -3,15 +3,15 @@ import {CreatureCard} from "../creaturecard/CreatureCard";
 import {ReactElement} from "react";
 import {PathfinderCreatureSizeEnum} from "@/public/model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
 import {ProgressBar} from "@/public/view/components/uiBasic/progressBar/ProgressBar";
-import {PathfinderSavingThrowsViewModel} from "@/public/model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
-import {TalentViewModel} from "@/public/model/pathfinder/TalentViewModel";
-import {ActionViewModel} from "@/public/model/pathfinder/ActionViewModel";
-import {NamedPropertyViewModel} from "@/public/model/dataModel/NamedPropertyViewModel";
-import {PathfinderStatsViewModel} from "@/public/model/dataModel/pathfinder/PathfinderStatsViewModel";
+import {PathfinderSavingThrowsViewModel} from "@/public/model/pathfinder/PathfinderSavingThrowsViewModel";
+import {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
+import {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
+import {NamedPropertyViewModel} from "@/public/model/NamedPropertyViewModel";
+import {PathfinderStatsViewModel} from "@/public/model/pathfinder/PathfinderStatsViewModel";
 import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
 import {AlignmentEnum} from "@/public/model/enumeration/AlignmentEnum";
-import {LanguageViewModel} from "@/public/model/pathfinder/LanguageViewModel";
-import {SkillViewModel} from "@/public/model/pathfinder/SkillViewModel";
+import {PathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
+import {PathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
 import * as style from './battleCreature.css';
 
 
@@ -42,10 +42,10 @@ export interface CreatureProps {
     handleCurrentTypeChange: Function;
     handleRemoveFromEncounter: Function;
     saveThrows: PathfinderSavingThrowsViewModel;
-    languages?: LanguageViewModel[];
-    skills?: SkillViewModel[];
-    talents?: TalentViewModel[];
-    actions?: ActionViewModel[];
+    languages?: PathfinderLanguageViewModel[];
+    skills?: PathfinderSkillViewModel[];
+    talents?: PathfinderTalentViewModel[];
+    actions?: PathfinderActionViewModel[];
 
     changeCurrentHPOfRoundCreature: Function;
     changeCurrentACOfRoundCreature: Function;

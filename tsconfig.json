@@ -15,6 +15,7 @@
     "emitDecoratorMetadata": true,
     "removeComments": true,
     "baseUrl": ".",
+    "resolveJsonModule": true,
     "paths": {
       "@/public/*": [
         "src/public/*"
@@ -27,7 +28,7 @@
   "include": [
     "src/global.d.ts",
     "src/public/types/frontendTypes.d.ts",
-    "build/cssTypes/**/*.d.ts",
+    "src/types/backendTypes.d.ts",
     "src/**/*"
   ],
   "exclude": [

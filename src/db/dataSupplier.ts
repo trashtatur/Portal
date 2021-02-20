@@ -1,11 +1,11 @@
-const config = require('../../config/config.json');
+import * as config from '../../config/config.json';
 
 export class DataSupplier {
     private readonly _databaseHost: string;
     private readonly _databaseName: string;
     private readonly _databasePassword: string;
     private readonly _databaseUser: string;
-    private readonly _forceDBReset: string;
+    private readonly _forceDBReset: string|boolean;
 
 
     constructor() {
@@ -33,8 +33,8 @@ export class DataSupplier {
         return this._databaseUser;
     }
 
-    get forceDBReset(): string {
-        return this._forceDBReset;
+    get forceDBReset(): boolean {
+        return this._forceDBReset as unknown as boolean;
     }
 };
 

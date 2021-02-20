@@ -1,37 +1,59 @@
 import {TypeEnum} from "../enumeration/TypesEnum";
 import {AlignmentEnum} from "../enumeration/AlignmentEnum";
 import {PathfinderCreatureSizeEnum} from "../enumeration/pathfinder/PathfinderCreatureSizeEnum";
-import {PathfinderStatsViewModel} from "../dataModel/pathfinder/PathfinderStatsViewModel";
-import {PathfinderSavingThrowsViewModel} from "../dataModel/pathfinder/PathfinderSavingThrowsViewModel";
-import {ActionViewModel} from "./ActionViewModel";
-import {LanguageViewModel} from "./LanguageViewModel";
-import {SkillViewModel} from "./SkillViewModel";
-import {TalentViewModel} from "./TalentViewModel";
-import {NamedPropertyViewModel} from "../dataModel/NamedPropertyViewModel";
+import {PathfinderStatsViewModel} from "./PathfinderStatsViewModel";
+import {PathfinderSavingThrowsViewModel} from "./PathfinderSavingThrowsViewModel";
+import {PathfinderActionViewModel} from "./PathfinderActionViewModel";
+import {PathfinderLanguageViewModel} from "./PathfinderLanguageViewModel";
+import {PathfinderSkillViewModel} from "./PathfinderSkillViewModel";
+import {PathfinderTalentViewModel} from "./PathfinderTalentViewModel";
+import {NamedPropertyViewModel} from "../NamedPropertyViewModel";
 import {AbstractPropertyViewModel} from "../AbstractPropertyViewModel";
-import {ApplyEffects} from "@/public/model/effects/decorator/DecoratorFunctions";
+import {ApplyEffects} from "@/public/model/status/decorator/DecoratorFunctions";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
+import {getEnumKeyForValue} from "@/public/service/EnumFromStringService";
 
+@Serializable()
 export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewModel{
-
+    @JsonProperty({name: 'id'})
     private _id: string;
+    @JsonProperty({name: 'type', onDeserialize: (data) => getEnumKeyForValue(data, TypeEnum)})
     private _type: TypeEnum;
+    @JsonProperty({name: 'armorclass'})
     private _armorclass: number;
+    @JsonProperty({name: 'hitpoints'})
     private _hitpoints: number;
+    @JsonProperty({name: 'alignment', onDeserialize: (data) => getEnumKeyForValue(data, AlignmentEnum)})
     private _alignment: AlignmentEnum;
+    @JsonProperty({name: 'creatureClass'})
     private _creatureClass: string;
+    @JsonProperty({name: 'challenge'})
     private _challenge: number;
+    @JsonProperty({name: 'movement'})
     private _movement: number;
+    @JsonProperty({name: 'ini'})
     private _ini: number;
+    @JsonProperty({name: 'baseAtk'})
     private _baseAtk: number;
+    @JsonProperty({name: 'size', onDeserialize: (data) => getEnumKeyForValue(data, PathfinderCreatureSizeEnum)})
     private _size: PathfinderCreatureSizeEnum;
+    @JsonProperty({name: 'stats'})
     private _stats: PathfinderStatsViewModel;
+    @JsonProperty({name: 'saveThrows'})
     private _saveThrows: PathfinderSavingThrowsViewModel;
+    @JsonProperty({name: 'xp'})
     private _xp?: number;
+    @JsonProperty({name: 'image'})
     private _image?: string;
-    private _actions?: ActionViewModel[];
-    private _languages?: LanguageViewModel[];
-    private _skills?: SkillViewModel[];
-    private _talents?: TalentViewModel[];
+    @JsonProperty({name: 'actions', type: PathfinderActionViewModel})
+    private _actions?: PathfinderActionViewModel[];
+    @JsonProperty({name: 'languages', type: PathfinderLanguageViewModel})
+    private _languages?: PathfinderLanguageViewModel[];
+    @JsonProperty({name: 'skills', type: PathfinderSkillViewModel})
+    private _skills?: PathfinderSkillViewModel[];
+    @JsonProperty({name: 'talents', type: PathfinderTalentViewModel})
+    private _talents?: PathfinderTalentViewModel[];
+    @JsonProperty({name: 'attackProperties', type: NamedPropertyViewModel})
     private _attackProperties?: NamedPropertyViewModel[];
     private _currentHitpoints: number;
     private _currentInitiative: number;
@@ -54,10 +76,10 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         saveThrows: PathfinderSavingThrowsViewModel,
         xp?: number,
         image?: string,
-        actions?: ActionViewModel[],
-        languages?: LanguageViewModel[],
-        skills?: SkillViewModel[],
-        talents?: TalentViewModel[],
+        actions?: PathfinderActionViewModel[],
+        languages?: PathfinderLanguageViewModel[],
+        skills?: PathfinderSkillViewModel[],
+        talents?: PathfinderTalentViewModel[],
         attackProperties?: NamedPropertyViewModel[],
     ) {
         super();
@@ -212,35 +234,35 @@ export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewM
         this._image = value;
     }
 
-    get actions(): ActionViewModel[] {
+    get actions(): PathfinderActionViewModel[] {
         return this._actions;
     }
 
-    set actions(value: ActionViewModel[]) {
+    set actions(value: PathfinderActionViewModel[]) {
         this._actions = value;
     }
 
-    get languages(): LanguageViewModel[] {
+    get languages(): PathfinderLanguageViewModel[] {
         return this._languages;
     }
 
-    set languages(value: LanguageViewModel[]) {
+    set languages(value: PathfinderLanguageViewModel[]) {
         this._languages = value;
     }
 
-    get skills(): SkillViewModel[] {
+    get skills(): PathfinderSkillViewModel[] {
         return this._skills;
     }
 
-    set skills(value: SkillViewModel[]) {
+    set skills(value: PathfinderSkillViewModel[]) {
         this._skills = value;
     }
 
-    get talents(): TalentViewModel[] {
+    get talents(): PathfinderTalentViewModel[] {
         return this._talents;
     }
 
-    set talents(value: TalentViewModel[]) {
+    set talents(value: PathfinderTalentViewModel[]) {
         this._talents = value;
     }
 

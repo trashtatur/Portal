@@ -7,7 +7,7 @@ export class PathfinderCreatureAction extends Model<PathfinderCreatureAction> {
 
     @ForeignKey(()=> PathfinderCreatureProperties)
     @Column({type:DataType.UUID})
-    creatureId;
+    propertyId;
 
     @ForeignKey(()=> PathfinderAction)
     @Column({type:DataType.UUID})

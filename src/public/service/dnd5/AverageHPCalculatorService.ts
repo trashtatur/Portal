@@ -1,4 +1,4 @@
-import {DiceRollSpecification} from "../../model/dataModel/DiceRollSpecification";
+import {DiceRollSpecification} from "../../model/DiceRollSpecification";
 
 export class AverageHPCalculatorService {
     calculateAverageHP = (hitDice: DiceRollSpecification): number => {
@@ -24,7 +24,6 @@ export class AverageHPCalculatorService {
             }
         }
         const bonus = hitDiceCount * constitutionModifier;
-        if (bonus)
         return new DiceRollSpecification(hitDiceCount, hitDiceType, bonus)
     }
 }

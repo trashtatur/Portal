@@ -2,7 +2,6 @@ import * as React from "react";
 import {ReactElement} from "react";
 import {BattleCreature} from "../battleCreature/BattleCreature";
 import axios, {AxiosResponse} from 'axios';
-import {uuidv4} from "@/public/service/helperFunctions";
 import {selectable, selectableCreatures} from "@/public/types/frontendTypes";
 import {CreatureSelectLabel} from "@/public/view/components/uiBasic/creatureSelectLabel/CreatureSelectLabel";
 import {PathfinderAddSummon} from "@/public/view/components/module-battle/pathfinder/formAddSummon/PathfinderAddSummon";
@@ -10,10 +9,11 @@ import {BattleDiceRoller} from "../battleDiceRoller/BattleDiceRoller";
 import {MultiSelectNoCreate} from "@/public/view/components/uiBasic/multiSelectNoCreate/MultiSelectNoCreate";
 import {CreatureViewModel} from "@/public/model/CreatureViewModel";
 import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
-import {CreatureDataToViewModelMapper} from "@/public/mapping/CreatureDataToViewModelMapper";
 import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
 import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import {SelectEventTypesEnum} from "@/public/model/enumeration/SelectEventTypesEnum";
+import {CreatureSerializerService} from "@/public/service/CreatureSerializerService";
+import {uuidv4} from "@/public/service/UuidService";
 import * as style from './pathfinderEncounterCreatureList.css';
 
 export interface EncounterCreatureListProps {
@@ -45,8 +45,8 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
     sortByIni = (event, id, label): void => {
         const creatureMap = this.state.creaturesInBattle;
         creatureMap.filter(creature => {
-            return creature.id == id && creature.properties.label === label;
-        })[0].properties.currentInitiative = parseInt(event.target.value);
+            return creature.id == id && creature.creatureProperties.label === label;
+        })[0].creatureProperties.currentInitiative = parseInt(event.target.value);
         const creatureMapSorted = this.sortCreatureMap(creatureMap);
         this.setState({creaturesInBattle: creatureMapSorted}, () => this.setToSessionStorage())
     };
@@ -64,8 +64,8 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
         this.setState({
             creaturesInBattle:
                 this.state.creaturesInBattle.filter(elem => {
-                    if (elem.properties.id === id) {
-                        if (elem.properties.label === label) {
+                    if (elem.creatureProperties.id === id) {
+                        if (elem.creatureProperties.label === label) {
                             return false;
                         }
                     }
@@ -77,24 +77,24 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
     handleCurrentHPChange = (event, id, label): void => {
         const creatureMap = this.state.creaturesInBattle;
         creatureMap.filter(creature => {
-            return creature.id == id && creature.properties.label === label;
-        })[0].properties.currentHitpoints = parseInt(event.target.value);
+            return creature.id == id && creature.creatureProperties.label === label;
+        })[0].creatureProperties.currentHitpoints = parseInt(event.target.value);
         this.setState({creaturesInBattle: creatureMap}, () => this.setToSessionStorage())
     };
 
     handleCurrentACChange = (event, id, label): void => {
         const creatureMap = this.state.creaturesInBattle;
         creatureMap.filter(creature => {
-            return creature.id == id && creature.properties.label === label;
-        })[0].properties.currentArmorclass = parseInt(event.target.value);
+            return creature.id == id && creature.creatureProperties.label === label;
+        })[0].creatureProperties.currentArmorclass = parseInt(event.target.value);
         this.setState({creaturesInBattle: creatureMap}, () => this.setToSessionStorage())
     };
 
     handleCurrentTypeChange = (event, id, label): void => {
         const creatureMap = this.state.creaturesInBattle;
         creatureMap.filter(creature => {
-            return creature.id == id && creature.properties.label === label;
-        })[0].properties.type = event.target.value;
+            return creature.id == id && creature.creatureProperties.label === label;
+        })[0].creatureProperties.type = event.target.value;
         this.setState({creaturesInBattle: creatureMap}, () => this.setToSessionStorage())
     };
 
@@ -102,12 +102,12 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
         const sameCreature = this.state.creaturesInBattle.filter(elem => {
             return elem.name == creatureViewModel.name
         }).sort(function (cr1, cr2) {
-            if (cr1.properties.label > cr2.properties.label) return 1;
-            if (cr1.properties.label < cr2.properties.label) return -1;
+            if (cr1.creatureProperties.label > cr2.creatureProperties.label) return 1;
+            if (cr1.creatureProperties.label < cr2.creatureProperties.label) return -1;
             return 0;
         });
         if (sameCreature.length == 0) return 1;
-        else return sameCreature[sameCreature.length - 1].properties.label + 1
+        else return sameCreature[sameCreature.length - 1].creatureProperties.label + 1
     };
 
     componentDidMount = async (): Promise<void> => {
@@ -117,9 +117,9 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
             //this.setState({creaturesInBattle: potentialEncounter});
         }
         try {
-            const creatureMapper = new CreatureDataToViewModelMapper();
+            const creatureSerializerService = new CreatureSerializerService()
             const creatureData = await this.getAllCreatures();
-            const creatureViewModels = creatureMapper.mapMultiple(creatureData.data, PathfinderCreaturePropertiesViewModel);
+            const creatureViewModels = creatureSerializerService.deserializeCreatures(creatureData.data)
             this.setState({creatureViewModels: creatureViewModels})
         } catch (e) {
             console.log(e)
@@ -153,28 +153,28 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
         ];
 
         this.state.creatureViewModels.forEach(entry => {
-            if (entry.properties.type === TypeEnum.MONSTER) {
+            if (entry.creatureProperties.type === TypeEnum.MONSTER) {
                 selectables[0].options.push({
                     value: entry.name,
                     label: <CreatureSelectLabel image={'monster-icon.png'}
                                                 creature={entry}
-                                                labelText={`${entry.name} CR: ${entry.properties.challenge}`}/>
+                                                labelText={`${entry.name} CR: ${entry.creatureProperties.challenge}`}/>
                 })
-            } else if (entry.properties.type === TypeEnum.PLAYER) {
+            } else if (entry.creatureProperties.type === TypeEnum.PLAYER) {
                 selectables[1].options.push({
                     value: entry.name,
                     label: <CreatureSelectLabel image={'player-icon.png'}
                                                 creature={entry}
                                                 labelText={`${entry.name}`}/>
                 })
-            } else if (entry.properties.type === TypeEnum.ALLY) {
+            } else if (entry.creatureProperties.type === TypeEnum.ALLY) {
                 selectables[2].options.push({
                     value: entry.name,
                     label: <CreatureSelectLabel image={'ally-icon.png'}
                                                 creature={entry}
-                                                labelText={`${entry.name} CR: ${entry.properties.challenge}`}/>
+                                                labelText={`${entry.name} CR: ${entry.creatureProperties.challenge}`}/>
                 })
-            } else if (entry.properties.type == TypeEnum.SUMMON) {
+            } else if (entry.creatureProperties.type == TypeEnum.SUMMON) {
                 selectables[3].options.push({
                     value: entry.name,
                     label: <CreatureSelectLabel image={'summon-icon.png'}
@@ -190,7 +190,7 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
         return this.state.creaturesToAdd.map(creature => {
             return {
                 value: creature.name,
-                label: <CreatureSelectLabel image={`${creature.properties.type}-icon.png`}
+                label: <CreatureSelectLabel image={`${creature.creatureProperties.type}-icon.png`}
                                             creature={creature}
                                             labelText={`${creature.name}`}/>
             }
@@ -202,9 +202,9 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
     ): CreatureViewModel<PathfinderCreaturePropertiesViewModel> => {
         const clonedCreatureViewModel: CreatureViewModel<PathfinderCreaturePropertiesViewModel> =
             this.creatureViewModelFactory.createFromExisting(creatureViewModel)
-        clonedCreatureViewModel.properties.label =
-            clonedCreatureViewModel.properties.label == null
-            ? this.determineLabel(clonedCreatureViewModel) : clonedCreatureViewModel.properties.label
+        clonedCreatureViewModel.creatureProperties.label =
+            clonedCreatureViewModel.creatureProperties.label == null
+            ? this.determineLabel(clonedCreatureViewModel) : clonedCreatureViewModel.creatureProperties.label
         return clonedCreatureViewModel;
     };
 
@@ -212,8 +212,8 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
         creatureMap: Array<CreatureViewModel<PathfinderCreaturePropertiesViewModel>>
     ): Array<CreatureViewModel<PathfinderCreaturePropertiesViewModel>> => {
         return creatureMap.sort((creatureA, creatureB) => {
-            if (creatureA.properties.currentInitiative < creatureB.properties.currentInitiative) return 1;
-            if (creatureA.properties.currentInitiative > creatureB.properties.currentInitiative) return -1;
+            if (creatureA.creatureProperties.currentInitiative < creatureB.creatureProperties.currentInitiative) return 1;
+            if (creatureA.creatureProperties.currentInitiative > creatureB.creatureProperties.currentInitiative) return -1;
             return 0;
         });
     };
@@ -295,34 +295,34 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
                                 key={uuidv4()}
                                 id={creature.id}
                                 name={creature.name}
-                                type={creature.properties.type}
-                                hitpoints={creature.properties.hitpoints}
-                                label={creature.properties.label}
-                                attackProperties={creature.properties.attackProperties}
-                                xp={creature.properties.xp}
-                                armorclass={creature.properties.armorclass}
-                                alignment={creature.properties.alignment}
-                                creatureClass={creature.properties.creatureClass}
-                                challenge={creature.properties.challenge}
-                                movement={creature.properties.movement}
-                                image={creature.properties.image}
-                                ini={creature.properties.ini}
-                                currentIni={creature.properties.currentInitiative}
-                                currentHP={creature.properties.currentHitpoints}
-                                currentAC={creature.properties.currentArmorclass}
-                                baseAtk={creature.properties.baseAtk}
-                                size={creature.properties.size}
-                                stats={creature.properties.stats}
+                                type={creature.creatureProperties.type}
+                                hitpoints={creature.creatureProperties.hitpoints}
+                                label={creature.creatureProperties.label}
+                                attackProperties={creature.creatureProperties.attackProperties}
+                                xp={creature.creatureProperties.xp}
+                                armorclass={creature.creatureProperties.armorclass}
+                                alignment={creature.creatureProperties.alignment}
+                                creatureClass={creature.creatureProperties.creatureClass}
+                                challenge={creature.creatureProperties.challenge}
+                                movement={creature.creatureProperties.movement}
+                                image={creature.creatureProperties.image}
+                                ini={creature.creatureProperties.ini}
+                                currentIni={creature.creatureProperties.currentInitiative}
+                                currentHP={creature.creatureProperties.currentHitpoints}
+                                currentAC={creature.creatureProperties.currentArmorclass}
+                                baseAtk={creature.creatureProperties.baseAtk}
+                                size={creature.creatureProperties.size}
+                                stats={creature.creatureProperties.stats}
                                 sortByIni={this.sortByIni}
                                 handleCurrentACChange={this.handleCurrentACChange}
                                 handleCurrentHPChange={this.handleCurrentHPChange}
                                 handleCurrentTypeChange={this.handleCurrentTypeChange}
                                 handleRemoveFromEncounter={this.handleRemoveFromEncounter}
-                                saveThrows={creature.properties.saveThrows}
-                                skills={creature.properties.skills}
-                                talents={creature.properties.talents}
-                                actions={creature.properties.actions}
-                                languages={creature.properties.languages}
+                                saveThrows={creature.creatureProperties.saveThrows}
+                                skills={creature.creatureProperties.skills}
+                                talents={creature.creatureProperties.talents}
+                                actions={creature.creatureProperties.actions}
+                                languages={creature.creatureProperties.languages}
                                 changeTypeOfRoundCreature={this.props.changeTypeOfRoundCreature}
                                 changeCurrentACOfRoundCreature={this.props.changeCurrentACOfCreature}
                                 changeCurrentHPOfRoundCreature={this.props.changeCurrentHPOfCreature}

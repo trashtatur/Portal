@@ -110,7 +110,7 @@ export class CreatureEditWrapper extends React.Component<{}, CreatureEditWrapper
     }
 
     handleUpdate(): void {
-        axios.put(`/update/${this.state.originalCreature.name}/${this.state.originalCreature.properties.challenge}`,
+        axios.put(`/update/${this.state.originalCreature.name}/${this.state.originalCreature.creatureProperties.challenge}`,
             this.state.creature
         ).then(function (result) {
             console.log(result)

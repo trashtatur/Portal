@@ -148,19 +148,19 @@ export class PathfinderEncounter extends React.Component<{}, EncounterState> {
 
     addCreatureToRound = (creatureToAdd: CreatureViewModel<PathfinderCreaturePropertiesViewModel>): void => {
         let name = creatureToAdd.name;
-        if (creatureToAdd.properties.label != 0) name = `${name} ${creatureToAdd.properties.label}`;
+        if (creatureToAdd.creatureProperties.label != 0) name = `${name} ${creatureToAdd.creatureProperties.label}`;
         const newRoundCreature: roundCreature =
             {
                 id: creatureToAdd.id,
                 name: name,
-                entryHP: creatureToAdd.properties.currentHitpoints,
-                currentHP: creatureToAdd.properties.currentHitpoints,
-                entryAC: creatureToAdd.properties.currentArmorclass,
-                currentAC: creatureToAdd.properties.currentArmorclass,
-                entryIni: creatureToAdd.properties.currentInitiative,
-                currentIni: creatureToAdd.properties.currentInitiative,
-                entryType: creatureToAdd.properties.type,
-                currentType: creatureToAdd.properties.type
+                entryHP: creatureToAdd.creatureProperties.currentHitpoints,
+                currentHP: creatureToAdd.creatureProperties.currentHitpoints,
+                entryAC: creatureToAdd.creatureProperties.currentArmorclass,
+                currentAC: creatureToAdd.creatureProperties.currentArmorclass,
+                entryIni: creatureToAdd.creatureProperties.currentInitiative,
+                currentIni: creatureToAdd.creatureProperties.currentInitiative,
+                entryType: creatureToAdd.creatureProperties.type,
+                currentType: creatureToAdd.creatureProperties.type
             };
         const currentRound = this.state.currentRound;
         currentRound.creatureEvents.push(newRoundCreature);

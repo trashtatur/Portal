@@ -1,9 +1,8 @@
 import {LoggingSeverityEnum} from "@/public/model/enumeration/LoggingSeverityEnum";
-import {HttpService} from "@/public/service/HttpService";
+import {httpPost} from "@/public/service/HttpService";
 import {loggingContext} from "@/public/types/frontendTypes";
 
 export class LoggingService {
-    private httpService: HttpService = new HttpService()
 
     info = (message: string, context: loggingContext): void => {
         this.log(message, context, LoggingSeverityEnum.INFO);
@@ -26,6 +25,6 @@ export class LoggingService {
     }
 
     private log = (message: string, context: loggingContext, severity: LoggingSeverityEnum): void => {
-        this.httpService.post('/V1/log', {message: message, severity: severity, context: context})
+        httpPost('/V1/log', {message: message, severity: severity, context: context})
     }
 }
