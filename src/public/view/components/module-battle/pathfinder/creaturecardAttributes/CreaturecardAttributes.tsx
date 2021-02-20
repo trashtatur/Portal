@@ -1,18 +1,18 @@
 import * as React from "react";
 import {ReactElement} from "react";
 import {ToolTip} from "../../../uiBasic/tooltip/ToolTip";
-import {uuidv4} from "../../../../../service/helperFunctions";
 import {TalentToolTip} from "../toolTipTalent/TalentToolTip";
-import {PathfinderSavingThrowsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
-import {LanguageViewModel} from "../../../../../model/pathfinder/LanguageViewModel";
-import {TalentViewModel} from "../../../../../model/pathfinder/TalentViewModel";
-import {SkillViewModel} from "../../../../../model/pathfinder/SkillViewModel";
+import {PathfinderSavingThrowsViewModel} from "@/public/model/pathfinder/PathfinderSavingThrowsViewModel";
+import {PathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
+import {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
+import {PathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
 import * as style from './creaturecardAttributes.css';
+import {uuidv4} from "@/public/service/UuidService";
 
 export interface CreatureAttributesProps {
-    skills: SkillViewModel[];
-    talents: TalentViewModel[];
-    languages: LanguageViewModel[];
+    skills: PathfinderSkillViewModel[];
+    talents: PathfinderTalentViewModel[];
+    languages: PathfinderLanguageViewModel[];
     saveThrows: PathfinderSavingThrowsViewModel;
     preview?: boolean;
 }
@@ -25,7 +25,6 @@ export class CreaturecardAttributes extends React.Component<CreatureAttributesPr
     }
 
     formatSkillsIfPreview(): string {
-        if (!this.props.preview) return this.props.skills.join(", ");
         if (!this.props.skills) {
             return ''
         }
@@ -77,7 +76,7 @@ export class CreaturecardAttributes extends React.Component<CreatureAttributesPr
                 <tr className={style.attributeBlock}>
                     <td className={style.attributeName}>Languages:</td>
                     <td className={style.attributeEntry}>
-                        {this.props.languages && this.props.languages.map(language => {return language.name})}
+                        {this.props.languages && this.props.languages.map(language => {return language.name}).join(', ')}
                     </td>
                 </tr>
                 <tr className={style.attributeBlock}>

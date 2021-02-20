@@ -1,15 +1,11 @@
 import * as React from 'react';
 import {CSSProperties, ReactNode} from 'react';
 import axios from "axios";
-import {AdventureViewModel} from "../../../../model/AdventureViewModel";
-import {AdventureDataToViewModelMapper} from "../../../../mapping/AdventureDataToViewModelMapper";
+import {AdventureViewModel} from "@/public/model/AdventureViewModel";
 import {AdventureForm} from "../adventureForm/AdventureForm";
 import {AdventureCard} from "../adventureCard/AdventureCard";
+import {deserializeMultiple} from "@/public/service/SerializerService";
 import * as style from './adventureOverview.css'
-
-interface AdventureOverviewProps {
-
-}
 
 interface AdventureOverviewState {
     adventureFormIsOpen: boolean;
@@ -17,7 +13,7 @@ interface AdventureOverviewState {
     openedAdventure: AdventureViewModel;
 }
 
-export class AdventureOverview extends React.Component<AdventureOverviewProps, AdventureOverviewState> {
+export class AdventureOverview extends React.Component<{}, AdventureOverviewState> {
 
     constructor(props) {
         super(props);
@@ -31,8 +27,7 @@ export class AdventureOverview extends React.Component<AdventureOverviewProps, A
     fetchAllAdventures = async(): Promise<AdventureViewModel[]> => {
         try {
             const adventureData = await axios.get('/V1/Adventure');
-            const adventureDataMapper = new AdventureDataToViewModelMapper();
-            return adventureDataMapper.mapMultiple(adventureData.data);
+            return deserializeMultiple(adventureData.data, AdventureViewModel);
         } catch (e) {
             console.log(e)
         }

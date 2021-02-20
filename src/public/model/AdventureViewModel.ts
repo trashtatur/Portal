@@ -1,10 +1,16 @@
 import {SceneViewModel} from "./SceneViewModel";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class AdventureViewModel {
+    @JsonProperty({name: 'id'})
     private _id = '';
+    @JsonProperty({name: 'name'})
     private _name = '';
+    @JsonProperty({name: 'core'})
     private _core = '';
-    private _scenes: Array<SceneViewModel> = [];
+    @JsonProperty({name: 'scenes', type: SceneViewModel})
+    private _scenes: SceneViewModel[] = [];
 
     constructor(
         id = '',

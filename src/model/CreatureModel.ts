@@ -1,11 +1,17 @@
 import {ModelInterface} from "./ModelInterface";
 import {AbstractCreaturePropertyModel} from "./AbstractCreaturePropertyModel";
 import {SystemEnum} from "../enumeration/SystemEnum";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
+@Serializable()
 export class CreatureModel<T extends AbstractCreaturePropertyModel> implements ModelInterface{
+    @JsonProperty({name: 'id'})
     private readonly _id: string;
+    @JsonProperty({name: 'name'})
     private readonly _name: string;
+    @JsonProperty({name: 'creatureProperties'})
     private _creatureProperties: T;
+    @JsonProperty({name: 'propertyType'})
     private _propertyType: SystemEnum
 
     constructor(

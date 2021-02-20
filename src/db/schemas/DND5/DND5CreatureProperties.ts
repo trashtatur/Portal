@@ -1,4 +1,14 @@
-import {AllowNull, BelongsToMany, Column, DataType, ForeignKey, Model, PrimaryKey, Table} from "sequelize-typescript";
+import {
+    AllowNull,
+    BelongsToMany,
+    Column,
+    DataType,
+    Default,
+    ForeignKey,
+    Model,
+    PrimaryKey,
+    Table
+} from "sequelize-typescript";
 import {Creature} from "../Creature";
 import {DND5Action} from "./DND5Action";
 import {DND5CreatureAction} from "../assocSchemas/DND5/DND5CreatureAction";
@@ -8,6 +18,8 @@ import {DND5Language} from "./DND5Language";
 import {DND5CreatureLanguage} from "../assocSchemas/DND5/DND5CreatureLanguage";
 import {DND5CreatureSkill} from "../assocSchemas/DND5/DND5CreatureSkill";
 import {DND5CreatureTalent} from "../assocSchemas/DND5/DND5CreatureTalent";
+import {DND5Spell} from "./DND5Spell";
+import {DND5CreatureSpell} from "../assocSchemas/DND5/DND5CreatureSpell";
 
 @Table({tableName: 'DND5CreatureProperties'})
 export class DND5CreatureProperties extends Model<DND5CreatureProperties>{
@@ -21,8 +33,9 @@ export class DND5CreatureProperties extends Model<DND5CreatureProperties>{
     creatureId: string;
 
     @AllowNull(false)
+    @Default(false)
     @Column
-    name: string;
+    isOfficialCreature: boolean;
 
     @AllowNull(false)
     @Column
@@ -30,11 +43,11 @@ export class DND5CreatureProperties extends Model<DND5CreatureProperties>{
 
     @AllowNull(false)
     @Column
-    armorclass: number;
+    proficiencyBonus: number;
 
     @AllowNull(false)
     @Column
-    armorType: string;
+    armorclass: number;
 
     @AllowNull(false)
     @Column
@@ -75,6 +88,11 @@ export class DND5CreatureProperties extends Model<DND5CreatureProperties>{
     @AllowNull(false)
     @Column
     speed: string;
+
+    @AllowNull(false)
+    @Default('{0:infinity,1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0}')
+    @Column
+    spellSlots: string
 
     @AllowNull(true)
     @Column({type: DataType.TEXT({length: 'medium'})})
@@ -127,4 +145,7 @@ export class DND5CreatureProperties extends Model<DND5CreatureProperties>{
 
     @BelongsToMany(()=> DND5Language, ()=> DND5CreatureLanguage)
     languages: DND5Language[];
+
+    @BelongsToMany(()=> DND5Spell, ()=>DND5CreatureSpell)
+    spells: DND5Spell[];
 }

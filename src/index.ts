@@ -1,7 +1,6 @@
 import {$log, ServerLoader} from "@tsed/common";
 import {Server} from "./server/Server";
-
-const db = require('./db/sync');
+import dbSync from './db/sync'
 
 
 async function bootstrap() {
@@ -15,6 +14,5 @@ async function bootstrap() {
     }
 }
 
-db.dbSync(true);
+dbSync();
 bootstrap();
-

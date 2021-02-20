@@ -25,16 +25,17 @@
 }
 
 .name {
+    display: flex;
+    align-items: center;
     background: black;
     color: white;
-    padding-top: 0.8em;
     padding-left: 0.4em;
     margin: 0;
     font-weight: bold;
     width: 87%;
     height: 100%;
     box-sizing: border-box;
-    font-size: 1.5vw;
+    font-size: clamp(0.5rem, 1.5rem, 2rem);
 }
 
 .label {

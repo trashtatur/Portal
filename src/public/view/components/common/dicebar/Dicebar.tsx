@@ -1,11 +1,13 @@
 import * as React from "react";
 import {ReactElement} from "react";
+import withErrorBoundary from "@/public/view/components/common/errorBoundary/WithErrorBoundary";
 import * as style from './dicebar.css';
 
 export interface DicebarState {
     dieValue: string;
 }
 
+@withErrorBoundary()
 export class Dicebar extends React.Component<{},DicebarState> {
 
     constructor(props) {

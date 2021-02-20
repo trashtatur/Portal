@@ -1,85 +1,51 @@
 import {Service} from "@tsed/di";
 import {Creature} from "../db/schemas/Creature";
 import {Includeable} from "sequelize";
-import {PathfinderLanguageService} from "./pathfinder/PathfinderLanguageService";
-import {PathfinderSkillService} from "./pathfinder/PathfinderSkillService";
-import {PathfinderTalentService} from "./pathfinder/PathfinderTalentService";
-import {PathfinderActionService} from "./pathfinder/PathfinderActionService";
 import * as fs from "fs";
 import {join} from "path";
 import {creatureData} from "../types/backendTypes";
 import {CreatureRepository} from "../repositories/CreatureRepository";
 import {CreatureModel} from "../model/CreatureModel";
 import {AbstractCreaturePropertyModel} from "../model/AbstractCreaturePropertyModel";
+import {DND5CreaturePropertiesModel} from "../model/dnd5/DND5CreaturePropertiesModel";
+import {SystemEnum} from "../enumeration/SystemEnum";
+import {deserialize} from "typescript-json-serializer";
+import {PathfinderCreaturePropertiesModel} from "../model/pathfinder/PathfinderCreaturePropertiesModel";
 const mkdirp = require('mkdirp');
 
 @Service()
 export class CreatureService {
-    private languageService: PathfinderLanguageService;
-    private skillService: PathfinderSkillService;
-    private talentService: PathfinderTalentService;
-    private actionService: PathfinderActionService;
     private creatureRepository: CreatureRepository;
 
     constructor(
-        languageService: PathfinderLanguageService,
-        skillService: PathfinderSkillService,
-        talentService: PathfinderTalentService,
-        actionService: PathfinderActionService,
-        creatureRepository: CreatureRepository
+        creatureRepository: CreatureRepository,
     ) {
-        this.languageService = languageService;
-        this.skillService = skillService;
-        this.talentService = talentService;
-        this.actionService = actionService;
         this.creatureRepository = creatureRepository;
     }
 
-    /**
-     * Creates a creature instance. Associates other table entries based on include list
-     * @param data
-     * @param include
-     */
-    async create(data: creatureData, include?: Includeable[]) {
-        const creature = await Creature.create(
-            {
-                name: data['name'],
-                hitpoints: data['hitpoints'],
-                alignment: data['alignment'],
-                armorclass: data['armorclass'],
-                image: data['image'],
-                type: data['type'],
-                attackProperties: data['attackProperties'],
-                creatureClass: data['creatureClass'],
-                challenge: data['challenge'],
-                movement: data['movement'],
-                ini: data['ini'],
-                baseAtk: data['baseAtk'],
-                xp: data['xp'] != null ? data['xp'] : null,
-                size: data['size'],
-                stats: data['stats'],
-                saveThrows: data['saveThrows']
-            }
-        );
-        return creature
+    async create<T extends AbstractCreaturePropertyModel>(data: creatureData, system: { new(...args: any[]): T }): Promise<CreatureModel<T>> {
+        let propertyModel = null;
+        const creatureModel = deserialize(data, CreatureModel);
+        switch (system.name) {
+            case DND5CreaturePropertiesModel.name:
+                creatureModel.propertyType = SystemEnum.DND5
+                propertyModel = deserialize(data.creatureProperties, DND5CreaturePropertiesModel);
+                creatureModel.creatureProperties = propertyModel
+                break;
+            case PathfinderCreaturePropertiesModel.name:
+                creatureModel.propertyType = SystemEnum.PATHFINDER
+                propertyModel = deserialize(data.creatureProperties, PathfinderCreaturePropertiesModel);
+                creatureModel.creatureProperties = propertyModel
+                break;
+        }
+        return this.creatureRepository.create(creatureModel, system)
     }
 
-    /**
-     * Deletes creature. Finds that creature by name first
-     * @param data
-     */
     async delete(data: object): Promise<boolean> {
         const creaturesDestroyed = await Creature.destroy({where: {name: data['name']}});
         return creaturesDestroyed > 1;
     }
 
-    /**
-     * Updates a single creature instance. Expects the original name in the data package to find it
-     * @param changeCreature
-     * @param creatureName
-     * @param creatureChallenge
-     * @param include?
-     */
     async update(changeCreature: object, creatureName, creatureChallenge, include?: Includeable[]): Promise<Creature> {
        /** const creature = await Creature.findOne({where:
                 {
@@ -106,13 +72,6 @@ export class CreatureService {
        return null
     }
 
-    /**
-     * Finds instances by given key, if that key exists in the table.
-     * Will include associated table data as provided in include list
-     * @param key
-     * @param value
-     * @param include
-     */
     async findBy(key, value, include?: Includeable[]): Promise<Creature[]> {
         const condition = {};
         condition[key] = value;
@@ -120,12 +79,6 @@ export class CreatureService {
             {where: condition, include: include});
     }
 
-    /**
-     * Same as findBy. This only gets one instance though.
-     * @param key
-     * @param value
-     * @param include
-     */
     async findOneBy(key, value, include?: Includeable[]): Promise<Creature> {
         const condition = {};
         condition[key] = value;
@@ -133,9 +86,8 @@ export class CreatureService {
             {where: condition, include: include});
     }
 
-
-    async findAll<T extends AbstractCreaturePropertyModel>(includedProperty: Includeable, propertyModelToInclude: { new(...args: any[]): T }): Promise<CreatureModel<T>[]> {
-        return this.creatureRepository.findAll<T>(includedProperty, propertyModelToInclude);
+    async findAll<T extends AbstractCreaturePropertyModel>(includedProperty): Promise<CreatureModel<T>[]> {
+        return this.creatureRepository.findAll<T>(includedProperty);
     }
 
     async moveCreatureImage(currentLocation: string, newFileName: string) {

@@ -2,8 +2,8 @@ import * as React from "react";
 import {round} from "../../../../../types/frontendTypes";
 import {SingleRound} from "../single round/SingleRound";
 import {ReactElement} from "react";
-import {uuidv4} from "../../../../../service/helperFunctions";
 import * as style from './roundOverview.css'
+import {uuidv4} from "@/public/service/UuidService";
 
 interface RoundOverviewProps {
     roundLog: round[];

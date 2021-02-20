@@ -1,8 +1,8 @@
 import {PathfinderCreaturePropertiesViewModel} from "../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import {AlignmentEnum} from "../../model/enumeration/AlignmentEnum";
-import {CreatureSizeEnum} from "../../model/enumeration/CreatureSizeEnum";
-import {PathfinderStatsViewModel} from "../../model/dataModel/pathfinder/PathfinderStatsViewModel";
-import {PathfinderSavingThrowsViewModel} from "../../model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
+import {PathfinderCreatureSizeEnum} from "../../model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
+import {PathfinderStatsViewModel} from "../../model/pathfinder/PathfinderStatsViewModel";
+import {PathfinderSavingThrowsViewModel} from "../../model/pathfinder/PathfinderSavingThrowsViewModel";
 
 export class PathfinderCreaturePropertiesViewModelFactory {
 
@@ -18,7 +18,7 @@ export class PathfinderCreaturePropertiesViewModelFactory {
             null,
             null,
             null,
-            CreatureSizeEnum.EMPTY,
+            PathfinderCreatureSizeEnum.EMPTY,
             new PathfinderStatsViewModel(
                 null,
                 null,
@@ -26,7 +26,7 @@ export class PathfinderCreaturePropertiesViewModelFactory {
                 null,
                 null,
                 null,
-                CreatureSizeEnum.EMPTY,
+                PathfinderCreatureSizeEnum.EMPTY,
                 null),
             new PathfinderSavingThrowsViewModel(
                 null,
@@ -55,8 +55,8 @@ export class PathfinderCreaturePropertiesViewModelFactory {
             9,
             null,
             0,
-            CreatureSizeEnum.MEDIUM,
-            new PathfinderStatsViewModel(10, 10, 10, 10, 10, 10, CreatureSizeEnum.MEDIUM, 0),
+            PathfinderCreatureSizeEnum.MEDIUM,
+            new PathfinderStatsViewModel(10, 10, 10, 10, 10, 10, PathfinderCreatureSizeEnum.MEDIUM, 0),
             new PathfinderSavingThrowsViewModel(0, 0, 0),
             0,
             '',
@@ -66,5 +66,47 @@ export class PathfinderCreaturePropertiesViewModelFactory {
             null,
             null
         )
+    }
+
+    createFromExisting = (creatureProperties: PathfinderCreaturePropertiesViewModel): PathfinderCreaturePropertiesViewModel => {
+        const model = new  PathfinderCreaturePropertiesViewModel(
+            creatureProperties.id,
+            creatureProperties.type,
+            creatureProperties.armorclass,
+            creatureProperties.hitpoints,
+            creatureProperties.alignment,
+            creatureProperties.creatureClass,
+            creatureProperties.challenge,
+            creatureProperties.movement,
+            creatureProperties.ini,
+            creatureProperties.baseAtk,
+            creatureProperties.size,
+            new PathfinderStatsViewModel(
+                creatureProperties.stats.strength,
+                creatureProperties.stats.constitution,
+                creatureProperties.stats.wisdom,
+                creatureProperties.stats.intelligence,
+                creatureProperties.stats.charisma,
+                creatureProperties.stats.dexterity,
+                creatureProperties.size,
+                creatureProperties.baseAtk
+            ),
+            new PathfinderSavingThrowsViewModel(
+                creatureProperties.saveThrows.reflex,
+                creatureProperties.saveThrows.wisdom,
+                creatureProperties.saveThrows.fortitude
+            ),
+            creatureProperties.xp,
+            creatureProperties.image,
+            creatureProperties.actions,
+            creatureProperties.languages,
+            creatureProperties.skills,
+            creatureProperties.talents,
+            creatureProperties.attackProperties
+        )
+        model.currentInitiative =
+            Math.floor(Math.random() * (20 - 1) + 1) + creatureProperties.ini;
+        model.label = creatureProperties.label;
+        return model;
     }
 }

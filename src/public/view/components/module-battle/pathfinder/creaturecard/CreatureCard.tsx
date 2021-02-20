@@ -9,15 +9,15 @@ import {CreaturecardAttributes} from "../creaturecardAttributes/CreaturecardAttr
 import {CreaturecardAttackProperties} from "../../common/creaturecardAttackProperties/CreaturecardAttackProperties";
 import {CreaturecardActions} from "../creaturecardActions/CreaturecardActions";
 import {ReactElement} from "react";
-import {PathfinderStatsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderStatsViewModel";
-import {CreatureSizeEnum} from "../../../../../model/enumeration/CreatureSizeEnum";
-import {AttackPropertyViewModel} from "../../../../../model/dataModel/AttackPropertyViewModel";
-import {PathfinderSavingThrowsViewModel} from "../../../../../model/dataModel/pathfinder/PathfinderSavingThrowsViewModel";
-import {TalentViewModel} from "../../../../../model/pathfinder/TalentViewModel";
-import {ActionViewModel} from "../../../../../model/pathfinder/ActionViewModel";
-import {SkillViewModel} from "../../../../../model/pathfinder/SkillViewModel";
-import {LanguageViewModel} from "../../../../../model/pathfinder/LanguageViewModel";
-import {AlignmentEnum} from "../../../../../model/enumeration/AlignmentEnum";
+import {PathfinderStatsViewModel} from "@/public/model/pathfinder/PathfinderStatsViewModel";
+import {PathfinderCreatureSizeEnum} from "@/public/model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
+import {NamedPropertyViewModel} from "@/public/model/NamedPropertyViewModel";
+import {PathfinderSavingThrowsViewModel} from "@/public/model/pathfinder/PathfinderSavingThrowsViewModel";
+import {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
+import {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
+import {PathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
+import {PathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
+import {AlignmentEnum} from "@/public/model/enumeration/AlignmentEnum";
 import * as style from "./creatureCard.css";
 
 
@@ -28,21 +28,21 @@ export interface CreatureCardProps {
     label?: number;
     alignment: AlignmentEnum;
     creatureClass: string;
-    attackProperties?: AttackPropertyViewModel[];
+    attackProperties?: NamedPropertyViewModel[];
     challenge: number;
     movement: number;
     ini: number;
     image?: string;
     baseAtk: number;
     xp?: number;
-    size: CreatureSizeEnum;
+    size: PathfinderCreatureSizeEnum;
     stats: PathfinderStatsViewModel;
     saveThrows: PathfinderSavingThrowsViewModel;
     foldable?: boolean;
-    languages?: LanguageViewModel[];
-    skills?: SkillViewModel[];
-    talents?: TalentViewModel[];
-    actions?: ActionViewModel[];
+    languages?: PathfinderLanguageViewModel[];
+    skills?: PathfinderSkillViewModel[];
+    talents?: PathfinderTalentViewModel[];
+    actions?: PathfinderActionViewModel[];
     preview?: boolean;
 }
 

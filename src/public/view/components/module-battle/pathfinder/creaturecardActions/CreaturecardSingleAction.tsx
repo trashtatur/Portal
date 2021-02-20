@@ -1,11 +1,11 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import {ActionViewModel} from "../../../../../model/pathfinder/ActionViewModel";
+import {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
 import {CreaturecardSingleActionVisual} from "../../common/creaturecardSingleActionVisual/CreaturecardSingleActionVisual";
 import * as style from './creaturecardAction.css';
 
 export interface SingleActionProps {
-    action: ActionViewModel;
+    action: PathfinderActionViewModel;
 }
 
 export class CreaturecardSingleAction extends React.Component<SingleActionProps> {
@@ -18,8 +18,8 @@ export class CreaturecardSingleAction extends React.Component<SingleActionProps>
                     rangeType={this.props.action.rangeType}
                     attackBonus={this.props.action.attackBonus}
                     range={this.props.action.range}
-                    fullDamageString={this.props.action.damage.getFullDamageString()}
-                    fullDamageTypeString={this.props.action.damageType.getFullDamageTypeString()}
+                    fullDamageString={this.props.action.damage.getFullDiceRollString()}
+                    fullDamageTypeString={this.props.action.damageTypes.getFullDamageTypeString()}
                     critMod={this.props.action.critMod}
                     additionalInfo={this.props.action.additionalInfo}
                 />

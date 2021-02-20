@@ -7,3 +7,19 @@
     -moz-box-shadow: 13px 0px 17px -6px rgba(0,0,0,0.44);
     box-shadow: 13px 0px 17px -6px rgba(0,0,0,0.44);
 }
+
+.actionContainer {
+    float: left;
+    font-size: 8.5pt;
+    font-family: "Trajan Pro", serif;
+    margin-left: 1em;
+    width: 58%;
+}
+
+.preSeparator{
+    float: left;
+    font-size: 9.5pt;
+    font-family: "Trajan Pro", serif;
+    width: 58%;
+    margin-bottom: 0;
+}

@@ -1,18 +1,11 @@
-var config = require('../config.json');
+import * as config from '../../config/config.json';
 
-
-
-/**
- * @name Data Supplier
- * @description Provides credential data to the connector based on the environment it is in
- * @module module-database
- */
 export class DataSupplier {
     private readonly _databaseHost: string;
     private readonly _databaseName: string;
     private readonly _databasePassword: string;
     private readonly _databaseUser: string;
-    private readonly _forceDBReset: string;
+    private readonly _forceDBReset: string|boolean;
 
 
     constructor() {
@@ -40,8 +33,8 @@ export class DataSupplier {
         return this._databaseUser;
     }
 
-    get forceDBReset(): string {
-        return this._forceDBReset;
+    get forceDBReset(): boolean {
+        return this._forceDBReset as unknown as boolean;
     }
 };
 

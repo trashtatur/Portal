@@ -2,9 +2,9 @@ import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
 import {PathfinderAction} from "../../db/schemas/pathfinder/PathfinderAction";
 import {PathfinderActionForm} from "../../validation/pathfinder/PathfinderActionForm";
-import {PathfinderActionDataToModelMapper} from "../../mapping/fromDataToModel/pathfinder/PathfinderActionDataToModelMapper";
 import {PathfinderActionRepository} from "../../repositories/pathfinder/PathfinderActionRepository";
 import {PathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
+import {deserialize} from "typescript-json-serializer";
 
 @Service()
 export class PathfinderActionService {
@@ -16,12 +16,11 @@ export class PathfinderActionService {
         this.pathfinderActionRepository = pathfinderActionRepository;
     }
 
-    async create(data, include?: Includeable[]): Promise<PathfinderActionModel> {
+    async create(data): Promise<PathfinderActionModel> {
         const actionFormValidator = new PathfinderActionForm();
         const validatedData = actionFormValidator.validate(data.action);
         if (validatedData) {
-            const mapper = new PathfinderActionDataToModelMapper();
-            const actionModel = mapper.map(validatedData);
+            const actionModel = deserialize(validatedData, PathfinderActionModel);
             return this.pathfinderActionRepository.create(actionModel);
         }
         return null;

@@ -2,27 +2,24 @@ import {AdventureRepository} from "../repositories/AdventureRepository";
 import {AdventureModel} from "../model/AdventureModel";
 import {adventureData} from "../types/backendTypes";
 import {AdventureForm} from "../validation/AdventureForm";
-import {AdventureDataToModelMapper} from "../mapping/fromDataToModel/AdventureDataToModelMapper";
 import {Service} from "@tsed/di";
-import {AdventureEntityToModelMapper} from "../mapping/fromEntityToModel/AdventureEntityToModelMapper";
+import {AdventureConverter} from "../converter/AdventureConverter";
 import {DataValidationException} from "../exception/DataValidationException";
+import {deserialize} from "typescript-json-serializer";
 
 @Service()
 export class AdventureService {
-    private readonly adventureRepository: AdventureRepository;
+    private adventureRepository: AdventureRepository;
     private adventureForm: AdventureForm;
-    private adventureDataToModelMapper: AdventureDataToModelMapper;
-    private adventureEntityToModelMapper: AdventureEntityToModelMapper;
+    private adventureEntityToModelMapper: AdventureConverter;
 
     constructor(
         adventureRepository: AdventureRepository,
         adventureForm: AdventureForm,
-        adventureDataToModelMapper: AdventureDataToModelMapper,
-        adventureEntityToModelMapper: AdventureEntityToModelMapper
+        adventureEntityToModelMapper: AdventureConverter
     ) {
         this.adventureRepository = adventureRepository;
         this.adventureForm = adventureForm;
-        this.adventureDataToModelMapper = adventureDataToModelMapper;
         this.adventureEntityToModelMapper = adventureEntityToModelMapper
     }
 
@@ -30,7 +27,7 @@ export class AdventureService {
         const validatedData = this.adventureForm.validate(data);
         if (validatedData) {
             return await this.adventureRepository.create(
-                this.adventureDataToModelMapper.map(data)
+                deserialize(validatedData, AdventureModel)
             )
         } else {
             throw new DataValidationException('Adventure could not be created. Data is not valid')

@@ -23,7 +23,7 @@ export class PathfinderActionForm implements FormValidatorInterface{
         _additionalInfo: Optional(Type(String))
     };
 
-    validate(data): boolean|object {
+    validate(data): object {
         try {
             if (this.validateDamageType(data._damageType._damageType)) {
                 return validate(this.schema, data)

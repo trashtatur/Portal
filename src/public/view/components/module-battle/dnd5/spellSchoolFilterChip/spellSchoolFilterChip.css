@@ -1,0 +1,20 @@
+.spellSchoolFilterChip {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 10%;
+    border-color: transparent;
+    height: 16px;
+    padding: 2px;
+    font-size: 10pt;
+    margin-top: 2px;
+    margin-left: 2px;
+}
+
+.schoolLogo {
+    height: 15px;
+}
+
+.schoolName {
+    padding-top: 4px;
+}

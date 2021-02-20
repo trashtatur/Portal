@@ -2,11 +2,12 @@ import * as React from 'react';
 import {CSSProperties, ReactNode} from 'react';
 import Dropzone from "react-dropzone-uploader";
 import Switch from "react-switch";
-import {setCreatureImageName, uploadImage} from "../../../../../service/helperFunctions";
 import axios from "axios";
-import {CreatureViewModel} from "../../../../../model/CreatureViewModel";
-import {CreatureViewModelFactory} from "../../../../../factory/CreatureViewModelFactory";
-import {PathfinderCreaturePropertiesViewModel} from "../../../../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
+import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {uploadCreatureImage} from "@/public/service/HttpService";
+import {setCreatureImagePath} from "@/public/service/ImagePathService";
 import * as style from './pathfinderAddSummon.css';
 
 interface AddSummonProps {
@@ -40,16 +41,16 @@ export class PathfinderAddSummon extends React.Component<AddSummonProps, AddSumm
     handleSubmit = async (event): Promise<void> => {
         event.preventDefault();
         if (this.state.submitToDB) {
-            uploadImage(
-                this.state.summonedCreature.properties.image,
+            uploadCreatureImage(
+                this.state.summonedCreature.creatureProperties.image,
                 this.state.summonedCreature.name,
-                this.state.summonedCreature.properties.challenge
+                this.state.summonedCreature.creatureProperties.challenge
             );
             try {
                 const creature = this.state.summonedCreature;
-                if (typeof creature.properties.image !== "string") {
-                    creature.properties.image =
-                        setCreatureImageName(creature.name, creature.properties.challenge, creature.properties.image);
+                if (typeof creature.creatureProperties.image !== "string") {
+                    creature.creatureProperties.image =
+                        setCreatureImagePath(creature.name, creature.creatureProperties.challenge, creature.creatureProperties.image);
                 }
                 await axios.post('/V1/Creature', creature);
                 alert('Created entry in database');
@@ -59,7 +60,10 @@ export class PathfinderAddSummon extends React.Component<AddSummonProps, AddSumm
         }
         this.addSummonsToEncounter();
         this.setState(
-            {summonedCreature: this.creatureViewModelFactory.createSummonedCreature(PathfinderCreaturePropertiesViewModel)
+            {summonedCreature:
+                    this.creatureViewModelFactory.createSummonedCreature(
+                        PathfinderCreaturePropertiesViewModel
+                    )
             })
     };
 
@@ -71,10 +75,10 @@ export class PathfinderAddSummon extends React.Component<AddSummonProps, AddSumm
 
     handleImageChange = ({meta, file}, status): void => {
         const creature = this.state.summonedCreature;
-        creature.properties.image = file;
+        creature.creatureProperties.image = file;
         this.setState({summonedCreature: creature});
         if (status === "removed") {
-            creature.properties.image = null;
+            creature.creatureProperties.image = null;
             this.setState({summonedCreature: creature})
         }
     };
@@ -87,22 +91,22 @@ export class PathfinderAddSummon extends React.Component<AddSummonProps, AddSumm
 
     handleHitpointsChange = (event): void => {
         const summonedCreature = this.state.summonedCreature;
-        summonedCreature.properties.hitpoints = null;
-        if (!isNaN(parseInt(event.target.value))) summonedCreature.properties.hitpoints = event.target.value;
+        summonedCreature.creatureProperties.hitpoints = null;
+        if (!isNaN(parseInt(event.target.value))) summonedCreature.creatureProperties.hitpoints = parseInt(event.target.value);
         this.setState({summonedCreature: summonedCreature})
     };
 
     handleArmorClassChange = (event): void => {
         const summonedCreature = this.state.summonedCreature;
-        summonedCreature.properties.armorclass = null;
-        if (!isNaN(parseInt(event.target.value))) summonedCreature.properties.armorclass = event.target.value;
+        summonedCreature.creatureProperties.armorclass = null;
+        if (!isNaN(parseInt(event.target.value))) summonedCreature.creatureProperties.armorclass = parseInt(event.target.value);
         this.setState({summonedCreature: summonedCreature})
     };
 
     handleIniChange = (event): void => {
         const summonedCreature = this.state.summonedCreature;
-        summonedCreature.properties.ini = null;
-        if (!isNaN(parseInt(event.target.value))) summonedCreature.properties.ini = event.target.value;
+        summonedCreature.creatureProperties.ini = null;
+        if (!isNaN(parseInt(event.target.value))) summonedCreature.creatureProperties.ini = parseInt(event.target.value);
         this.setState({summonedCreature: summonedCreature})
     };
 
@@ -154,7 +158,7 @@ export class PathfinderAddSummon extends React.Component<AddSummonProps, AddSumm
                                 <input
                                     className={style.SummonFormTextInputField}
                                     type={"number"}
-                                    value={this.state.summonedCreature.properties.hitpoints}
+                                    value={this.state.summonedCreature.creatureProperties.hitpoints}
                                     onChange={this.handleHitpointsChange}
                                     required
                                 />
@@ -164,7 +168,7 @@ export class PathfinderAddSummon extends React.Component<AddSummonProps, AddSumm
                                 <input
                                     className={style.SummonFormTextInputField}
                                     type={"number"}
-                                    value={this.state.summonedCreature.properties.armorclass}
+                                    value={this.state.summonedCreature.creatureProperties.armorclass}
                                     onChange={this.handleArmorClassChange}
                                     required
                                 />
@@ -174,7 +178,7 @@ export class PathfinderAddSummon extends React.Component<AddSummonProps, AddSumm
                                 <input
                                     className={style.SummonFormTextInputField}
                                     type={"number"}
-                                    value={this.state.summonedCreature.properties.ini}
+                                    value={this.state.summonedCreature.creatureProperties.ini}
                                     onChange={this.handleIniChange}
                                     required
                                 />

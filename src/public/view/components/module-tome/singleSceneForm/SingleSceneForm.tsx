@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {SceneViewModel} from "../../../../model/SceneViewModel";
+import {SceneViewModel} from "@/public/model/SceneViewModel";
 import Select from 'react-select';
 import axios from 'axios';
-import {selectable} from "../../../../types/frontendTypes";
-import {SelectEventTypesEnum} from "../../../../model/enumeration/SelectEventTypesEnum";
+import {selectable} from "@/public/types/frontendTypes";
+import {SelectEventTypesEnum} from "@/public/model/enumeration/SelectEventTypesEnum";
 import * as style from './singleSceneForm.css';
 
 interface SingleSceneFormProps {

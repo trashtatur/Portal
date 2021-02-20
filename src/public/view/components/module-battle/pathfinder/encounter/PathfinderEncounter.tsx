@@ -1,11 +1,11 @@
 import * as React from "react";
 import {PathfinderEncounterCreatureList} from "../encounterCreatureList/PathfinderEncounterCreatureList";
-import {RoundOverview} from "../../common/round overview/RoundOverview";
-import {round, roundCreature} from "../../../../../types/frontendTypes";
+import {RoundOverview} from "@/public/view/components/module-battle/common/round overview/RoundOverview";
+import {round, roundCreature} from "@/public/types/frontendTypes";
 import {ReactElement} from "react";
-import {CreatureViewModel} from "../../../../../model/CreatureViewModel";
-import {TypeEnum} from "../../../../../model/enumeration/CreatureTypesEnum";
-import {PathfinderCreaturePropertiesViewModel} from "../../../../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
+import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import * as style from './encounter.css';
 
 export interface EncounterState {
@@ -148,19 +148,19 @@ export class PathfinderEncounter extends React.Component<{}, EncounterState> {
 
     addCreatureToRound = (creatureToAdd: CreatureViewModel<PathfinderCreaturePropertiesViewModel>): void => {
         let name = creatureToAdd.name;
-        if (creatureToAdd.properties.label != 0) name = `${name} ${creatureToAdd.properties.label}`;
+        if (creatureToAdd.creatureProperties.label != 0) name = `${name} ${creatureToAdd.creatureProperties.label}`;
         const newRoundCreature: roundCreature =
             {
                 id: creatureToAdd.id,
                 name: name,
-                entryHP: creatureToAdd.properties.currentHitpoints,
-                currentHP: creatureToAdd.properties.currentHitpoints,
-                entryAC: creatureToAdd.properties.currentArmorclass,
-                currentAC: creatureToAdd.properties.currentArmorclass,
-                entryIni: creatureToAdd.properties.currentInitiative,
-                currentIni: creatureToAdd.properties.currentInitiative,
-                entryType: creatureToAdd.properties.type,
-                currentType: creatureToAdd.properties.type
+                entryHP: creatureToAdd.creatureProperties.currentHitpoints,
+                currentHP: creatureToAdd.creatureProperties.currentHitpoints,
+                entryAC: creatureToAdd.creatureProperties.currentArmorclass,
+                currentAC: creatureToAdd.creatureProperties.currentArmorclass,
+                entryIni: creatureToAdd.creatureProperties.currentInitiative,
+                currentIni: creatureToAdd.creatureProperties.currentInitiative,
+                entryType: creatureToAdd.creatureProperties.type,
+                currentType: creatureToAdd.creatureProperties.type
             };
         const currentRound = this.state.currentRound;
         currentRound.creatureEvents.push(newRoundCreature);
@@ -168,7 +168,7 @@ export class PathfinderEncounter extends React.Component<{}, EncounterState> {
             () => this.setCurrentRoundToSessionStorage())
     };
 
-    changeCurrentHPOfCreature = (newHPValue: number, creatureId: string): void => {
+    changeCurrentHPOfCreature = (newHPValue: number, creatureId: string, label: number): void => {
         const round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
@@ -177,7 +177,7 @@ export class PathfinderEncounter extends React.Component<{}, EncounterState> {
             () => this.setCurrentRoundToSessionStorage())
     };
 
-    changeCurrentACOfCreature = (newACValue: number, creatureId: string): void => {
+    changeCurrentACOfCreature = (newACValue: number, creatureId: string, label: number): void => {
         const round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
@@ -186,7 +186,7 @@ export class PathfinderEncounter extends React.Component<{}, EncounterState> {
             () => this.setCurrentRoundToSessionStorage())
     };
 
-    changeCurrentIniOfCreature = (newIniValue: number, creatureId: string): void => {
+    changeCurrentIniOfCreature = (newIniValue: number, creatureId: string, label: number): void => {
         const round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
@@ -195,7 +195,7 @@ export class PathfinderEncounter extends React.Component<{}, EncounterState> {
             () => this.setCurrentRoundToSessionStorage())
     };
 
-    changeTypeOfRoundCreature = (newType: TypeEnum, creatureId: string): void => {
+    changeTypeOfRoundCreature = (newType: TypeEnum, creatureId: string, label: number): void => {
         const round = this.state.currentRound;
         round.creatureEvents.find(elem => {
             return elem.id == creatureId
@@ -204,10 +204,10 @@ export class PathfinderEncounter extends React.Component<{}, EncounterState> {
             () => this.setCurrentRoundToSessionStorage())
     };
 
-    removeCreatureFromRound = (creatureId: string): void => {
+    removeCreatureFromRound = (creatureId: string, label: number): void => {
         const round = this.state.currentRound;
         round.creatureEvents = round.creatureEvents.filter(elem => {
-            return elem.id != creatureId
+            return elem.id !== creatureId
         });
         this.setState({currentRound: round},
             () => this.setCurrentRoundToSessionStorage())

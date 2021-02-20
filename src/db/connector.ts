@@ -2,7 +2,7 @@ import {Sequelize} from 'sequelize-typescript';
 import {DataSupplier} from "./dataSupplier";
 
 
-export let dataSupplier = new DataSupplier();
+export const dataSupplier = new DataSupplier();
 
 // Please mind that the database needs to actually exist first!
 /**
@@ -15,12 +15,12 @@ export const sequelize = new Sequelize({
     password: dataSupplier.databasePassword,
     host: dataSupplier.databaseHost,
     dialect: 'mysql',
-    models: [__dirname+'/schemas/**/*.ts']
+    models: [__dirname+'/schemas/**/*.ts'],
 });
 
 
 
-const dbReady = sequelize.authenticate()
+export const dbReady = () =>  sequelize.authenticate()
     .then(function(err) {
         console.log('Connection to database has been established successfully.');
     }, function (err) {

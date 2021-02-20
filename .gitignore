@@ -5,7 +5,7 @@ src/images/creatureImages/*
 .tmp
 ### JetBrains template
 .idea
-config.json
+config/config.json
 src/public/view/components/**/youtubeConfig.json
 ### Node template
 # Logs

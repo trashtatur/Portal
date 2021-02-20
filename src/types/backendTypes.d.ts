@@ -26,33 +26,13 @@ export type personData = {
 
 };
 
-export type actionData = {};
-
 export type creatureData = {
+    id?: string;
     name: string;
-    hitpoints: number;
-    alignment: string;
-    armorclass: number;
-    image: string;
-    type: string;
-    attackProperties: Array<attackProperty>;
-    creatureClass: string;
-    challenge: number;
-    movement: number;
-    ini: number;
-    baseAtk: number;
-    xp?: number;
-    size: string;
-    stats: stats;
-    saveThrows: pathFinderSaveThrows | DND5eSaveThrows;
-    languages?: Array<string>;
-    skills?: Array<string>;
-    talents?: Array<string>;
-    actions?: Array<action>;
-
+    creatureProperties: object;
 };
 
-type attackProperty = {
+type namedProperty = {
     name: string;
     property: string;
 }
@@ -64,22 +44,4 @@ type stats = {
     wis: number;
     con: number;
     cha: number;
-}
-
-type pathFinderSaveThrows = {
-    ref: number;
-    will: number;
-    fort: number;
-}
-
-type DND5eSaveThrows = {}
-
-export type action = {
-    name: string;
-    rangeType: string;
-    attackBonus: number;
-    damage: string;
-    critmod: number;
-    damageType: string;
-    additionalInfo: string;
 }

@@ -4,10 +4,10 @@ import {SingleSceneForm} from "../singleSceneForm/SingleSceneForm";
 import {SceneGraph} from "../sceneGraph/SceneGraph";
 import { RouteComponentProps } from 'react-router';
 import axios from 'axios';
-import {AdventureDataToViewModelMapper} from "../../../../mapping/AdventureDataToViewModelMapper";
-import {AdventureViewModel} from "../../../../model/AdventureViewModel";
+import {AdventureViewModel} from "@/public/model/AdventureViewModel";
 import {SingleAdventureTopBar} from "../singleAdventureTopbar/SingleAdventureTopBar";
 import {FlyUpContainer} from "../../uiBasic/flyUpContainer/FlyUpContainer";
+import {deserializeData} from "@/public/service/SerializerService";
 import * as style from './singleAdventure.css';
 
 interface MatchParams {
@@ -33,8 +33,7 @@ export class SingleAdventure extends React.Component<SingleAdventureProps, Singl
     componentDidMount = async(): Promise<void> => {
         try {
             const adventure = await axios.get(`V1/Adventure/id/${this.props.match.params.adventureId}`);
-            const mapper = new AdventureDataToViewModelMapper();
-            this.setState({adventure: mapper.mapSingle(adventure.data)});
+            this.setState({adventure: deserializeData(adventure.data, AdventureViewModel)});
         } catch (e) {
             console.log(e)
         }

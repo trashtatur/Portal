@@ -1,4 +1,17 @@
-import {TypeEnum} from "../model/enumeration/CreatureTypesEnum";
+import {TypeEnum} from "../model/enumeration/TypesEnum";
+
+export type effectData = {
+
+}
+
+export type effectDataCollection = {
+    effects: effectData[];
+}
+
+export type loggingContext = {
+    caller?: string;
+    callee?: string;
+}
 
 export type selectableCreatures = {
     label: string;
@@ -8,20 +21,12 @@ export type selectableCreatures = {
 type selectable = {
     label;
     value;
+    additionalInfoProperty?;
 }
 
 export type selectableAlignment = {
     value: string;
     label: JSX.Element;
-}
-
-export type statblock = {
-    str;
-    con;
-    wis;
-    int;
-    cha;
-    dex;
 }
 
 export type round = {

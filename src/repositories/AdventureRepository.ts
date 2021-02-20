@@ -1,23 +1,23 @@
 import {AdventureModel} from "../model/AdventureModel";
 import {Adventure} from "../db/schemas/Adventure";
 import {Service} from "@tsed/di";
-import {AdventureEntityToModelMapper} from "../mapping/fromEntityToModel/AdventureEntityToModelMapper";
+import {AdventureConverter} from "../converter/AdventureConverter";
 import {Scene} from "../db/schemas/Scene";
 import {Person} from "../db/schemas/Person";
 import {SceneModel} from "../model/SceneModel";
-import {SceneEntityToModelMapper} from "../mapping/fromEntityToModel/SceneEntityToModelMapper";
+import {SceneConverter} from "../converter/SceneConverter";
 
 @Service()
 export class AdventureRepository {
-    private readonly adventureEntityToModelMapper: AdventureEntityToModelMapper;
-    private sceneEntityToModelMapper: SceneEntityToModelMapper;
+    private readonly adventureConverter: AdventureConverter;
+    private sceneConverter: SceneConverter;
 
     constructor(
-        adventureEntityToModelMapper: AdventureEntityToModelMapper,
-        sceneEntityToModelMapper: SceneEntityToModelMapper
+        adventureConverter: AdventureConverter,
+        sceneConverter: SceneConverter
     ) {
-        this.adventureEntityToModelMapper = adventureEntityToModelMapper;
-        this.sceneEntityToModelMapper = sceneEntityToModelMapper;
+        this.adventureConverter = adventureConverter;
+        this.sceneConverter = sceneConverter;
     }
 
     async create(adventureModel: AdventureModel): Promise<AdventureModel> {
@@ -27,7 +27,7 @@ export class AdventureRepository {
                 core: adventureModel.core
             }
         );
-        return this.adventureEntityToModelMapper.map(adventure);
+        return this.adventureConverter.convertEntity(adventure);
     }
 
     async findOneBy(key, value): Promise<AdventureModel> {
@@ -42,7 +42,7 @@ export class AdventureRepository {
                     Person
                 ]
             });
-        const adventureModel = this.adventureEntityToModelMapper.map(adventure);
+        const adventureModel = this.adventureConverter.convertEntity(adventure);
         if (adventureModel.scenes !== null) {
             for(const scene of adventureModel.scenes) {
                 scene.parentScenes = await this.getParentScenesForScene(scene, adventure.scenes)
@@ -54,7 +54,7 @@ export class AdventureRepository {
     async findAll(): Promise<AdventureModel[]> {
         const adventures = await Adventure.findAll();
         return adventures.map(adventureEntity => {
-            return this.adventureEntityToModelMapper.map(adventureEntity)
+            return this.adventureConverter.convertEntity(adventureEntity)
         })
     }
 
@@ -78,7 +78,7 @@ export class AdventureRepository {
         const parentSceneIds = matchingEntity.parentScenes.split(',');
         const parentSceneEntities = await Scene.findAll({where: {uuid: parentSceneIds}})
         return parentSceneEntities.map(sceneEntity => {
-            return this.sceneEntityToModelMapper.map(sceneEntity)
+            return this.sceneConverter.convertEntity(sceneEntity)
         })
     }
 }

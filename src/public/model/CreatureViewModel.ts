@@ -1,16 +1,23 @@
 import {AbstractPropertyViewModel} from "./AbstractPropertyViewModel";
+import {ApplyEffects} from "@/public/model/status/decorator/DecoratorFunctions";
+import {JsonProperty, Serializable} from "typescript-json-serializer";
 
-export class CreatureViewModel<T extends AbstractPropertyViewModel> {
+@Serializable()
+export class CreatureViewModel<T extends AbstractPropertyViewModel> extends AbstractPropertyViewModel{
+    @JsonProperty({name: 'id'})
     private _id: string;
+    @JsonProperty({name: 'name'})
     private _name: string;
-    private _properties: T;
+    @JsonProperty({name: 'creatureProperties'})
+    private _creatureProperties: T;
 
     constructor(
         id: string,
         name: string,
         properties: T
     ) {
-        this._properties = properties;
+        super()
+        this._creatureProperties = properties;
         this._id = id;
         this._name = name;
     }
@@ -23,6 +30,7 @@ export class CreatureViewModel<T extends AbstractPropertyViewModel> {
         this._id = value;
     }
 
+    @ApplyEffects
     get name(): string {
         return this._name;
     }
@@ -31,11 +39,11 @@ export class CreatureViewModel<T extends AbstractPropertyViewModel> {
         this._name = value;
     }
 
-    get properties(): T {
-        return this._properties;
+    get creatureProperties(): T {
+        return this._creatureProperties;
     }
 
-    set properties(value: T) {
-        this._properties = value;
+    set creatureProperties(value: T) {
+        this._creatureProperties = value;
     }
 }
