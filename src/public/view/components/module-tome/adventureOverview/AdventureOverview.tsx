@@ -4,7 +4,7 @@ import axios from "axios";
 import {AdventureViewModel} from "@/public/model/AdventureViewModel";
 import {AdventureForm} from "../adventureForm/AdventureForm";
 import {AdventureCard} from "../adventureCard/AdventureCard";
-import {deserializeMultiple} from "@/public/service/SerializerService";
+import {deserializeMultiple} from "@/public/service/serializer.service";
 import * as style from './adventureOverview.css'
 
 interface AdventureOverviewState {

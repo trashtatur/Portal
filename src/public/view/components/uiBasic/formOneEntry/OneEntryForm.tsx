@@ -3,7 +3,7 @@ import axios from 'axios'
 import {oneEntryFormEntry} from "@/public/types/frontendTypes";
 import {ReactElement} from "react";
 import * as style from './oneEntryForm.css';
-import {uuidv4} from "@/public/service/UuidService";
+import {uuidv4} from "@/public/service/uuid.service";
 
 
 export interface OneEntryFormProps {

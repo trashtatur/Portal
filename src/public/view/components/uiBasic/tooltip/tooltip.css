@@ -2,14 +2,11 @@
     position: relative;
     display: inline-block;
 }
-
 .toolTipContent {
-    width: 300px;
     position: absolute;
     visibility: hidden;
     background: white;
-    top: -24px;
-    left: 40%;
+    margin-top: 9px;
     border: black solid 1px;
     z-index: 1;
     opacity: 0;

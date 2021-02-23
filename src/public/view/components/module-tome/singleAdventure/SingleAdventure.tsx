@@ -7,7 +7,7 @@ import axios from 'axios';
 import {AdventureViewModel} from "@/public/model/AdventureViewModel";
 import {SingleAdventureTopBar} from "../singleAdventureTopbar/SingleAdventureTopBar";
 import {FlyUpContainer} from "../../uiBasic/flyUpContainer/FlyUpContainer";
-import {deserializeData} from "@/public/service/SerializerService";
+import {deserializeData} from "@/public/service/serializer.service";
 import * as style from './singleAdventure.css';
 
 interface MatchParams {

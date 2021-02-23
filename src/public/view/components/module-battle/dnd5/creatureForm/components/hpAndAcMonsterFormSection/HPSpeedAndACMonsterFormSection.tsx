@@ -3,7 +3,7 @@ import {ReactNode} from 'react';
 import {DiceRollSpecification} from "@/public/model/DiceRollSpecification";
 import {DND5CreatureSizeEnum} from "@/public/model/enumeration/dnd5/DND5CreatureSizeEnum";
 import {SpeedViewModel} from "@/public/model/SpeedViewModel";
-import {AverageHPCalculatorService} from "@/public/service/dnd5/AverageHPCalculatorService";
+import {calculateAverageHP, calculateMatchingHitDice} from "@/public/service/dnd5/averageHP.service";
 import {SpeedFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/speedFormSection/SpeedFormSection";
 import * as style from "../formSectionGeneralStyles.css";
 
@@ -26,11 +26,9 @@ interface HPAndACMonsterFormSectionProps {
 }
 
 export class HPSpeedAndACMonsterFormSection extends React.Component<HPAndACMonsterFormSectionProps, {}> {
-    private averageHPCalculatorService: AverageHPCalculatorService;
 
     constructor(props) {
         super(props);
-        this.averageHPCalculatorService = new AverageHPCalculatorService();
     }
 
     setToAverageAC = (): void => {
@@ -41,7 +39,7 @@ export class HPSpeedAndACMonsterFormSection extends React.Component<HPAndACMonst
         const pickedAverageHPValue =
             Math.floor(Math.random() * (this.props.averageHP[1] - this.props.averageHP[0]) + this.props.averageHP[0]);
         this.props.changeHP({target: {value: pickedAverageHPValue}});
-        const calculatedHitDice = this.averageHPCalculatorService.calculateMatchingHitDice(
+        const calculatedHitDice = calculateMatchingHitDice(
             pickedAverageHPValue,
             this.props.hitDice.diceType,
             this.props.constitutionMod
@@ -61,7 +59,7 @@ export class HPSpeedAndACMonsterFormSection extends React.Component<HPAndACMonst
             this.props.hitDice.diceType,
             bonus
         );
-        const hp = this.averageHPCalculatorService.calculateAverageHP(hitDice);
+        const hp = calculateAverageHP(hitDice);
         this.props.changeHP({target: {value: hp}});
         this.props.changeHitDiceCount({target: {value: diceCount}});
         this.props.changeHitDiceBonus({target: {value: bonus}});

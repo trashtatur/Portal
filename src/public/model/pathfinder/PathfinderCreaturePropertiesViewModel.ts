@@ -11,7 +11,7 @@ import {NamedPropertyViewModel} from "../NamedPropertyViewModel";
 import {AbstractPropertyViewModel} from "../AbstractPropertyViewModel";
 import {ApplyEffects} from "@/public/model/status/decorator/DecoratorFunctions";
 import {JsonProperty, Serializable} from "typescript-json-serializer";
-import {getEnumKeyForValue} from "@/public/service/EnumFromStringService";
+import {getEnumKeyForValue} from "@/public/service/enumFromString.service";
 
 @Serializable()
 export class PathfinderCreaturePropertiesViewModel extends AbstractPropertyViewModel{

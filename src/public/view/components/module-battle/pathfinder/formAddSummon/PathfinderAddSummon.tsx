@@ -6,8 +6,8 @@ import axios from "axios";
 import {CreatureViewModel} from "@/public/model/CreatureViewModel";
 import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
 import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
-import {uploadCreatureImage} from "@/public/service/HttpService";
-import {setCreatureImagePath} from "@/public/service/ImagePathService";
+import {uploadCreatureImage} from "@/public/service/http.service";
+import {setCreatureImagePath} from "@/public/service/imagePath.service";
 import * as style from './pathfinderAddSummon.css';
 
 interface AddSummonProps {

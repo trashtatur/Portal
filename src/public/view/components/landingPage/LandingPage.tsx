@@ -3,7 +3,9 @@ import {ReactNode} from 'react';
 import {Link} from 'react-router-dom'
 import {RoutesEnum} from "../../../enumeration/RoutesEnum";
 import withErrorBoundary from "@/public/view/components/common/errorBoundary/WithErrorBoundary";
-import * as style from "./landingpage.css";
+import {Chip} from "@/public/view/components/uiBasic/chip/chip.component";
+import {ColorModeEnum} from "@/public/enumeration/ColorModeEnum";
+import * as style from "./landingpage.less";
 
 @withErrorBoundary()
 export class LandingPage extends React.Component {
@@ -13,8 +15,12 @@ export class LandingPage extends React.Component {
             <div className={style.landingPageContainer}>
                 <img src={'images/Portal_Logo.png'} className={style.appTitle} alt={"Portal Logo"}/>
                 <div className={style.moduleLinksContainer}>
-                    <Link to={RoutesEnum.BATTLE} className={style.landingPageModuleLink}>Battle</Link>
-                    <Link to={RoutesEnum.TOME} className={style.landingPageModuleLink}>Tome</Link>
+                    <Chip colorMode={ColorModeEnum.ANTHRAZITE} hoverEffect>
+                        <Link to={RoutesEnum.BATTLE}>Battle</Link>
+                    </Chip>
+                    <Chip colorMode={ColorModeEnum.ANTHRAZITE} hoverEffect>
+                        <Link to={RoutesEnum.TOME}>Tome</Link>
+                    </Chip>
                 </div>
             </div>
         )

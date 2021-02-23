@@ -5,8 +5,8 @@ import {ClassesEnum} from "@/public/model/enumeration/dnd5/ClassesEnum";
 import {selectable} from "@/public/types/frontendTypes";
 import Select from 'react-select';
 import {SelectEventTypesEnum} from "@/public/model/enumeration/SelectEventTypesEnum";
+import {uuidv4} from "@/public/service/uuid.service";
 import * as style from '../formSectionGeneralStyles.css';
-import {uuidv4} from "@/public/service/UuidService";
 
 interface ClassesAndLevelsFormSectionProps {
     classesAndLevels: ClassAndLevelViewModel[];
