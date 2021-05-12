@@ -180,6 +180,15 @@
     source-map-support "0.5.16"
     tslib "1.11.1"
 
+"@tsed/core@5.65.7":
+  version "5.65.7"
+  resolved "https://registry.yarnpkg.com/@tsed/core/-/core-5.65.7.tgz#171228fbfdd657163e66c11f8091a0707e324943"
+  integrity sha512-vF75KX6bQ5hl8WPPuf1HHNmLH8NC/sH6X6Tgb36rg2iNOZENmozKRpuHpcDjvlLKKaDDYppN1hTHO8cLqCRcCg==
+  dependencies:
+    reflect-metadata "^0.1.13"
+    source-map-support "0.5.19"
+    tslib "1.11.0"
+
 "@tsed/di@5.44.17":
   version "5.44.17"
   resolved "https://registry.yarnpkg.com/@tsed/di/-/di-5.44.17.tgz#2f94369d69303040c2843066fac8e18deebe6387"
@@ -6083,7 +6092,7 @@ source-map-resolve@^0.5.0:
     source-map-url "^0.4.0"
     urix "^0.1.0"
 
-source-map-support@0.5.16, source-map-support@^0.5.16, source-map-support@^0.5.6:
+source-map-support@0.5.16:
   version "0.5.16"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.16.tgz#0ae069e7fe3ba7538c64c98515e35339eac5a042"
   integrity sha512-efyLRJDr68D9hBBNIPWFjhpFzURh+KJykQwvMyW5UiZzYwoF6l4YMMDIJJEyFWxWCqfyxLzz6tSfUFR+kXXsVQ==
@@ -6091,7 +6100,7 @@ source-map-support@0.5.16, source-map-support@^0.5.16, source-map-support@^0.5.6
     buffer-from "^1.0.0"
     source-map "^0.6.0"
 
-source-map-support@^0.5.3, source-map-support@~0.5.12:
+source-map-support@0.5.19, source-map-support@^0.5.16, source-map-support@^0.5.3, source-map-support@^0.5.6, source-map-support@~0.5.12:
   version "0.5.19"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.19.tgz#a98b62f86dcaf4f67399648c085291ab9e8fed61"
   integrity sha512-Wonm7zOCIJzBGQdB+thsPar0kYuCIzYvxZwlBa87yi/Mdjv7Tip2cyVbLj5o0cFPN4EVkuTwb3GDDyUx2DGnGw==
@@ -6641,6 +6650,11 @@ tslib@1.10.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
+
+tslib@1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.0.tgz#f1f3528301621a53220d58373ae510ff747a66bc"
+  integrity sha512-BmndXUtiTn/VDDrJzQE7Mm22Ix3PxgLltW9bSNLoeCY31gnG2OPx0QqJnuc9oMIKioYrz487i6K9o4Pdn0j+Kg==
 
 tslib@1.11.1, tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.11.1"
