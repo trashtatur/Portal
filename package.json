@@ -16,7 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "@tsed/common": "5.44.17",
-    "@tsed/core": "5.44.17",
+    "@tsed/core": "5.65.7",
     "@tsed/di": "5.44.17",
     "@tsed/multipartfiles": "5.44.17",
     "@types/react-router": "^5.1.5",
