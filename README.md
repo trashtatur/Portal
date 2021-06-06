@@ -1,4 +1,4 @@
-![Logo](src/images/Portal_Logo_for_Readme.jpg)
+![Logo](public/images/Portal_Logo_for_Readme.jpg)
 ## What is this?
 
 Portal is a tool to help dungeon masters and people who write adventures. It features (or rather will eventually feature...) the following things:

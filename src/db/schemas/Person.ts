@@ -5,7 +5,7 @@ import {Scene} from "./Scene";
 import {ScenePerson} from "./assocSchemas/ScenePerson";
 
 @Table({tableName: 'Persons'})
-export class Person extends Model<Person>{
+export class Person extends Model {
 
     @PrimaryKey
     @Column({type: DataType.UUID, defaultValue: DataType.UUIDV4})

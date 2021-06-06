@@ -1,2 +1,0 @@
-import {FormValidatorInterface} from "../FormValidatorInterface";
-

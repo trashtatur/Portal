@@ -1,12 +1,11 @@
 # Created by .ignore support plugin (hsz.mobi)
 *.module.css.d.ts
 build
-src/images/creatureImages/*
+public/images/creatureImages/*
 .tmp
 ### JetBrains template
 .idea
 config/config.json
-src/public/view/components/**/youtubeConfig.json
 ### Node template
 # Logs
 logs

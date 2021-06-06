@@ -3,22 +3,21 @@
     "tsc": "tsc --project tsconfig.json",
     "test": "mocha --require ts-node/register tests/**/*Test.ts",
     "build": "webpack --mode development",
-    "watch": "gulp watch",
-    "start": "nodemon --watch 'src/**/*.ts' --exec ts-node src/index.ts",
-    "import:dnd5:spells": "ts-node src/importer/importSpells.ts"
+    "start": "nodemon --watch 'src/**/*.ts' --exec ts-node src/index.ts"
   },
   "nodemonConfig": {
     "ignore": [
-      "src/public/**/*",
+      "public/**/*",
       "node_modules/**/*"
     ]
   },
   "license": "MIT",
   "dependencies": {
-    "@tsed/common": "5.44.17",
-    "@tsed/core": "5.44.17",
-    "@tsed/di": "5.44.17",
-    "@tsed/multipartfiles": "5.44.17",
+    "@tsed/common": "^6.54.0",
+    "@tsed/platform-express": "^6.54.0",
+    "@tsed/core": "^6.54.0",
+    "@tsed/di": "^6.54.0",
+    "@tsed/multipartfiles": "^6.0.0",
     "@types/react-router": "^5.1.5",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
@@ -28,31 +27,30 @@
     "csv-string": "^3.2.0",
     "d3": "^5.16.0",
     "dom-align": "^1.12.0",
-    "express": "4",
+    "express": "4.17.1",
     "less-loader": "7.3.0",
     "lodash": "^4.17.19",
     "method-override": "^3.0.0",
     "multer": "^1.4.2",
     "mysql2": "^1.6.5",
     "prop-types": "^15.7.2",
-    "react": "^16.11.0",
+    "react": "^17.0.2",
     "react-collapsible": "^2.6.1",
     "react-d3-graph": "^2.4.1",
-    "react-dom": "^16.11.0",
+    "react-dom": "^17.0.2",
     "react-dropzone-uploader": "^2.11.0",
     "react-portal": "^4.2.1",
-    "react-router": "^5.1.2",
-    "react-router-dom": "^5.1.2",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "react-select": "^3.0.8",
     "react-switch": "^5.0.1",
     "react-transition-group": "^4.4.1",
     "reflect-metadata": "^0.1.13",
-    "sequelize": "^5.1.0",
-    "sequelize-typescript": "^1.0.0",
+    "sequelize": "^6.6.2",
+    "sequelize-typescript": "^2.1.0",
+    "ts-loader": "^9.2.3",
     "typescript-json-serializer": "^2.4.0",
-    "typescript-plugin-css-modules": "^2.0.2",
-    "validate-typescript": "^4.0.2",
-    "youtube-api-v3-search": "^1.2.1"
+    "typescript-plugin-css-modules": "^2.0.2"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.28",
@@ -82,8 +80,8 @@
     "style-loader": "^1.2.1",
     "ts-lint": "^4.5.1",
     "ts-node": "^8.4.1",
-    "typescript": "^3.7.2",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "typescript": "^4.3.2",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0"
   }
 }

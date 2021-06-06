@@ -5,7 +5,7 @@
     "outDir": "build",
     "allowJs": true,
     "jsx": "react",
-    "lib": ["es2016","dom"],
+    "lib": ["es7","dom"],
     "target": "es6",
     "sourceMap": true,
     "types": ["node"],
@@ -16,6 +16,7 @@
     "removeComments": true,
     "baseUrl": ".",
     "resolveJsonModule": true,
+    "esModuleInterop": true,
     "paths": {
       "@/public/*": [
         "src/public/*"
@@ -26,8 +27,8 @@
     ]
   },
   "include": [
-    "src/global.d.ts",
-    "src/public/types/frontendTypes.d.ts",
+    "global.d.ts",
+    "public/types/frontendTypes.d.ts",
     "src/types/backendTypes.d.ts",
     "src/**/*"
   ],

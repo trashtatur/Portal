@@ -4,15 +4,14 @@ import {
     DataType, ForeignKey,
     Model,
     PrimaryKey,
-    Table, BelongsToMany, HasMany
+    Table, BelongsToMany
 } from "sequelize-typescript";
 import {Adventure} from "./Adventure";
 import {Person} from "./Person";
 import {ScenePerson} from "./assocSchemas/ScenePerson";
-import {Col} from "sequelize/types/lib/utils";
 
 @Table
-export class Scene extends Model<Scene> {
+export class Scene extends Model {
 
     @PrimaryKey
     @Column({type: DataType.UUID, defaultValue: DataType.UUIDV4})

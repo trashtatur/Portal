@@ -1,8 +1,13 @@
-import {GlobalAcceptMimesMiddleware, ServerLoader, ServerSettings} from "@tsed/common";
+import {
+    Inject,
+    Configuration,
+    PlatformApplication,
+    PlatformAcceptMimesMiddleware
+} from "@tsed/common";
 import * as Path from "path";
 import {join} from "path";
 
-@ServerSettings({
+@Configuration({
     rootDir: Path.resolve(__dirname),
     httpPort: 4004,
     httpsPort: false,
@@ -21,12 +26,17 @@ import {join} from "path";
         "${rootDir}/repositories/**/*Repository.ts",
     ],
     statics: {
-        "/": join(__dirname, "..", "public/view/static"),
+        "/": join(__dirname, "..","..", "public/view/static"),
         "/build":join(__dirname,"..","..","build"),
-        "/images":join(__dirname,"..","images")
+        "/images":join(__dirname,"..","..","public","images")
     }
 })
-export class Server extends ServerLoader{
+export class Server {
+    @Inject()
+    app: PlatformApplication;
+
+    @Configuration()
+    settings: Configuration;
 
     /**
      * This method let you configure the middleware required by your application to works.
@@ -38,7 +48,7 @@ export class Server extends ServerLoader{
             compress = require('compression'),
             methodOverride = require('method-override');
 
-        this.use(GlobalAcceptMimesMiddleware)
+        this.app.use(PlatformAcceptMimesMiddleware)
             .use(cookieParser())
             .use(compress({}))
             .use(methodOverride())

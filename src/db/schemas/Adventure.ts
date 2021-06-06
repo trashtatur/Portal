@@ -4,7 +4,7 @@ import {Person} from "./Person";
 import {AdventurePerson} from "./assocSchemas/AdventurePerson";
 
 @Table
-export class Adventure extends Model<Adventure>{
+export class Adventure extends Model {
 
     @PrimaryKey
     @Column({type: DataType.UUID, defaultValue: DataType.UUIDV4})
