@@ -1,27 +1,17 @@
 import * as React from 'react';
-import {CSSProperties, ReactElement} from 'react';
-import * as style from './tooltip.css'
+import {ReactElement} from 'react';
+import {UiBasicTooltipBubble} from "@/public/view/components/uiBasic/tooltip-bubble/tooltip-bubble.component";
+import * as style from './tooltip.css';
 
 interface ToolTipProps {
     toolTipTrigger?: ReactElement;
+    position: 'left'|'right'|'top'|'bottom'|'topLeft'|'topRight'|'bottomLeft'|'bottomRight'|'covering';
     widthInPX?: number;
     heightInPX?: number;
     children?;
 }
 
 export class ToolTip extends React.Component<ToolTipProps> {
-
-    conditionalStyle = (): CSSProperties=> {
-      const properties: CSSProperties = {};
-      if (this.props.widthInPX) {
-          properties.width = this.props.widthInPX+'px'
-      }
-      if (this.props.heightInPX) {
-          properties.height = this.props.heightInPX+'px';
-      }
-      return properties;
-    };
-
     render(): ReactElement {
         let trigger = <img
             src={"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Icon-round-Question_mark.svg/1200px-Icon-round-Question_mark.svg.png"}
@@ -35,8 +25,10 @@ export class ToolTip extends React.Component<ToolTipProps> {
         return (
             <div className={style.toolTipContainer}>
                 {trigger}
-                <div className={style.toolTipContent} style={this.conditionalStyle()}>
-                {this.props.children}
+                <div className={style.toolTipContent}>
+                    <UiBasicTooltipBubble position={this.props.position}>
+                        {this.props.children}
+                    </UiBasicTooltipBubble>
                 </div>
             </div>
         )

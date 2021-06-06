@@ -1,13 +1,15 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import {ToolTip} from "../../../uiBasic/tooltip/ToolTip";
 import {TalentToolTip} from "../toolTipTalent/TalentToolTip";
 import {PathfinderSavingThrowsViewModel} from "@/public/model/pathfinder/PathfinderSavingThrowsViewModel";
 import {PathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
 import {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
 import {PathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
+import {uuidv4} from "@/public/service/uuid.service";
+import {ToolTip} from "@/public/view/components/uiBasic/tooltip/ToolTip";
+import {Chip} from "@/public/view/components/uiBasic/chip/chip.component";
+import {ColorModeEnum} from "@/public/enumeration/ColorModeEnum";
 import * as style from './creaturecardAttributes.css';
-import {uuidv4} from "@/public/service/UuidService";
 
 export interface CreatureAttributesProps {
     skills: PathfinderSkillViewModel[];
@@ -38,12 +40,9 @@ export class CreaturecardAttributes extends React.Component<CreatureAttributesPr
     formatTalentName = (talentName: string): ReactElement => {
         if (talentName.substr(talentName.length - 8) === '(combat)') {
             const cleanedName = talentName.substr(0, talentName.length - 8)
-            return (
-                <span className={style.talentEntry}>
-                    {cleanedName}<img src={'/images/combat-icon.png'} className={style.combatTalentIcon}/>
-                </span>)
+            return <Chip image="/images/combat-icon.png" colorMode={ColorModeEnum.LIGHT_GREY}>{cleanedName}</Chip>
         }
-        return <span className={style.talentEntry}>{talentName}</span>
+        return <Chip colorMode={ColorModeEnum.LIGHT_GREY}>{talentName}</Chip>
     };
 
     render(): ReactElement {
@@ -63,11 +62,10 @@ export class CreaturecardAttributes extends React.Component<CreatureAttributesPr
                             return (
                                 <ToolTip
                                     key={uuidv4()}
-                                    widthInPX={350}
-                                    toolTipTrigger={<span
-                                        className={style.talentEntry}>{this.formatTalentName(talent.name)}</span>}
+                                    position={'right'}
+                                    toolTipTrigger={this.formatTalentName(talent.name)}
                                 >
-                                    <TalentToolTip talent={talent}/>
+                                    <TalentToolTip talent={talent} />
                                 </ToolTip>
                             )
                         })}
@@ -79,7 +77,7 @@ export class CreaturecardAttributes extends React.Component<CreatureAttributesPr
                         {this.props.languages && this.props.languages.map(language => {return language.name}).join(', ')}
                     </td>
                 </tr>
-                <tr className={style.attributeBlock}>
+                <tr>
                     <td className={style.attributeName}>Save throws:</td>
                     <td className={style.attributeEntry}>
                         WIL:{this.determineModPrefix(this.props.saveThrows.wisdom)} FORT:{this.determineModPrefix(this.props.saveThrows.fortitude)} REF:{this.determineModPrefix(this.props.saveThrows.reflex)}
