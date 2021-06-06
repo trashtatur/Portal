@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
 import {CSSProperties} from "react";
-import * as style from "./flyUpContainer.css";
+import style from './flyUpContainer.css';
 
 interface RollUpFormProps {
     open: boolean;
