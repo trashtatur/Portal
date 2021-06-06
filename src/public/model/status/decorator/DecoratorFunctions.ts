@@ -1,10 +1,9 @@
-import {httpGet} from "@/public/service/HttpService";
-import {LoggingService} from "@/public/service/LoggingService";
+import {httpGet} from "@/public/service/http.service";
+import {debug} from "@/public/service/logging.service";
 import 'reflect-metadata';
-import {deserializeMultiple} from "@/public/service/SerializerService";
+import {deserializeMultiple} from "@/public/service/serializer.service";
 import {StatusEffectViewModel} from "@/public/model/status/StatusEffectViewModel";
 
-const loggingService = new LoggingService();
 /**
  * This function is a decorator function to populate the effects property with effects associated to this class
  * Effects need to have been persisted in the database with this class as its associated class for them to be added
@@ -47,7 +46,7 @@ export const ApplyEffects = (target: Record<string, any>, propertyKey: string): 
             || this.statusEffects?.length === 0
             || !(this.statusEffects[0] instanceof StatusEffectViewModel)
         ) {
-            loggingService.debug(`${this.constructor.name} | This class does not use effects`, {caller: 'ApplyEffects'});
+            debug(`${this.constructor.name} | This class does not use effects`, {caller: 'ApplyEffects'});
             return reflectedValue;
         }
         for (const status of this.statusEffects) {

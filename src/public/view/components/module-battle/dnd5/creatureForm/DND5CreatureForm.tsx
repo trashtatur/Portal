@@ -8,7 +8,7 @@ import {DND5TalentViewModel} from "@/public/model/dnd5/DND5TalentViewModel";
 import {DND5ActionViewModel} from "@/public/model/dnd5/DND5ActionViewModel";
 import {DND5SkillViewModel} from "@/public/model/dnd5/DND5SkillViewModel";
 import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
-import {CRToExperiencePointsConverterService} from "@/public/service/dnd5/CRToExperiencePointsConverterService";
+import {getExperiencePointsByCRValue} from "@/public/service/dnd5/challengeRatingToExperiencePoints.service";
 import {NameCreatureTypeAndTypeFormSection} from "./components/nameAndTypeFormSection/NameCreatureTypeAndTypeFormSection";
 import {StatBlockFormSection} from "./components/statBlockFormSection/StatBlockFormSection";
 import {NameCreatureTypeAndTypeFormSectionHeader} from "./components/headers/NameCreatureTypeAndTypeFormSectionHeader";
@@ -29,8 +29,18 @@ import {HPSpeedAndACFormSectionHeader} from "@/public/view/components/module-bat
 import {LanguagesFeatsSensesAndSkillsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/languagesFeatsSensesAndSkills/LanguagesFeatsSensesAndSkillsFormSection";
 import {LanguagesFeatsSensesAndSkillsFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/components/headers/LanguagesFeatsSensesAndSkillsFormSectionHeader";
 import {DND5SenseViewModel} from "@/public/model/dnd5/DND5SenseViewModel";
-import {AverageHPCalculatorService} from "@/public/service/dnd5/AverageHPCalculatorService";
-import {FormSectionDisplayRuleService} from "@/public/service/dnd5/FormSectionDisplayRuleService";
+import {calculateAverageHP} from "@/public/service/dnd5/averageHP.service";
+import {
+    shouldDisplayClassesAndLevelsSection,
+    shouldDisplayHPSpeedAndACMonsterSection,
+    shouldDisplayHPSpeedAndACPlayerSection,
+    shouldDisplayInnateSpellCastingOrSpellChoiceSwitch,
+    shouldDisplayLanguagesFeatsSensesAndSkillsSection,
+    shouldDisplaySizeAndAlignmentSection,
+    shouldDisplaySpellsSection,
+    shouldDisplaySpellsWithSlotsSection,
+    shouldDisplayStatBlockSection
+} from "@/public/service/dnd5/formSectionDisplayRule.service";
 import {SpellsFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/components/headers/SpellsFormSectionHeader";
 import {SpellsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/spellFormSection/SpellsFormSection";
 import {DND5InnateSpellViewModel} from "@/public/model/dnd5/DND5InnateSpellViewModel";
@@ -49,17 +59,13 @@ interface CreatureFormState {
 }
 
 export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
-    private crToXPService: CRToExperiencePointsConverterService;
     private creatureViewModelFactory: CreatureViewModelFactory;
     private averageStatsTable: DND5AverageStatsTable;
-    private formSectionDisplayRuleService: FormSectionDisplayRuleService;
 
     constructor(props) {
         super(props);
-        this.crToXPService = new CRToExperiencePointsConverterService();
         this.creatureViewModelFactory = new CreatureViewModelFactory();
         this.averageStatsTable = DND5AverageStatsTable.create();
-        this.formSectionDisplayRuleService = new FormSectionDisplayRuleService();
         this.state = {
             creature: this.creatureViewModelFactory.createEmpty(DND5CreaturePropertiesViewModel),
             enforceClassLevels: false,
@@ -134,9 +140,8 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                     creature.creatureProperties.hitDice.diceType = hitDiceType;
 
                     if (creature.creatureProperties.hitDice.diceCount !== null) {
-                        const averageHPCalculatorService = new AverageHPCalculatorService();
                         creature.creatureProperties.hitpoints =
-                            averageHPCalculatorService.calculateAverageHP(creature.creatureProperties.hitDice);
+                            calculateAverageHP(creature.creatureProperties.hitDice);
                     }
 
                     this.setState({creature: creature});
@@ -165,7 +170,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                 valueAsNumber = 0;
             }
             creature.creatureProperties.challenge = valueAsNumber;
-            creature.creatureProperties.xp = this.crToXPService.getExperiencePointsByCRValue(valueAsNumber);
+            creature.creatureProperties.xp = getExperiencePointsByCRValue(valueAsNumber);
             creature.creatureProperties.proficiencyBonus =
                 this.averageStatsTable.getMatchingEntriesByChallengeRating(valueAsNumber).proficiencyBonus;
         }
@@ -205,8 +210,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
         if (creature.creatureProperties.hitDice.diceCount !== null
             && creature.creatureProperties.hitDice.diceType !== null
         ) {
-            const averageHPCalculatorService = new AverageHPCalculatorService();
-            creature.creatureProperties.hitpoints = averageHPCalculatorService.calculateAverageHP(creature.creatureProperties.hitDice)
+            creature.creatureProperties.hitpoints = calculateAverageHP(creature.creatureProperties.hitDice)
         }
         this.setState({creature: creature})
     };
@@ -498,7 +502,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                             type={this.state.creature.creatureProperties.type}
                         />
                         {
-                            this.formSectionDisplayRuleService.shouldDisplaySizeAndAlignmentSection(this.state.creature.name, this.state.creature.creatureProperties.type)
+                            shouldDisplaySizeAndAlignmentSection(this.state.creature.name, this.state.creature.creatureProperties.type)
                             &&
                             <SizeAlignmentAndChallengeFormSection
                                 size={this.state.creature.creatureProperties.size}
@@ -517,7 +521,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                     <div className={style.formSection}>
                         <StatBlockFormSectionHeader stats={this.state.creature.creatureProperties.stats}/>
                         {
-                            this.formSectionDisplayRuleService.shouldDisplayStatBlockSection(this.state.creature.creatureProperties.size, this.state.creature.creatureProperties.alignment)
+                            shouldDisplayStatBlockSection(this.state.creature.creatureProperties.size, this.state.creature.creatureProperties.alignment)
                             &&
                             <StatBlockFormSection
                                 strength={this.state.creature.creatureProperties.getPrimitiveAttributeAsString(
@@ -555,7 +559,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                             enforced={this.state.enforceClassLevels}
                         />
                         {
-                            this.formSectionDisplayRuleService.shouldDisplayClassesAndLevelsSection(
+                            shouldDisplayClassesAndLevelsSection(
                                 this.state.enforceClassLevels,
                                 this.state.creature.creatureProperties.type,
                                 this.state.creature.creatureProperties.stats
@@ -577,7 +581,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                             hitDice={this.state.creature.creatureProperties.hitDice}
                         />
                         {
-                            this.formSectionDisplayRuleService.shouldDisplayHPSpeedAndACPlayerSection(
+                            shouldDisplayHPSpeedAndACPlayerSection(
                                 this.state.creature.creatureProperties.type,
                                 this.state.creature.creatureProperties.stats
                             ) &&
@@ -598,7 +602,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                             />
                         }
                         {
-                            this.formSectionDisplayRuleService.shouldDisplayHPSpeedAndACMonsterSection(
+                            shouldDisplayHPSpeedAndACMonsterSection(
                                 this.state.creature.creatureProperties.type,
                                 this.state.creature.creatureProperties.stats
                             ) &&
@@ -635,7 +639,7 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                     <div className={style.formSection}>
                         <LanguagesFeatsSensesAndSkillsFormSectionHeader/>
                         {
-                            this.formSectionDisplayRuleService.shouldDisplayLanguagesFeatsSensesAndSkillsSection(
+                            shouldDisplayLanguagesFeatsSensesAndSkillsSection(
                                 this.state.creature.creatureProperties.hitpoints,
                                 this.state.creature.creatureProperties.armorclass,
                                 this.state.creature.creatureProperties.speed,
@@ -666,20 +670,20 @@ export class DND5CreatureForm extends React.Component<{}, CreatureFormState> {
                             handleRemoveInnateSpell={this.handleRemoveInnateSpell}
                             chosenSlotSpells={this.state.creature.creatureProperties.spells}
                             chosenInnateSpells={this.state.creature.creatureProperties.innateSpells}
-                            shouldDisplaySpellsSection={this.formSectionDisplayRuleService.shouldDisplaySpellsSection(
+                            shouldDisplaySpellsSection={shouldDisplaySpellsSection(
                                 this.state.creature.creatureProperties.hitpoints,
                                 this.state.creature.creatureProperties.armorclass,
                                 this.state.creature.creatureProperties.speed,
                                 this.state.creature.creatureProperties.hitDice
                             )}
                             shouldDisplaySpellsWithSlotsSection={
-                                this.formSectionDisplayRuleService.shouldDisplaySpellsWithSlotsSection(
+                                shouldDisplaySpellsWithSlotsSection(
                                     this.state.enforceClassLevels,
                                     this.state.creature.creatureProperties.type
                                 )
                             }
                             shouldDisplaySwitchForInnateSpellCasting={
-                                this.formSectionDisplayRuleService.shouldDisplayInnateSpellCastingOrSpellChoiceSwitch(
+                                shouldDisplayInnateSpellCastingOrSpellChoiceSwitch(
                                     this.state.creature.creatureProperties.type
                                 )
                             }

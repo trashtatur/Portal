@@ -3,7 +3,7 @@ import {round} from "../../../../../types/frontendTypes";
 import {SingleRound} from "../single round/SingleRound";
 import {ReactElement} from "react";
 import * as style from './roundOverview.css'
-import {uuidv4} from "@/public/service/UuidService";
+import {uuidv4} from "@/public/service/uuid.service";
 
 interface RoundOverviewProps {
     roundLog: round[];

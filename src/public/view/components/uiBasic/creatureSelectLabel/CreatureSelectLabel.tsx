@@ -21,7 +21,7 @@ export class CreatureSelectLabel extends React.Component<CreatureSelectLabelProp
                      alt={"Selectable creature entry type"}
                 />
                 {this.props.labelText}
-                <ToolTip>
+                <ToolTip position='right'>
                     <CreatureToolTip creature={this.props.creature}/>
                 </ToolTip>
             </div>

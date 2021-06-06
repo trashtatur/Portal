@@ -19,10 +19,10 @@ import {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderAct
 import {NamedPropertyViewModel} from "@/public/model/NamedPropertyViewModel";
 import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import {serialize} from "typescript-json-serializer";
-import {uuidv4} from "@/public/service/UuidService";
-import {uploadCreatureImage} from "@/public/service/HttpService";
-import {setCreatureImagePath} from "@/public/service/ImagePathService";
-import {deserializeMultiple} from "@/public/service/SerializerService";
+import {uuidv4} from "@/public/service/uuid.service";
+import {uploadCreatureImage} from "@/public/service/http.service";
+import {setCreatureImagePath} from "@/public/service/imagePath.service";
+import {deserializeMultiple} from "@/public/service/serializer.service";
 import * as style from "./pathfinderCreatureForm.css";
 
 interface CreatureFormProps {

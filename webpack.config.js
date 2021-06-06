@@ -24,6 +24,24 @@ module.exports = {
                 loader: 'url-loader',
             },
             {
+                test: /\.less$/,
+                use: ["style-loader",
+                    {
+                        loader: "css-loader",
+                        options: {
+                            importLoaders: 1,
+                            sourceMap: true,
+                            modules: {
+                                localIdentName: '[name]__[local]--[hash:base64:5]'
+                            }
+                        }
+                    },
+                    {
+                        loader: "less-loader"
+                    }
+                ]
+            },
+            {
                 test: /\.css$/i,
                 use: ['style-loader', {
                     loader: 'css-loader',

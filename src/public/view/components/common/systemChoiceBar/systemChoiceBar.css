@@ -1,12 +1,12 @@
 .systemChoiceBarContainer {
     height: 25px;
     width: 100%;
-    background: lightgrey;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     overflow-x: auto;
     overflow-y: hidden;
+    padding: 10px;
 }
 
 .systemElementImage {

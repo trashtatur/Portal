@@ -12,8 +12,8 @@ import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
 import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
 import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import {SelectEventTypesEnum} from "@/public/model/enumeration/SelectEventTypesEnum";
-import {CreatureSerializerService} from "@/public/service/CreatureSerializerService";
-import {uuidv4} from "@/public/service/UuidService";
+import {deserializeCreatures} from "@/public/service/creatureSerializer.service";
+import {uuidv4} from "@/public/service/uuid.service";
 import * as style from './pathfinderEncounterCreatureList.css';
 
 export interface EncounterCreatureListProps {
@@ -117,9 +117,8 @@ export class PathfinderEncounterCreatureList extends React.Component<EncounterCr
             //this.setState({creaturesInBattle: potentialEncounter});
         }
         try {
-            const creatureSerializerService = new CreatureSerializerService()
             const creatureData = await this.getAllCreatures();
-            const creatureViewModels = creatureSerializerService.deserializeCreatures(creatureData.data)
+            const creatureViewModels = deserializeCreatures<PathfinderCreaturePropertiesViewModel>(creatureData.data)
             this.setState({creatureViewModels: creatureViewModels})
         } catch (e) {
             console.log(e)

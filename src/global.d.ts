@@ -1,7 +1,9 @@
 declare module '*.css' {
-    interface IClassNames {
-        [className: string]: string
-    }
-    const classNames: IClassNames;
-    export = classNames;
+    const resource: {[key: string]: string};
+    export = resource;
+}
+
+declare module '*.less' {
+    const resource: {[key: string]: string};
+    export = resource;
 }

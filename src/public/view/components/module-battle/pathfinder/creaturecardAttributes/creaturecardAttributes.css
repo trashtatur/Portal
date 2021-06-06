@@ -6,30 +6,10 @@
     float: left;
 }
 
-.attributeBlock {
-
-}
-
 .attributeEntry {
     width:12em;
 }
 
 .attributeName {
     width: 25%;
-}
-
-.talentEntry {
-    margin-right: 1px;
-    margin-top: 2px;
-    display: inline-block;
-    background-color: #e5e5e5;
-    border: 1px solid #e5e5e5;
-    line-height: 11px;
-    padding: 0 5px;
-    border-radius: 15px;
-}
-
-.combatTalentIcon {
-    width: 9px;
-    height: 9px;
 }

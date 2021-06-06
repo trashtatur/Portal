@@ -6,9 +6,9 @@ import {SpellsWithSlotsFormSection} from "@/public/view/components/module-battle
 import {InnateSpellCastingFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/innateSpellCastingFormSection/InnateSpellCastingFormSection";
 import {DND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
 import {DND5InnateSpellCollection} from "@/public/model/dnd5/DND5InnateSpellCollection";
-import {httpGet} from "@/public/service/HttpService";
-import {SpellSortingService} from "@/public/service/dnd5/SpellSortingService";
-import {deserializeMultiple} from "@/public/service/SerializerService";
+import {httpGet} from "@/public/service/http.service";
+import {sortSpellsBySpellLevel} from "@/public/service/dnd5/spellSorting.service";
+import {deserializeMultiple} from "@/public/service/serializer.service";
 
 interface SpellsFormSectionProps {
     handleAddSlotSpell: Function;
@@ -29,11 +29,8 @@ interface SpellsFormSectionState {
 }
 
 export class SpellsFormSection extends React.Component<SpellsFormSectionProps, SpellsFormSectionState> {
-    private spellSortingService: SpellSortingService;
-
     constructor(props) {
         super(props);
-        this.spellSortingService = new SpellSortingService();
         this.state = {
             shouldDisplayInnateSpellCastingSection: false,
             innateSpellsToChooseFrom: [],
@@ -45,9 +42,9 @@ export class SpellsFormSection extends React.Component<SpellsFormSectionProps, S
         try {
             const spellData = await httpGet('/V1/DND5/Spell');
             const spellModels = deserializeMultiple(spellData, DND5SpellViewModel);
-            const mappedInnateSpells = this.spellSortingService.sortSpellsBySpellLevel(spellModels);
+            const mappedInnateSpells = sortSpellsBySpellLevel(spellModels);
             this.setState({innateSpellsToChooseFrom: mappedInnateSpells})
-            const mappedSlotSpells = this.spellSortingService.sortSpellsBySpellLevel(spellModels);
+            const mappedSlotSpells = sortSpellsBySpellLevel(spellModels);
             this.setState({slotSpellsToChooseFrom: mappedSlotSpells})
         } catch (e) {
             console.log(e)
@@ -60,7 +57,7 @@ export class SpellsFormSection extends React.Component<SpellsFormSectionProps, S
 
     handleAddInnateSpellToChoice = (spell: DND5SpellViewModel): void => {
         this.setState({
-            innateSpellsToChooseFrom: this.spellSortingService.sortSpellsBySpellLevel(
+            innateSpellsToChooseFrom: sortSpellsBySpellLevel(
                 this.state.innateSpellsToChooseFrom.concat([spell])
             )
         });
@@ -68,7 +65,7 @@ export class SpellsFormSection extends React.Component<SpellsFormSectionProps, S
 
     handleAddSlotSpellToChoice = (spell: DND5SpellViewModel): void => {
         this.setState({
-            slotSpellsToChooseFrom: this.spellSortingService.sortSpellsBySpellLevel(
+            slotSpellsToChooseFrom: sortSpellsBySpellLevel(
                 this.state.slotSpellsToChooseFrom.concat([spell])
             )
         });
