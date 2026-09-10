@@ -11,6 +11,7 @@ import {createPathfinderCreaturePropertiesViewModel} from "@/public/model/pathfi
 import {uploadCreatureImage} from "@/public/service/http.service";
 import {setCreatureImagePath} from "@/public/service/imagePath.service";
 import * as style from './pathfinderAddSummon.module.css';
+import { PathfinderCreatureProperties } from 'src/backend/db/schemas/pathfinder/PathfinderCreatureProperties';
 
 interface AddSummonProps {
     addToEncounter: Function;
@@ -50,7 +51,7 @@ export class PathfinderAddSummon extends React.Component<AddSummonProps, AddSumm
             );
             try {
                 const creature = this.state.summonedCreature;
-                if (typeof creature.creatureProperties.image !== "string") {
+                if (creature.creatureProperties.image !== undefined) {
                     creature.creatureProperties.image =
                         setCreatureImagePath(creature.name, creature.creatureProperties.challenge, creature.creatureProperties.image);
                 }
@@ -64,7 +65,7 @@ export class PathfinderAddSummon extends React.Component<AddSummonProps, AddSumm
         this.setState(
             {summonedCreature:
                     this.creatureViewModelFactory.createSummonedCreature(
-                        PathfinderCreaturePropertiesViewModel
+                        'PathfinderCreaturePropertiesViewModel'
                     )
             })
     };
