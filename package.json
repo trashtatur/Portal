@@ -39,8 +39,8 @@
     "react-switch": "^5.0.1",
     "react-transition-group": "^4.4.1",
     "reflect-metadata": "^0.1.13",
-    "sequelize": "^5.1.0",
-    "sequelize-typescript": "^1.0.0",
+    "sequelize": "^6.37.8",
+    "sequelize-typescript": "^2.1.6",
     "typescript-json-serializer": "^2.4.0",
     "validate-typescript": "^4.0.2",
     "youtube-api-v3-search": "^1.2.1"
