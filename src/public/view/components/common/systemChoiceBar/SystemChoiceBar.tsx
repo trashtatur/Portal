@@ -2,7 +2,7 @@ import * as React from 'react';
 import {ReactNode} from 'react';
 import {SystemsEnum} from "../../../../enumeration/SystemsEnum";
 import {Chip} from "@/public/view/components/uiBasic/chip/chip.component";
-import * as style from './systemChoiceBar.css'
+import * as style from './systemChoiceBar.module.css'
 import {ColorModeEnum} from "@/public/enumeration/ColorModeEnum";
 
 interface SystemChoiceBarProps {

@@ -1,6 +1,6 @@
 import {BodyParams, Controller, Get, PathParams, Post, Put} from "@tsed/common";
 import {SceneService} from "../../services/SceneService";
-import {sceneData} from "../../types/backendTypes";
+import type {sceneData} from "../../types/backendTypes";
 
 
 @Controller('/Scene')

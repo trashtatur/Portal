@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {DND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
+import type {DND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
+import {createDND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
 import {DND5InnateSpellViewModel} from "@/public/model/dnd5/DND5InnateSpellViewModel";
 import {DND5InnateSpellCollection} from "@/public/model/dnd5/DND5InnateSpellCollection";
 

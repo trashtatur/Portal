@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {SceneViewModel} from "@/public/model/SceneViewModel";
+import {createSceneViewModel} from "@/public/model/SceneViewModel";
+import type {SceneViewModel} from "@/public/model/SceneViewModel";
 import Select from 'react-select';
 import axios from 'axios';
 import {selectable} from "@/public/types/frontendTypes";
 import {SelectEventTypesEnum} from "@/public/model/enumeration/SelectEventTypesEnum";
-import * as style from './singleSceneForm.css';
+import * as style from './singleSceneForm.module.css';
 
 interface SingleSceneFormProps {
     adventureId: string;
@@ -21,7 +22,7 @@ export class SingleSceneForm extends React.Component<SingleSceneFormProps, Singl
     constructor(props) {
         super(props);
         this.state = {
-            scene: new SceneViewModel()
+            scene: createSceneViewModel()
         }
     }
 

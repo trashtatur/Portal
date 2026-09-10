@@ -6,7 +6,7 @@ import {selectable} from "@/public/types/frontendTypes";
 import Select from 'react-select';
 import {SelectEventTypesEnum} from "@/public/model/enumeration/SelectEventTypesEnum";
 import {uuidv4} from "@/public/service/uuid.service";
-import * as style from '../formSectionGeneralStyles.css';
+import * as style from '../formSectionGeneralStyles.module.css';
 
 interface ClassesAndLevelsFormSectionProps {
     classesAndLevels: ClassAndLevelViewModel[];

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {ReactElement} from "react";
 import {TypeEnum} from "../../../../../model/enumeration/TypesEnum";
-import * as style from './roundCreature.css';
+import * as style from './roundCreature.module.css';
 
 const PLAYER_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(2,35,47,0.6727065826330532) 57%, rgba(0,232,255,1) 100%)";
 const MONSTER_GRADIENT = "linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(47,2,2,0.6727065826330532) 57%, rgba(255,0,0,1) 100%)";

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {CSSProperties, ReactNode} from 'react';
-import * as style from './progressBar.css';
+import * as style from './progressBar.module.css';
 
 interface ProgressBarProps {
     min: number;

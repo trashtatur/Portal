@@ -1,5 +1,6 @@
 import {Service} from "@tsed/di";
-import {DND5SpellModel} from "../../model/dnd5/DND5SpellModel";
+import type {DND5SpellModel} from "../../model/dnd5/DND5SpellModel";
+import {createDND5SpellModel} from "../../model/dnd5/DND5SpellModel";
 import {DND5SpellForm} from "../../validation/dnd5/DND5SpellForm";
 import {DND5SpellRepository} from "../../repositories/dnd5/DND5SpellRepository";
 import {DataValidationException} from "../../exception/DataValidationException";

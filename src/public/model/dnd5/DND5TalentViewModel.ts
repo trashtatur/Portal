@@ -10,7 +10,7 @@ export class DND5TalentViewModel {
         condition: string,
         benefit: string
     ) {
-        this._id = id;
+        this._id ;
         this._name = name;
         this._condition = condition;
         this._benefit = benefit;

@@ -6,7 +6,7 @@ export class DND5SkillViewModel {
         id: string,
         name: string
     ) {
-        this._id = id;
+        this._id ;
         this._name = name;
     }
 

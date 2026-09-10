@@ -3,16 +3,22 @@ import {CreatureCard} from "../creaturecard/CreatureCard";
 import {ReactElement} from "react";
 import {PathfinderCreatureSizeEnum} from "@/public/model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
 import {ProgressBar} from "@/public/view/components/uiBasic/progressBar/ProgressBar";
-import {PathfinderSavingThrowsViewModel} from "@/public/model/pathfinder/PathfinderSavingThrowsViewModel";
-import {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
-import {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
-import {NamedPropertyViewModel} from "@/public/model/NamedPropertyViewModel";
-import {PathfinderStatsViewModel} from "@/public/model/pathfinder/PathfinderStatsViewModel";
+import type {PathfinderSavingThrowsViewModel} from "@/public/model/pathfinder/PathfinderSavingThrowsViewModel";
+import {createPathfinderSavingThrowsViewModel} from "@/public/model/pathfinder/PathfinderSavingThrowsViewModel";
+import type {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
+import {createPathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
+import type {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
+import {createPathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
+import type {NamedPropertyViewModel} from "@/public/model/NamedPropertyViewModel";
+import type {PathfinderStatsViewModel} from "@/public/model/pathfinder/PathfinderStatsViewModel";
+import {createPathfinderStatsViewModel} from "@/public/model/pathfinder/PathfinderStatsViewModel";
 import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
 import {AlignmentEnum} from "@/public/model/enumeration/AlignmentEnum";
-import {PathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
-import {PathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
-import * as style from './battleCreature.css';
+import type {PathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
+import {createPathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
+import type {PathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
+import {createPathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
+import * as style from './battleCreature.module.css';
 
 
 export interface CreatureProps {

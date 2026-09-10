@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import * as style from './singleAdventureTopBar.css'
+import * as style from './singleAdventureTopBar.module.css'
 
 interface SingleAdventureTopbarProps {
     openScenes: Function;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {ReactElement} from 'react';
 import {UiBasicTooltipBubble} from "@/public/view/components/uiBasic/tooltip-bubble/tooltip-bubble.component";
-import * as style from './tooltip.css';
+import * as style from './tooltip.module.css';
 
 interface ToolTipProps {
     toolTipTrigger?: ReactElement;

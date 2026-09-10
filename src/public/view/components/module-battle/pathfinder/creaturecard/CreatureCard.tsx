@@ -9,16 +9,22 @@ import {CreaturecardAttributes} from "../creaturecardAttributes/CreaturecardAttr
 import {CreaturecardAttackProperties} from "../../common/creaturecardAttackProperties/CreaturecardAttackProperties";
 import {CreaturecardActions} from "../creaturecardActions/CreaturecardActions";
 import {ReactElement} from "react";
-import {PathfinderStatsViewModel} from "@/public/model/pathfinder/PathfinderStatsViewModel";
+import type {PathfinderStatsViewModel} from "@/public/model/pathfinder/PathfinderStatsViewModel";
+import {createPathfinderStatsViewModel} from "@/public/model/pathfinder/PathfinderStatsViewModel";
 import {PathfinderCreatureSizeEnum} from "@/public/model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
-import {NamedPropertyViewModel} from "@/public/model/NamedPropertyViewModel";
-import {PathfinderSavingThrowsViewModel} from "@/public/model/pathfinder/PathfinderSavingThrowsViewModel";
-import {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
-import {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
-import {PathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
-import {PathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
+import type {NamedPropertyViewModel} from "@/public/model/NamedPropertyViewModel";
+import type {PathfinderSavingThrowsViewModel} from "@/public/model/pathfinder/PathfinderSavingThrowsViewModel";
+import {createPathfinderSavingThrowsViewModel} from "@/public/model/pathfinder/PathfinderSavingThrowsViewModel";
+import type {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
+import {createPathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
+import type {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
+import {createPathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
+import type {PathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
+import {createPathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
+import type {PathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
+import {createPathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
 import {AlignmentEnum} from "@/public/model/enumeration/AlignmentEnum";
-import * as style from "./creatureCard.css";
+import * as style from "./creatureCard.module.css";
 
 
 export interface CreatureCardProps {

@@ -5,7 +5,7 @@ export class DND5SenseViewModel {
         name: string,
         value: number
     ) {
-        this._name = name;
+        this._name ;
         this._value = value;
     }
 

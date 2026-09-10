@@ -1,12 +1,15 @@
-import {CreatureModel} from "../model/CreatureModel";
+import type {CreatureModel} from "../model/CreatureModel";
+import {createCreatureModel} from "../model/CreatureModel";
 import {Creature} from "../db/schemas/Creature";
 import {Service} from "@tsed/di";
 import {CreatureConverter} from "../converter/CreatureConverter";
 import {PathfinderCreaturePropertiesRepository} from "./pathfinder/PathfinderCreaturePropertiesRepository";
 import {AbstractCreaturePropertyModel} from "../model/AbstractCreaturePropertyModel";
-import {DND5CreaturePropertiesModel} from "../model/dnd5/DND5CreaturePropertiesModel";
+import type {DND5CreaturePropertiesModel} from "../model/dnd5/DND5CreaturePropertiesModel";
+import {createDND5CreaturePropertiesModel} from "../model/dnd5/DND5CreaturePropertiesModel";
 import {DND5CreaturePropertiesRepository} from "./dnd5/DND5CreaturePropertiesRepository";
-import {PathfinderCreaturePropertiesModel} from "../model/pathfinder/PathfinderCreaturePropertiesModel";
+import type {PathfinderCreaturePropertiesModel} from "../model/pathfinder/PathfinderCreaturePropertiesModel";
+import {createPathfinderCreaturePropertiesModel} from "../model/pathfinder/PathfinderCreaturePropertiesModel";
 import {SystemToIncludeService} from "../services/SystemToIncludeService";
 
 @Service()

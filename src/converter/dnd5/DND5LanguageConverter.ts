@@ -1,10 +1,11 @@
 import {ConverterInterface} from "../ConverterInterface";
-import {DND5LanguageModel} from "../../model/dnd5/DND5LanguageModel";
+import type {DND5LanguageModel} from "../../model/dnd5/DND5LanguageModel";
+import {createDND5LanguageModel} from "../../model/dnd5/DND5LanguageModel";
 import {DND5Language} from "../../db/schemas/DND5/DND5Language";
 
 export class DND5LanguageConverter implements ConverterInterface<DND5Language, DND5LanguageModel>{
     convertEntity = (entity: DND5Language): DND5LanguageModel => {
-        return new DND5LanguageModel(entity.uuid, entity.name);
+        return createDND5LanguageModel(entity.uuid, entity.name);
     }
 
     convertMultipleEntities = (entities?: DND5Language[]): DND5LanguageModel[] | null => {

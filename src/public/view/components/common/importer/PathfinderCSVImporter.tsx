@@ -5,7 +5,7 @@ import {selectable} from "../../../../types/frontendTypes";
 import Dropzone from 'react-dropzone-uploader';
 import {BaseEntitiesEnum} from "../../../../model/enumeration/BaseEntitiesEnum";
 import axios from 'axios';
-import * as style from "./csvImporter.css";
+import * as style from "./csvImporter.module.css";
 
 export interface CSVImporterState {
     selectedType: BaseEntitiesEnum;

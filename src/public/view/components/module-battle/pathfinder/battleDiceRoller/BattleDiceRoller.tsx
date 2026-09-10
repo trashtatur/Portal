@@ -1,8 +1,10 @@
 import * as React from 'react';
 import {CSSProperties, ReactNode} from 'react';
-import {CreatureViewModel} from "@/public/model/CreatureViewModel";
-import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
-import * as style from './battleDiceRoller.css'
+import type {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import {createCreatureViewModel} from "@/public/model/CreatureViewModel";
+import type {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {createPathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import * as style from './battleDiceRoller.module.css'
 
 interface CombatDiceBarProps {
     allCreatures: CreatureViewModel<PathfinderCreaturePropertiesViewModel>[];

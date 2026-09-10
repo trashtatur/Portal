@@ -2,7 +2,7 @@ import * as React from 'react';
 import {CSSProperties, ReactNode} from 'react';
 import {MagicSchoolEnum} from "@/public/model/enumeration/dnd5/MagicSchoolEnum";
 import {MagicSchoolColorEnum} from "@/public/model/enumeration/dnd5/MagicSchoolColorEnum";
-import * as style from './spellSchoolFilterChip.css';
+import * as style from './spellSchoolFilterChip.module.css';
 
 interface SpelSchoolFilterChipProps {
     name: MagicSchoolEnum;

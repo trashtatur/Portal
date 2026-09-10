@@ -2,7 +2,7 @@ import * as React from "react";
 import {round} from "../../../../../types/frontendTypes";
 import {SingleRound} from "../single round/SingleRound";
 import {ReactElement} from "react";
-import * as style from './roundOverview.css'
+import * as style from './roundOverview.module.css'
 import {uuidv4} from "@/public/service/uuid.service";
 
 interface RoundOverviewProps {

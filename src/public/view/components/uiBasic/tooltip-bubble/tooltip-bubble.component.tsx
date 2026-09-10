@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {classNames} from "@/public/service/class-names.service";
-import * as styles from './tooltip-bubble.component.less'
+import * as styles from './tooltip-bubble.component.module.css'
 import {ReactNode} from "react";
 
 interface Props {

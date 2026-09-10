@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import * as style from "@/public/view/components/module-battle/dnd5/creatureForm/dnd5CreatureForm.css";
+import * as style from "@/public/view/components/module-battle/dnd5/creatureForm/dnd5CreatureForm.module.css";
 
 
 export class SpellsFormSectionHeader extends React.Component {

@@ -3,7 +3,8 @@ import {Includeable} from "sequelize";
 import {PathfinderAction} from "../../db/schemas/pathfinder/PathfinderAction";
 import {PathfinderActionForm} from "../../validation/pathfinder/PathfinderActionForm";
 import {PathfinderActionRepository} from "../../repositories/pathfinder/PathfinderActionRepository";
-import {PathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
+import type {PathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
+import {createPathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
 import {deserialize} from "typescript-json-serializer";
 
 @Service()

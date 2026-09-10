@@ -1,6 +1,7 @@
 import {ConverterInterface} from "../ConverterInterface";
 import {DND5CreatureProperties} from "../../db/schemas/DND5/DND5CreatureProperties";
-import {DND5CreaturePropertiesModel} from "../../model/dnd5/DND5CreaturePropertiesModel";
+import type {DND5CreaturePropertiesModel} from "../../model/dnd5/DND5CreaturePropertiesModel";
+import {createDND5CreaturePropertiesModel} from "../../model/dnd5/DND5CreaturePropertiesModel";
 import {TypeEnum} from "../../model/enumeration/TypeEnum";
 import {AlignmentEnum} from "../../model/enumeration/AlignmentEnum";
 import {CreatureTypeEnum} from "../../model/enumeration/dnd5/CreatureTypeEnum";
@@ -11,10 +12,12 @@ import {DND5TalentConverter} from "./DND5TalentConverter";
 import {DND5SkillConverter} from "./DND5SkillConverter";
 import {DND5SpellConverter} from "./DND5SpellConverter";
 import {Service} from "@tsed/di";
-import {DND5SavingThrowsModel} from "../../model/dnd5/DND5SavingThrowsModel";
-import {SenseModel} from "../../model/dnd5/SenseModel";
-import {DND5SpellSlotsModel} from "../../model/dnd5/DND5SpellSlotsModel";
-import {dnd5SavingThrows, dnd5Sense, dnd5SpellSlots} from "../../types/dnd5BackendTypes";
+import type {DND5SavingThrowsModel} from "../../model/dnd5/DND5SavingThrowsModel";
+import {createDND5SavingThrowsModel} from "../../model/dnd5/DND5SavingThrowsModel";
+import {createSenseModel} from "../../model/dnd5/SenseModel";
+import type {DND5SpellSlotsModel} from "../../model/dnd5/DND5SpellSlotsModel";
+import {createDND5SpellSlotsModel} from "../../model/dnd5/DND5SpellSlotsModel";
+import type {dnd5SavingThrows, dnd5Sense, dnd5SpellSlots} from "../../types/dnd5BackendTypes";
 import {getEnumKeyForValue} from "../../services/EnumKeyFromStringService";
 import {convertDamageString} from "../DamageStringConverter";
 import {convertStatsString} from "../StatsStringConverter";
@@ -43,7 +46,7 @@ export class DND5CreaturePropertiesConverter implements ConverterInterface<DND5C
     }
 
     convertEntity = (entity: DND5CreatureProperties): DND5CreaturePropertiesModel => {
-        return new DND5CreaturePropertiesModel(
+        return createDND5CreaturePropertiesModel(
             entity.uuid,
             getEnumKeyForValue(entity.type, TypeEnum),
             entity.proficiencyBonus,
@@ -88,7 +91,7 @@ export class DND5CreaturePropertiesConverter implements ConverterInterface<DND5C
 
     private mapSavingThrowsStringToSavingThrowsModel = (savingThrowsString: string): DND5SavingThrowsModel => {
         const saveThrowsData: dnd5SavingThrows = JSON.parse(savingThrowsString);
-        return new DND5SavingThrowsModel(
+        return createDND5SavingThrowsModel(
             saveThrowsData.str,
             saveThrowsData.dex,
             saveThrowsData.con,
@@ -101,13 +104,13 @@ export class DND5CreaturePropertiesConverter implements ConverterInterface<DND5C
     private mapSensesStringTosSensesModel = (sensesString: string): SenseModel[] => {
         const senseData: dnd5Sense[] = JSON.parse(sensesString);
         return senseData.map(sense => {
-            return new SenseModel(sense.name, sense.value)
+            return createSenseModel(sense.name, sense.value)
         })
     }
 
     private mapSpellSlotStringToSpellSlotsModel = (spellSlotsString: string): DND5SpellSlotsModel => {
         const spellSlotsData: dnd5SpellSlots = JSON.parse(spellSlotsString);
-        return new DND5SpellSlotsModel(
+        return createDND5SpellSlotsModel(
             spellSlotsData["1"],
             spellSlotsData["2"],
             spellSlotsData["3"],

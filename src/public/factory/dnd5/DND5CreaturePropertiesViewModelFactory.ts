@@ -1,5 +1,6 @@
 import {DND5CreaturePropertiesViewModel} from "../../model/dnd5/DND5CreaturePropertiesViewModel";
-import {DiceRollSpecification} from "../../model/DiceRollSpecification";
+import type {DiceRollSpecification} from "../../model/DiceRollSpecification";
+import {createDiceRollSpecification} from "../../model/DiceRollSpecification";
 import {AlignmentEnum} from "../../model/enumeration/AlignmentEnum";
 import {DND5CreatureTypeEnum} from "../../model/enumeration/dnd5/DND5CreatureTypeEnum";
 import {DND5CreatureStatsViewModel} from "../../model/dnd5/DND5CreatureStatsViewModel";
@@ -19,7 +20,7 @@ export class DND5CreaturePropertiesViewModelFactory {
             null,
             '',
             null,
-            new DiceRollSpecification(null, null),
+            createDiceRollSpecification(null, null),
             AlignmentEnum.NONE,
             [],
             DND5CreatureTypeEnum.NONE,

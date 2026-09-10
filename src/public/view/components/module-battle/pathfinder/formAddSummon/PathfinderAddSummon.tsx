@@ -3,12 +3,14 @@ import {CSSProperties, ReactNode} from 'react';
 import Dropzone from "react-dropzone-uploader";
 import Switch from "react-switch";
 import axios from "axios";
-import {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import type {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import {createCreatureViewModel} from "@/public/model/CreatureViewModel";
 import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
-import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import type {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {createPathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import {uploadCreatureImage} from "@/public/service/http.service";
 import {setCreatureImagePath} from "@/public/service/imagePath.service";
-import * as style from './pathfinderAddSummon.css';
+import * as style from './pathfinderAddSummon.module.css';
 
 interface AddSummonProps {
     addToEncounter: Function;

@@ -1,9 +1,11 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
 import {DND5CreaturePropertiesViewModel} from "@/public/model/dnd5/DND5CreaturePropertiesViewModel";
-import {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import type {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import {createCreatureViewModel} from "@/public/model/CreatureViewModel";
 import {DND5LanguageViewModel} from "@/public/model/dnd5/DND5LanguageViewModel";
-import {DND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
+import type {DND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
+import {createDND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
 import {DND5TalentViewModel} from "@/public/model/dnd5/DND5TalentViewModel";
 import {DND5ActionViewModel} from "@/public/model/dnd5/DND5ActionViewModel";
 import {DND5SkillViewModel} from "@/public/model/dnd5/DND5SkillViewModel";
@@ -44,7 +46,7 @@ import {
 import {SpellsFormSectionHeader} from "@/public/view/components/module-battle/dnd5/creatureForm/components/headers/SpellsFormSectionHeader";
 import {SpellsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/spellFormSection/SpellsFormSection";
 import {DND5InnateSpellViewModel} from "@/public/model/dnd5/DND5InnateSpellViewModel";
-import * as style from './dnd5CreatureForm.css';
+import * as style from './dnd5CreatureForm.module.css';
 
 interface CreatureFormState {
     enforceClassLevels: boolean;

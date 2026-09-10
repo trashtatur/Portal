@@ -1,10 +1,11 @@
 import {ConverterInterface} from "../ConverterInterface";
 import {PathfinderTalent} from "../../db/schemas/pathfinder/PathfinderTalent";
-import {PathfinderTalentModel} from "../../model/pathfinder/PathfinderTalentModel";
+import type {PathfinderTalentModel} from "../../model/pathfinder/PathfinderTalentModel";
+import {createPathfinderTalentModel} from "../../model/pathfinder/PathfinderTalentModel";
 
 export class PathfinderTalentConverter implements ConverterInterface<PathfinderTalent, PathfinderTalentModel>{
     convertEntity(entity: PathfinderTalent): PathfinderTalentModel {
-        return new PathfinderTalentModel(
+        return createPathfinderTalentModel(
             entity.uuid,
             entity.name,
             entity.type,

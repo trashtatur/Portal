@@ -1,13 +1,16 @@
-import {PathfinderCreaturePropertiesViewModel} from "../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import type {PathfinderCreaturePropertiesViewModel} from "../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {createPathfinderCreaturePropertiesViewModel} from "../../model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import {AlignmentEnum} from "../../model/enumeration/AlignmentEnum";
 import {PathfinderCreatureSizeEnum} from "../../model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
-import {PathfinderStatsViewModel} from "../../model/pathfinder/PathfinderStatsViewModel";
-import {PathfinderSavingThrowsViewModel} from "../../model/pathfinder/PathfinderSavingThrowsViewModel";
+import type {PathfinderStatsViewModel} from "../../model/pathfinder/PathfinderStatsViewModel";
+import {createPathfinderStatsViewModel} from "../../model/pathfinder/PathfinderStatsViewModel";
+import type {PathfinderSavingThrowsViewModel} from "../../model/pathfinder/PathfinderSavingThrowsViewModel";
+import {createPathfinderSavingThrowsViewModel} from "../../model/pathfinder/PathfinderSavingThrowsViewModel";
 
 export class PathfinderCreaturePropertiesViewModelFactory {
 
     createEmpty = (): PathfinderCreaturePropertiesViewModel => {
-        return new PathfinderCreaturePropertiesViewModel(
+        return createPathfinderCreaturePropertiesViewModel(
             null,
             null,
             null,
@@ -19,7 +22,7 @@ export class PathfinderCreaturePropertiesViewModelFactory {
             null,
             null,
             PathfinderCreatureSizeEnum.EMPTY,
-            new PathfinderStatsViewModel(
+            createPathfinderStatsViewModel(
                 null,
                 null,
                 null,
@@ -28,7 +31,7 @@ export class PathfinderCreaturePropertiesViewModelFactory {
                 null,
                 PathfinderCreatureSizeEnum.EMPTY,
                 null),
-            new PathfinderSavingThrowsViewModel(
+            createPathfinderSavingThrowsViewModel(
                 null,
                 null,
                 null
@@ -44,7 +47,7 @@ export class PathfinderCreaturePropertiesViewModelFactory {
     }
 
     createSummon = (): PathfinderCreaturePropertiesViewModel => {
-        return new PathfinderCreaturePropertiesViewModel(
+        return createPathfinderCreaturePropertiesViewModel(
             null,
             null,
             null,
@@ -56,8 +59,8 @@ export class PathfinderCreaturePropertiesViewModelFactory {
             null,
             0,
             PathfinderCreatureSizeEnum.MEDIUM,
-            new PathfinderStatsViewModel(10, 10, 10, 10, 10, 10, PathfinderCreatureSizeEnum.MEDIUM, 0),
-            new PathfinderSavingThrowsViewModel(0, 0, 0),
+            createPathfinderStatsViewModel(10, 10, 10, 10, 10, 10, PathfinderCreatureSizeEnum.MEDIUM, 0),
+            createPathfinderSavingThrowsViewModel(0, 0, 0),
             0,
             '',
             null,
@@ -81,7 +84,7 @@ export class PathfinderCreaturePropertiesViewModelFactory {
             creatureProperties.ini,
             creatureProperties.baseAtk,
             creatureProperties.size,
-            new PathfinderStatsViewModel(
+            createPathfinderStatsViewModel(
                 creatureProperties.stats.strength,
                 creatureProperties.stats.constitution,
                 creatureProperties.stats.wisdom,
@@ -91,7 +94,7 @@ export class PathfinderCreaturePropertiesViewModelFactory {
                 creatureProperties.size,
                 creatureProperties.baseAtk
             ),
-            new PathfinderSavingThrowsViewModel(
+            createPathfinderSavingThrowsViewModel(
                 creatureProperties.saveThrows.reflex,
                 creatureProperties.saveThrows.wisdom,
                 creatureProperties.saveThrows.fortitude

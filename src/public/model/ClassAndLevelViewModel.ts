@@ -1,8 +1,6 @@
-import {ApplyEffects } from "@/public/model/status/decorator/DecoratorFunctions";
 import {ClassesEnum} from "@/public/model/enumeration/dnd5/ClassesEnum";
-import {StatusEffectAware} from "@/public/model/status/StatusEffectAware";
 
-export class ClassAndLevelViewModel extends StatusEffectAware{
+export class ClassAndLevelViewModel{
     private _name: ClassesEnum;
     private _subclass?: string;
     private _level: number;
@@ -11,8 +9,7 @@ export class ClassAndLevelViewModel extends StatusEffectAware{
         level: number,
         subclass?: string
     ) {
-        super()
-        this._subclass = subclass;
+        this._subclass ;
         this._name = name;
         this._level = level;
     }
@@ -25,7 +22,6 @@ export class ClassAndLevelViewModel extends StatusEffectAware{
         this._name = value;
     }
 
-    @ApplyEffects
     get level(): number {
         return this._level;
     }

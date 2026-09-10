@@ -11,7 +11,7 @@ export class DND5InnateSpellViewModel {
         per: "day" | "at will",
         constraint?: string,
     ) {
-        this._spell = spell;
+        this._spell ;
         this._times = times;
         this._per = per;
         this._constraint = constraint;

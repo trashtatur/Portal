@@ -1,15 +1,17 @@
 import {ConverterInterface} from "../ConverterInterface";
-import {DND5ActionModel} from "../../model/dnd5/DND5ActionModel";
+import type {DND5ActionModel} from "../../model/dnd5/DND5ActionModel";
+import {createDND5ActionModel} from "../../model/dnd5/DND5ActionModel";
 import {DND5Action} from "../../db/schemas/DND5/DND5Action";
 import {RangeTypeEnum} from "../../model/enumeration/RangeTypeEnum";
-import {DND5DamageType} from "../../model/dnd5/DND5DamageType";
+import type {DND5DamageType} from "../../model/dnd5/DND5DamageType";
+import {createDND5DamageType} from "../../model/dnd5/DND5DamageType";
 import {DND5DamageTypeEnum} from "../../model/enumeration/dnd5/DND5DamageTypeEnum";
 import {getEnumKeyForValue} from "../../services/EnumKeyFromStringService";
 import {convertDamageString} from "../DamageStringConverter";
 
 export class DND5ActionConverter implements ConverterInterface<DND5Action, DND5ActionModel>{
     convertEntity = (entity: DND5Action): DND5ActionModel => {
-        return new DND5ActionModel(
+        return createDND5ActionModel(
             entity.uuid,
             entity.name,
             getEnumKeyForValue(entity.rangeType, RangeTypeEnum),
@@ -39,6 +41,6 @@ export class DND5ActionConverter implements ConverterInterface<DND5Action, DND5A
         const damageTypesArray = damageTypeString.split(',').map(damageType => {
             return getEnumKeyForValue(damageType, DND5DamageTypeEnum)
         })
-        return new DND5DamageType(isMagic, damageTypesArray);
+        return createDND5DamageType(isMagic, damageTypesArray);
     }
 }

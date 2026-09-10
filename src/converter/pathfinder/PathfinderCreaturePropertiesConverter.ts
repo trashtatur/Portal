@@ -3,11 +3,15 @@ import {PathfinderTalentConverter} from "./PathfinderTalentConverter";
 import {PathfinderSkillConverter} from "./PathfinderSkillConverter";
 import {PathfinderLanguageConverter} from "./PathfinderLanguageConverter";
 import {PathfinderCreatureProperties} from "../../db/schemas/pathfinder/PathfinderCreatureProperties";
-import {PathfinderCreaturePropertiesModel} from "../../model/pathfinder/PathfinderCreaturePropertiesModel";
-import {CreatureStatsModel} from "../../model/CreatureStatsModel";
-import {namedProperty, stats} from "../../types/backendTypes";
-import {PathfinderSavingThrowsModel} from "../../model/pathfinder/PathfinderSavingThrowsModel";
-import {NamedCreatureProperty} from "../../model/NamedCreatureProperty";
+import type {PathfinderCreaturePropertiesModel} from "../../model/pathfinder/PathfinderCreaturePropertiesModel";
+import {createPathfinderCreaturePropertiesModel} from "../../model/pathfinder/PathfinderCreaturePropertiesModel";
+import type {CreatureStatsModel} from "../../model/CreatureStatsModel";
+import {createCreatureStatsModel} from "../../model/CreatureStatsModel";
+import type {namedProperty, stats} from "../../types/backendTypes";
+import type {PathfinderSavingThrowsModel} from "../../model/pathfinder/PathfinderSavingThrowsModel";
+import {createPathfinderSavingThrowsModel} from "../../model/pathfinder/PathfinderSavingThrowsModel";
+import type {NamedCreatureProperty} from "../../model/NamedCreatureProperty";
+import {createNamedCreatureProperty} from "../../model/NamedCreatureProperty";
 import {TypeEnum} from "../../model/enumeration/TypeEnum";
 import {AlignmentEnum} from "../../model/enumeration/AlignmentEnum";
 import {PathfinderCreatureSizeEnum} from "../../model/enumeration/pathfinder/PathfinderCreatureSizeEnum";
@@ -42,7 +46,7 @@ export class PathfinderCreaturePropertiesConverter
         if (!pathfinderCreaturePropertyEntity) {
             return null
         }
-        return new PathfinderCreaturePropertiesModel(
+        return createPathfinderCreaturePropertiesModel(
             pathfinderCreaturePropertyEntity.uuid,
             getEnumKeyForValue(pathfinderCreaturePropertyEntity.type, TypeEnum),
             pathfinderCreaturePropertyEntity.armorclass,
@@ -79,7 +83,7 @@ export class PathfinderCreaturePropertiesConverter
     private convertSaveThrowsStringToSaveThrowsDataModel = (saveThrowsString: string): PathfinderSavingThrowsModel | null => {
         try {
             const saveThrowsData = JSON.parse(saveThrowsString);
-            return new PathfinderSavingThrowsModel(saveThrowsData.ref, saveThrowsData.will, saveThrowsData.fort)
+            return createPathfinderSavingThrowsModel(saveThrowsData.ref, saveThrowsData.will, saveThrowsData.fort)
         } catch (e) {
 
         }

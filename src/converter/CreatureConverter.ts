@@ -1,10 +1,13 @@
-import {CreatureModel} from "../model/CreatureModel";
+import type {CreatureModel} from "../model/CreatureModel";
+import {createCreatureModel} from "../model/CreatureModel";
 import {Creature} from "../db/schemas/Creature";
 import {Service} from "@tsed/di";
 import {AbstractCreaturePropertyModel} from "../model/AbstractCreaturePropertyModel";
 import {PathfinderCreaturePropertiesConverter} from "./pathfinder/PathfinderCreaturePropertiesConverter";
-import {DND5CreaturePropertiesModel} from "../model/dnd5/DND5CreaturePropertiesModel";
-import {PathfinderCreaturePropertiesModel} from "../model/pathfinder/PathfinderCreaturePropertiesModel";
+import type {DND5CreaturePropertiesModel} from "../model/dnd5/DND5CreaturePropertiesModel";
+import {createDND5CreaturePropertiesModel} from "../model/dnd5/DND5CreaturePropertiesModel";
+import type {PathfinderCreaturePropertiesModel} from "../model/pathfinder/PathfinderCreaturePropertiesModel";
+import {createPathfinderCreaturePropertiesModel} from "../model/pathfinder/PathfinderCreaturePropertiesModel";
 import {SystemEnum} from "../enumeration/SystemEnum";
 import {DND5CreaturePropertiesConverter} from "./dnd5/DND5CreaturePropertiesConverter";
 import {DND5CreatureProperties} from "../db/schemas/DND5/DND5CreatureProperties";
@@ -25,7 +28,7 @@ export class CreatureConverter  {
 
     map<T extends AbstractCreaturePropertyModel>(entity: Creature, creatureProperty): CreatureModel<T> {
         let propertyModel = null;
-        const creatureModel = new CreatureModel(entity.uuid, entity.name, propertyModel)
+        const creatureModel = createCreatureModel(entity.uuid, entity.name, propertyModel)
         switch (creatureProperty.name) {
             case DND5CreaturePropertiesModel.name:
                 creatureModel.propertyType = SystemEnum.DND5

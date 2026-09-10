@@ -1,4 +1,5 @@
-import {PathfinderSkillModel} from "../../model/pathfinder/PathfinderSkillModel";
+import type {PathfinderSkillModel} from "../../model/pathfinder/PathfinderSkillModel";
+import {createPathfinderSkillModel} from "../../model/pathfinder/PathfinderSkillModel";
 import {PathfinderSkill} from "../../db/schemas/pathfinder/PathfinderSkill";
 import {Service} from "@tsed/di";
 import {PathfinderSkillConverter} from "../../converter/pathfinder/PathfinderSkillConverter";

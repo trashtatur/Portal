@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
 import {CSSProperties} from "react";
-import * as style from "./flyUpContainer.css";
+import * as style from "./flyUpContainer.module.css";
 
-interface RollUpFormProps {
+interface RollUpFormProps extends React.PropsWithChildren<{}> {
     open: boolean;
     closeHandler: Function;
 }

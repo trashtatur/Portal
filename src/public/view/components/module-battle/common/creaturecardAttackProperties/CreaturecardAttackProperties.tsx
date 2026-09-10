@@ -2,7 +2,7 @@ import * as React from "react";
 import {RedFadeLine} from "../../../uiBasic/redFadeLine/RedFadeLine";
 import {CreaturecardSingleAttackProperty} from "./CreaturecardSingleAttackProperty";
 import {ReactElement} from "react";
-import * as style from './creaturecardAttackProperties.css';
+import * as style from './creaturecardAttackProperties.module.css';
 
 type attackProperty = {
     name: string;

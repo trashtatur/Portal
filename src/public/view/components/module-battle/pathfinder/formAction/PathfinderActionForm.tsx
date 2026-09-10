@@ -1,10 +1,11 @@
 import * as React from "react";
 import axios from "axios";
 import {ReactElement} from "react";
-import {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
+import type {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
+import {createPathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
 import {MultiSelectNoCreate} from "../../../uiBasic/multiSelectNoCreate/MultiSelectNoCreate";
 import {ActionViewModelFactory} from "@/public/factory/ActionViewModelFactory";
-import * as style from './pathfinderActionForm.css';
+import * as style from './pathfinderActionForm.module.css';
 
 export interface ActionFormProps {
     type: "edit" | "create";

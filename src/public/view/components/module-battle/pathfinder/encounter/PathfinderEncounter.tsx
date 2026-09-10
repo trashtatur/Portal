@@ -3,10 +3,12 @@ import {PathfinderEncounterCreatureList} from "../encounterCreatureList/Pathfind
 import {RoundOverview} from "@/public/view/components/module-battle/common/round overview/RoundOverview";
 import {round, roundCreature} from "@/public/types/frontendTypes";
 import {ReactElement} from "react";
-import {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import type {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import {createCreatureViewModel} from "@/public/model/CreatureViewModel";
 import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
-import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
-import * as style from './encounter.css';
+import type {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {createPathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import * as style from './encounter.module.css';
 
 export interface EncounterState {
     roundLog: round[];

@@ -1,4 +1,5 @@
-import {SceneModel} from "../model/SceneModel";
+import type {SceneModel} from "../model/SceneModel";
+import {createSceneModel} from "../model/SceneModel";
 import {Scene} from "../db/schemas/Scene";
 import {Adventure} from "../db/schemas/Adventure";
 import {Person} from "../db/schemas/Person";

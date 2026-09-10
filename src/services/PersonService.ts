@@ -1,6 +1,7 @@
 import {Service} from "@tsed/di";
-import {PersonModel} from "../model/PersonModel";
-import {personData} from "../types/backendTypes";
+import type {PersonModel} from "../model/PersonModel";
+import {createPersonModel} from "../model/PersonModel";
+import type {personData} from "../types/backendTypes";
 
 @Service()
 export class PersonService {
@@ -12,7 +13,7 @@ export class PersonService {
         return null;
     };
 
-    findAll = async(): Promise<PersonModel[]> => {
+    findAll = async(): Promise<PersonModel[]> => {okay, w
         return null;
     };
 }

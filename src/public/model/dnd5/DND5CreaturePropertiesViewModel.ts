@@ -16,7 +16,6 @@ import {DND5SpellSlotsViewModel} from "./DND5SpellSlotsViewModel";
 import {DND5SenseViewModel} from "./DND5SenseViewModel";
 import {SpeedViewModel} from "@/public/model/SpeedViewModel";
 import {DND5SavingThrowsViewModel} from "@/public/model/dnd5/DND5SavingThrowsViewModel";
-import {ApplyEffects} from "@/public/model/status/decorator/DecoratorFunctions";
 import {DND5InnateSpellCollection} from "@/public/model/dnd5/DND5InnateSpellCollection";
 
 
@@ -89,8 +88,7 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         spells?: DND5SpellViewModel[],
         innateSpells?: DND5InnateSpellCollection
     ) {
-        super();
-        this._id = id;
+        this._id ;
         this._type = type;
         this._proficiencyBonus = proficiencyBonus;
         this._armorclass = armorclass;
@@ -133,7 +131,6 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._id = value;
     }
 
-    @ApplyEffects
     get type(): TypeEnum {
         if (this._type === null) return TypeEnum.NONE
         return this._type;
@@ -143,7 +140,6 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._type = value;
     }
 
-    @ApplyEffects
     get proficiencyBonus(): number {
         return this._proficiencyBonus;
     }
@@ -152,7 +148,6 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._proficiencyBonus = value;
     }
 
-    @ApplyEffects
     get armorclass(): number {
         return this._armorclass;
     }
@@ -169,7 +164,6 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._armorType = value;
     }
 
-    @ApplyEffects
     get hitpoints(): number {
         return this._hitpoints;
     }
@@ -186,7 +180,6 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._hitDice = value;
     }
 
-    @ApplyEffects
     get alignment(): AlignmentEnum {
         return this._alignment;
     }
@@ -211,7 +204,6 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._creatureType = value;
     }
 
-    @ApplyEffects
     get challenge(): number {
         return this._challenge;
     }
@@ -236,7 +228,6 @@ export class DND5CreaturePropertiesViewModel extends AbstractPropertyViewModel
         this._stats = value;
     }
 
-    @ApplyEffects
     get size(): DND5CreatureSizeEnum {
         return this._size;
     }

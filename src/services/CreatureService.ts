@@ -3,14 +3,17 @@ import {Creature} from "../db/schemas/Creature";
 import {Includeable} from "sequelize";
 import * as fs from "fs";
 import {join} from "path";
-import {creatureData} from "../types/backendTypes";
+import type {creatureData} from "../types/backendTypes";
 import {CreatureRepository} from "../repositories/CreatureRepository";
-import {CreatureModel} from "../model/CreatureModel";
+import type {CreatureModel} from "../model/CreatureModel";
+import {createCreatureModel} from "../model/CreatureModel";
 import {AbstractCreaturePropertyModel} from "../model/AbstractCreaturePropertyModel";
-import {DND5CreaturePropertiesModel} from "../model/dnd5/DND5CreaturePropertiesModel";
+import type {DND5CreaturePropertiesModel} from "../model/dnd5/DND5CreaturePropertiesModel";
+import {createDND5CreaturePropertiesModel} from "../model/dnd5/DND5CreaturePropertiesModel";
 import {SystemEnum} from "../enumeration/SystemEnum";
 import {deserialize} from "typescript-json-serializer";
-import {PathfinderCreaturePropertiesModel} from "../model/pathfinder/PathfinderCreaturePropertiesModel";
+import type {PathfinderCreaturePropertiesModel} from "../model/pathfinder/PathfinderCreaturePropertiesModel";
+import {createPathfinderCreaturePropertiesModel} from "../model/pathfinder/PathfinderCreaturePropertiesModel";
 const mkdirp = require('mkdirp');
 
 @Service()

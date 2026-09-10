@@ -1,10 +1,11 @@
 import {ConverterInterface} from "../ConverterInterface";
 import {DND5Talent} from "../../db/schemas/DND5/DND5Talent";
-import {DND5TalentModel} from "../../model/dnd5/DND5TalentModel";
+import type {DND5TalentModel} from "../../model/dnd5/DND5TalentModel";
+import {createDND5TalentModel} from "../../model/dnd5/DND5TalentModel";
 
 export class DND5TalentConverter implements ConverterInterface<DND5Talent, DND5TalentModel> {
     convertEntity = (entity: DND5Talent): DND5TalentModel => {
-        return new DND5TalentModel(
+        return createDND5TalentModel(
             entity.uuid,
             entity.name,
             entity.condition,

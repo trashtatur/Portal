@@ -1,9 +1,10 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import {PathfinderStatsViewModel} from "@/public/model/pathfinder/PathfinderStatsViewModel";
+import type {PathfinderStatsViewModel} from "@/public/model/pathfinder/PathfinderStatsViewModel";
+import {createPathfinderStatsViewModel} from "@/public/model/pathfinder/PathfinderStatsViewModel";
 import {CreaturecardBaseStatsHeaderVisual} from "../../common/creaturecardBaseStatsVisual/CreaturecardBaseStatsHeaderVisual";
 import {CreaturecardBaseStatsValuesVisual} from "../../common/creaturecardBaseStatsVisual/CreaturecardBaseStatsValuesVisual";
-import * as style from './creaturecardStats.css'
+import * as style from './creaturecardStats.module.css'
 
 export interface CreatureStatsProps {
     statsVM: PathfinderStatsViewModel;

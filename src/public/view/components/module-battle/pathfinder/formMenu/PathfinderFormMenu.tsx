@@ -4,7 +4,7 @@ import {OneEntryForm} from "../../../uiBasic/formOneEntry/OneEntryForm";
 import {PathfinderActionForm} from "../formAction/PathfinderActionForm";
 import {CreatureEditWrapper} from "../formCreature/edit wrapper/CreatureEditWrapper";
 import {ReactElement} from "react";
-import * as style from './formMenu.css'
+import * as style from './formMenu.module.css'
 
 
 export interface FormProps {

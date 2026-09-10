@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {ReactElement, ReactNode} from 'react';
 
-interface ErrorBoundaryProps {
+interface ErrorBoundaryProps extends React.PropsWithChildren<{}> {
     fallbackComponent?: ReactElement;
 }
 

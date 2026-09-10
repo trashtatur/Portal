@@ -1,6 +1,6 @@
 import {BodyParams, Controller, Get, PathParams, Post, Put} from "@tsed/common";
 import {AdventureService} from "../../services/AdventureService";
-import {adventureData} from "../../types/backendTypes";
+import type {adventureData} from "../../types/backendTypes";
 import {serialize} from "typescript-json-serializer";
 
 @Controller('/Adventure')

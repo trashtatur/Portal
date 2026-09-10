@@ -5,10 +5,12 @@ import axios from "axios";
 import {selectableCreatures} from "@/public/types/frontendTypes";
 import {ReactElement} from "react";
 import {CreatureSelectLabel} from "../../../../uiBasic/creatureSelectLabel/CreatureSelectLabel";
-import {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import type {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import {createCreatureViewModel} from "@/public/model/CreatureViewModel";
 import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
-import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
-import * as style from './creatureEditWrapper.css';
+import type {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {createPathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import * as style from './creatureEditWrapper.module.css';
 
 
 export interface CreatureEditWrapperState {

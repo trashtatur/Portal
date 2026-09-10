@@ -3,7 +3,7 @@ import {PathfinderFormMenu} from "../../module-battle/pathfinder/formMenu/Pathfi
 import {ReactElement} from "react";
 import {PathfinderCSVImporter} from "../importer/PathfinderCSVImporter";
 import {Modal} from "../modal/Modal";
-import * as style from './menu.css';
+import * as style from './menu.module.css';
 
 export class PathfinderMenu extends React.Component {
 

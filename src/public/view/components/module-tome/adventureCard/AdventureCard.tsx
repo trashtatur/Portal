@@ -2,7 +2,7 @@ import * as React from 'react';
 import {ReactNode} from 'react';
 import {RoutesEnum} from "@/public/enumeration/RoutesEnum";
 import {Link} from 'react-router-dom'
-import * as style from './adventureCard.css';
+import * as style from './adventureCard.module.css';
 
 interface AdventureCardProps {
     adventureId: string;

@@ -1,15 +1,17 @@
 import {ConverterInterface} from "../ConverterInterface";
 import {PathfinderAction} from "../../db/schemas/pathfinder/PathfinderAction";
-import {PathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
+import type {PathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
+import {createPathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
 import {RangeTypeEnum} from "../../model/enumeration/RangeTypeEnum";
-import {PathfinderDamageType} from "../../model/pathfinder/PathfinderDamageType";
+import type {PathfinderDamageType} from "../../model/pathfinder/PathfinderDamageType";
+import {createPathfinderDamageType} from "../../model/pathfinder/PathfinderDamageType";
 import {PathfinderDamageTypesEnum} from "../../model/enumeration/pathfinder/PathfinderDamageTypesEnum";
 import {getEnumKeyForValue} from "../../services/EnumKeyFromStringService";
 import {convertDamageString} from "../DamageStringConverter";
 
 export class PathfinderActionConverter implements ConverterInterface<PathfinderAction, PathfinderActionModel> {
     convertEntity(entity: PathfinderAction): PathfinderActionModel {
-        return new PathfinderActionModel(
+        return createPathfinderActionModel(
             entity.uuid,
             entity.name,
             getEnumKeyForValue(entity.rangeType, RangeTypeEnum),
@@ -43,6 +45,6 @@ export class PathfinderActionConverter implements ConverterInterface<PathfinderA
         const damageTypesArray = damageTypeString.split(',').map(damageType => {
             return getEnumKeyForValue(damageType, PathfinderDamageTypesEnum)
         })
-        return new PathfinderDamageType(damageTypesArray, isMagic, isHybrid);
+        return createPathfinderDamageType(damageTypesArray, isMagic, isHybrid);
     }
 }

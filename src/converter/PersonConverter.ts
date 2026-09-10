@@ -1,8 +1,11 @@
 import {ConverterInterface} from "./ConverterInterface";
-import {PersonModel} from "../model/PersonModel";
+import type {PersonModel} from "../model/PersonModel";
+import {createPersonModel} from "../model/PersonModel";
 import {Person} from "../db/schemas/Person";
-import {AdventureModel} from "../model/AdventureModel";
-import {SceneModel} from "../model/SceneModel";
+import type {AdventureModel} from "../model/AdventureModel";
+import {createAdventureModel} from "../model/AdventureModel";
+import type {SceneModel} from "../model/SceneModel";
+import {createSceneModel} from "../model/SceneModel";
 
 export class PersonConverter implements ConverterInterface<Person, PersonModel>{
 
@@ -10,7 +13,7 @@ export class PersonConverter implements ConverterInterface<Person, PersonModel>{
         let adventures = [];
         if (entity.adventures !== undefined) {
             adventures = entity.adventures.map(adventure => {
-                new AdventureModel(
+                createAdventureModel(
                     adventure.uuid,
                     adventure.name,
                     adventure.core
@@ -20,7 +23,7 @@ export class PersonConverter implements ConverterInterface<Person, PersonModel>{
         let scenes = [];
         if (entity.scenes !== undefined) {
             scenes = entity.scenes.map(scene => {
-                new SceneModel(
+                createSceneModel(
                     scene.uuid,
                     scene.adventureId,
                     scene.number,
@@ -37,7 +40,7 @@ export class PersonConverter implements ConverterInterface<Person, PersonModel>{
                 )
             })
         }
-        return new PersonModel(
+        return createPersonModel(
             entity.uuid,
             entity.name,
             entity.type,

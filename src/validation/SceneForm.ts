@@ -1,5 +1,5 @@
 import {FormValidatorInterface} from "./FormValidatorInterface";
-import {sceneData} from "../types/backendTypes";
+import type {sceneData} from "../types/backendTypes";
 import {Optional, Type, validate} from "validate-typescript";
 
 export class SceneForm implements FormValidatorInterface{

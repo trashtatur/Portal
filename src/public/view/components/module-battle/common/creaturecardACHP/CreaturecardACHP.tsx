@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import * as style from './creaturecardACHP.css';
+import * as style from './creaturecardACHP.module.css';
 
 export interface CreatureRKTPProps {
     armorclass: number;

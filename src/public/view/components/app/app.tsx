@@ -2,14 +2,14 @@ import * as React from "react";
 import {ReactElement} from "react";
 import {TopBar} from "../common/topbar/TopBar";
 import {PathfinderEncounter} from "../module-battle/pathfinder/encounter/PathfinderEncounter";
-import {Route, Switch} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {AdventureOverview} from "../module-tome/adventureOverview/AdventureOverview";
 import {LandingPage} from "../landingPage/LandingPage";
 import {RoutesEnum} from "../../../enumeration/RoutesEnum";
-import {SingleAdventure} from "../module-tome/singleAdventure/SingleAdventure";
+import {SingleAdventureRoute} from "../module-tome/singleAdventure/SingleAdventure";
 import {SystemsEnum} from "../../../enumeration/SystemsEnum";
 import {SystemChoiceBar} from "../common/systemChoiceBar/SystemChoiceBar";
-import * as style from './app.css';
+import * as style from './app.module.css';
 
 interface AppState {
     system: SystemsEnum;
@@ -43,11 +43,10 @@ export class App extends React.Component<{}, AppState> {
     public render(): ReactElement {
         return (
             <div className={style.mainApp}>
-                <Switch>
-                    <Route exact path={RoutesEnum.LANDINGPAGE}>
-                        <LandingPage/>
-                    </Route>
-                    <Route exact path={RoutesEnum.BATTLE}>
+                <Routes>
+                    <Route path={RoutesEnum.LANDINGPAGE} element={<LandingPage/>}/>
+                    <Route path={RoutesEnum.BATTLE} element={
+                        <>
                         <TopBar system={this.state.system}/>
                         <SystemChoiceBar setSystem={this.setSystem}/>
                         {
@@ -58,18 +57,23 @@ export class App extends React.Component<{}, AppState> {
                             this.state.system === SystemsEnum.DND5 &&
                             <div>HELLO DND</div>
                         }
-                    </Route>
-                    <Route exact path={RoutesEnum.TOME}>
+                        </>
+                    }/>
+                    <Route path={RoutesEnum.TOME} element={
+                        <>
                         <TopBar system={this.state.system}/>
                         <SystemChoiceBar setSystem={this.setSystem}/>
                         <AdventureOverview/>
-                    </Route>
-                    <Route path={RoutesEnum.ADVENTURE}>
+                        </>
+                    }/>
+                    <Route path={RoutesEnum.SINGLE_ADVENTURE} element={
+                        <>
                         <TopBar system={this.state.system}/>
                         <SystemChoiceBar setSystem={this.setSystem}/>
-                        <Route path={RoutesEnum.SINGLE_ADVENTURE} component={SingleAdventure}/>
-                    </Route>
-                </Switch>
+                        <SingleAdventureRoute/>
+                        </>
+                    }/>
+                </Routes>
             </div>
         )
     }

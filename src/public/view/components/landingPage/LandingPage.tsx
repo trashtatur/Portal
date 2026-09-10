@@ -5,7 +5,7 @@ import {RoutesEnum} from "../../../enumeration/RoutesEnum";
 import withErrorBoundary from "@/public/view/components/common/errorBoundary/WithErrorBoundary";
 import {Chip} from "@/public/view/components/uiBasic/chip/chip.component";
 import {ColorModeEnum} from "@/public/enumeration/ColorModeEnum";
-import * as style from "./landingpage.less";
+import * as style from "./landingpage.module.css";
 
 @withErrorBoundary()
 export class LandingPage extends React.Component {

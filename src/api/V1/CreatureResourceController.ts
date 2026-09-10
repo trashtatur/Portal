@@ -1,7 +1,7 @@
 import {BodyParams, Controller, Get, PathParams, Post, Put, Status} from "@tsed/common";
 import {MulterOptions, MultipartFile} from "@tsed/multipartfiles";
 import {CreatureService} from "../../services/CreatureService";
-import {creatureData} from "../../types/backendTypes";
+import type {creatureData} from "../../types/backendTypes";
 import {SystemToIncludeService} from "../../services/SystemToIncludeService";
 import {CreatureSerializerService} from "../../services/CreatureSerializerService";
 

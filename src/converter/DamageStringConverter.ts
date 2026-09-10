@@ -1,4 +1,4 @@
-import {DiceRollSpecification} from "../model/DiceRollSpecification";
+import {createDiceRollSpecification} from "../model/DiceRollSpecification";
 
 export const convertDamageString = (damageString: string): DiceRollSpecification => {
     //https://regex101.com/r/kmn2VW/2 for testing of regex
@@ -8,7 +8,7 @@ export const convertDamageString = (damageString: string): DiceRollSpecification
     const diceType = splitDamageString.groups.diceType;
     const bonus = splitDamageString.groups.bonus ?? null;
     if (bonus) {
-        return new DiceRollSpecification(parseInt(diceCount), parseInt(diceType), parseInt(bonus))
+        return createDiceRollSpecification(parseInt(diceCount), parseInt(diceType), parseInt(bonus))
     }
-    return new DiceRollSpecification(parseInt(diceCount), parseInt(diceType), null)
+    return createDiceRollSpecification(parseInt(diceCount), parseInt(diceType), null)
 };

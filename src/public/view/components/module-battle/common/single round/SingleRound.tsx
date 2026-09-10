@@ -3,7 +3,7 @@ import {round} from "../../../../../types/frontendTypes";
 import {RoundCreature} from "../round creature/RoundCreature";
 import {ReactElement} from "react";
 import {createPortal} from "react-dom";
-import * as style from './singleRound.css'
+import * as style from './singleRound.module.css'
 
 interface SingleRoundProps {
     roundData: round;

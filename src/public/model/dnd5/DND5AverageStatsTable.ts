@@ -16,7 +16,7 @@ class AverageStatsTableEntry {
         damagePerRound: [number, number],
         saveDC: number
     ) {
-        this._challenge = challenge;
+        this._challenge ;
         this._proficiencyBonus = proficiencyBonus;
         this._armorClass = armorClass;
         this._hitPointsRange = hitPointsRange;
@@ -60,7 +60,7 @@ export class DND5AverageStatsTable {
     constructor(
         tableEntries: AverageStatsTableEntry[]
     ) {
-        this._tableEntries = tableEntries;
+        this._tableEntries ;
     }
 
     static create = (): DND5AverageStatsTable => {

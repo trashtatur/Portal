@@ -1,5 +1,6 @@
 import {Service} from "@tsed/di";
-import {DND5TalentModel} from "../../model/dnd5/DND5TalentModel";
+import type {DND5TalentModel} from "../../model/dnd5/DND5TalentModel";
+import {createDND5TalentModel} from "../../model/dnd5/DND5TalentModel";
 
 @Service()
 export class DND5TalentRepository {

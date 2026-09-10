@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {AdventureViewModel} from "@/public/model/AdventureViewModel";
+import {createAdventureViewModel} from "@/public/model/AdventureViewModel";
+import type {AdventureViewModel} from "@/public/model/AdventureViewModel";
 import axios from 'axios';
-import * as style from './adventureForm.css'
+import * as style from './adventureForm.module.css'
 
 interface AdventureFormState {
     adventure: AdventureViewModel;
@@ -13,7 +14,7 @@ export class AdventureForm extends React.Component<{}, AdventureFormState> {
     constructor(props) {
         super(props);
         this.state = {
-            adventure: new AdventureViewModel()
+            adventure: createAdventureViewModel()
         }
     }
 

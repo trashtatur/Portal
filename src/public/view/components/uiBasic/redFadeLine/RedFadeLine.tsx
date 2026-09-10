@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import * as style from './redFadeLine.css'
+import * as style from './redFadeLine.module.css'
 
 
 export class RedFadeLine extends React.Component{

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {SceneViewModel} from "@/public/model/SceneViewModel";
+import type {SceneViewModel} from "@/public/model/SceneViewModel";
 import {Graph} from "react-d3-graph";
 import {sceneGraphData} from "@/public/types/frontendTypes";
-import * as style from './sceneGraph.css';
+import * as style from './sceneGraph.module.css';
 
 interface SceneGraphProps {
     scenes: Array<SceneViewModel>;

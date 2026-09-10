@@ -3,7 +3,8 @@ import {DND5CreatureSizeEnum} from "@/public/model/enumeration/dnd5/DND5Creature
 import {AlignmentEnum} from "@/public/model/enumeration/AlignmentEnum";
 import {DND5CreatureStatsViewModel} from "@/public/model/dnd5/DND5CreatureStatsViewModel";
 import {SpeedViewModel} from "@/public/model/SpeedViewModel";
-import {DiceRollSpecification} from "@/public/model/DiceRollSpecification";
+import type {DiceRollSpecification} from "@/public/model/DiceRollSpecification";
+import {createDiceRollSpecification} from "@/public/model/DiceRollSpecification";
 
 export const shouldDisplaySizeAndAlignmentSection = (name: string, type: TypeEnum): boolean => {
     return name !== '' && type !== TypeEnum.NONE;

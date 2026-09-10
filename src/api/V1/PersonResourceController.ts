@@ -1,5 +1,5 @@
 import {BodyParams, Controller, Get, PathParams, Post, Put} from "@tsed/common";
-import {personData} from "../../types/backendTypes";
+import type {personData} from "../../types/backendTypes";
 import {PersonService} from "../../services/PersonService";
 
 @Controller('/Person')

@@ -1,4 +1,5 @@
-import {PathfinderLanguageModel} from "../../model/pathfinder/PathfinderLanguageModel";
+import type {PathfinderLanguageModel} from "../../model/pathfinder/PathfinderLanguageModel";
+import {createPathfinderLanguageModel} from "../../model/pathfinder/PathfinderLanguageModel";
 import {PathfinderLanguage} from "../../db/schemas/pathfinder/PathfinderLanguage";
 import {Service} from "@tsed/di";
 import {PathfinderLanguageConverter} from "../../converter/pathfinder/PathfinderLanguageConverter";

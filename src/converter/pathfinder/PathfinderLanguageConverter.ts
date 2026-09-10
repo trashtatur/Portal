@@ -1,10 +1,11 @@
 import {ConverterInterface} from "../ConverterInterface";
 import {PathfinderLanguage} from "../../db/schemas/pathfinder/PathfinderLanguage";
-import {PathfinderLanguageModel} from "../../model/pathfinder/PathfinderLanguageModel";
+import type {PathfinderLanguageModel} from "../../model/pathfinder/PathfinderLanguageModel";
+import {createPathfinderLanguageModel} from "../../model/pathfinder/PathfinderLanguageModel";
 
 export class PathfinderLanguageConverter implements ConverterInterface<PathfinderLanguage, PathfinderLanguageModel>{
     convertEntity = (entity: PathfinderLanguage): PathfinderLanguageModel => {
-        return new PathfinderLanguageModel(entity.uuid, entity.name)
+        return createPathfinderLanguageModel(entity.uuid, entity.name)
     }
 
     convertMultipleEntities = (entities?: PathfinderLanguage[]): PathfinderLanguageModel[] | null => {

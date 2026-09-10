@@ -6,7 +6,7 @@ import {selectable} from "@/public/types/frontendTypes";
 import {DND5CreatureSizeEnum} from "@/public/model/enumeration/dnd5/DND5CreatureSizeEnum";
 import {AlignmentEnum} from "@/public/model/enumeration/AlignmentEnum";
 import {AlignmentSelect} from "@/public/view/components/module-battle/common/alignment select/AlignmentSelect";
-import * as style from "../formSectionGeneralStyles.css";
+import * as style from "../formSectionGeneralStyles.module.css";
 
 interface SizeAndChallengeFormSectionProps {
     size: DND5CreatureSizeEnum;

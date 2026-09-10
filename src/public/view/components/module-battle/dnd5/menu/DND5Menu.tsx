@@ -2,7 +2,7 @@ import * as React from 'react';
 import {ReactNode} from 'react';
 import {Modal} from "../../../common/modal/Modal";
 import {DND5FormMenu} from "../formMenu/DND5FormMenu";
-import * as style from './dnd5Menu.css';
+import * as style from './dnd5Menu.module.css';
 
 export class DND5Menu extends React.Component {
 

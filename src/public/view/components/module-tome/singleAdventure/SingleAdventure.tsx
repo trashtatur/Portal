@@ -2,18 +2,21 @@ import * as React from 'react';
 import {ReactNode} from 'react';
 import {SingleSceneForm} from "../singleSceneForm/SingleSceneForm";
 import {SceneGraph} from "../sceneGraph/SceneGraph";
-import { RouteComponentProps } from 'react-router';
+import {useParams} from 'react-router-dom';
 import axios from 'axios';
-import {AdventureViewModel} from "@/public/model/AdventureViewModel";
+import {createAdventureViewModel} from "@/public/model/AdventureViewModel";
+import type {AdventureViewModel} from "@/public/model/AdventureViewModel";
 import {SingleAdventureTopBar} from "../singleAdventureTopbar/SingleAdventureTopBar";
 import {FlyUpContainer} from "../../uiBasic/flyUpContainer/FlyUpContainer";
 import {deserializeData} from "@/public/service/serializer.service";
-import * as style from './singleAdventure.css';
+import * as style from './singleAdventure.module.css';
 
 interface MatchParams {
     adventureId: string;
 }
-interface SingleAdventureProps extends RouteComponentProps<MatchParams> {}
+interface SingleAdventureProps {
+    adventureId: string;
+}
 
 interface SingleAdventureState {
     sceneFormOpen: boolean;
@@ -26,14 +29,14 @@ export class SingleAdventure extends React.Component<SingleAdventureProps, Singl
         super(props);
         this.state = {
             sceneFormOpen: false,
-            adventure: new AdventureViewModel(),
+            adventure: createAdventureViewModel(),
         }
     }
 
     componentDidMount = async(): Promise<void> => {
         try {
-            const adventure = await axios.get(`V1/Adventure/id/${this.props.match.params.adventureId}`);
-            this.setState({adventure: deserializeData(adventure.data, AdventureViewModel)});
+            const adventure = await axios.get(`V1/Adventure/id/${this.props.adventureId}`);
+            this.setState({adventure: deserializeData(adventure.data, createAdventureViewModel)});
         } catch (e) {
             console.log(e)
         }
@@ -76,4 +79,9 @@ export class SingleAdventure extends React.Component<SingleAdventureProps, Singl
             </div>
         )
     }
+}
+
+export function SingleAdventureRoute(): ReactNode {
+    const {adventureId = ''} = useParams<{adventureId?: string}>();
+    return <SingleAdventure adventureId={adventureId}/>;
 }

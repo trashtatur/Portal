@@ -2,8 +2,9 @@ import * as React from "react";
 import {CreaturecardSingleAction} from "./CreaturecardSingleAction";
 import {RedFadeLine} from "../../../uiBasic/redFadeLine/RedFadeLine";
 import {ReactElement} from "react";
-import {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
-import * as style from './creaturecardAction.css';
+import type {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
+import {createPathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
+import * as style from './creaturecardAction.module.css';
 
 export interface CreatureActionProps {
     actions: PathfinderActionViewModel[];

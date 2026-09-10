@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import * as style from './creatureToolTip.css';
+import * as style from './creatureToolTip.module.css';
 
 export interface CreatureToolTipProps {
     creature;

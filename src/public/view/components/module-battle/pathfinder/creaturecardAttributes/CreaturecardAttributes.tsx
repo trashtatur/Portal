@@ -1,15 +1,19 @@
 import * as React from "react";
 import {ReactElement} from "react";
 import {TalentToolTip} from "../toolTipTalent/TalentToolTip";
-import {PathfinderSavingThrowsViewModel} from "@/public/model/pathfinder/PathfinderSavingThrowsViewModel";
-import {PathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
-import {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
-import {PathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
+import type {PathfinderSavingThrowsViewModel} from "@/public/model/pathfinder/PathfinderSavingThrowsViewModel";
+import {createPathfinderSavingThrowsViewModel} from "@/public/model/pathfinder/PathfinderSavingThrowsViewModel";
+import type {PathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
+import {createPathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
+import type {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
+import {createPathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
+import type {PathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
+import {createPathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
 import {uuidv4} from "@/public/service/uuid.service";
 import {ToolTip} from "@/public/view/components/uiBasic/tooltip/ToolTip";
 import {Chip} from "@/public/view/components/uiBasic/chip/chip.component";
 import {ColorModeEnum} from "@/public/enumeration/ColorModeEnum";
-import * as style from './creaturecardAttributes.css';
+import * as style from './creaturecardAttributes.module.css';
 
 export interface CreatureAttributesProps {
     skills: PathfinderSkillViewModel[];
@@ -49,7 +53,7 @@ export class CreaturecardAttributes extends React.Component<CreatureAttributesPr
         return (
             <table className={style.attributeTable}>
                 <tbody>
-                <tr className={style.attributeBlock}>
+                <tr>
                     <td className={style.attributeName}>Skills:</td>
                     <td className={style.attributeEntry}>{this.formatSkillsIfPreview()}</td>
                 </tr>

@@ -1,8 +1,9 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
+import type {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
+import {createPathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
 import {CreaturecardSingleActionVisual} from "../../common/creaturecardSingleActionVisual/CreaturecardSingleActionVisual";
-import * as style from './creaturecardAction.css';
+import * as style from './creaturecardAction.module.css';
 
 export interface SingleActionProps {
     action: PathfinderActionViewModel;

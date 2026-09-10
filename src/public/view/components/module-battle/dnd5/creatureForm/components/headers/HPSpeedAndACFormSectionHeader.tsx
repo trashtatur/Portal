@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {DiceRollSpecification} from "@/public/model/DiceRollSpecification";
-import * as style from "@/public/view/components/module-battle/dnd5/creatureForm/dnd5CreatureForm.css";
+import type {DiceRollSpecification} from "@/public/model/DiceRollSpecification";
+import {createDiceRollSpecification} from "@/public/model/DiceRollSpecification";
+import * as style from "@/public/view/components/module-battle/dnd5/creatureForm/dnd5CreatureForm.module.css";
 import {SpeedViewModel} from "@/public/model/SpeedViewModel";
 
 interface HPAndACMonsterFormSectionHeaderProps {

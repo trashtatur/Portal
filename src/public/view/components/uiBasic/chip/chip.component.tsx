@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as style from './chip.component.less';
+import * as style from './chip.component.module.css';
 import {ReactNode} from "react";
 import {classNames} from "@/public/service/class-names.service";
 import {ColorModeEnum} from "@/public/enumeration/ColorModeEnum";

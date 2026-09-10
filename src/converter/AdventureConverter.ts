@@ -1,6 +1,7 @@
 import {ConverterInterface} from "./ConverterInterface";
 import {Adventure} from "../db/schemas/Adventure";
-import {AdventureModel} from "../model/AdventureModel";
+import type {AdventureModel} from "../model/AdventureModel";
+import {createAdventureModel} from "../model/AdventureModel";
 import {Service} from "@tsed/di";
 import {SceneConverter} from "./SceneConverter";
 import {PersonConverter} from "./PersonConverter";
@@ -32,7 +33,7 @@ export class AdventureConverter implements ConverterInterface<Adventure, Adventu
                 return this.personEntityToModelMapper.convertEntity(person);
             })
         }
-        return new AdventureModel(
+        return createAdventureModel(
             entity.uuid,
             entity.name,
             entity.core,

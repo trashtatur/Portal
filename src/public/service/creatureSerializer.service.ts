@@ -1,7 +1,9 @@
-import {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import type {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import {createCreatureViewModel} from "@/public/model/CreatureViewModel";
 import {deserialize, serialize} from "typescript-json-serializer";
 import {DND5CreaturePropertiesViewModel} from "@/public/model/dnd5/DND5CreaturePropertiesViewModel";
-import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import type {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {createPathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import {AbstractPropertyViewModel} from "@/public/model/AbstractPropertyViewModel";
 
 export const serializeCreature = <T extends AbstractPropertyViewModel>(model: CreatureViewModel<T>): string => {

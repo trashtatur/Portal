@@ -1,6 +1,7 @@
 import {SceneRepository} from "../repositories/SceneRepository";
-import {SceneModel} from "../model/SceneModel";
-import {sceneData} from "../types/backendTypes";
+import type {SceneModel} from "../model/SceneModel";
+import {createSceneModel} from "../model/SceneModel";
+import type {sceneData} from "../types/backendTypes";
 import {Service} from "@tsed/di";
 import {SceneForm} from "../validation/SceneForm";
 import {DataValidationException} from "../exception/DataValidationException";

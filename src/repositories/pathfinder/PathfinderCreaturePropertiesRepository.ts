@@ -1,16 +1,24 @@
 import {PathfinderCreatureProperties} from "../../db/schemas/pathfinder/PathfinderCreatureProperties";
-import {PathfinderCreaturePropertiesModel} from "../../model/pathfinder/PathfinderCreaturePropertiesModel";
+import type {PathfinderCreaturePropertiesModel} from "../../model/pathfinder/PathfinderCreaturePropertiesModel";
+import {createPathfinderCreaturePropertiesModel} from "../../model/pathfinder/PathfinderCreaturePropertiesModel";
 import {PathfinderLanguage} from "../../db/schemas/pathfinder/PathfinderLanguage";
 import {PathfinderTalent} from "../../db/schemas/pathfinder/PathfinderTalent";
 import {PathfinderSkill} from "../../db/schemas/pathfinder/PathfinderSkill";
 import {PathfinderAction} from "../../db/schemas/pathfinder/PathfinderAction";
-import {PathfinderSkillModel} from "../../model/pathfinder/PathfinderSkillModel";
-import {NamedCreatureProperty} from "../../model/NamedCreatureProperty";
-import {CreatureStatsModel} from "../../model/CreatureStatsModel";
-import {PathfinderSavingThrowsModel} from "../../model/pathfinder/PathfinderSavingThrowsModel";
-import {PathfinderTalentModel} from "../../model/pathfinder/PathfinderTalentModel";
-import {PathfinderLanguageModel} from "../../model/pathfinder/PathfinderLanguageModel";
-import {PathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
+import type {PathfinderSkillModel} from "../../model/pathfinder/PathfinderSkillModel";
+import {createPathfinderSkillModel} from "../../model/pathfinder/PathfinderSkillModel";
+import type {NamedCreatureProperty} from "../../model/NamedCreatureProperty";
+import {createNamedCreatureProperty} from "../../model/NamedCreatureProperty";
+import type {CreatureStatsModel} from "../../model/CreatureStatsModel";
+import {createCreatureStatsModel} from "../../model/CreatureStatsModel";
+import type {PathfinderSavingThrowsModel} from "../../model/pathfinder/PathfinderSavingThrowsModel";
+import {createPathfinderSavingThrowsModel} from "../../model/pathfinder/PathfinderSavingThrowsModel";
+import type {PathfinderTalentModel} from "../../model/pathfinder/PathfinderTalentModel";
+import {createPathfinderTalentModel} from "../../model/pathfinder/PathfinderTalentModel";
+import type {PathfinderLanguageModel} from "../../model/pathfinder/PathfinderLanguageModel";
+import {createPathfinderLanguageModel} from "../../model/pathfinder/PathfinderLanguageModel";
+import type {PathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
+import {createPathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
 
 export class PathfinderCreaturePropertiesRepository {
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import * as style from './dnd5CreatureFormStatBlock.css';
+import * as style from './dnd5CreatureFormStatBlock.module.css';
 
 interface StatBlockFormSectionProps {
     strength: string;

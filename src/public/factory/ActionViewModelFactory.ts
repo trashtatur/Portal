@@ -1,19 +1,22 @@
-import {PathfinderActionViewModel} from "../model/pathfinder/PathfinderActionViewModel";
+import type {PathfinderActionViewModel} from "../model/pathfinder/PathfinderActionViewModel";
+import {createPathfinderActionViewModel} from "../model/pathfinder/PathfinderActionViewModel";
 import {RangeTypeEnum} from "../model/enumeration/RangeTypeEnum";
-import {DiceRollSpecification} from "../model/DiceRollSpecification";
-import {PathfinderDamageType} from "../model/pathfinder/PathfinderDamageType";
+import type {DiceRollSpecification} from "../model/DiceRollSpecification";
+import {createDiceRollSpecification} from "../model/DiceRollSpecification";
+import type {PathfinderDamageType} from "../model/pathfinder/PathfinderDamageType";
+import {createPathfinderDamageType} from "../model/pathfinder/PathfinderDamageType";
 
 export class ActionViewModelFactory {
     public static createEmpty = (): PathfinderActionViewModel => {
-        return new PathfinderActionViewModel(
+        return createPathfinderActionViewModel(
             '',
             '',
             RangeTypeEnum.NONE,
             null,
             null,
-            new DiceRollSpecification(null, null, null),
+            createDiceRollSpecification(null, null, null),
             null,
-            new PathfinderDamageType([], false, false),
+            createPathfinderDamageType([], false, false),
             ''
         )
     }

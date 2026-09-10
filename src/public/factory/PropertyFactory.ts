@@ -1,7 +1,8 @@
 import {AbstractPropertyViewModel} from "../model/AbstractPropertyViewModel";
 import {DND5CreaturePropertiesViewModel} from "../model/dnd5/DND5CreaturePropertiesViewModel";
 import {PathfinderCreaturePropertiesViewModelFactory} from "./pathfinder/PathfinderCreaturePropertyViewModelFactory";
-import {PathfinderCreaturePropertiesViewModel} from "../model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import type {PathfinderCreaturePropertiesViewModel} from "../model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {createPathfinderCreaturePropertiesViewModel} from "../model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import {DND5CreaturePropertiesViewModelFactory} from "./dnd5/DND5CreaturePropertiesViewModelFactory";
 
 export class PropertyFactory{

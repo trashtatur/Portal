@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import * as style from './creaturecardImage.css'
+import * as style from './creaturecardImage.module.css'
 
 export interface CreatureImageProps {
     imagePath?: string;

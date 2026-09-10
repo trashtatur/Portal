@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {CSSProperties, ReactNode} from 'react';
 import {PathfinderTalentTypesEnum} from "@/public/model/enumeration/pathfinder/PathfinderTalentTypesEnum";
-import {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
-import * as style from './talentTooltip.css';
+import type {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
+import {createPathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
+import * as style from './talentTooltip.module.css';
 
 export interface TalentToolTipProps {
     talent: PathfinderTalentViewModel;

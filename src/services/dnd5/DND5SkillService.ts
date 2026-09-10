@@ -1,5 +1,6 @@
 import {Service} from "@tsed/di";
-import {DND5SkillModel} from "../../model/dnd5/DND5SkillModel";
+import type {DND5SkillModel} from "../../model/dnd5/DND5SkillModel";
+import {createDND5SkillModel} from "../../model/dnd5/DND5SkillModel";
 import {DND5SkillForm} from "../../validation/dnd5/DND5SkillForm";
 import {DND5SkillRepository} from "../../repositories/dnd5/DND5SkillRepository";
 import {DataValidationException} from "../../exception/DataValidationException";

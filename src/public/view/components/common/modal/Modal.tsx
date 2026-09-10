@@ -1,11 +1,11 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
 import {createPortal} from "react-dom";
-import * as style from './modal.css'
+import * as style from './modal.module.css'
 
 const modalRoot = document.getElementById('modalRoot');
 
-interface ModalProps {
+interface ModalProps extends React.PropsWithChildren<{}> {
     triggerButtonClassName: string;
     triggerButtonContent: string;
 }

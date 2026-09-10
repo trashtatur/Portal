@@ -1,4 +1,5 @@
-import {CreatureViewModel} from "../model/CreatureViewModel";
+import type {CreatureViewModel} from "../model/CreatureViewModel";
+import {createCreatureViewModel} from "../model/CreatureViewModel";
 import {PropertyFactory} from "./PropertyFactory";
 import {AbstractPropertyViewModel} from "@/public/model/AbstractPropertyViewModel";
 

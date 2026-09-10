@@ -1,4 +1,5 @@
-import {DiceRollSpecification} from "../../model/DiceRollSpecification";
+import type {DiceRollSpecification} from "../../model/DiceRollSpecification";
+import {createDiceRollSpecification} from "../../model/DiceRollSpecification";
 
 export const calculateAverageHP = (hitDice: DiceRollSpecification): number => {
     const diceRollAverage = Math.floor(((hitDice.diceType + 1) / 2) * hitDice.diceCount);
@@ -23,5 +24,5 @@ export const calculateMatchingHitDice = (hpValue: number, hitDiceType: number, c
         }
     }
     const bonus = hitDiceCount * constitutionModifier;
-    return new DiceRollSpecification(hitDiceCount, hitDiceType, bonus)
+    return createDiceRollSpecification(hitDiceCount, hitDiceType, bonus)
 }

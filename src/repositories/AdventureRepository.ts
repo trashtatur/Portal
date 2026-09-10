@@ -1,10 +1,12 @@
-import {AdventureModel} from "../model/AdventureModel";
+import type {AdventureModel} from "../model/AdventureModel";
+import {createAdventureModel} from "../model/AdventureModel";
 import {Adventure} from "../db/schemas/Adventure";
 import {Service} from "@tsed/di";
 import {AdventureConverter} from "../converter/AdventureConverter";
 import {Scene} from "../db/schemas/Scene";
 import {Person} from "../db/schemas/Person";
-import {SceneModel} from "../model/SceneModel";
+import type {SceneModel} from "../model/SceneModel";
+import {createSceneModel} from "../model/SceneModel";
 import {SceneConverter} from "../converter/SceneConverter";
 
 @Service()

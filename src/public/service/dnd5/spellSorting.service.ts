@@ -1,4 +1,5 @@
-import {DND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
+import type {DND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
+import {createDND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
 
 export const sortSpellsBySpellLevel = (spells: DND5SpellViewModel[]): DND5SpellViewModel[] => {
     return spells.sort((spellOne, spellTwo) => {

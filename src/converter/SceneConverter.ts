@@ -1,6 +1,7 @@
 import {ConverterInterface} from "./ConverterInterface";
 import {Scene} from "../db/schemas/Scene";
-import {SceneModel} from "../model/SceneModel";
+import type {SceneModel} from "../model/SceneModel";
+import {createSceneModel} from "../model/SceneModel";
 import {Service} from "@tsed/di";
 import {PersonConverter} from "./PersonConverter";
 
@@ -13,7 +14,7 @@ export class SceneConverter implements ConverterInterface<Scene, SceneModel>{
     }
 
     convertEntity(entity: Scene): SceneModel {
-        return new SceneModel(
+        return createSceneModel(
             entity.uuid,
             entity.adventureId,
             entity.number,

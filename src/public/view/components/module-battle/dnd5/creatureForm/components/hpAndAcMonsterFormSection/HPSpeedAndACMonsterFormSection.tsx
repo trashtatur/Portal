@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import {DiceRollSpecification} from "@/public/model/DiceRollSpecification";
+import type {DiceRollSpecification} from "@/public/model/DiceRollSpecification";
+import {createDiceRollSpecification} from "@/public/model/DiceRollSpecification";
 import {DND5CreatureSizeEnum} from "@/public/model/enumeration/dnd5/DND5CreatureSizeEnum";
 import {SpeedViewModel} from "@/public/model/SpeedViewModel";
 import {calculateAverageHP, calculateMatchingHitDice} from "@/public/service/dnd5/averageHP.service";
 import {SpeedFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/speedFormSection/SpeedFormSection";
-import * as style from "../formSectionGeneralStyles.css";
+import * as style from "../formSectionGeneralStyles.module.css";
 
 interface HPAndACMonsterFormSectionProps {
     hp: string;
@@ -54,7 +55,7 @@ export class HPSpeedAndACMonsterFormSection extends React.Component<HPAndACMonst
             return;
         }
         const bonus = diceCount * this.props.constitutionMod;
-        const hitDice = new DiceRollSpecification(
+        const hitDice = createDiceRollSpecification(
             diceCount,
             this.props.hitDice.diceType,
             bonus

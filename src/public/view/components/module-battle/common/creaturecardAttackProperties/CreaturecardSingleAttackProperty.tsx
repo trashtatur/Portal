@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import * as style from './creaturecardAttackProperties.css';
+import * as style from './creaturecardAttackProperties.module.css';
 
 export interface AttackPropertyProps {
     name: string;

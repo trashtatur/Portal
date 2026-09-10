@@ -10,20 +10,26 @@ import {selectable} from "@/public/types/frontendTypes";
 import {CreatureCard} from "../creaturecard/CreatureCard";
 import {RedFadeLine} from "../../../uiBasic/redFadeLine/RedFadeLine";
 import {SelectEventTypesEnum} from "@/public/model/enumeration/SelectEventTypesEnum";
-import {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import type {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import {createCreatureViewModel} from "@/public/model/CreatureViewModel";
 import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
-import {PathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
-import {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
-import {PathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
-import {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
-import {NamedPropertyViewModel} from "@/public/model/NamedPropertyViewModel";
-import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import type {PathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
+import {createPathfinderLanguageViewModel} from "@/public/model/pathfinder/PathfinderLanguageViewModel";
+import type {PathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
+import {createPathfinderTalentViewModel} from "@/public/model/pathfinder/PathfinderTalentViewModel";
+import type {PathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
+import {createPathfinderSkillViewModel} from "@/public/model/pathfinder/PathfinderSkillViewModel";
+import type {PathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
+import {createPathfinderActionViewModel} from "@/public/model/pathfinder/PathfinderActionViewModel";
+import {createNamedPropertyViewModel} from "@/public/model/NamedPropertyViewModel";
+import type {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {createPathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import {serialize} from "typescript-json-serializer";
 import {uuidv4} from "@/public/service/uuid.service";
 import {uploadCreatureImage} from "@/public/service/http.service";
 import {setCreatureImagePath} from "@/public/service/imagePath.service";
 import {deserializeMultiple} from "@/public/service/serializer.service";
-import * as style from "./pathfinderCreatureForm.css";
+import * as style from "./pathfinderCreatureForm.module.css";
 
 interface CreatureFormProps {
     creature?: CreatureViewModel<PathfinderCreaturePropertiesViewModel>;
@@ -60,13 +66,13 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
 
     addOneMoreAttackProperty = (): void => {
         const creature = this.state.creature;
-        creature.creatureProperties.attackProperties.push(new NamedPropertyViewModel('', ''))
+        creature.creatureProperties.attackProperties.push(createNamedPropertyViewModel())
         this.setState({creature: creature})
     };
 
     addOneMoreSkill = (): void => {
         this.setState({skillFields: this.state.skillFields.concat(
-                [{skill: new PathfinderSkillViewModel('','', 0), id: uuidv4()}]
+                [{skill: createPathfinderSkillViewModel('','', 0), id: uuidv4()}]
             )})
     };
 
@@ -365,7 +371,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
         const creature = this.state.creature;
         if (option.action == SelectEventTypesEnum.SELECT_OPTION || option.action == SelectEventTypesEnum.CREATE_OPTION) {
             creature.creatureProperties.languages = value.map(elem => {
-                return new PathfinderLanguageViewModel(null, elem.value)
+                return createPathfinderLanguageViewModel(null, elem.value)
             });
         } else if (option.action == SelectEventTypesEnum.REMOVE_OPTION) {
             creature.creatureProperties.languages = creature.creatureProperties.languages.filter(elem => {
@@ -428,7 +434,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                     }
                 })
                 if (possibleMatch) {
-                    return new PathfinderTalentViewModel(
+                    return createPathfinderTalentViewModel(
                         talent.id,
                         talent.name,
                         talent.type,
@@ -461,7 +467,7 @@ export class PathfinderCreatureForm extends React.Component<CreatureFormProps, C
                     }
                 })
                 if (possibleMatch) {
-                    return new PathfinderActionViewModel(
+                    return createPathfinderActionViewModel(
                         action.id,
                         action.name,
                         action.rangeType,

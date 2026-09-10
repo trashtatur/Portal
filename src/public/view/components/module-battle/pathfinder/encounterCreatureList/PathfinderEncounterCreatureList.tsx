@@ -7,14 +7,16 @@ import {CreatureSelectLabel} from "@/public/view/components/uiBasic/creatureSele
 import {PathfinderAddSummon} from "@/public/view/components/module-battle/pathfinder/formAddSummon/PathfinderAddSummon";
 import {BattleDiceRoller} from "../battleDiceRoller/BattleDiceRoller";
 import {MultiSelectNoCreate} from "@/public/view/components/uiBasic/multiSelectNoCreate/MultiSelectNoCreate";
-import {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import type {CreatureViewModel} from "@/public/model/CreatureViewModel";
+import {createCreatureViewModel} from "@/public/model/CreatureViewModel";
 import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
 import {CreatureViewModelFactory} from "@/public/factory/CreatureViewModelFactory";
-import {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import type {PathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
+import {createPathfinderCreaturePropertiesViewModel} from "@/public/model/pathfinder/PathfinderCreaturePropertiesViewModel";
 import {SelectEventTypesEnum} from "@/public/model/enumeration/SelectEventTypesEnum";
 import {deserializeCreatures} from "@/public/service/creatureSerializer.service";
 import {uuidv4} from "@/public/service/uuid.service";
-import * as style from './pathfinderEncounterCreatureList.css';
+import * as style from './pathfinderEncounterCreatureList.module.css';
 
 export interface EncounterCreatureListProps {
     addCreatureToRound: Function;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
 import {DND5CreatureStatsViewModel} from "../../../../../../../model/dnd5/DND5CreatureStatsViewModel";
-import * as style from "../../dnd5CreatureForm.css";
+import * as style from "../../dnd5CreatureForm.module.css";
 
 interface StatBlockFormSectionHeaderProps {
     stats: DND5CreatureStatsViewModel;

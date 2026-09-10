@@ -1,7 +1,5 @@
-import {ApplyEffects} from "@/public/model/status/decorator/DecoratorFunctions";
-import {StatusEffectAware} from "@/public/model/status/StatusEffectAware";
 
-export class DND5CreatureStatsViewModel extends StatusEffectAware {
+export class DND5CreatureStatsViewModel {
     private _strength: number;
     private _dexterity: number;
     private _constitution: number;
@@ -17,8 +15,7 @@ export class DND5CreatureStatsViewModel extends StatusEffectAware {
         wisdom: number,
         charisma: number,
     ) {
-        super()
-        this._strength = strength;
+        this._strength ;
         this._dexterity = dexterity;
         this._constitution = constitution;
         this._intelligence = intelligence;
@@ -26,7 +23,6 @@ export class DND5CreatureStatsViewModel extends StatusEffectAware {
         this._charisma = charisma;
     }
 
-    @ApplyEffects
     get strength(): number {
         return this._strength;
     }
@@ -35,7 +31,6 @@ export class DND5CreatureStatsViewModel extends StatusEffectAware {
         this._strength = value;
     }
 
-    @ApplyEffects
     get dexterity(): number {
         return this._dexterity;
     }
@@ -44,7 +39,6 @@ export class DND5CreatureStatsViewModel extends StatusEffectAware {
         this._dexterity = value;
     }
 
-    @ApplyEffects
     get constitution(): number {
         return this._constitution;
     }
@@ -53,7 +47,6 @@ export class DND5CreatureStatsViewModel extends StatusEffectAware {
         this._constitution = value;
     }
 
-    @ApplyEffects
     get intelligence(): number {
         return this._intelligence;
     }
@@ -62,7 +55,6 @@ export class DND5CreatureStatsViewModel extends StatusEffectAware {
         this._intelligence = value;
     }
 
-    @ApplyEffects
     get wisdom(): number {
         return this._wisdom;
     }
@@ -71,7 +63,6 @@ export class DND5CreatureStatsViewModel extends StatusEffectAware {
         this._wisdom = value;
     }
 
-    @ApplyEffects
     get charisma(): number {
         return this._charisma;
     }

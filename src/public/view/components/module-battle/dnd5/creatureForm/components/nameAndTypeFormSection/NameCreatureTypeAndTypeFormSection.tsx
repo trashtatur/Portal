@@ -5,7 +5,7 @@ import {selectable} from "@/public/types/frontendTypes";
 import {TypeEnum} from "@/public/model/enumeration/TypesEnum";
 import {DND5CreatureTypeEnum} from "@/public/model/enumeration/dnd5/DND5CreatureTypeEnum";
 import Switch from "react-switch";
-import * as style from '../formSectionGeneralStyles.css'
+import * as style from '../formSectionGeneralStyles.module.css'
 
 interface InitialDND5CreatureFormFormSectionProps {
     name: string;

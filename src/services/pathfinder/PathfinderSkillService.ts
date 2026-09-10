@@ -2,7 +2,8 @@ import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
 import {PathfinderSkill} from "../../db/schemas/pathfinder/PathfinderSkill";
 import {PathfinderSkillRepository} from "../../repositories/pathfinder/PathfinderSkillRepository";
-import {PathfinderSkillModel} from "../../model/pathfinder/PathfinderSkillModel";
+import type {PathfinderSkillModel} from "../../model/pathfinder/PathfinderSkillModel";
+import {createPathfinderSkillModel} from "../../model/pathfinder/PathfinderSkillModel";
 
 @Service()
 export class PathfinderSkillService {

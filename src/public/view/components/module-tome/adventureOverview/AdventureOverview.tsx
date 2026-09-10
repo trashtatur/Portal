@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {CSSProperties, ReactNode} from 'react';
 import axios from "axios";
-import {AdventureViewModel} from "@/public/model/AdventureViewModel";
+import {createAdventureViewModel} from "@/public/model/AdventureViewModel";
+import type {AdventureViewModel} from "@/public/model/AdventureViewModel";
 import {AdventureForm} from "../adventureForm/AdventureForm";
 import {AdventureCard} from "../adventureCard/AdventureCard";
 import {deserializeMultiple} from "@/public/service/serializer.service";
-import * as style from './adventureOverview.css'
+import * as style from './adventureOverview.module.css'
 
 interface AdventureOverviewState {
     adventureFormIsOpen: boolean;
@@ -27,7 +28,7 @@ export class AdventureOverview extends React.Component<{}, AdventureOverviewStat
     fetchAllAdventures = async(): Promise<AdventureViewModel[]> => {
         try {
             const adventureData = await axios.get('/V1/Adventure');
-            return deserializeMultiple(adventureData.data, AdventureViewModel);
+            return deserializeMultiple(adventureData.data, createAdventureViewModel);
         } catch (e) {
             console.log(e)
         }

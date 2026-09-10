@@ -5,7 +5,7 @@ import {DND5SpellForm} from "../spellForm/DND5SpellForm";
 import {DND5TalentForm} from "../talentForm/DND5TalentForm";
 import {DND5ActionForm} from "../actionForm/DND5ActionForm";
 import {DND5LanguageForm} from "../languageForm/DND5LanguageForm";
-import * as style from './dnd5FormMenu.css';
+import * as style from './dnd5FormMenu.module.css';
 
 interface FormMenuProps {
     type: 'edit' | 'create';

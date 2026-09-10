@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
 import {MagicSchoolEnum} from "@/public/model/enumeration/dnd5/MagicSchoolEnum";
-import {DND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
+import type {DND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
+import {createDND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
 import {SpellLevelFilterChip} from "@/public/view/components/module-battle/dnd5/spellLevelFilterChip/SpellLevelFilterChip";
 import {SpellSchoolFilterChip} from "@/public/view/components/module-battle/dnd5/spellSchoolFilterChip/SpellSchoolFilterChip";
 import {SpellChip} from "@/public/view/components/module-battle/dnd5/spellChip/SpellChip";
-import * as style from './spellsWithSlotsFormSection.css';
+import * as style from './spellsWithSlotsFormSection.module.css';
 
 interface SpellFormSectionProps {
     addSpell: Function;

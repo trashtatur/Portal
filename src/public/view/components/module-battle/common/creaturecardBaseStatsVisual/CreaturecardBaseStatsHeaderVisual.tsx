@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import * as style from "../../pathfinder/creaturecardStats/creaturecardStats.css";
+import * as style from "../../pathfinder/creaturecardStats/creaturecardStats.module.css";
 
 interface CreaturecardBaseStatsVisualProps {
     str: string;

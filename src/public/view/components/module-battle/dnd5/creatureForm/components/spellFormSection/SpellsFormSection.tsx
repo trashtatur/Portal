@@ -1,10 +1,11 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import * as generalStyle from "@/public/view/components/module-battle/dnd5/creatureForm/components/formSectionGeneralStyles.css";
+import * as generalStyle from "@/public/view/components/module-battle/dnd5/creatureForm/components/formSectionGeneralStyles.module.css";
 import ReactSwitch from "react-switch";
 import {SpellsWithSlotsFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/spellsWithSlotFormSection/SpellsWithSlotsFormSection";
 import {InnateSpellCastingFormSection} from "@/public/view/components/module-battle/dnd5/creatureForm/components/innateSpellCastingFormSection/InnateSpellCastingFormSection";
-import {DND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
+import type {DND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
+import {createDND5SpellViewModel} from "@/public/model/dnd5/DND5SpellViewModel";
 import {DND5InnateSpellCollection} from "@/public/model/dnd5/DND5InnateSpellCollection";
 import {httpGet} from "@/public/service/http.service";
 import {sortSpellsBySpellLevel} from "@/public/service/dnd5/spellSorting.service";

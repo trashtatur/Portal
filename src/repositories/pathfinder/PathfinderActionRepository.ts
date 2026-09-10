@@ -1,4 +1,5 @@
-import {PathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
+import type {PathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
+import {createPathfinderActionModel} from "../../model/pathfinder/PathfinderActionModel";
 import {PathfinderAction} from "../../db/schemas/pathfinder/PathfinderAction";
 import {EntityCreateException} from "../exception/EntityCreateException";
 import {Service} from "@tsed/di";

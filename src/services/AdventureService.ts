@@ -1,6 +1,7 @@
 import {AdventureRepository} from "../repositories/AdventureRepository";
-import {AdventureModel} from "../model/AdventureModel";
-import {adventureData} from "../types/backendTypes";
+import type {AdventureModel} from "../model/AdventureModel";
+import {createAdventureModel} from "../model/AdventureModel";
+import type {adventureData} from "../types/backendTypes";
 import {AdventureForm} from "../validation/AdventureForm";
 import {Service} from "@tsed/di";
 import {AdventureConverter} from "../converter/AdventureConverter";

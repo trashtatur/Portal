@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ReactElement} from "react";
-import * as styles from './creaturecardHeader.css'
+import * as styles from './creaturecardHeader.module.css'
 
 export interface CreatureCardHeaderProps {
     name: string;

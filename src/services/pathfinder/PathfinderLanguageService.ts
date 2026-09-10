@@ -2,7 +2,8 @@ import {Service} from "@tsed/di";
 import {Includeable} from "sequelize";
 import {PathfinderLanguage} from "../../db/schemas/pathfinder/PathfinderLanguage";
 import {PathfinderLanguageForm} from "../../validation/pathfinder/PathfinderLanguageForm";
-import {PathfinderLanguageModel} from "../../model/pathfinder/PathfinderLanguageModel";
+import type {PathfinderLanguageModel} from "../../model/pathfinder/PathfinderLanguageModel";
+import {createPathfinderLanguageModel} from "../../model/pathfinder/PathfinderLanguageModel";
 import {PathfinderLanguageRepository} from "../../repositories/pathfinder/PathfinderLanguageRepository";
 
 @Service()

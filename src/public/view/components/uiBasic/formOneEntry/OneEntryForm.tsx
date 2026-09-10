@@ -2,7 +2,7 @@ import * as React from "react";
 import axios from 'axios'
 import {oneEntryFormEntry} from "@/public/types/frontendTypes";
 import {ReactElement} from "react";
-import * as style from './oneEntryForm.css';
+import * as style from './oneEntryForm.module.css';
 import {uuidv4} from "@/public/service/uuid.service";
 
 

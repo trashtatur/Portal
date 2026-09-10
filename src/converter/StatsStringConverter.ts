@@ -1,10 +1,10 @@
-import {CreatureStatsModel} from "../model/CreatureStatsModel";
-import {stats} from "../types/backendTypes";
+import {createCreatureStatsModel} from "../model/CreatureStatsModel";
+import type {stats} from "../types/backendTypes";
 
 export const convertStatsString = (statsString: string): CreatureStatsModel => {
     try {
         const statsData: stats = JSON.parse(statsString);
-        return new CreatureStatsModel(
+        return createCreatureStatsModel(
             statsData.str,
             statsData.dex,
             statsData.con,

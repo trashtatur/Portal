@@ -1,0 +1,49 @@
+.landingPageContainer {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    background: #f3f0f082;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.appTitle {
+    width: 550px;
+    height: 150px;
+    -webkit-filter: drop-shadow(0px 0px 30px #a40aa4);
+    filter: drop-shadow(0px 0px 30px #a40aa4);
+    animation: pulse 2600ms infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        filter: drop-shadow(0px 0px 30px #a40aa4);
+    }
+
+    70% {
+        transform: scale(1);
+        filter: drop-shadow(0px 0px 50px #a40aa4);
+    }
+
+    100% {
+        transform: scale(0.95);
+        filter: drop-shadow(0px 0px 30px #a40aa4);
+    }
+}
+
+.moduleLinksContainer {
+    display: flex;
+    flex-direction: row;
+    font-size: 15pt;
+    }
+
+    a {
+        color: white;
+        text-decoration: none;
+    }
+    .moduleLinksContainer a {
+        color: white;
+        text-decoration: none;
+}

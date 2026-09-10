@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {ReactNode} from 'react';
-import * as style from "./creaturecardSingleActionVisual.css";
+import * as style from "./creaturecardSingleActionVisual.module.css";
 
 interface CreaturecardSingleActionVisualProps {
     name: string;

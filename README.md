@@ -52,13 +52,23 @@ Currently Portal is not hosted anywhere (yet). If you want to host it yourself h
 You need:
 
 - Nodejs
-- yarn
+- npm
 - A mysql database
+- Docker, if you want to run MySQL locally in a container
 
 Navigate into the config folder and create a file called ``config.json``. You can use the file ``config.json.example``
 which you will find in there to see what information needs to be entered. The parameter ``forceDBReset`` will 
 wipe the database every time you restart if you set it to true.
 
-After that navigate into the Portal root dir and run ``yarn build``. That builds the frontend and keeps a file watcher running.
-To start the application navigate into the Portal root dir and run ``yarn start``.
-The application should be reachable in your browser under ``0.0.0:4004``
+To run the development MySQL database with Docker, from the Portal root directory run:
+
+``docker build -t portal-mysql .``
+
+``docker run --name portal-mysql --restart unless-stopped -p 3306:3306 portal-mysql``
+
+Wait for the container logs to report that MySQL is ready before starting the backend. The Dockerfile defaults match
+the example configuration and expose MySQL on ``localhost:3306``.
+
+After that navigate into the Portal root dir and run ``npm install``. Start the frontend development server with ``npm start``.
+Start the backend separately with ``npm run start:backend``. Build the frontend with ``npm run build``.
+The frontend should be reachable in your browser under ``http://localhost:5173``; the backend listens on ``http://localhost:4004``.

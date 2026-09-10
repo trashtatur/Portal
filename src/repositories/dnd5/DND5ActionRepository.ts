@@ -1,5 +1,6 @@
 import {Service} from "@tsed/di";
-import {DND5ActionModel} from "../../model/dnd5/DND5ActionModel";
+import type {DND5ActionModel} from "../../model/dnd5/DND5ActionModel";
+import {createDND5ActionModel} from "../../model/dnd5/DND5ActionModel";
 import {DND5ActionConverter} from "../../converter/dnd5/DND5ActionConverter";
 import {DND5Action} from "../../db/schemas/DND5/DND5Action";
 

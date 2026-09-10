@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {CSSProperties, ReactNode} from 'react';
-import * as style from './spellLevelFilterChip.css';
+import * as style from './spellLevelFilterChip.module.css';
 
 interface SpellLevelFilterChipProps {
     level: number;

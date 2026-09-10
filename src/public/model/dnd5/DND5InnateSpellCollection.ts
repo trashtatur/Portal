@@ -10,7 +10,7 @@ export class DND5InnateSpellCollection {
         spellAttribute: "strength" | "dexterity" | "constitution" | "intelligence" | "wisdom" | "charisma",
         constraint?: string
     ) {
-        this._innateSpells = innateSpells;
+        this._innateSpells ;
         this._spellAttribute = spellAttribute;
         this._constraint = constraint;
     }

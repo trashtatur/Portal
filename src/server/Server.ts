@@ -21,7 +21,7 @@ import {join} from "path";
         "${rootDir}/repositories/**/*Repository.ts",
     ],
     statics: {
-        "/": join(__dirname, "..", "public/view/static"),
+        "/": join(__dirname,"..","..","build"),
         "/build":join(__dirname,"..","..","build"),
         "/images":join(__dirname,"..","images")
     }

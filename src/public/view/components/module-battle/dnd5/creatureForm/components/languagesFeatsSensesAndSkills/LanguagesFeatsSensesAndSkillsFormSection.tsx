@@ -9,7 +9,7 @@ import {MultiSelectNoCreate} from "@/public/view/components/uiBasic/multiSelectN
 import CreatableSelect from 'react-select';
 import {selectable} from "@/public/types/frontendTypes";
 import {SelectEventTypesEnum} from "@/public/model/enumeration/SelectEventTypesEnum";
-import * as style from "../formSectionGeneralStyles.css";
+import * as style from "../formSectionGeneralStyles.module.css";
 import {uuidv4} from "@/public/service/uuid.service";
 
 interface LanguagesFeatsSensesAndSkillsFormSectionProps {
