@@ -32,7 +32,7 @@ export class PathfinderAddSummon extends React.Component<AddSummonProps, AddSumm
         super(props);
         this.state = {
             isDisplayed: false,
-            summonedCreature: this.creatureViewModelFactory.createSummonedCreature(PathfinderCreaturePropertiesViewModel),
+            summonedCreature: this.creatureViewModelFactory.createSummonedCreature('PathfinderCreaturePropertiesViewModel'),
             submitToDB: false,
             howMany: 1,
         }

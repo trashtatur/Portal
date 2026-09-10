@@ -5,8 +5,8 @@
     "build": "vite build",
     "watch": "vite build --watch",
     "start": "vite",
-    "start:backend": "ts-node --transpile-only src/index.ts",
-    "import:dnd5:spells": "ts-node src/importer/importSpells.ts"
+    "start:backend": "ts-node --transpile-only src/backend/index.ts",
+    "import:dnd5:spells": "ts-node src/backend/importer/importSpells.ts"
   },
   "license": "MIT",
   "dependencies": {

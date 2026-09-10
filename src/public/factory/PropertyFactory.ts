@@ -15,11 +15,11 @@ export class PropertyFactory{
         this.pathfinderCreaturePropertiesViewModelFactory = new PathfinderCreaturePropertiesViewModelFactory
     }
 
-    createEmpty = <T extends AbstractPropertyViewModel>(property: { new(...args: any[]): T }): T => {
-        switch (property.name) {
+    createEmpty = <T extends AbstractPropertyViewModel>(name: string): T => {
+        switch (name) {
             case DND5CreaturePropertiesViewModel.name:
                 return this.dnd5CreaturePropertiesViewModelFactory.createEmpty() as unknown as T
-            case PathfinderCreaturePropertiesViewModel.name:
+            case 'PathfinderCreaturePropertiesViewModel':
                 return this.pathfinderCreaturePropertiesViewModelFactory.createEmpty() as unknown as T
         }
     }
@@ -29,17 +29,17 @@ export class PropertyFactory{
             case DND5CreaturePropertiesViewModel.name:
                 return this.dnd5CreaturePropertiesViewModelFactory
                     .createFromExisting(viewModel as unknown as DND5CreaturePropertiesViewModel) as unknown as T
-            case PathfinderCreaturePropertiesViewModel.name:
+            case 'PathfinderCreaturePropertiesViewModel':
                 return this.pathfinderCreaturePropertiesViewModelFactory
                     .createFromExisting(viewModel as unknown as PathfinderCreaturePropertiesViewModel) as unknown as T
         }
     }
 
-    createSummon = <T extends AbstractPropertyViewModel>(property: { new(...args: any[]): T }): T => {
-        switch (property.name) {
+    createSummon = <T extends AbstractPropertyViewModel>(name: string): T => {
+        switch (name) {
             case DND5CreaturePropertiesViewModel.name:
                 return this.dnd5CreaturePropertiesViewModelFactory.createSummon() as unknown as T
-            case PathfinderCreaturePropertiesViewModel.name:
+            case 'PathfinderCreaturePropertiesViewModel':
                 return this.pathfinderCreaturePropertiesViewModelFactory.createSummon() as unknown as T
         }
     }

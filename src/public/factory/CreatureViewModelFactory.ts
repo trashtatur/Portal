@@ -12,26 +12,26 @@ export class CreatureViewModelFactory {
     }
 
     public createFromExisting = <T extends AbstractPropertyViewModel>(creatureViewModel: CreatureViewModel<T>): CreatureViewModel<T> => {
-        return new CreatureViewModel<T>(
+        return createCreatureViewModel<T>(
             creatureViewModel.id,
             creatureViewModel.name,
             this.propertiesFactory.createFromExisting(creatureViewModel.creatureProperties)
         )
     }
 
-    public createEmpty = <T extends AbstractPropertyViewModel>(property: { new(...args: any[]): T }): CreatureViewModel<T> => {
-        return new CreatureViewModel<T>(
+    public createEmpty = <T extends AbstractPropertyViewModel>(name: string): CreatureViewModel<T> => {
+        return createCreatureViewModel<T>(
             '',
             '',
-            this.propertiesFactory.createEmpty(property)
+            this.propertiesFactory.createEmpty(name)
         )
     }
 
-    public createSummonedCreature = <T extends AbstractPropertyViewModel>(property: { new(...args: any[]): T }): CreatureViewModel<T> => {
-        return new CreatureViewModel<T>(
+    public createSummonedCreature = <T extends AbstractPropertyViewModel>(name: string): CreatureViewModel<T> => {
+        return createCreatureViewModel<T>(
             '',
             '',
-            this.propertiesFactory.createSummon(property)
+            this.propertiesFactory.createSummon(name)
         )
     }
 }
